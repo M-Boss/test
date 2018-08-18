@@ -19,18 +19,9 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        password_reset_code: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: 'NULL'
-        },
         active: {
             type: DataTypes.INTEGER,
             defaultValue: 1
-        },
-        activation_code: {
-            type: DataTypes.STRING,
-            allowNull: true
         }
     }, {
         tableName: 'users'
