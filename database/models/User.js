@@ -2,7 +2,7 @@
  * Created by guy on 8/15/18.
  */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const User = sequelize.define('User', {
         id: {
             type: DataTypes.INTEGER,
@@ -13,17 +13,24 @@ module.exports = function(sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isEmail: true,
+            }
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false
         },
+        recovery_token: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         active: {
             type: DataTypes.INTEGER,
             defaultValue: 1
-        }
-    }, {
+    }},
+    {
         tableName: 'users'
     });
 
