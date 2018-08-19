@@ -17,6 +17,8 @@
     "morgan": "~1.9.0",
     "mysql2": "^1.6.1",
     "request": "^2.88.0",
+    "semantic-ui-css": "^2.3.3",
+    "semantic-ui-react": "^0.82.2",
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
