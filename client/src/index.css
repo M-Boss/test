@@ -13,5 +13,8 @@ body {
 }
 
 p,h1,h2,h3,h4,h5{
-    color: #2E333E !important;
+    color: #2E333E ;
+}
+.inverted p, .inverted h1, .inverted h2, .inverted h3, .inverted h4, .inverted h5{
+    color: #FFFFFF ;
 }
