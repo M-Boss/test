@@ -40,6 +40,8 @@ export default class Login extends Component {
                             <Input input={this.state.showPassword ? 'input' : 'password'} icon={{ name: 'eye', circular: true, link: true, onClick: this.onTogglePassword }} placeholder='Password' />
                         </Form.Field>
                         <Button style={{marginTop: 28}} fluid primary type='submit'>Log in</Button>
+
+                        <p>Forgot your password?</p>
                     </Form>
                 </Grid.Column>
             </Grid>)
