@@ -5,6 +5,7 @@ import React, {Component, Fragment} from 'react'
 import {Menu, Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react'
 import Slider from "react-slick";
 import Footer from "./Footer";
+import {H1, H2} from "../components/Headers";
 
 export default class Home extends Component {
 
@@ -16,88 +17,97 @@ export default class Home extends Component {
 
 
     render() {
-        return <Grid centered columns={1}>
-            <Grid.Column style={{maxWidth: 480, textAlign: 'center'}}>
-                <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#EFFDFF'}}>
-                    <img width={300} src={require('../static/images/home-01.png')} alt="nikahku"/>
-                    <h1 style={{fontSize: 32}}>Create a free website for <strong style={{color: '#F3817A'}}>your
-                        wedding</strong></h1>
+        return <div style={{textAlign: 'center'}}>
+            <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#EFFDFF'}}>
+                <img width={300} src={require('../static/images/home-01.png')} alt="nikahku"/>
+                <H1>Create a free website for <strong style={{color: '#F3817A'}}>your
+                    wedding</strong></H1>
 
-                    <h2 style={{fontSize: 21, fontWeight: 300, color: '#3d434e'}}>With easy to use templates and
-                        features to make your wedding planning that much easier.</h2>
+                <H2 style={{color: '#3d434e'}}>With easy to use templates and
+                    features to make your wedding planning that much easier.</H2>
 
-                    <Button style={{marginTop: 20, marginBottom: 32}} primary>Register For Free</Button>
-                </section>
+                <Button style={{marginTop: 20, marginBottom: 32}} primary>Register For Free</Button>
+            </section>
 
-                <section style={{paddingTop: 48, paddingLeft: 32, paddingRight: 32,}}>
-                    <h2 style={{fontSize: 26}}>Templates</h2>
-                    <p style={{fontSize: 18}}>100+ Easy to use templates to match
-                        your specific needs</p>
+            <section style={{paddingTop: 48, paddingLeft: 32, paddingRight: 32,}}>
+                <h2 style={{fontSize: 26}}>Templates</h2>
+                <p style={{fontSize: 18}}>100+ Easy to use templates to match
+                    your specific needs</p>
 
-                    {this.renderCarousel()}
+                {this.renderCarousel()}
 
-                    <Button style={{marginTop: 20, marginBottom: 32}} primary>Choose Your Template</Button>
-                </section>
+                <Button style={{marginTop: 20, marginBottom: 32}} primary>Choose Your Template</Button>
+            </section>
 
-                <section style={{backgroundColor: '#F4F7F9', paddingBottom: 50, paddingTop: 48, paddingLeft: 32, paddingRight: 32,}}>
-                    <h2 style={{fontSize: 26}}>It's easy as 1, 2, 3!</h2>
-                    {this.renderSteps()}
-                </section>
+            <section style={{
+                backgroundColor: '#F4F7F9',
+                paddingBottom: 50,
+                paddingTop: 48,
+                paddingLeft: 32,
+                paddingRight: 32,
+            }}>
+                <h2 style={{fontSize: 26}}>It's easy as 1, 2, 3!</h2>
+                {this.renderSteps()}
+            </section>
 
-                <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
-                    <img width={300} src={require('../static/images/home-04.svg')} alt="nikahku"/>
-                    <h1 style={{fontSize: 32}}>Inviting multinational guests?</h1>
+            <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
+                <img width={300} src={require('../static/images/home-04.svg')} alt="nikahku"/>
+                <h1 style={{fontSize: 32}}>Inviting multinational guests?</h1>
 
-                    <p>Get the freedom to publish your site
-                        in any language. Be even closer to your
-                        loved ones.</p>
+                <p>Get the freedom to publish your site
+                    in any language. Be even closer to your
+                    loved ones.</p>
 
-                    <Button style={{marginTop: 20, marginBottom: 32}} primary>View English Website</Button>
-                </section>
+                <Button style={{marginTop: 20, marginBottom: 32}} primary>View English Website</Button>
+            </section>
 
-                <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#F4F7F9'}}>
-                    <img width={300} src={require('../static/images/home-05.svg')} alt="nikahku"/>
-                    <h1 style={{fontSize: 32}}>Customize and change
-                        your website anytime!</h1>
+            <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#F4F7F9'}}>
+                <img width={300} src={require('../static/images/home-05.svg')} alt="nikahku"/>
+                <h1 style={{fontSize: 32}}>Customize and change
+                    your website anytime!</h1>
 
-                    <p>Change your template whenever you
-                        want - we are adding templates all the time. Password protect your site or make
-                        it unsearchable on google.</p>
+                <p>Change your template whenever you
+                    want - we are adding templates all the time. Password protect your site or make
+                    it unsearchable on google.</p>
 
-                    <Button style={{marginTop: 20, marginBottom: 32}} primary>Try For Free</Button>
-                </section>
+                <Button style={{marginTop: 20, marginBottom: 32}} primary>Try For Free</Button>
+            </section>
 
-                <section style={{paddingBottom: 40, paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
-                    <img width={300} src={require('../static/images/home-06.svg')} alt="nikahku"/>
-                    <h1 style={{fontSize: 32}}>Seamlessly connect your hashtag to your website</h1>
+            <section style={{paddingBottom: 40, paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
+                <img width={300} src={require('../static/images/home-06.svg')} alt="nikahku"/>
+                <h1 style={{fontSize: 32}}>Seamlessly connect your hashtag to your website</h1>
 
-                    <p>Add your #hashtag instagram stream
-                        to get guests excited, or for you to reminisce
-                        after your wedding!</p>
+                <p>Add your #hashtag instagram stream
+                    to get guests excited, or for you to reminisce
+                    after your wedding!</p>
 
-                    <Button style={{marginTop: 20, marginBottom: 32}} primary>Get Started</Button>
-                </section>
+                <Button style={{marginTop: 20, marginBottom: 32}} primary>Get Started</Button>
+            </section>
 
-                <section className="inverted" style={{backgroundColor: '#21899A',paddingBottom: 60, paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
-                    <h1 style={{fontSize: 32}}>Get guest info online</h1>
+            <section className="inverted" style={{
+                backgroundColor: '#21899A',
+                paddingBottom: 60,
+                paddingTop: 32,
+                paddingLeft: 32,
+                paddingRight: 32
+            }}>
+                <h1 style={{fontSize: 32}}>Get guest info online</h1>
 
-                    <p>No more waiting for paper RSVPs
-                        or contacting your guests individually</p>
+                <p>No more waiting for paper RSVPs
+                    or contacting your guests individually</p>
 
-                    <RSVPRow>Have guests directly RSVP on your
-                        wedding website</RSVPRow>
-                    <RSVPRow>Ask for food preferences, song
-                        requests, are they bringing a date?</RSVPRow>
-                    <RSVPRow>Track every response on our
-                        Guest List Manager.</RSVPRow>
+                <RSVPRow>Have guests directly RSVP on your
+                    wedding website</RSVPRow>
+                <RSVPRow>Ask for food preferences, song
+                    requests, are they bringing a date?</RSVPRow>
+                <RSVPRow>Track every response on our
+                    Guest List Manager.</RSVPRow>
 
-                    <Image style={{marginTop: 48}} fluid src={require('../static/images/rsvp.svg')} alt="nikahku"/>
-                </section>
+                <Image style={{marginTop: 48}} fluid src={require('../static/images/rsvp.svg')} alt="nikahku"/>
+            </section>
 
-
-                <Footer/>
-            </Grid.Column>
-        </Grid>
+            <Footer/>
+        </div>
     }
 
     renderCarousel() {
@@ -121,7 +131,7 @@ export default class Home extends Component {
         )
     }
 
-    renderSteps(){
+    renderSteps() {
         return (<Fragment>
             <Step step="1" title="Choose your template" body="We have over 100+ designs
 to choose from." image={require("../static/images/step-01.svg")}/>
@@ -136,7 +146,7 @@ it on your wedding invitations." image={require("../static/images/step-03.svg")}
 }
 
 
-function Step({step, title, body, image}){
+function Step({step, title, body, image}) {
     return (
         <Grid verticalAlign='middle' columns='equal' style={{textAlign: 'left', marginTop: 32}}>
             <Grid.Row>
@@ -153,7 +163,7 @@ function Step({step, title, body, image}){
     )
 }
 
-function RSVPRow({children}){
+function RSVPRow({children}) {
     return (
         <Grid verticalAlign='middle' columns='equal' style={{textAlign: 'left', marginTop: 8}}>
             <Grid.Row>

@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Login from './screens/Login'
-import PasswordRecovery from './screens/PasswordRecovery'
-import Menu from './screens/Menu'
-import Home from './screens/Home'
+import Nikahku from './NikahkuApp'
+import container from './services/index';
+const {Provider} = require('react-redux');
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.store = container.get('store');
+    }
+
     render() {
         return (
-            <div className="App">
-                <br/>
-                <Home/>
-            </div>
+            <Provider store={this.store}>
+                <Nikahku/>
+            </Provider>
         );
     }
 }

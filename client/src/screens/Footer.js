@@ -5,7 +5,7 @@ import React, {Component, Fragment} from 'react'
 import {Menu, Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react'
 import Slider from "react-slick";
 
-export default class Home extends Component {
+export default class Footer extends Component {
 
 
     constructor(props) {
