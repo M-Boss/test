@@ -15,6 +15,7 @@ export const makeRootReducer = () => combineReducers({
         groom_father: "",
         groom_mother: "",
         show_parents: false,
+        template: 0,
     }),
     // flightFilter: DefaultReducer(types.FLIGHT_FILTER_RECORD, {
     //     types: [

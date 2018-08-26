@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
 import Footer from "./Footer";
 import {connect} from 'react-redux'
+import BorderedButton from "../components/BorderedButton";
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 
@@ -14,7 +15,9 @@ class Website extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+
+        };
     }
 
     render() {
@@ -32,6 +35,7 @@ class Website extends Component {
 
                     <Accordion items={[
                         this.accordionGeneral(),
+                        this.accordionTemplate(),
                     ]}>
                     </Accordion>
                 </div>
@@ -88,11 +92,11 @@ class Website extends Component {
                     <Subtitle>Bride</Subtitle>
                     <Grid >
                         <Grid.Column width={8}>
-                            <InputCombo onChange={this.changeHandler('bride_father')} value={this.props.website.bride_father}
+                            <InputCombo optional={true} onChange={this.changeHandler('bride_father')} value={this.props.website.bride_father}
                                         label="Father's Name"/>
                         </Grid.Column>
                         <Grid.Column width={8}>
-                            <InputCombo onChange={this.changeHandler('bride_mother')} value={this.props.website.bride_mother}
+                            <InputCombo optional onChange={this.changeHandler('bride_mother')} value={this.props.website.bride_mother}
                                         label="Mother's Name"/>
                         </Grid.Column>
                     </Grid>
@@ -100,11 +104,11 @@ class Website extends Component {
                     <Subtitle>Groom</Subtitle>
                     <Grid >
                         <Grid.Column width={8}>
-                            <InputCombo onChange={this.changeHandler('groom_father')} value={this.props.website.groom_father}
+                            <InputCombo optional onChange={this.changeHandler('groom_father')} value={this.props.website.groom_father}
                                         label="Father's Name"/>
                         </Grid.Column>
                         <Grid.Column width={8}>
-                            <InputCombo onChange={this.changeHandler('groom_mother')} value={this.props.website.groom_mother}
+                            <InputCombo optional onChange={this.changeHandler('groom_mother')} value={this.props.website.groom_mother}
                                         label="Mother's Name"/>
                         </Grid.Column>
                     </Grid>
@@ -115,13 +119,39 @@ class Website extends Component {
             </div>
         }
     }
+
+    accordionTemplate() {
+        return {
+            title: 'Choose Template',
+            content: <div style={{paddingBottom: 10}}>
+                <Subtitle>Template <Required /> </Subtitle>
+                <Link to="/choose_template">
+                    {this.props.website.template === 0 ?
+                        <BorderedButton text="Choose Template" icon="file text outline"/>
+                        :
+                        <div style={{}}>
+                            <img style={{width: '100%'}} src={require('../static/images/template-01.jpg')}
+                                 alt={"Selected template"}/>
+                        </div>
+                    }
+
+                </Link>
+
+                <Subtitle>Main Photo <Required /> </Subtitle>
+                <BorderedButton text="Upload Main Photo" icon="camera" />
+
+                <Subtitle>Bottom Photo </Subtitle>
+                <BorderedButton text="Upload Bottom Photo" icon="camera" />
+            </div>
+        }
+    }
 }
 
 function InputLabel({children}) {
     return <p style={{marginBottom: 4}}>{children}</p>
 }
 function Subtitle({children}) {
-    return <p style={{fontSize: 18, color: '#AEB9C0', marginBottom: 8, marginTop: 20}}>{children}</p>
+    return <p style={{fontSize: 17, color: '#AEB9C0', marginBottom: 8, marginTop: 24}}>{children}</p>
 }
 function InputCombo({label, optional = false, onChange, value}) {
     return <React.Fragment>
@@ -139,7 +169,7 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 0
+            index: 1
         }
     }
 
@@ -158,7 +188,7 @@ class Accordion extends Component {
             const current = index === this.state.index;
 
             return (
-                <div style={{userSelect: 'none', ...(current ? selectedStyle : {})}}>
+                <div style={{marginBottom: 8, userSelect: 'none', ...(current ? selectedStyle : {})}}>
                     <div onClick={() => this.onHeaderClicked(index)} style={{padding: 12, backgroundColor: '#FFF'}}>
                         <p style={{fontSize: 18, margin: 0, lineHeight: '40px', float: 'left'}}>{title}</p>
                         <Icon style={{lineHeight: '40px', float: 'right'}} name={current ? 'angle up' : 'angle down'}/>

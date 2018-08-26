@@ -10,3 +10,7 @@ export function H1({children}){
 export function H2({children, style}){
     return <h2 style={{fontSize: 22, fontWeight: 400, ...style}}>{children}</h2>
 }
+
+export function H3({children, style}){
+    return <h2 style={{fontSize: 18, fontWeight: 400, ...style}}>{children}</h2>
+}

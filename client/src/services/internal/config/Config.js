@@ -5,7 +5,8 @@ export default class Config{
     constructor(){
         this.config = {
             app: {
-                api_root: 'http://new.offfood.ir/api/'
+                api_root: 'http://nikahku.com/api/',
+                static_root: 'http://nikahku.com/static/',
             }
         }
     }

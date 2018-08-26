@@ -7,6 +7,7 @@ import Menu from './screens/Menu'
 import Home from './screens/Home'
 import Footer from './screens/Footer'
 import Website from './screens/Website'
+import Templates from './screens/Templates'
 import Welcome from './screens/Welcome'
 import {
     BrowserRouter as Router,
@@ -36,6 +37,7 @@ class Nikahku extends Component {
                     <Route path="/menu" component={Menu}/>
                     <Route path="/welcome" component={Welcome}/>
                     <Route path="/create" component={Website}/>
+                    <Route path="/choose_template" component={Templates}/>
                 </div>
             </Router>
         );
