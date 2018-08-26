@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="16px" viewBox="0 0 24 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Menu</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI-kit" transform="translate(-811.000000, -1171.000000)" fill="#2E333E">
+            <path d="M812,1171 L834,1171 C834.552285,1171 835,1171.44772 835,1172 C835,1172.55228 834.552285,1173 834,1173 L812,1173 C811.447715,1173 811,1172.55228 811,1172 C811,1171.44772 811.447715,1171 812,1171 Z M821,1178 L834,1178 C834.552285,1178 835,1178.44772 835,1179 C835,1179.55228 834.552285,1180 834,1180 L821,1180 C820.447715,1180 820,1179.55228 820,1179 C820,1178.44772 820.447715,1178 821,1178 Z M812,1185 L834,1185 C834.552285,1185 835,1185.44772 835,1186 C835,1186.55228 834.552285,1187 834,1187 L812,1187 C811.447715,1187 811,1186.55228 811,1186 C811,1185.44772 811.447715,1185 812,1185 Z" id="Menu" transform="translate(823.000000, 1179.000000) scale(-1, 1) translate(-823.000000, -1179.000000) "></path>
+        </g>
+    </g>
+</svg>
