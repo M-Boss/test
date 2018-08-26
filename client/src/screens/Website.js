@@ -134,7 +134,6 @@ class Website extends Component {
                                  alt={"Selected template"}/>
                         </div>
                     }
-
                 </Link>
 
                 <Subtitle>Main Photo <Required /> </Subtitle>

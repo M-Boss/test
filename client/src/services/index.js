@@ -1,4 +1,4 @@
-import {Container} from 'js-di-container'
+import {Container} from './di/'
 import RestFetch from './external/rest/RestFetch'
 import createStore from './internal/store/index'
 import Config from './internal/config/Config'
