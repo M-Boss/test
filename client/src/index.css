@@ -23,3 +23,18 @@ p,h1,h2,h3,h4,h5{
 .ui.basic.button, .ui.basic.buttons .button {
     background: #FAFAFB !important;
 }
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.custom-file-input::before {
+    content: ' ';
+
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+.custom-file-input:focus{
+    outline: none;
+}

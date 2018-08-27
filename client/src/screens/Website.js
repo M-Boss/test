@@ -121,6 +121,8 @@ class Website extends Component {
     }
 
     accordionTemplate() {
+
+
         return {
             title: 'Choose Template',
             content: <div style={{paddingBottom: 10}}>
@@ -139,8 +141,10 @@ class Website extends Component {
                 <Subtitle>Main Photo <Required /> </Subtitle>
                 <BorderedButton text="Upload Main Photo" icon="camera" />
 
+
                 <Subtitle>Bottom Photo </Subtitle>
-                <BorderedButton text="Upload Bottom Photo" icon="camera" />
+                <File name="Upload Bottom Photo" icon="camera" />
+
             </div>
         }
     }
@@ -161,7 +165,6 @@ function InputCombo({label, optional = false, onChange, value}) {
 function Required() {
     return <span style={{color: 'red', fontSize: 16}}>*</span>
 }
-
 
 class Accordion extends Component {
 
@@ -216,6 +219,32 @@ class Accordion extends Component {
     }
 }
 
+class File extends Component{
+
+    constructor(props){
+        super(props);
+        this.file = React.createRef();
+        this.state = {
+            filename: ''
+        }
+    }
+
+
+    handleChange(files){
+        console.log('change: ', files);
+        this.setState({filename: files[0]['name']})
+    }
+
+    render(){
+        console.log('File: ', this.file);
+        return (
+            <div style={{padding: 15, position: 'relative', backgroundColor: '#fafafb', border: '1px solid', borderRadius: 5,  borderColor: '#f2711c'}}>
+                <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon name="camera"/>  {this.state.filename || this.props.name}</p>
+                <input onChange={ (e) => this.handleChange(e.target.files) }  ref={this.fileInput} style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}} className="custom-file-input" type="file" />
+            </div>
+        )
+    }
+}
 
 export default connect(state => {
     return {
