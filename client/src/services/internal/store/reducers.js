@@ -16,6 +16,13 @@ export const makeRootReducer = () => combineReducers({
         groom_mother: "",
         show_parents: false,
         template: 0,
+        title: "",
+        date: "",
+        country: "",
+        city: "",
+        hash: "",
+        stories: [],
+
     }),
     // flightFilter: DefaultReducer(types.FLIGHT_FILTER_RECORD, {
     //     types: [

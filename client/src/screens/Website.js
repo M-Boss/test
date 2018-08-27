@@ -2,7 +2,7 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component} from 'react'
-import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox} from 'semantic-ui-react'
+import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox, TextArea} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
 import Footer from "./Footer";
@@ -15,9 +15,8 @@ class Website extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-
-        };
+        this.state = {};
+        this.addStoryClicked = this.addStoryClicked.bind(this);
     }
 
     render() {
@@ -36,6 +35,7 @@ class Website extends Component {
                     <Accordion items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
+                        this.accordionDetails(),
                     ]}>
                     </Accordion>
                 </div>
@@ -46,7 +46,6 @@ class Website extends Component {
         )
     }
 
-
     changeHandler(key, checkbox = false) {
         return (e) => {
             const websiteAttributeAction = buildActionForKey(actions.WEBSITE_RECORD, key);
@@ -55,10 +54,21 @@ class Website extends Component {
         }
     }
 
+    changeStoryField(storyIndex, key) {
+        return (e) => {
+            const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');
+            const val = e.target.value;
+            let stories = [...this.props.website.stories];
+            stories[storyIndex][key] = val;
+            this.props.dispatch(action(stories))
+        }
+    }
+
+
     accordionGeneral() {
         return {
             title: 'General Information',
-            content: <div>
+            content: <div style={{padding: 12, paddingTop: 0}}>
                 <Subtitle>Bride</Subtitle>
                 <Grid >
                     <Grid.Column width={8}>
@@ -92,11 +102,13 @@ class Website extends Component {
                     <Subtitle>Bride</Subtitle>
                     <Grid >
                         <Grid.Column width={8}>
-                            <InputCombo optional={true} onChange={this.changeHandler('bride_father')} value={this.props.website.bride_father}
+                            <InputCombo optional={true} onChange={this.changeHandler('bride_father')}
+                                        value={this.props.website.bride_father}
                                         label="Father's Name"/>
                         </Grid.Column>
                         <Grid.Column width={8}>
-                            <InputCombo optional onChange={this.changeHandler('bride_mother')} value={this.props.website.bride_mother}
+                            <InputCombo optional onChange={this.changeHandler('bride_mother')}
+                                        value={this.props.website.bride_mother}
                                         label="Mother's Name"/>
                         </Grid.Column>
                     </Grid>
@@ -104,11 +116,13 @@ class Website extends Component {
                     <Subtitle>Groom</Subtitle>
                     <Grid >
                         <Grid.Column width={8}>
-                            <InputCombo optional onChange={this.changeHandler('groom_father')} value={this.props.website.groom_father}
+                            <InputCombo optional onChange={this.changeHandler('groom_father')}
+                                        value={this.props.website.groom_father}
                                         label="Father's Name"/>
                         </Grid.Column>
                         <Grid.Column width={8}>
-                            <InputCombo optional onChange={this.changeHandler('groom_mother')} value={this.props.website.groom_mother}
+                            <InputCombo optional onChange={this.changeHandler('groom_mother')}
+                                        value={this.props.website.groom_mother}
                                         label="Mother's Name"/>
                         </Grid.Column>
                     </Grid>
@@ -122,10 +136,9 @@ class Website extends Component {
 
     accordionTemplate() {
 
-
         return {
             title: 'Choose Template',
-            content: <div style={{paddingBottom: 10}}>
+            content: <div style={{padding: 12, paddingTop: 0, paddingBottom: 10}}>
                 <Subtitle>Template <Required /> </Subtitle>
                 <Link to="/choose_template">
                     {this.props.website.template === 0 ?
@@ -139,28 +152,137 @@ class Website extends Component {
                 </Link>
 
                 <Subtitle>Main Photo <Required /> </Subtitle>
-                <BorderedButton text="Upload Main Photo" icon="camera" />
-
+                <File name="Upload Main Photo" icon="camera"/>
 
                 <Subtitle>Bottom Photo </Subtitle>
-                <File name="Upload Bottom Photo" icon="camera" />
-
+                <File name="Upload Bottom Photo" icon="camera"/>
             </div>
         }
+    }
+
+    accordionDetails() {
+        return {
+            title: 'Wedding Details',
+            content: <div>
+
+                <div style={{padding: 12, paddingTop: 20}}>
+
+                    <InputCombo onChange={this.changeHandler('title')} value={this.props.website.title}
+                                label='Title'/>
+
+                    <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeHandler('date')}
+                                value={this.props.website.title}
+                                label='Date'/>
+
+                    <Grid style={{marginTop: 12}}>
+                        <Grid.Column width={8}>
+                            <InputCombo onChange={this.changeHandler('country')} value={this.props.website.country}
+                                        label='Country'/>
+                        </Grid.Column>
+                        <Grid.Column width={8}>
+                            <InputCombo onChange={this.changeHandler('city')} value={this.props.website.city}
+                                        label='City'/>
+                        </Grid.Column>
+                    </Grid>
+
+                    <div style={{marginTop: 16}}>
+                        <InputLabel >Instagram Hashtag</InputLabel>
+                        <Input style={{width: '100%'}} labelPosition='left' type='text' placeholder='AnythingForLove'>
+                            <Label basic>#</Label>
+                            <input />
+                        </Input>
+                    </div>
+                </div>
+
+
+                {this.props.website.stories.map((s, index) => {
+                    let storyNumber = "First Story";
+                    if (index === 1) storyNumber = "Second Story";
+                    else if(index > 1) storyNumber = `Story #${index+1}`
+
+                    return (
+                        <div key={index} style={{
+                            color: '#21899A',
+                            marginTop: 12,
+                            padding: 12,
+                            paddingTop: 0,
+                            borderTop: '1px solid #E0E6E7',
+                        }}>
+                            <div style={{
+                                paddingTop: 16,
+                                paddingBottom: 16,
+                                display: "flex",
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}>
+                                <Subtitle style={{margin: 0, flex: 1}}>{storyNumber}</Subtitle>
+                                <div onClick={() => this.removeStory(index)} style={{width: 80, paddingTop: 3}}>Remove <Icon name="delete"/></div>
+                            </div>
+
+                            <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
+                                        label='Title' placeholder="Our first date"/>
+
+                            <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeStoryField(index, 'date')}
+                                        value={s.date}
+                                        label='Date' optional/>
+
+                            <div style={{marginTop: 16}}>
+                                <InputLabel >Description <Required/></InputLabel>
+                                <Form>
+                                    <TextArea onChange={this.changeStoryField(index, 'description')} value={s.description} placeholder='Tell us about it'/>
+                                </Form>
+                            </div>
+                        </div>
+                    )
+                    }
+                )}
+
+
+                <div style={{
+                    color: '#21899A',
+                    marginTop: 12,
+                    padding: 8,
+                    paddingLeft: 12,
+                    border: '1px solid #E0E6E7',
+                    borderLeftWidth: 0,
+                    borderRightWidth: 0
+                }} onClick={this.addStoryClicked}>
+                    <Icon name="plus circle"/> Add Story
+                </div>
+
+                <div style={{padding: 12}}>
+                    <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                </div>
+            </div>
+        }
+    }
+
+
+    addStoryClicked() {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');
+        const stories = [...this.props.website.stories, {title: "", date: "", description: ""}];
+        this.props.dispatch(action(stories));
+    }
+
+    removeStory(index) {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');
+        let stories = [...this.props.website.stories];
+        stories.splice(index, 1);
+        this.props.dispatch(action(stories));
     }
 }
 
 function InputLabel({children}) {
     return <p style={{marginBottom: 4}}>{children}</p>
 }
-function Subtitle({children}) {
-    return <p style={{fontSize: 17, color: '#AEB9C0', marginBottom: 8, marginTop: 24}}>{children}</p>
+function Subtitle({children, style}) {
+    return <p style={{fontSize: 17, color: '#AEB9C0', marginBottom: 8, marginTop: 24, ...style}}>{children}</p>
 }
-function InputCombo({label, optional = false, onChange, value}) {
-    return <React.Fragment>
+function InputCombo({label, optional = false, onChange, value, style, placeholder = "", type = "input"}) {
+    return <div style={{...style}}>
         <InputLabel>{label} {!optional && <Required/>} </InputLabel>
-        <Input value={value} onChange={onChange} fluid/>
-    </React.Fragment>
+        <Input placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
+    </div>
 }
 function Required() {
     return <span style={{color: 'red', fontSize: 16}}>*</span>
@@ -171,10 +293,9 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 1
+            index: 2
         }
     }
-
 
     render() {
         const selectedStyle = {
@@ -190,7 +311,7 @@ class Accordion extends Component {
             const current = index === this.state.index;
 
             return (
-                <div style={{marginBottom: 8, userSelect: 'none', ...(current ? selectedStyle : {})}}>
+                <div key={index} style={{marginBottom: 8, userSelect: 'none', ...(current ? selectedStyle : {})}}>
                     <div onClick={() => this.onHeaderClicked(index)} style={{padding: 12, backgroundColor: '#FFF'}}>
                         <p style={{fontSize: 18, margin: 0, lineHeight: '40px', float: 'left'}}>{title}</p>
                         <Icon style={{lineHeight: '40px', float: 'right'}} name={current ? 'angle up' : 'angle down'}/>
@@ -199,7 +320,6 @@ class Accordion extends Component {
                     {this.state.index === index &&
                     <div style={{
                         backgroundColor: '#FFF',
-                        padding: 12,
                         paddingTop: 0,
                         border: 'solid',
                         borderWidth: 0,
@@ -219,9 +339,9 @@ class Accordion extends Component {
     }
 }
 
-class File extends Component{
+class File extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.file = React.createRef();
         this.state = {
@@ -229,18 +349,27 @@ class File extends Component{
         }
     }
 
-
-    handleChange(files){
+    handleChange(files) {
         console.log('change: ', files);
         this.setState({filename: files[0]['name']})
     }
 
-    render(){
+    render() {
         console.log('File: ', this.file);
         return (
-            <div style={{padding: 15, position: 'relative', backgroundColor: '#fafafb', border: '1px solid', borderRadius: 5,  borderColor: '#f2711c'}}>
-                <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon name="camera"/>  {this.state.filename || this.props.name}</p>
-                <input onChange={ (e) => this.handleChange(e.target.files) }  ref={this.fileInput} style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}} className="custom-file-input" type="file" />
+            <div style={{
+                padding: 15,
+                position: 'relative',
+                backgroundColor: '#fafafb',
+                border: '1px solid',
+                borderRadius: 5,
+                borderColor: '#f2711c'
+            }}>
+                <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon
+                    name="camera"/> {this.state.filename || this.props.name}</p>
+                <input onChange={ (e) => this.handleChange(e.target.files) } ref={this.fileInput}
+                       style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}}
+                       className="custom-file-input" type="file"/>
             </div>
         )
     }

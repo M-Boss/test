@@ -21,7 +21,7 @@ export default class Header extends Component {
                 <div className="" style={{maxWidth: 60}}>
                     <Link to={'/menu'}> <img width={28} height={28} src={require('../static/images/menu.svg')}/></Link>
                 </div>
-                <div class="" style={{flex: 1, textAlign: 'center'}}>
+                <div  style={{flex: 1, textAlign: 'center'}}>
                     <img width={160}  src={require('../static/images/logo-header.svg')}/>
                 </div>
                 <div className="" style={{maxWidth: 60}}>
