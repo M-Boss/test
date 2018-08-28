@@ -22,16 +22,12 @@ class Website extends Component {
     render() {
         console.log(this.props.website);
         return (
-
             <div style={{backgroundColor: '#F4F7F9'}}>
-                <p>Here: {this.props.website.bride_first}</p>
-
                 <div style={{padding: 24}}>
                     <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
-                    <div style={{marginBottom: 10, clear: 'both'}}></div>
-
+                    <div style={{marginBottom: 10, clear: 'both'}}></div>89
                     <Accordion items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
@@ -39,10 +35,8 @@ class Website extends Component {
                     ]}>
                     </Accordion>
                 </div>
-
                 <Footer/>
             </div>
-
         )
     }
 
@@ -256,7 +250,6 @@ class Website extends Component {
             </div>
         }
     }
-
 
     addStoryClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');

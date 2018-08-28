@@ -1,0 +1,59 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /usr/app
+    volumes:
+      - ./:/usr/app
+#    environment:
+#      - "DB_PORT=3306"
+#      - "DB_HOST=database"
+    ports:
+      - 8080:8080
+    links:
+      - database
+#      - testdb
+
+  # The Web Server
+#  web:
+#    build:
+#      context: ./
+#      dockerfile: web.dockerfile
+#    working_dir: /var/www
+#    volumes_from:
+#      - app
+#    ports:
+#      - 8080:80
+
+  # The Database
+  database:
+    image: mysql:5.7
+    volumes:
+      - db_nikahku:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=homestead"
+      - "MYSQL_USER=homestead"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+    ports:
+        - "33061:3306"
+
+  # The Database
+#  testdb:
+#    image: mysql:5.7
+#    volumes:
+#      - dbdata5:/var/lib/mysql
+#    environment:
+#      - "MYSQL_DATABASE=homestead"
+#      - "MYSQL_USER=homestead"
+#      - "MYSQL_PASSWORD=secret"
+#      - "MYSQL_ROOT_PASSWORD=secret"
+#    ports:
+#        - "33070:3306"
+
+volumes:
+  db_nikahku:
