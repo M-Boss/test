@@ -6,8 +6,8 @@ import Users from './internal/users/Users'
 import URL from './internal/helpers/URL'
 let container = new Container();
 container.registerClass('config', Config);
-container.registerClass('users', Users);
-container.registerClass('url', URL);
+// container.registerClass('users', Users);
+// container.registerClass('url', URL);
 container.registerFactory('rest', function(container, config){
     return new RestFetch(config.get('app.api_root'));
 });

@@ -26,6 +26,7 @@ export const makeRootReducer = () => combineReducers({
         show_events: [],
         events_page_title: "",
         events_description: "",
+        events: [],
 
     }),
     // flightFilter: DefaultReducer(types.FLIGHT_FILTER_RECORD, {

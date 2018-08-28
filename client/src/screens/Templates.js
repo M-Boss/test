@@ -11,7 +11,6 @@ import {connect} from 'react-redux'
 import container from '../services'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
-
 class Screen extends Component {
 
     constructor(props) {
@@ -27,7 +26,6 @@ class Screen extends Component {
                 }
             ]
         };
-        this.url = container.get('url');
     }
 
     onTemplateSelected(t){
@@ -48,8 +46,6 @@ class Screen extends Component {
                 </Link>
                 <H3>Templates </H3>
                 {this.state.templates.map(t => {
-
-
                     const current = t.id === this.props.website.template;
                     return (
                         <div onClick={() => this.onTemplateSelected(t)} style={{ backgroundColor: 'white', marginBottom: 20}}>

@@ -17,6 +17,9 @@ class Website extends Component {
         super(props);
         this.state = {};
         this.addStoryClicked = this.addStoryClicked.bind(this);
+        this.addStoryClicked = this.addStoryClicked.bind(this);
+        this.addEventClicked = this.addEventClicked.bind(this);
+        this.removeEvent = this.removeEvent.bind(this);
     }
 
     render() {
@@ -191,44 +194,47 @@ class Website extends Component {
 
 
                 {this.props.website.stories.map((s, index) => {
-                    let storyNumber = "First Story";
-                    if (index === 1) storyNumber = "Second Story";
-                    else if(index > 1) storyNumber = `Story #${index+1}`
+                        let storyNumber = "First Story";
+                        if (index === 1) storyNumber = "Second Story";
+                        else if (index > 1) storyNumber = `Story #${index + 1}`
 
-                    return (
-                        <div key={index} style={{
-                            color: '#21899A',
-                            marginTop: 12,
-                            padding: 12,
-                            paddingTop: 0,
-                            borderTop: '1px solid #E0E6E7',
-                        }}>
-                            <div style={{
-                                paddingTop: 16,
-                                paddingBottom: 16,
-                                display: "flex",
-                                flexDirection: 'row',
-                                alignItems: 'center'
+                        return (
+                            <div key={index} style={{
+                                color: '#21899A',
+                                marginTop: 12,
+                                padding: 12,
+                                paddingTop: 0,
+                                borderTop: '1px solid #E0E6E7',
                             }}>
-                                <Subtitle style={{margin: 0, flex: 1}}>{storyNumber}</Subtitle>
-                                <div onClick={() => this.removeStory(index)} style={{width: 80, paddingTop: 3}}>Remove <Icon name="delete"/></div>
+                                <div style={{
+                                    paddingTop: 16,
+                                    paddingBottom: 16,
+                                    display: "flex",
+                                    flexDirection: 'row',
+                                    alignItems: 'center'
+                                }}>
+                                    <Subtitle style={{margin: 0, flex: 1}}>{storyNumber}</Subtitle>
+                                    <div onClick={() => this.removeStory(index)} style={{width: 80, paddingTop: 3}}>Remove
+                                        <Icon name="delete"/></div>
+                                </div>
+
+                                <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
+                                            label='Title' placeholder="Our first date"/>
+
+                                <InputCombo style={{marginTop: 16}} type="date"
+                                            onChange={this.changeStoryField(index, 'date')}
+                                            value={s.date}
+                                            label='Date' optional/>
+
+                                <div style={{marginTop: 16}}>
+                                    <InputLabel >Description <Required/></InputLabel>
+                                    <Form>
+                                        <TextArea onChange={this.changeStoryField(index, 'description')}
+                                                  value={s.description} placeholder='Tell us about it'/>
+                                    </Form>
+                                </div>
                             </div>
-
-                            <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
-                                        label='Title' placeholder="Our first date"/>
-
-                            <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeStoryField(index, 'date')}
-                                        value={s.date}
-                                        label='Date' optional/>
-
-                            <div style={{marginTop: 16}}>
-                                <InputLabel >Description <Required/></InputLabel>
-                                <Form>
-                                    <TextArea onChange={this.changeStoryField(index, 'description')} value={s.description} placeholder='Tell us about it'/>
-                                </Form>
-                            </div>
-                        </div>
-                    )
+                        )
                     }
                 )}
 
@@ -271,15 +277,16 @@ class Website extends Component {
             content: <div>
 
                 <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
-                    <div style={{display: 'flex' , alignItems: 'center'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
                         <Checkbox onChange={(e, {checked}) => this.changeHandler('show_events', true)(checked)}
-                                  toggle checked={this.props.website.show_events} />
+                                  toggle checked={this.props.website.show_events}/>
                         <p style={{marginLeft: 16}}>Show Page</p>
                     </div>
                 </div>
 
                 <div style={{padding: 12, paddingTop: 20, borderBottom: '1px solid #F5f5f5'}}>
-                    <InputCombo onChange={this.changeHandler('events_page_title')} value={this.props.website.events_page_title}
+                    <InputCombo onChange={this.changeHandler('events_page_title')}
+                                value={this.props.website.events_page_title}
                                 label='Page Title'/>
 
                     <div style={{marginTop: 16}}>
@@ -293,10 +300,10 @@ class Website extends Component {
                 </div>
 
 
-                {this.props.website.stories.map((s, index) => {
-                        let storyNumber = "First Story";
-                        if (index === 1) storyNumber = "Second Story";
-                        else if(index > 1) storyNumber = `Story #${index+1}`
+                {this.props.website.events.map((s, index) => {
+                        let no = "First Event";
+                        if (index === 1) no = "Second Event";
+                        else if (index > 1) no = `Event #${index + 1}`
 
                         return (
                             <div key={index} style={{
@@ -313,23 +320,25 @@ class Website extends Component {
                                     flexDirection: 'row',
                                     alignItems: 'center'
                                 }}>
-                                    <Subtitle style={{margin: 0, flex: 1}}>{storyNumber}</Subtitle>
-                                    <div onClick={() => this.removeStory(index)} style={{width: 80, paddingTop: 3}}>Remove <Icon name="delete"/></div>
+                                    <Subtitle style={{margin: 0, flex: 1}}>{no}</Subtitle>
+                                    <div onClick={() => this.removeEvent(index)} style={{width: 80, paddingTop: 3}}>Remove
+                                        <Icon name="delete"/></div>
                                 </div>
 
                                 <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
-                                            label='Title' placeholder="Our first date"/>
+                                            label='Event Type' placeholder="Welcome Event"/>
 
-                                <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeStoryField(index, 'date')}
-                                            value={s.date}
-                                            label='Date' optional/>
+                                {/*<div style={{marginTop: 16}}>*/}
+                                    {/*<InputLabel >Event Type</InputLabel>*/}
+                                {/*</div>*/}
 
-                                <div style={{marginTop: 16}}>
-                                    <InputLabel >Description <Required/></InputLabel>
-                                    <Form>
-                                        <TextArea onChange={this.changeStoryField(index, 'description')} value={s.description} placeholder='Tell us about it'/>
-                                    </Form>
-                                </div>
+                                <InputCombo style={{marginTop: 16}} onChange={this.changeStoryField(index, 'title')} value={s.title}
+                                            label='Event Name' placeholder=""/>
+
+                                <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeHandler('date')}
+                                            value={this.props.website.title}
+                                            label='Date'/>
+
                             </div>
                         )
                     }
@@ -344,9 +353,10 @@ class Website extends Component {
                     border: '1px solid #E0E6E7',
                     borderLeftWidth: 0,
                     borderRightWidth: 0
-                }} onClick={this.addStoryClicked}>
-                    <Icon name="plus circle"/> Add Story
+                }} onClick={this.addEventClicked}>
+                    <Icon name="plus circle"/> Add Event
                 </div>
+
 
                 <div style={{padding: 12}}>
                     <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
@@ -355,6 +365,18 @@ class Website extends Component {
         }
     }
 
+    addEventClicked() {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
+        const events = [...this.props.website.events, {}];
+        this.props.dispatch(action(events));
+    }
+
+    removeEvent(index) {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
+        let events = [...this.props.website.events];
+        events.splice(index, 1);
+        this.props.dispatch(action(events));
+    }
 }
 
 function InputLabel({children}) {
