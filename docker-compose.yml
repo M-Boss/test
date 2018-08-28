@@ -2,21 +2,21 @@ version: '2'
 services:
 
   # The Application
-  app:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    working_dir: /usr/app
-    volumes:
-      - ./:/usr/app
-#    environment:
-#      - "DB_PORT=3306"
-#      - "DB_HOST=database"
-    ports:
-      - 8080:8080
-    links:
-      - database
-#      - testdb
+#  app:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    working_dir: /usr/app
+#    volumes:
+#      - ./:/usr/app
+##    environment:
+##      - "DB_PORT=3306"
+##      - "DB_HOST=database"
+#    ports:
+#      - 8080:8080
+#    links:
+#      - database
+##      - testdb
 
   # The Web Server
 #  web:

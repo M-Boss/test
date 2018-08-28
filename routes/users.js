@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const container = require('../services/bootstrap');
+const container = require('../services');
 const _ = require('lodash');
 
 router.get('/', function (req, res, next) {

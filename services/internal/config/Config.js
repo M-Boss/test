@@ -3,7 +3,7 @@
  */
 const _ = require('lodash')
 
-export default class Config{
+module.exports = class Config{
     constructor(){
 
         this.config = {
