@@ -27,11 +27,12 @@ class Website extends Component {
                     <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
-                    <div style={{marginBottom: 10, clear: 'both'}}></div>89
+                    <div style={{marginBottom: 10, clear: 'both'}}></div>
                     <Accordion items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
                         this.accordionDetails(),
+                        this.accordionEvents(),
                     ]}>
                     </Accordion>
                 </div>
@@ -263,6 +264,97 @@ class Website extends Component {
         stories.splice(index, 1);
         this.props.dispatch(action(stories));
     }
+
+    accordionEvents() {
+        return {
+            title: 'Events',
+            content: <div>
+
+                <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
+                    <div style={{display: 'flex' , alignItems: 'center'}}>
+                        <Checkbox onChange={(e, {checked}) => this.changeHandler('show_events', true)(checked)}
+                                  toggle checked={this.props.website.show_events} />
+                        <p style={{marginLeft: 16}}>Show Page</p>
+                    </div>
+                </div>
+
+                <div style={{padding: 12, paddingTop: 20, borderBottom: '1px solid #F5f5f5'}}>
+                    <InputCombo onChange={this.changeHandler('events_page_title')} value={this.props.website.events_page_title}
+                                label='Page Title'/>
+
+                    <div style={{marginTop: 16}}>
+                        <InputLabel >Description <Required/></InputLabel>
+                        <Form>
+                            <TextArea onChange={this.changeHandler('events_description')}
+                                      value={this.props.website.events_description}
+                                      placeholder="Here's what to expect during our big day"/>
+                        </Form>
+                    </div>
+                </div>
+
+
+                {this.props.website.stories.map((s, index) => {
+                        let storyNumber = "First Story";
+                        if (index === 1) storyNumber = "Second Story";
+                        else if(index > 1) storyNumber = `Story #${index+1}`
+
+                        return (
+                            <div key={index} style={{
+                                color: '#21899A',
+                                marginTop: 12,
+                                padding: 12,
+                                paddingTop: 0,
+                                borderTop: '1px solid #E0E6E7',
+                            }}>
+                                <div style={{
+                                    paddingTop: 16,
+                                    paddingBottom: 16,
+                                    display: "flex",
+                                    flexDirection: 'row',
+                                    alignItems: 'center'
+                                }}>
+                                    <Subtitle style={{margin: 0, flex: 1}}>{storyNumber}</Subtitle>
+                                    <div onClick={() => this.removeStory(index)} style={{width: 80, paddingTop: 3}}>Remove <Icon name="delete"/></div>
+                                </div>
+
+                                <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
+                                            label='Title' placeholder="Our first date"/>
+
+                                <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeStoryField(index, 'date')}
+                                            value={s.date}
+                                            label='Date' optional/>
+
+                                <div style={{marginTop: 16}}>
+                                    <InputLabel >Description <Required/></InputLabel>
+                                    <Form>
+                                        <TextArea onChange={this.changeStoryField(index, 'description')} value={s.description} placeholder='Tell us about it'/>
+                                    </Form>
+                                </div>
+                            </div>
+                        )
+                    }
+                )}
+
+
+                <div style={{
+                    color: '#21899A',
+                    marginTop: 12,
+                    padding: 8,
+                    paddingLeft: 12,
+                    border: '1px solid #E0E6E7',
+                    borderLeftWidth: 0,
+                    borderRightWidth: 0
+                }} onClick={this.addStoryClicked}>
+                    <Icon name="plus circle"/> Add Story
+                </div>
+
+                <div style={{padding: 12}}>
+                    <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                </div>
+            </div>
+        }
+    }
+
 }
 
 function InputLabel({children}) {
@@ -286,7 +378,7 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 2
+            index: 3
         }
     }
 

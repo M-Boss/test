@@ -23,6 +23,10 @@ export const makeRootReducer = () => combineReducers({
         hash: "",
         stories: [],
 
+        show_events: [],
+        events_page_title: "",
+        events_description: "",
+
     }),
     // flightFilter: DefaultReducer(types.FLIGHT_FILTER_RECORD, {
     //     types: [

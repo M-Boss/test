@@ -38,3 +38,10 @@ p,h1,h2,h3,h4,h5{
 .custom-file-input:focus{
     outline: none;
 }
+
+.ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
+    background-color: #63E09C !important;
+}
+.ui.toggle.checkbox input:focus:checked~.box:before, .ui.toggle.checkbox input:focus:checked~label:before {
+    background-color: #60E099!important;
+}
