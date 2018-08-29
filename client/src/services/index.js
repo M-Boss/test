@@ -16,4 +16,4 @@ container.registerFactory('store', function(){
     return createStore();
 });
 
-export default container
+export default container;

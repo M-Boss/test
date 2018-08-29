@@ -45,3 +45,9 @@ p,h1,h2,h3,h4,h5{
 .ui.toggle.checkbox input:focus:checked~.box:before, .ui.toggle.checkbox input:focus:checked~label:before {
     background-color: #60E099!important;
 }
+
+
+.ui.selection.dropdown {
+
+    min-width: 10em;
+}

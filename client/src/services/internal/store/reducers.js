@@ -23,7 +23,7 @@ export const makeRootReducer = () => combineReducers({
         hash: "",
         stories: [],
 
-        show_events: [],
+        show_events: false,
         events_page_title: "",
         events_description: "",
         events: [],

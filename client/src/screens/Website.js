@@ -2,7 +2,7 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component} from 'react'
-import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox, TextArea} from 'semantic-ui-react'
+import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox, TextArea, Select} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
 import Footer from "./Footer";
@@ -284,7 +284,7 @@ class Website extends Component {
                     </div>
                 </div>
 
-                <div style={{padding: 12, paddingTop: 20, borderBottom: '1px solid #F5f5f5'}}>
+                <div style={{padding: 12, paddingTop: 20}}>
                     <InputCombo onChange={this.changeHandler('events_page_title')}
                                 value={this.props.website.events_page_title}
                                 label='Page Title'/>
@@ -300,7 +300,7 @@ class Website extends Component {
                 </div>
 
 
-                {this.props.website.events.map((s, index) => {
+                {this.props.website.events.map((e, index) => {
                         let no = "First Event";
                         if (index === 1) no = "Second Event";
                         else if (index > 1) no = `Event #${index + 1}`
@@ -325,20 +325,32 @@ class Website extends Component {
                                         <Icon name="delete"/></div>
                                 </div>
 
-                                <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
-                                            label='Event Type' placeholder="Welcome Event"/>
+                                <InputLabel>Event Type</InputLabel>
+                                <Select style={{flex: 1, display: 'flex'}} onChange={(e, {value}) => this.changeEventField(index, 'type', true)(value)} value={e.type}
+                                            options={[{value: "Welcome Event", text: "Welcome Event"}]}/>
 
-                                {/*<div style={{marginTop: 16}}>*/}
-                                    {/*<InputLabel >Event Type</InputLabel>*/}
-                                {/*</div>*/}
 
-                                <InputCombo style={{marginTop: 16}} onChange={this.changeStoryField(index, 'title')} value={s.title}
-                                            label='Event Name' placeholder=""/>
 
-                                <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeHandler('date')}
-                                            value={this.props.website.title}
+                                <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'title')} value={e.title}
+                                            label='Event Name'/>
+
+                                <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeEventField(index, 'date')}
+                                            value={e.date}
                                             label='Date'/>
 
+                                <Grid style={{marginTop: 12}}>
+                                    <Grid.Column width={8}>
+                                        <InputLabel>Start Time <Required/></InputLabel>
+                                        <TimePicker value={e.start_time}
+                                                    onChange={(e, {value}) => this.changeEventField(index, 'start_time', true)(value)}/>
+                                    </Grid.Column>
+
+                                    <Grid.Column width={8}>
+                                        <InputLabel>End Time</InputLabel>
+                                        <TimePicker value={e.end_time}
+                                                    onChange={(e, {value}) => this.changeEventField(index, 'end_time', true)(value)}/>
+                                    </Grid.Column>
+                                </Grid>
                             </div>
                         )
                     }
@@ -362,6 +374,18 @@ class Website extends Component {
                     <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
             </div>
+        }
+    }
+
+    changeEventField(index, key, checkbox = false) {
+
+        return (e) => {
+            console.log("e: ", e.target);
+            const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
+            const val = checkbox ? e : e.target.value;
+            let events = [...this.props.website.events];
+            events[index][key] = val;
+            this.props.dispatch(action(events))
         }
     }
 
@@ -394,6 +418,28 @@ function InputCombo({label, optional = false, onChange, value, style, placeholde
 function Required() {
     return <span style={{color: 'red', fontSize: 16}}>*</span>
 }
+
+function TimePicker({onChange, value}){
+    const options = [
+        {key: "pick", value: "", text: "pick"},
+        {key: "24:00", value: "24:00", text: "24:00"},
+        {key: "00:15", value: "00:15", text: "00:15" },
+        {key: "00:30", value: "00:30", text: "00:30" },
+        {key: "00:45", value: "00:45", text: "00:45" },
+    ];
+
+    for(let i = 1; i < 24; i++){
+        for(let j = 0; j <=45; j+= 15){
+            const s = ("" + i).padStart(2, "0") + ":" + ("" + j).padStart(2, "0");
+            options.push({key: s, value: s, text: s});
+        }
+    }
+
+    return(
+        <Select onChange={onChange} value={value} options={options} />
+    )
+}
+
 
 class Accordion extends Component {
 
