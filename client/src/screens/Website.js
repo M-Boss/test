@@ -306,52 +306,117 @@ class Website extends Component {
                         else if (index > 1) no = `Event #${index + 1}`
 
                         return (
-                            <div key={index} style={{
-                                color: '#21899A',
-                                marginTop: 12,
-                                padding: 12,
-                                paddingTop: 0,
-                                borderTop: '1px solid #E0E6E7',
-                            }}>
-                                <div style={{
-                                    paddingTop: 16,
-                                    paddingBottom: 16,
-                                    display: "flex",
-                                    flexDirection: 'row',
-                                    alignItems: 'center'
+                            <div>
+                                <div key={index} style={{
+                                    color: '#21899A',
+                                    marginTop: 12,
+                                    padding: 12,
+                                    paddingTop: 0,
+                                    borderTop: '1px solid #E0E6E7',
                                 }}>
-                                    <Subtitle style={{margin: 0, flex: 1}}>{no}</Subtitle>
-                                    <div onClick={() => this.removeEvent(index)} style={{width: 80, paddingTop: 3}}>Remove
-                                        <Icon name="delete"/></div>
-                                </div>
+                                    <div style={{
+                                        paddingTop: 16,
+                                        paddingBottom: 16,
+                                        display: "flex",
+                                        flexDirection: 'row',
+                                        alignItems: 'center'
+                                    }}>
+                                        <Subtitle style={{margin: 0, flex: 1}}>{no}</Subtitle>
+                                        <div onClick={() => this.removeEvent(index)} style={{width: 80, paddingTop: 3}}>
+                                            Remove
+                                            <Icon name="delete"/></div>
+                                    </div>
 
-                                <InputLabel>Event Type</InputLabel>
-                                <Select style={{flex: 1, display: 'flex'}} onChange={(e, {value}) => this.changeEventField(index, 'type', true)(value)} value={e.type}
+                                    <InputLabel>Event Type</InputLabel>
+                                    <Select style={{flex: 1, display: 'flex'}}
+                                            onChange={(e, {value}) => this.changeEventField(index, 'type', true)(value)}
+                                            value={e.type}
                                             options={[{value: "Welcome Event", text: "Welcome Event"}]}/>
 
+                                    <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'title')}
+                                                value={e.title}
+                                                label='Event Name'/>
 
+                                    <InputCombo style={{marginTop: 16}} type="date"
+                                                onChange={this.changeEventField(index, 'date')}
+                                                value={e.date}
+                                                label='Date'/>
 
-                                <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'title')} value={e.title}
-                                            label='Event Name'/>
+                                    <Grid style={{marginTop: 12}}>
+                                        <Grid.Column width={8}>
+                                            <InputLabel>Start Time <Required/></InputLabel>
+                                            <TimePicker value={e.start_time}
+                                                        onChange={(e, {value}) => this.changeEventField(index, 'start_time', true)(value)}/>
+                                        </Grid.Column>
 
-                                <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeEventField(index, 'date')}
-                                            value={e.date}
-                                            label='Date'/>
+                                        <Grid.Column width={8}>
+                                            <InputLabel>End Time</InputLabel>
+                                            <TimePicker value={e.end_time}
+                                                        onChange={(e, {value}) => this.changeEventField(index, 'end_time', true)(value)}/>
+                                        </Grid.Column>
+                                    </Grid>
 
-                                <Grid style={{marginTop: 12}}>
-                                    <Grid.Column width={8}>
-                                        <InputLabel>Start Time <Required/></InputLabel>
-                                        <TimePicker value={e.start_time}
-                                                    onChange={(e, {value}) => this.changeEventField(index, 'start_time', true)(value)}/>
-                                    </Grid.Column>
+                                    <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'venue')}
+                                                value={e.venue}
+                                                label='Venue'/>
 
-                                    <Grid.Column width={8}>
-                                        <InputLabel>End Time</InputLabel>
-                                        <TimePicker value={e.end_time}
-                                                    onChange={(e, {value}) => this.changeEventField(index, 'end_time', true)(value)}/>
-                                    </Grid.Column>
-                                </Grid>
+                                    <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'attire')}
+                                                value={e.attire}
+                                                label='Attire'/>
+
+                                    <div style={{marginTop: 16}}>
+                                        <InputLabel >Note to guests <Required/></InputLabel>
+                                        <Form>
+                                        <TextArea onChange={this.changeEventField(index, 'description')}
+                                                  value={e.description} placeholder=''/>
+                                        </Form>
+                                    </div>
+
+                                    <div style={{
+                                        padding: 12,
+                                        paddingTop: 20,
+                                        paddingBottom: 20
+                                    }}>
+                                        <Switch label="Make event public on site"
+                                                onChange={(e, {checked}) => this.changeEventField(index, 'public', true)(checked)}
+                                                checked={e.public}/>
+
+                                        <Switch label="Allow guests to RSVP on site"
+                                                onChange={(e, {checked}) => this.changeEventField(index, 'rsvp', true)(checked)}
+                                                checked={e.rsvp}
+                                                style={{marginTop: 16}}/>
+                                    </div>
+                                </div>
+
+                                <div style={{
+                                    color: '#21899A',
+                                    marginTop: 12,
+                                    padding: 8,
+                                    paddingTop: 16,
+                                    paddingLeft: 12,
+                                    borderTop: '1px solid #E0E6E7',
+                                }}>
+                                    <p style={{marginBottom: 4}}>Ask guests about meal preferences</p>
+                                    {e.meals && e.meals.map((meal, mealIndex) =>
+                                        <RemovableInput
+                                            onChange={(e) => this.updateEventMeal(index, mealIndex, e.target.value)}
+                                            placeholder="Vegetarian or chicken"
+                                            style={{marginTop: 8}}
+                                            onRemove={() => this.removeEventMeal(index, mealIndex)} />
+                                    )}
+                                </div>
+
+                                <div style={{
+                                    color: '#21899A',
+                                    padding: 8,
+                                    paddingLeft: 12,
+                                    fontSize: 11
+                                }} onClick={() => this.addEventMeal(index)}>
+                                    <Icon name="plus"/> Add a meal option
+                                </div>
                             </div>
+
+
                         )
                     }
                 )}
@@ -369,7 +434,6 @@ class Website extends Component {
                     <Icon name="plus circle"/> Add Event
                 </div>
 
-
                 <div style={{padding: 12}}>
                     <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
@@ -380,7 +444,6 @@ class Website extends Component {
     changeEventField(index, key, checkbox = false) {
 
         return (e) => {
-            console.log("e: ", e.target);
             const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
             const val = checkbox ? e : e.target.value;
             let events = [...this.props.website.events];
@@ -391,7 +454,7 @@ class Website extends Component {
 
     addEventClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
-        const events = [...this.props.website.events, {}];
+        const events = [...this.props.website.events, {meals: []}];
         this.props.dispatch(action(events));
     }
 
@@ -399,6 +462,36 @@ class Website extends Component {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
         let events = [...this.props.website.events];
         events.splice(index, 1);
+        this.props.dispatch(action(events));
+    }
+
+    addEventMeal(eventIndex){
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
+        let events = [...this.props.website.events];
+        console.log()
+        let meals = [...events[eventIndex].meals];
+        meals.push("");
+        events[eventIndex].meals = meals;
+        this.props.dispatch(action(events));
+    }
+
+    removeEventMeal(eventIndex, mealIndex){
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
+        let events = [...this.props.website.events];
+        console.log();
+        let meals = [...events[eventIndex].meals];
+        meals.splice(mealIndex, 1);
+        events[eventIndex].meals = meals;
+        this.props.dispatch(action(events));
+    }
+
+    updateEventMeal(eventIndex, mealIndex, text){
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
+        let events = [...this.props.website.events];
+        console.log();
+        let meals = [...events[eventIndex].meals];
+        meals[mealIndex] = text;
+        events[eventIndex].meals = meals;
         this.props.dispatch(action(events));
     }
 }
@@ -415,31 +508,46 @@ function InputCombo({label, optional = false, onChange, value, style, placeholde
         <Input placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
     </div>
 }
+
+function RemovableInput({onChange, onRemove, value, style, placeholder = "", type = "input"}) {
+    return <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', ...style}}>
+        <Input style={{flex: 1}} placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
+        <Icon  onClick={onRemove} style={{paddingLeft: 10, paddingRight: 12}}  name='remove'/>
+    </div>
+}
+
 function Required() {
     return <span style={{color: 'red', fontSize: 16}}>*</span>
 }
 
-function TimePicker({onChange, value}){
+function TimePicker({onChange, value}) {
     const options = [
         {key: "pick", value: "", text: "pick"},
         {key: "24:00", value: "24:00", text: "24:00"},
-        {key: "00:15", value: "00:15", text: "00:15" },
-        {key: "00:30", value: "00:30", text: "00:30" },
-        {key: "00:45", value: "00:45", text: "00:45" },
+        {key: "00:15", value: "00:15", text: "00:15"},
+        {key: "00:30", value: "00:30", text: "00:30"},
+        {key: "00:45", value: "00:45", text: "00:45"},
     ];
 
-    for(let i = 1; i < 24; i++){
-        for(let j = 0; j <=45; j+= 15){
+    for (let i = 1; i < 24; i++) {
+        for (let j = 0; j <= 45; j += 15) {
             const s = ("" + i).padStart(2, "0") + ":" + ("" + j).padStart(2, "0");
             options.push({key: s, value: s, text: s});
         }
     }
 
-    return(
-        <Select onChange={onChange} value={value} options={options} />
+    return (
+        <Select onChange={onChange} value={value} options={options}/>
     )
 }
 
+function Switch({label, onChange, checked, style}) {
+    return (<div style={{display: 'flex', alignItems: 'center', ...style}}>
+        <Checkbox onChange={onChange}
+                  toggle checked={checked}/>
+        <p style={{marginLeft: 16}}>{label}</p>
+    </div>)
+}
 
 class Accordion extends Component {
 
