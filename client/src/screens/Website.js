@@ -8,8 +8,11 @@ import {H2} from "../components/Headers";
 import Footer from "./Footer";
 import {connect} from 'react-redux'
 import BorderedButton from "../components/BorderedButton";
+import Autocomplete from 'react-google-autocomplete';
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
+
+
 
 class Website extends Component {
 
@@ -22,10 +25,15 @@ class Website extends Component {
         this.removeEvent = this.removeEvent.bind(this);
     }
 
+    getPredictions(){
+
+    }
+
     render() {
         console.log(this.props.website);
         return (
             <div style={{backgroundColor: '#F4F7F9'}}>
+
                 <div style={{padding: 24}}>
                     <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
@@ -360,12 +368,60 @@ class Website extends Component {
                                                 value={e.venue}
                                                 label='Venue'/>
 
-                                    <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'attire')}
+                                    <Autocomplete
+                                        style={{width: '100%', padding: 8, borderRadius: 4}}
+                                        placeholder=""
+                                        onPlaceSelected={(place) => {
+                                            console.log(place);
+                                            this.changeEventField(index, 'venue', true)(place.formatted_address)
+                                        }}
+                                        types={['establishment']}
+                                        componentRestrictions={{country: "id"}}
+                                    />
+
+                                    <div style={{
+                                        color: '#21899A',
+                                        padding: "8px 0",
+                                        fontSize: 11
+                                    }} onClick={() => this.addEventMeal(index)}>
+                                        <Icon name="arrow right"/> Fill in address manually
+                                    </div>
+
+                                    <React.Fragment>
+                                        <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'street')}
+                                                    value={e.street}
+                                                    label='Street Address'/>
+
+                                        <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'country')}
+                                                    value={e.country}
+                                                    label='Country'/>
+                                        <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'city')}
+                                                    value={e.city}
+                                                    label='City'/>
+
+                                        <Grid>
+                                            <Grid.Column width={8}>
+                                                <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'postal_code')}
+                                                            value={e.postal_code}
+                                                            label='Postal Code'/>
+                                            </Grid.Column>
+
+                                            <Grid.Column width={8}>
+                                                <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'city')}
+                                                            value={e.city}
+                                                            label='City'/>
+                                            </Grid.Column>
+                                        </Grid>
+
+
+                                    </React.Fragment>
+
+                                    <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'attire')}
                                                 value={e.attire}
                                                 label='Attire'/>
 
                                     <div style={{marginTop: 16}}>
-                                        <InputLabel >Note to guests <Required/></InputLabel>
+                                        <InputLabel >Note to guests</InputLabel>
                                         <Form>
                                         <TextArea onChange={this.changeEventField(index, 'description')}
                                                   value={e.description} placeholder=''/>
@@ -415,12 +471,9 @@ class Website extends Component {
                                     <Icon name="plus"/> Add a meal option
                                 </div>
                             </div>
-
-
                         )
                     }
                 )}
-
 
                 <div style={{
                     color: '#21899A',
