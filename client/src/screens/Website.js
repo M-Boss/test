@@ -415,9 +415,9 @@ class Website extends Component {
                                             </Grid.Column>
 
                                             <Grid.Column width={8}>
-                                                <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'city')}
-                                                            value={e.city}
-                                                            label='City'/>
+                                                <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'apartment')}
+                                                            value={e.apartment}
+                                                            label='Apt / Floor'/>
                                             </Grid.Column>
                                         </Grid>
 
