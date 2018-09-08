@@ -23,6 +23,8 @@ class Website extends Component {
         this.addStoryClicked = this.addStoryClicked.bind(this);
         this.addEventClicked = this.addEventClicked.bind(this);
         this.removeEvent = this.removeEvent.bind(this);
+        this.addPhotoClicked = this.addPhotoClicked.bind(this);
+        this.removePhoto = this.removePhoto.bind(this);
     }
 
     getPredictions(){
@@ -44,6 +46,7 @@ class Website extends Component {
                         this.accordionTemplate(),
                         this.accordionDetails(),
                         this.accordionEvents(),
+                        this.accordionPhotos(),
                     ]}>
                     </Accordion>
                 </div>
@@ -502,6 +505,66 @@ class Website extends Component {
         }
     }
 
+    accordionPhotos() {
+        return {
+            title: 'Photos',
+            content: <div>
+
+                <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <Checkbox onChange={(e, {checked}) => this.changeHandler('show_photos', true)(checked)}
+                                  toggle checked={this.props.website.show_photos}/>
+                        <p style={{marginLeft: 16}}>Show Page</p>
+                    </div>
+                </div>
+
+                <div style={{padding: 12, paddingTop: 20}}>
+                    <InputCombo onChange={this.changeHandler('photos_page_title')}
+                                value={this.props.website.photos_page_title}
+                                label='Page Title'/>
+
+                    <div style={{marginTop: 16}}>
+                        <InputLabel >Description <Required/></InputLabel>
+                        <Form>
+                            <TextArea onChange={this.changeHandler('photos_description')}
+                                      value={this.props.website.photos_description}
+                                      placeholder=""/>
+                        </Form>
+                    </div>
+                </div>
+
+                {this.props.website.photos.map((item, index) => {
+                        return (
+                            <div style={{padding: 12}}>
+                                <File name={`Photo #${index+1}`} icon="camera"/>
+                            </div>
+                        )
+                    }
+                )}
+
+                <div style={{
+                    marginTop: 12,
+                    padding: 8,
+                    paddingLeft: 12,
+                    border: '1px solid #E0E6E7',
+                    borderLeftWidth: 0,
+                    borderRightWidth: 0,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }} onClick={this.addPhotoClicked}>
+                    <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> Add Photos</p>
+                    <p style={{margin: 0, fontSize: 12 }}>Max file size 5 MB</p>
+
+                </div>
+
+                <div style={{padding: 12}}>
+                    <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                </div>
+            </div>
+        }
+    }
+
     changeEventField(index, key, checkbox = false) {
 
         return (e) => {
@@ -555,6 +618,20 @@ class Website extends Component {
         events[eventIndex].meals = meals;
         this.props.dispatch(action(events));
     }
+
+    addPhotoClicked() {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
+        const items = [...this.props.website.photos, {uploaded: false}];
+        this.props.dispatch(action(items));
+    }
+
+    removePhoto(index) {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
+        let items = [...this.props.website.photos];
+        items.splice(index, 1);
+        this.props.dispatch(action(items));
+    }
+
 }
 
 function InputLabel({children}) {
@@ -615,7 +692,7 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 3
+            index: 4
         }
     }
 
