@@ -364,27 +364,35 @@ class Website extends Component {
                                         </Grid.Column>
                                     </Grid>
 
+                                    {!e.manual_address &&
+                                    <div style={{marginTop: 16}}>
+                                        <InputLabel >Venue</InputLabel>
+                                        <Autocomplete
+                                            style={{width: '100%', padding: 8, borderRadius: 4}}
+                                            placeholder=""
+                                            onPlaceSelected={(place) => {
+                                                console.log(place);
+                                                this.changeEventField(index, 'venue', true)(place.formatted_address)
+                                            }}
+                                            types={['establishment']}
+                                            componentRestrictions={{country: "id"}}
+                                        />
+                                    </div>
+                                    }
+
+                                    {e.manual_address &&
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'venue')}
                                                 value={e.venue}
-                                                label='Venue'/>
-
-                                    <Autocomplete
-                                        style={{width: '100%', padding: 8, borderRadius: 4}}
-                                        placeholder=""
-                                        onPlaceSelected={(place) => {
-                                            console.log(place);
-                                            this.changeEventField(index, 'venue', true)(place.formatted_address)
-                                        }}
-                                        types={['establishment']}
-                                        componentRestrictions={{country: "id"}}
-                                    />
+                                                optional
+                                                label='Venue Name'/>}
 
                                     <div style={{
                                         color: '#21899A',
                                         padding: "8px 0",
                                         fontSize: 11
-                                    }} onClick={() => this.addEventMeal(index)}>
-                                        <Icon name="arrow right"/> Fill in address manually
+                                    }} onClick={() => this.changeEventField(index, 'manual_address', true)(!e.manual_address)}>
+                                        <Icon name="arrow right"/>
+                                        {!e.manual_address ? "Fill in address manually" : "Search for location"}
                                     </div>
 
                                     <React.Fragment>
