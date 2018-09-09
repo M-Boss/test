@@ -49,6 +49,7 @@ class Website extends Component {
                         this.accordionEvents(),
                         this.accordionPhotos(),
                         this.accordionFAQ(),
+                        this.accordionSettings(),
                     ]}>
                     </Accordion>
                 </div>
@@ -666,6 +667,23 @@ class Website extends Component {
         }
     }
 
+    accordionSettings() {
+        return {
+            title: 'Website Settings',
+            content: <div style={{padding: 12, paddingTop: 0}}>
+
+                <Subtitle>Website URL</Subtitle>
+                <p>http://nikahku.com/james-and-jessie</p>
+
+                <div style={{display: 'flex', alignItems: 'center', marginTop: 8}}>
+                    <Checkbox onChange={(e, {checked}) => this.changeHandler('public', true)(checked)}
+                              toggle checked={this.props.website.public}/>
+                    <p style={{marginLeft: 16}}>Make publicly available</p>
+                </div>
+            </div>
+        }
+    }
+
     changeEventField(index, key, checkbox = false) {
 
         return (e) => {
@@ -818,7 +836,7 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 5
+            index: 6
         }
     }
 

@@ -31,6 +31,8 @@ export const makeRootReducer = () => combineReducers({
 
         faqs: [],
         show_faqs: false,
+
+        "public": true
     }),
     // flightFilter: DefaultReducer(types.FLIGHT_FILTER_RECORD, {
     //     types: [
