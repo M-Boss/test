@@ -602,6 +602,10 @@ class Website extends Component {
                 </div>
 
                 {this.props.website.faqs.map((item, index) => {
+                    let no = "First FAQ";
+                    if (index === 1) no = "Second FAQ";
+                    else if (index > 1) no = `FAQ #${index + 1}`
+
                         return (
                             <div key={index} style={{
                                 color: '#21899A',
@@ -610,6 +614,19 @@ class Website extends Component {
                                 paddingTop: 0,
                                 borderTop: '1px solid #E0E6E7',
                             }}>
+
+                                <div style={{
+                                    paddingTop: 16,
+                                    paddingBottom: 16,
+                                    display: "flex",
+                                    flexDirection: 'row',
+                                    alignItems: 'center'
+                                }}>
+                                    <Subtitle style={{margin: 0, flex: 1}}>{no}</Subtitle>
+                                    <div onClick={() => this.removeFAQ(index)} style={{width: 80, paddingTop: 3}}>
+                                        Remove
+                                        <Icon name="delete"/></div>
+                                </div>
 
                                 <div style={{marginTop: 16}}>
                                     <InputCombo onChange={this.changeFAQField(index, 'question')}
