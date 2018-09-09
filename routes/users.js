@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/auth/register', async function (req, res, next) {
     const users = container.get('users');
-    try{
+    try {
         await users.register({...req.body});
         res.send({});
     }

@@ -13,7 +13,6 @@ const {buildActionForKey} = require('../services/internal/store/DefaultReducer')
 const actions = require('../services/internal/store/actionConstants');
 
 
-
 class Website extends Component {
 
     constructor(props) {
@@ -25,9 +24,11 @@ class Website extends Component {
         this.removeEvent = this.removeEvent.bind(this);
         this.addPhotoClicked = this.addPhotoClicked.bind(this);
         this.removePhoto = this.removePhoto.bind(this);
+        this.addFAQClicked = this.addFAQClicked.bind(this);
+        this.removeFAQ = this.removeFAQ.bind(this);
     }
 
-    getPredictions(){
+    getPredictions() {
 
     }
 
@@ -47,6 +48,7 @@ class Website extends Component {
                         this.accordionDetails(),
                         this.accordionEvents(),
                         this.accordionPhotos(),
+                        this.accordionFAQ(),
                     ]}>
                     </Accordion>
                 </div>
@@ -72,7 +74,6 @@ class Website extends Component {
             this.props.dispatch(action(stories))
         }
     }
-
 
     accordionGeneral() {
         return {
@@ -393,32 +394,38 @@ class Website extends Component {
                                         color: '#21899A',
                                         padding: "8px 0",
                                         fontSize: 11
-                                    }} onClick={() => this.changeEventField(index, 'manual_address', true)(!e.manual_address)}>
+                                    }}
+                                         onClick={() => this.changeEventField(index, 'manual_address', true)(!e.manual_address)}>
                                         <Icon name="arrow right"/>
                                         {!e.manual_address ? "Fill in address manually" : "Search for location"}
                                     </div>
 
                                     <React.Fragment>
-                                        <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'street')}
+                                        <InputCombo optional style={{marginTop: 16}}
+                                                    onChange={this.changeEventField(index, 'street')}
                                                     value={e.street}
                                                     label='Street Address'/>
 
-                                        <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'country')}
+                                        <InputCombo optional style={{marginTop: 16}}
+                                                    onChange={this.changeEventField(index, 'country')}
                                                     value={e.country}
                                                     label='Country'/>
-                                        <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'city')}
+                                        <InputCombo optional style={{marginTop: 16}}
+                                                    onChange={this.changeEventField(index, 'city')}
                                                     value={e.city}
                                                     label='City'/>
 
                                         <Grid>
                                             <Grid.Column width={8}>
-                                                <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'postal_code')}
+                                                <InputCombo optional style={{marginTop: 16}}
+                                                            onChange={this.changeEventField(index, 'postal_code')}
                                                             value={e.postal_code}
                                                             label='Postal Code'/>
                                             </Grid.Column>
 
                                             <Grid.Column width={8}>
-                                                <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'apartment')}
+                                                <InputCombo optional style={{marginTop: 16}}
+                                                            onChange={this.changeEventField(index, 'apartment')}
                                                             value={e.apartment}
                                                             label='Apt / Floor'/>
                                             </Grid.Column>
@@ -427,7 +434,8 @@ class Website extends Component {
 
                                     </React.Fragment>
 
-                                    <InputCombo optional style={{marginTop: 16}} onChange={this.changeEventField(index, 'attire')}
+                                    <InputCombo optional style={{marginTop: 16}}
+                                                onChange={this.changeEventField(index, 'attire')}
                                                 value={e.attire}
                                                 label='Attire'/>
 
@@ -469,7 +477,7 @@ class Website extends Component {
                                             onChange={(e) => this.updateEventMeal(index, mealIndex, e.target.value)}
                                             placeholder="Vegetarian or chicken"
                                             style={{marginTop: 8}}
-                                            onRemove={() => this.removeEventMeal(index, mealIndex)} />
+                                            onRemove={() => this.removeEventMeal(index, mealIndex)}/>
                                     )}
                                 </div>
 
@@ -536,7 +544,7 @@ class Website extends Component {
                 {this.props.website.photos.map((item, index) => {
                         return (
                             <div style={{padding: 12}}>
-                                <File name={`Photo #${index+1}`} icon="camera"/>
+                                <File name={`Photo #${index + 1}`} icon="camera"/>
                             </div>
                         )
                     }
@@ -554,13 +562,89 @@ class Website extends Component {
                     alignItems: 'center'
                 }} onClick={this.addPhotoClicked}>
                     <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> Add Photos</p>
-                    <p style={{margin: 0, fontSize: 12 }}>Max file size 5 MB</p>
+                    <p style={{margin: 0, fontSize: 12}}>Max file size 5 MB</p>
 
                 </div>
 
                 <div style={{padding: 12}}>
                     <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
+            </div>
+        }
+    }
+
+    accordionFAQ() {
+        return {
+            title: 'FAQs',
+            content: <div>
+
+                <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <Checkbox onChange={(e, {checked}) => this.changeHandler('show_photos', true)(checked)}
+                                  toggle checked={this.props.website.show_faqs}/>
+                        <p style={{marginLeft: 16}}>Show Page</p>
+                    </div>
+                </div>
+
+                <div style={{padding: 12, paddingTop: 20}}>
+                    <InputCombo onChange={this.changeHandler('faqs_page_title')}
+                                value={this.props.website.faqs_page_title}
+                                label='Page Title'/>
+
+                    <div style={{marginTop: 16}}>
+                        <InputLabel >Description <Required/></InputLabel>
+                        <Form>
+                            <TextArea onChange={this.changeHandler('faqs_description')}
+                                      value={this.props.website.faqs_description}
+                                      placeholder=""/>
+                        </Form>
+                    </div>
+                </div>
+
+                {this.props.website.faqs.map((item, index) => {
+                        return (
+                            <div key={index} style={{
+                                color: '#21899A',
+                                marginTop: 12,
+                                padding: 12,
+                                paddingTop: 0,
+                                borderTop: '1px solid #E0E6E7',
+                            }}>
+
+                                <div style={{marginTop: 16}}>
+                                    <InputCombo onChange={this.changeFAQField(index, 'question')}
+                                                value={item.question}
+                                                placeholder="Can I bring a date?"
+                                                label='Question'/>
+
+                                    <div style={{marginTop: 12}}>
+                                        <InputLabel>Description <Required/></InputLabel>
+                                        <Form>
+                                        <TextArea onChange={this.changeFAQField(index, 'answer')}
+                                                  value={item.answer}
+                                                  placeholder="If your invitation says 'with guests' then yes..."/>
+                                        </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                )}
+
+                <div style={{
+                    marginTop: 12,
+                    padding: 8,
+                    paddingLeft: 12,
+                    border: '1px solid #E0E6E7',
+                    borderLeftWidth: 0,
+                    borderRightWidth: 0,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                }} onClick={this.addFAQClicked}>
+                    <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> Add Question</p>
+                </div>
+
             </div>
         }
     }
@@ -589,7 +673,7 @@ class Website extends Component {
         this.props.dispatch(action(events));
     }
 
-    addEventMeal(eventIndex){
+    addEventMeal(eventIndex) {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
         let events = [...this.props.website.events];
         console.log()
@@ -599,7 +683,7 @@ class Website extends Component {
         this.props.dispatch(action(events));
     }
 
-    removeEventMeal(eventIndex, mealIndex){
+    removeEventMeal(eventIndex, mealIndex) {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
         let events = [...this.props.website.events];
         console.log();
@@ -609,7 +693,7 @@ class Website extends Component {
         this.props.dispatch(action(events));
     }
 
-    updateEventMeal(eventIndex, mealIndex, text){
+    updateEventMeal(eventIndex, mealIndex, text) {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
         let events = [...this.props.website.events];
         console.log();
@@ -632,14 +716,39 @@ class Website extends Component {
         this.props.dispatch(action(items));
     }
 
+    addFAQClicked() {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'faqs');
+        const items = [...this.props.website.faqs, {question: "", answer: ""}];
+        this.props.dispatch(action(items));
+    }
+
+    removeFAQ(index) {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'faqs');
+        let items = [...this.props.website.faqs];
+        items.splice(index, 1);
+        this.props.dispatch(action(items));
+    }
+
+    changeFAQField(index, key, checkbox = false) {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'faqs');
+
+        return (e) => {
+            const val = checkbox ? e : e.target.value;
+            let items = [...this.props.website.faqs];
+            items[index][key] = val;
+            this.props.dispatch(action(items))
+        }
+    }
 }
 
 function InputLabel({children}) {
     return <p style={{marginBottom: 4}}>{children}</p>
 }
+
 function Subtitle({children, style}) {
     return <p style={{fontSize: 17, color: '#AEB9C0', marginBottom: 8, marginTop: 24, ...style}}>{children}</p>
 }
+
 function InputCombo({label, optional = false, onChange, value, style, placeholder = "", type = "input"}) {
     return <div style={{...style}}>
         <InputLabel>{label} {!optional && <Required/>} </InputLabel>
@@ -650,7 +759,7 @@ function InputCombo({label, optional = false, onChange, value, style, placeholde
 function RemovableInput({onChange, onRemove, value, style, placeholder = "", type = "input"}) {
     return <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', ...style}}>
         <Input style={{flex: 1}} placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
-        <Icon  onClick={onRemove} style={{paddingLeft: 10, paddingRight: 12}}  name='remove'/>
+        <Icon onClick={onRemove} style={{paddingLeft: 10, paddingRight: 12}} name='remove'/>
     </div>
 }
 
@@ -692,7 +801,7 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 4
+            index: 5
         }
     }
 
