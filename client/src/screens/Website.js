@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import {connect} from 'react-redux'
 import BorderedButton from "../components/BorderedButton";
 import Autocomplete from 'react-google-autocomplete';
+import rest  from '../services/external/rest/index';
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 
@@ -26,6 +27,8 @@ class Website extends Component {
         this.removePhoto = this.removePhoto.bind(this);
         this.addFAQClicked = this.addFAQClicked.bind(this);
         this.removeFAQ = this.removeFAQ.bind(this);
+
+        this.rest = rest;
     }
 
     getPredictions() {
@@ -163,10 +166,10 @@ class Website extends Component {
                 </Link>
 
                 <Subtitle>Main Photo <Required /> </Subtitle>
-                <File name="Upload Main Photo" icon="camera"/>
+                <File rest={this.rest} url="upload" name="Upload Main Photo" icon="camera"/>
 
                 <Subtitle>Bottom Photo </Subtitle>
-                <File name="Upload Bottom Photo" icon="camera"/>
+                <File rest={this.rest} url="template/media?image=bottom" name="Upload Bottom Photo" icon="camera"/>
             </div>
         }
     }
@@ -890,11 +893,17 @@ class File extends Component {
         this.state = {
             filename: ''
         }
+        this.rest = props.rest;
     }
 
     handleChange(files) {
-        console.log('change: ', files);
-        this.setState({filename: files[0]['name']})
+        console.log('file selected: ', files);
+        this.setState({filename: files[0]['name']});
+        this.rest.upload(this.props.url, files[0]).then(r => {
+            console.log(r)
+        }).catch(e => {
+            console.log("Error uploading: ", e)
+        })
     }
 
     render() {
@@ -910,7 +919,7 @@ class File extends Component {
             }}>
                 <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon
                     name="camera"/> {this.state.filename || this.props.name}</p>
-                <input onChange={ (e) => this.handleChange(e.target.files) } ref={this.fileInput}
+                <input name="file" onChange={ (e) => this.handleChange(e.target.files) } ref={this.fileInput}
                        style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}}
                        className="custom-file-input" type="file"/>
             </div>

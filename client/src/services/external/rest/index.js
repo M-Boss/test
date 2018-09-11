@@ -1,9 +1,9 @@
 import _ from 'lodash'
 
-export default class RestFetch {
+class RestFetch {
 
-    constructor(apiRoot){
-        this.root = apiRoot;
+    constructor(){
+        this.root = "http://localhost:8080/api/";
     }
 
     get(url){
@@ -37,6 +37,23 @@ export default class RestFetch {
             body: JSON.stringify(body), // body data type must match "Content-Type" header
         }).then(response => response.json()); // parses response to JSON
     }
+
+    upload(url, file){
+        console.log("uploading...", file);
+
+        const data = new FormData();
+        data.append('file', file);
+        data.append('name', 'file');
+
+        console.log("Data: ", data);
+
+        return fetch(this.root + url, {
+            method: 'POST',
+            body: data
+        }).then(response => response.json()); // parses response to JSON
+    }
 }
 
+const rest = new RestFetch();
 
+export default rest;
