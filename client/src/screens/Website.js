@@ -2,7 +2,7 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component} from 'react'
-import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox, TextArea, Select} from 'semantic-ui-react'
+import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox, TextArea, Select, Dimmer, Loader} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
 import Footer from "./Footer";
@@ -166,7 +166,7 @@ class Website extends Component {
                 </Link>
 
                 <Subtitle>Main Photo <Required /> </Subtitle>
-                <File rest={this.rest} url="website/upload?target=main" name="Upload Main Photo" icon="camera"/>
+                <File onUpload={(r) => console.log("Uploaded: ", r)} rest={this.rest} url="website/upload?target=main" name="Upload Main Photo" icon="camera"/>
 
                 <Subtitle>Bottom Photo </Subtitle>
                 <File rest={this.rest} url="website/upload?target=bottom" name="Upload Bottom Photo" icon="camera"/>
@@ -891,18 +891,25 @@ class File extends Component {
         super(props);
         this.file = React.createRef();
         this.state = {
-            filename: ''
+            filename: '',
+            loading: false
         }
         this.rest = props.rest;
     }
 
     handleChange(files) {
         console.log('file selected: ', files);
-        this.setState({filename: files[0]['name']});
+        this.setState({
+            filename: files[0]['name'],
+            loading: true
+        });
         this.rest.upload(this.props.url, files[0]).then(r => {
             console.log(r)
+            this.props.onUpload(r);
         }).catch(e => {
             console.log("Error uploading: ", e)
+        }).finally(() => {
+            this.setState({loading: false})
         })
     }
 
@@ -919,9 +926,15 @@ class File extends Component {
             }}>
                 <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon
                     name="camera"/> {this.state.filename || this.props.name}</p>
+                {this.state.loading &&
+                <Dimmer active>
+                    <Loader />
+                </Dimmer>}
+
+                {!this.state.loading &&
                 <input name="file" onChange={ (e) => this.handleChange(e.target.files) } ref={this.fileInput}
                        style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}}
-                       className="custom-file-input" type="file"/>
+                       className="custom-file-input" type="file"/>}
             </div>
         )
     }

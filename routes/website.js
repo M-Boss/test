@@ -13,6 +13,7 @@ router.post('/upload', function (req, res, next) {
     try {
         const target = _.get(req, 'query.target', null);
         const random = container.get('random');
+        const config = container.get('config');
 
         // console.log("File: ", req.files);
 
@@ -28,13 +29,16 @@ router.post('/upload', function (req, res, next) {
             return res.status(400).json({message: "Format not supported: " + extension, code: 700});
         }
 
-        const uploads = path.join(__dirname, "../public/user");
+        const uploads = path.join(__dirname, "../public/uploads");
         const filename = String(+new Date()) + random.randomString(8) + extension;
         file.mv(path.join(uploads, filename), function (err) {
             if (err)
                 return res.status(500).send(err);
 
-            res.json('File uploaded!');
+            res.json({
+                url: config.get("app.uploads") + filename,
+                filename: filename
+            });
         });
     }
     catch(e){

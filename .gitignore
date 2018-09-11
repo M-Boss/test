@@ -10,7 +10,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
-public/user/*
+public/uploads/*
 
 # Generated files
 .idea/**/contentModel.xml
