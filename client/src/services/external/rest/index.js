@@ -43,7 +43,6 @@ class RestFetch {
 
         const data = new FormData();
         data.append('file', file);
-        data.append('name', 'file');
 
         console.log("Data: ", data);
 

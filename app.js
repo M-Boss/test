@@ -43,13 +43,7 @@ app.get('*', (req, res)=>{
 //     res.json({});
 // })
 
-app.post('/api/upload', function (req, res, next) {
-    // req.file is the `avatar` file
-    // req.body will hold the text fields, if there were any
-    console.log("File: ", req.files);
-    res.json({});
-})
-
+app.use('/api/website', require('./routes/website'));
 
 
 // catch 404 and forward to error handler
