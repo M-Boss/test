@@ -75,7 +75,8 @@ router.post('/save', async function (req, res, next) {
         const db = container.get('db');
         const user = await db.User.findById(1);
 
-        user.website = JSON.parse(_.get(req, "body.website"));
+        // console.log(_.get(req, "body.website"));
+        user.website = _.get(req, "body.website");
         user.save().catch(e => {
             console.log("Error: ", e)
         }).then(r => {

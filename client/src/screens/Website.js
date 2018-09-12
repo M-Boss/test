@@ -9,7 +9,7 @@ import Footer from "./Footer";
 import {connect} from 'react-redux'
 import BorderedButton from "../components/BorderedButton";
 import Autocomplete from 'react-google-autocomplete';
-import rest  from '../services/external/rest/index';
+import rest  from '../services/external/rest';
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 
@@ -27,12 +27,19 @@ class Website extends Component {
         this.removePhoto = this.removePhoto.bind(this);
         this.addFAQClicked = this.addFAQClicked.bind(this);
         this.removeFAQ = this.removeFAQ.bind(this);
+        this.save = this.save.bind(this);
 
         this.rest = rest;
     }
 
-    getPredictions() {
-
+    save(){
+        this.setState({loading: true});
+        rest.post('website/save', {
+            website: this.props.website
+        })
+        .finally( () => {
+            this.setState({loading: false});
+        })
     }
 
     render() {
@@ -143,7 +150,7 @@ class Website extends Component {
                 </React.Fragment>
                 }
 
-                <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                <Button onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
             </div>
         }
     }
