@@ -31,19 +31,13 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.use('/api/website', require('./routes/website'));
+
+
 //At the end
 app.get('*', (req, res)=>{
     res.sendFile(path.join(__dirname, './client/build/index.html'));
-})
-
-// app.post('/api/upload', upload.single('file'), function (req, res, next) {
-//     // req.file is the `avatar` file
-//     // req.body will hold the text fields, if there were any
-//     console.log("File: ", req.file, req.body);
-//     res.json({});
-// })
-
-app.use('/api/website', require('./routes/website'));
+});
 
 
 // catch 404 and forward to error handler

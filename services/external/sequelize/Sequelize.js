@@ -10,7 +10,8 @@ module.exports = function(container, config){
 
     const db = {};
     const sequelize = new Sequelize('homestead', 'homestead', 'secret', {
-        host: 'database',
+        host: 'localhost',
+        port: 33061,
         dialect: 'mysql',
         operatorsAliases: false,
 

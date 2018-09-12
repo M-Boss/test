@@ -16,6 +16,11 @@ module.exports = {
                     isEmail: true,
                 }
             },
+            website: {
+                type: DataTypes.JSON,
+                defaultValue: {},
+                allowNull: true,
+            },
             password: {
                 type: DataTypes.STRING,
                 allowNull: false

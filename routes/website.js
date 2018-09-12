@@ -16,7 +16,6 @@ router.post('/upload', function (req, res, next) {
         const config = container.get('config');
 
         // console.log("File: ", req.files);
-
         const file = _.get(req, "files.file");
         if (!file) {
             return res.status(400).json({message: "File not uploaded ", code: 701});
@@ -40,6 +39,37 @@ router.post('/upload', function (req, res, next) {
                 filename: filename
             });
         });
+    }
+    catch(e){
+        console.log("Error: ", e);
+        return res.status(500).send("oops");
+    }
+});
+
+router.post('/save', async function (req, res, next) {
+    try {
+        const db = container.get('db');
+        const user = await db.User.findById(1);
+
+        user.website = JSON.parse(_.get(req, "body.website"));
+        user.save().catch(e => {
+            console.log("Error: ", e)
+        }).then(r => {
+            console.log("DONE: ", r)
+        });
+        res.json({});
+    }
+    catch(e){
+        console.log("Error: ", e);
+        return res.status(500).send("oops");
+    }
+});
+
+router.get('/get', async function (req, res, next) {
+    try {
+        const db = container.get('db');
+        const user = await db.User.findById(1);
+        res.json({user});
     }
     catch(e){
         console.log("Error: ", e);

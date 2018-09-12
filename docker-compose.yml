@@ -31,20 +31,20 @@ services:
 
   # The Database
 
-  web:
-    build:
-      context: ./
-      dockerfile: wp.dockerfile
-    ports:
-      - 8080:80
-    environment:
-      WORDPRESS_DB_HOST: database
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: secret
-    ports:
-      - "8000:80"
-    depends_on:
-      - database
+#  web:
+#    build:
+#      context: ./
+#      dockerfile: wp.dockerfile
+#    ports:
+#      - 8080:80
+#    environment:
+#      WORDPRESS_DB_HOST: database
+#      WORDPRESS_DB_USER: root
+#      WORDPRESS_DB_PASSWORD: secret
+#    ports:
+#      - "8000:80"
+#    depends_on:
+#      - database
 
 
 
