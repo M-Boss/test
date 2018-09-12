@@ -35,7 +35,7 @@ class RestFetch {
             redirect: "follow", // manual, *follow, error
             referrer: "no-referrer", // no-referrer, *client
             body: JSON.stringify(body), // body data type must match "Content-Type" header
-        }).then(response => response.json()); // parses response to JSON
+        }).then(response => response.json());
     }
 
     upload(url, file){

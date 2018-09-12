@@ -8,8 +8,9 @@ import Footer from "./Footer";
 import rest from '../services/external/rest'
 const {buildActionForKey, buildAction} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
+const {connect} = require('react-redux')
 
-export default class Login extends Component {
+class Login extends Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +20,8 @@ export default class Login extends Component {
             register_password: "",
             register_email: "",
             login_password: "",
-            login_email: ""
+            login_email: "",
+            loading: false
         };
 
         this.onTogglePassword = this.onTogglePassword.bind(this);
@@ -35,9 +37,9 @@ export default class Login extends Component {
     }
 
     login(){
-        let email = this.state.register_email;
-        const password = this.state.register_password;
-
+        let email = this.state.login_email;
+        const password = this.state.login_password;
+        this.setState({loading: true});
         rest.post('auth/login', {email, password})
             .then(r => {
                 const websiteAction = buildAction(actions.WEBSITE_RECORD);
@@ -48,16 +50,21 @@ export default class Login extends Component {
                     email: r.user.email,
                     token: r.user.token
                 }));
+
+                this.props.history.push('/create')
             })
             .catch(e => {
                 alert("Wrong credentials")
+            })
+            .finally(() => {
+                this.setState({loading: false});
             })
     }
 
     register(){
         let email = this.state.register_email;
         const password = this.state.register_password;
-
+        this.setState({loading: true});
         rest.post('auth/register', {email, password})
             .then(r => {
                 const user = r.user;
@@ -69,9 +76,15 @@ export default class Login extends Component {
                     email: r.user.email,
                     token: r.user.token
                 }));
+
+                this.props.history.push('/welcome')
             })
             .catch(e => {
-                alert("Wrong credentials")
+                console.log(e);
+                alert("Invalid or duplicate credentials")
+            })
+            .finally(() => {
+                this.setState({loading: false});
             })
     }
 
@@ -89,7 +102,7 @@ export default class Login extends Component {
                            icon={{name: 'eye', circular: true, link: true, onClick: this.onTogglePassword}}
                            placeholder='Password'/>
                 </Form.Field>
-                <Link to="/welcome"><Button style={{marginTop: 28}} fluid primary type='submit'>Log in</Button></Link>
+                <Button onClick={() => this.login()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>Log in</Button>
 
                 <p style={{marginTop: 40, textAlign: 'center'}}>Forgot your password?</p>
             </Form>
@@ -107,7 +120,7 @@ export default class Login extends Component {
                     <label>Password</label>
                     <Input value={this.state.register_password} onChange={e => this.setState({register_password: e.target.value})}  type='password' placeholder='Password'/>
                 </Form.Field>
-                <Link to="/welcome"><Button style={{marginTop: 28}} fluid primary type='submit'>Sign up for free</Button></Link>
+                <Button onClick={() => this.register()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>Sign up for free</Button>
             </Form>
         )
     }
@@ -135,3 +148,10 @@ export default class Login extends Component {
         )
     }
 }
+
+export default connect(state => {
+    return {
+        website: state.website,
+        user: state.user
+    }
+})(Login)
