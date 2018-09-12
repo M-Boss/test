@@ -166,10 +166,10 @@ class Website extends Component {
                 </Link>
 
                 <Subtitle>Main Photo <Required /> </Subtitle>
-                <File onUpload={(r) => console.log("Uploaded: ", r)} rest={this.rest} url="website/upload?target=main" name="Upload Main Photo" icon="camera"/>
+                <File onUpload={(r) => console.log("Uploaded: ", r)} rest={this.rest} url="website/upload?target=template_main" name="Upload Main Photo" icon="camera"/>
 
                 <Subtitle>Bottom Photo </Subtitle>
-                <File rest={this.rest} url="website/upload?target=bottom" name="Upload Bottom Photo" icon="camera"/>
+                <File rest={this.rest} url="website/upload?target=template_bottom" name="Upload Bottom Photo" icon="camera"/>
             </div>
         }
     }

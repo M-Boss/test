@@ -7,7 +7,7 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
-router.post('/upload', function (req, res, next) {
+router.post('/upload', async function (req, res, next) {
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
     try {
@@ -15,13 +15,17 @@ router.post('/upload', function (req, res, next) {
         const random = container.get('random');
         const config = container.get('config');
 
-        // console.log("File: ", req.files);
+        const allowedTargets = ["template_main", "template_bottom", "photos"];
+        const allowedExtensions = [".jpg", ".jpeg", ".gif", ".png"];
+
+        if(!allowedTargets.includes(target)){
+            return res.status(400).json({message: "Invalid target ", code: 702});
+        }
+
         const file = _.get(req, "files.file");
         if (!file) {
             return res.status(400).json({message: "File not uploaded ", code: 701});
         }
-
-        const allowedExtensions = [".jpg", ".jpeg", ".gif", ".png"];
 
         const extension = path.extname(file.name).toLowerCase();
         if (!allowedExtensions.includes(extension)) {
@@ -30,9 +34,29 @@ router.post('/upload', function (req, res, next) {
 
         const uploads = path.join(__dirname, "../public/uploads");
         const filename = String(+new Date()) + random.randomString(8) + extension;
-        file.mv(path.join(uploads, filename), function (err) {
+        file.mv(path.join(uploads, filename), async function (err) {
             if (err)
                 return res.status(500).send(err);
+
+            const db = container.get('db');
+            const user = await db.User.findById(1);
+
+            if(target === "photos"){
+                if(!user.website.photos){
+                    user.website.photos = [filename];
+                }
+                else{
+                    user.website.photos.push(filename);
+                }
+            }
+            else{
+                user.website[target] = filename;
+            }
+            console.log("Target: ", target, user.website);
+
+            user.update({website: user.website}).catch(e => {
+                console.log("Error saving: ", e)
+            });
 
             res.json({
                 url: config.get("app.uploads") + filename,
