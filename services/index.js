@@ -4,7 +4,7 @@
 const sequelizeFactory = require('./external/sequelize/Sequelize');
 const UsersDatabase = require('./internal/users/UsersDatabase');
 const Random = require('./internal/helpers/Random');
-// import Hasher from './internal/helpers/Hasher'
+const Hasher = require('./internal/helpers/Hasher');
 // import Helpers from './internal/helpers/Helpers'
 const Config =  require('./internal/config/Config')
 // import MailerConsole from "./external/mailer/MailerConsole";
@@ -17,7 +17,7 @@ container.registerFactory('db', sequelizeFactory, {lazy: false});
 container.registerClass('users', UsersDatabase);
 container.registerClass('random', Random);
 // container.registerClass('helper', Helper);
-// container.registerClass('hasher', Hasher);
+container.registerClass('hasher', Hasher);
 // container.registerClass('helpers', Helpers);
 container.registerClass('config', Config);
 // container.registerClass('mailer', MailerConsole);

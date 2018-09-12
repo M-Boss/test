@@ -2,31 +2,33 @@
  * Created by guy on 8/15/18.
  */
 
-class UsersDatabase{
+module.exports = class UsersDatabase{
 
-    constructor(db, hasher, helpers, emitter){
+    constructor(db, hasher, random){
         this.db = db;
         this.hasher = hasher;
+        this.random = random;
     }
-
 
     async create(data){
-        return this.db.User.create(data);
+        return this.db.User.create({
+            email: data.email,
+            password: this.hasher.hash(data.password),
+            website: {},
+            token: this.random.randomString(4) + String(+ new Date())
+        });
     }
-
 
     async login({email, password}){
         let user = await this.db.User.findOne({
-            where: {email: email}
+            where: {email: email},
         });
         if(!user || user.password !== this.hasher.hash(password)){
             throw(new Error);
         }
 
-        return {
-            token: "",
-            user
-        };
+        user["password"] = null;
+        return user;
     }
 
     async recover(email){
@@ -41,7 +43,6 @@ class UsersDatabase{
         return user.save().then(() => emitter.emit('recovery_token_generated', user));
     }
 
-
     async changePassword(email, token, newPassword){
         let user = await this.db.User.findOne({
             where: {email: email}
@@ -55,4 +56,3 @@ class UsersDatabase{
         return user.save();
     }
 }
-

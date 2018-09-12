@@ -3,9 +3,9 @@
  */
 const bcrypt = require('crypto');
 
-export default class Hasher {
+module.exports = class Hasher {
     hash(s){
-        return crypto.createHash('sha256').update(pwd).digest('base64');
+        return bcrypt.createHash('sha256').update(s).digest('base64');
     }
 }
 

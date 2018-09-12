@@ -2,27 +2,33 @@ const express = require('express');
 const router = express.Router();
 const container = require('../services');
 const _ = require('lodash');
+const validate = require('express-validation');
+const Joi = require('joi');
 
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
+const registerValidation = {
+    body: {
+        email: Joi.string().email().required(),
+        password: Joi.string().regex(/[a-zA-Z0-9]{1,30}/).required()
+    }
+};
 
-router.post('/auth/register', async function (req, res, next) {
+router.post('/auth/register', validate(registerValidation), async function (req, res, next) {
     const users = container.get('users');
     try {
-        await users.register({...req.body});
-        res.send({});
+        const user = await users.create({...req.body});
+        res.send({user});
     }
     catch (e){
-        res.sendStatus(400);
+        // console.log(e);
+        res.sendStatus(704); //probably duplicate email
     }
 });
 
-router.post('/auth/login', async function (req, res, next) {
+router.post('/auth/login', validate(registerValidation), async function (req, res, next) {
     const users = container.get('users');
     try{
-        let result = await users.login({...req.body});
-        res.send({});
+        let user = await users.login({...req.body});
+        res.send({user});
     }
     catch (e){
         res.sendStatus(400);
