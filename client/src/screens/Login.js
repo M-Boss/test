@@ -5,25 +5,74 @@ import React, {Component} from 'react'
 import {Menu, Segment, Button, Form, Grid, Input} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import Footer from "./Footer";
+import rest from '../services/external/rest'
+const {buildActionForKey, buildAction} = require('../services/internal/store/DefaultReducer');
+const actions = require('../services/internal/store/actionConstants');
+
 export default class Login extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             page: 'login',
-            showPassword: false
+            showPassword: false,
+            register_password: "",
+            register_email: "",
+            login_password: "",
+            login_email: ""
         };
 
         this.onTogglePassword = this.onTogglePassword.bind(this);
     }
 
     handleItemClick(page) {
-        this.setState({page})
+        this.setState({page});
         console.log(this.state);
     }
 
     onTogglePassword() {
         this.setState({showPassword: !this.state.showPassword})
+    }
+
+    login(){
+        let email = this.state.register_email;
+        const password = this.state.register_password;
+
+        rest.post('auth/login', {email, password})
+            .then(r => {
+                const websiteAction = buildAction(actions.WEBSITE_RECORD);
+                const userAction = buildAction(actions.USER_RECORD);
+
+                this.props.dispatch(websiteAction(r.user.website));
+                this.props.dispatch(userAction({
+                    email: r.user.email,
+                    token: r.user.token
+                }));
+            })
+            .catch(e => {
+                alert("Wrong credentials")
+            })
+    }
+
+    register(){
+        let email = this.state.register_email;
+        const password = this.state.register_password;
+
+        rest.post('auth/register', {email, password})
+            .then(r => {
+                const user = r.user;
+                const websiteAction = buildAction(actions.WEBSITE_RECORD);
+                const userAction = buildAction(actions.USER_RECORD);
+
+                this.props.dispatch(websiteAction(r.user.website));
+                this.props.dispatch(userAction({
+                    email: r.user.email,
+                    token: r.user.token
+                }));
+            })
+            .catch(e => {
+                alert("Wrong credentials")
+            })
     }
 
     renderLogin() {
@@ -32,11 +81,11 @@ export default class Login extends Component {
             <Form>
                 <Form.Field>
                     <label>Email</label>
-                    <input placeholder='Email'/>
+                    <input value={this.state.login_email} onChange={e => this.setState({login_email: e.target.value})} placeholder='Email'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Password</label>
-                    <Input input={this.state.showPassword ? 'input' : 'password'}
+                    <Input value={this.state.login_password} onChange={e => this.setState({login_password: e.target.value})} input={this.state.showPassword ? 'input' : 'password'}
                            icon={{name: 'eye', circular: true, link: true, onClick: this.onTogglePassword}}
                            placeholder='Password'/>
                 </Form.Field>
@@ -52,11 +101,11 @@ export default class Login extends Component {
             <Form>
                 <Form.Field>
                     <label>Email</label>
-                    <input placeholder='Email'/>
+                    <input value={this.state.register_email} onChange={e => this.setState({register_email: e.target.value})} placeholder='Email'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Password</label>
-                    <Input type='password' placeholder='Password'/>
+                    <Input value={this.state.register_password} onChange={e => this.setState({register_password: e.target.value})}  type='password' placeholder='Password'/>
                 </Form.Field>
                 <Link to="/welcome"><Button style={{marginTop: 28}} fluid primary type='submit'>Sign up for free</Button></Link>
             </Form>

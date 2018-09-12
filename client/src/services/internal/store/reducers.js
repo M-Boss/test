@@ -34,13 +34,10 @@ export const makeRootReducer = () => combineReducers({
 
         "public": true
     }),
-    // flightFilter: DefaultReducer(types.FLIGHT_FILTER_RECORD, {
-    //     types: [
-    //         "charter",
-    //         "system"
-    //     ],
-    //     type: 'oneway', //set initiated type for flight search type
-    // }),
+    user: DefaultReducer(constants.USER_RECORD, {
+        email: "",
+        token: ""
+    }),
 });
 
 export default makeRootReducer;
