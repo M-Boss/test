@@ -16,6 +16,8 @@ export const makeRootReducer = () => combineReducers({
         groom_mother: "",
         show_parents: false,
         template: 0,
+        template_main: "",
+        template_bottom: "",
         title: "",
         date: "",
         country: "",

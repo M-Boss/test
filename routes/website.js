@@ -38,8 +38,7 @@ router.post('/upload', async function (req, res, next) {
             if (err)
                 return res.status(500).send(err);
 
-            const db = container.get('db');
-            const user = await db.User.findById(1);
+            const user = req.user;
 
             if(target === "photos"){
                 if(!user.website.photos){

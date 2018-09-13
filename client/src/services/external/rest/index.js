@@ -56,7 +56,10 @@ class RestFetch {
         console.log("Data: ", data);
         return fetch(this.root + url, {
             method: 'POST',
-            body: data
+            body: data,
+            headers: {
+                "AUTHORIZATION": global.AUTHORIZATION || ""
+            }
         }).then(response => response.json()); // parses response to JSON
     }
 }

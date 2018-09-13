@@ -17,7 +17,9 @@ class Website extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            loading: false
+        };
         this.addStoryClicked = this.addStoryClicked.bind(this);
         this.addStoryClicked = this.addStoryClicked.bind(this);
         this.addEventClicked = this.addEventClicked.bind(this);
@@ -149,7 +151,7 @@ class Website extends Component {
                 </React.Fragment>
                 }
 
-                <Button onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
             </div>
         }
     }
@@ -172,10 +174,16 @@ class Website extends Component {
                 </Link>
 
                 <Subtitle>Main Photo <Required /> </Subtitle>
-                <File onUpload={(r) => console.log("Uploaded: ", r)} rest={this.rest} url="website/upload?target=template_main" name="Upload Main Photo" icon="camera"/>
+                <File onUpload={r => this.changeHandler('template_main', true)(r.filename)}
+                      rest={this.rest} url="website/upload?target=template_main"
+                      name={this.props.website.template_main ? "Change Main Image" : "Upload Main Photo"} icon="camera"/>
 
                 <Subtitle>Bottom Photo </Subtitle>
-                <File rest={this.rest} url="website/upload?target=template_bottom" name="Upload Bottom Photo" icon="camera"/>
+                <File onUpload={r => this.changeHandler('template_bottom', true)(r.filename)}
+                      rest={this.rest} url="website/upload?target=template_bottom"
+                      name={this.props.website.template_main ? "Change Bottom Image" : "Upload Bottom Photo"} icon="camera"/>
+
+                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
             </div>
         }
     }
@@ -191,7 +199,7 @@ class Website extends Component {
                                 label='Title'/>
 
                     <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeHandler('date')}
-                                value={this.props.website.title}
+                                value={this.props.website.date}
                                 label='Date'/>
 
                     <Grid style={{marginTop: 12}}>
@@ -208,12 +216,11 @@ class Website extends Component {
                     <div style={{marginTop: 16}}>
                         <InputLabel >Instagram Hashtag</InputLabel>
                         <Input style={{width: '100%'}} labelPosition='left' type='text' placeholder='AnythingForLove'>
-                            <Label basic>#</Label>
-                            <input />
+                            <Label  basic>#</Label>
+                            <input onChange={this.changeHandler('hashtag')} value={this.props.website.hashtag} />
                         </Input>
                     </div>
                 </div>
-
 
                 {this.props.website.stories.map((s, index) => {
                         let storyNumber = "First Story";
@@ -260,7 +267,6 @@ class Website extends Component {
                     }
                 )}
 
-
                 <div style={{
                     color: '#21899A',
                     marginTop: 12,
@@ -274,7 +280,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
             </div>
         }

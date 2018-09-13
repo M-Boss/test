@@ -13,6 +13,22 @@ const container = require('./services');
 
 var app = express();
 app.use(cors());
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
+// var upload = multer({ dest: '/Users/guy/Desktop/workspace/nikahku/public/user/' });
+// app.use( express.static( `${__dirname}/client/build` ) );
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+
+
+app.use('/api', usersRouter);
 app.use(async function (req, res, next) {
     const db = container.get('db');
     console.log(req.headers, req.headers['authorization']);
@@ -30,24 +46,8 @@ app.use(async function (req, res, next) {
     next();
 });
 app.use(fileUpload());
-// var upload = multer({ dest: '/Users/guy/Desktop/workspace/nikahku/public/user/' });
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// app.use( express.static( `${__dirname}/client/build` ) );
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
-
-app.use('/', indexRouter);
-app.use('/api', usersRouter);
-
 app.use('/api/website', require('./routes/website'));
+
 
 //At the end
 app.get('*', (req, res) => {
