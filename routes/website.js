@@ -111,7 +111,13 @@ router.post('/save', async function (req, res, next) {
         const user = req.user;
         // console.log(_.get(req, "body.website"));
         user.website = _.get(req, "body.website");
-        user.website.url = config.get("app.domain") + "w/" +  req.user.id + "";
+        let slug = "";
+        w = user.website;
+        if(w.bride_first && w.groom_first){
+            slug = `-${slugify(w.bride_first)}-${slugify(w.groom_first)}`;
+        }
+
+        user.website.url = config.get("app.domain") + "w/" +  req.user.id + slug;
         user.save().catch(e => {
             console.log("Error: ", e)
         }).then(r => {
@@ -122,6 +128,16 @@ router.post('/save', async function (req, res, next) {
     catch(e){
         console.log("Error: ", e);
         return res.status(500).send("oops");
+    }
+
+    function slugify(text)
+    {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
     }
 });
 
