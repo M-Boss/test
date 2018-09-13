@@ -10,8 +10,9 @@ import {connect} from 'react-redux'
 import BorderedButton from "../components/BorderedButton";
 import Autocomplete from 'react-google-autocomplete';
 import rest  from '../services/external/rest';
-const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
+const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
+const _ = require("lodash");
 
 class Website extends Component {
 
@@ -37,6 +38,12 @@ class Website extends Component {
         this.setState({loading: true});
         rest.post('website/save', {
             website: this.props.website
+        }).then(r => {
+            const website = _.get(r, "website");
+            if(website){
+                const action = buildAction(actions.WEBSITE_RECORD);
+                this.props.dispatch(action(website))
+            }
         })
         .finally( () => {
             this.setState({loading: false});
@@ -601,7 +608,7 @@ class Website extends Component {
 
                 <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Checkbox onChange={(e, {checked}) => this.changeHandler('show_photos', true)(checked)}
+                        <Checkbox onChange={(e, {checked}) => this.changeHandler('show_faqs', true)(checked)}
                                   toggle checked={this.props.website.show_faqs}/>
                         <p style={{marginLeft: 16}}>Show Page</p>
                     </div>
@@ -683,6 +690,10 @@ class Website extends Component {
                     <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> Add Question</p>
                 </div>
 
+                <div style={{padding: 12}}>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                </div>
+
             </div>
         }
     }
@@ -693,12 +704,16 @@ class Website extends Component {
             content: <div style={{padding: 12, paddingTop: 0}}>
 
                 <Subtitle>Website URL</Subtitle>
-                <p>http://nikahku.com/james-and-jessie</p>
+                <p>{this.props.website.url || "(Will be set upon save)"}</p>
 
                 <div style={{display: 'flex', alignItems: 'center', marginTop: 8}}>
                     <Checkbox onChange={(e, {checked}) => this.changeHandler('public', true)(checked)}
                               toggle checked={this.props.website.public}/>
                     <p style={{marginLeft: 16}}>Make publicly available</p>
+                </div>
+
+                <div style={{padding: 12}}>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
             </div>
         }
@@ -784,7 +799,6 @@ class Website extends Component {
         this.props.dispatch(action(items));
         this.save();
     }
-
 
     addFAQClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'faqs');

@@ -9,7 +9,7 @@ module.exports = class Config{
         this.config = {
             app: {
                 port: 8090,
-                domain: 'http://nikahku.com',
+                domain: 'http://nikahku.com/',
                 uploads: "https://nikahku.com/uploads/",
                 name: 'Nikahku',
             },

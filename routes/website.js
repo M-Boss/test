@@ -107,16 +107,17 @@ router.post('/upload', async function (req, res, next) {
 
 router.post('/save', async function (req, res, next) {
     try {
+        const config = container.get('config');
         const user = req.user;
-
         // console.log(_.get(req, "body.website"));
         user.website = _.get(req, "body.website");
+        user.website.url = config.get("app.domain") + "w/" +  req.user.id + "";
         user.save().catch(e => {
             console.log("Error: ", e)
         }).then(r => {
             //console.log("DONE: ", r)
         });
-        res.json({});
+        res.json({website: user.website});
     }
     catch(e){
         console.log("Error: ", e);
