@@ -23,7 +23,6 @@ class Login extends Component {
             login_email: "",
             loading: false
         };
-
         this.onTogglePassword = this.onTogglePassword.bind(this);
     }
 

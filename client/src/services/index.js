@@ -12,8 +12,14 @@ let container = new Container();
 //     return new RestFetch(config.get('app.api_root'));
 // });
 //
+
+const store = createStore();
 container.registerFactory('store', function(){
-    return createStore();
+    return store.store;
+});
+
+container.registerFactory('persistor', function(){
+    return store.persistor;
 });
 
 export default container;

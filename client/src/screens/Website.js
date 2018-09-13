@@ -13,7 +13,6 @@ import rest  from '../services/external/rest';
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 
-
 class Website extends Component {
 
     constructor(props) {
@@ -91,7 +90,7 @@ class Website extends Component {
             title: 'General Information',
             content: <div style={{padding: 12, paddingTop: 0}}>
                 <Subtitle>Bride</Subtitle>
-                <Grid >
+                <Grid>
                     <Grid.Column width={8}>
                         <InputCombo onChange={this.changeHandler('bride_first')} value={this.props.website.bride_first}
                                     label='First Name'/>
