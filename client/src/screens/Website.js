@@ -14,6 +14,23 @@ const {buildAction, buildActionForKey} = require('../services/internal/store/Def
 const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
 
+
+const validations = {
+    general: ["bride_first", "groom_first", "bride_last", "groom_last"],
+    template: ["template", "template_main"],
+    details: ["title", "date", "country", "city"],
+    events: ["events_page_title", "events_description"],
+    photos: ["photos_page_title", "photos_description"],
+    faqs: ["faqs_page_title", "faqs_description"],
+};
+export function isValid(key, state){
+    if(!key) return false;
+    for(let field of validations[key] || []){
+        if(!state[field]) return false;
+    }
+    return true;
+}
+
 class Website extends Component {
 
     constructor(props) {
@@ -60,7 +77,7 @@ class Website extends Component {
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
                     <div style={{marginBottom: 10, clear: 'both'}}></div>
-                    <Accordion index={0} onIndexChanged={index => {}} items={[
+                    <Accordion isValid={key => isValid(key, this.props.website)} index={0} onIndexChanged={index => {}} items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
                         this.accordionDetails(),
@@ -102,6 +119,7 @@ class Website extends Component {
 
     accordionGeneral() {
         return {
+            validation: 'general',
             title: 'General Information',
             content: <div style={{padding: 12, paddingTop: 0}}>
                 <Subtitle>Bride</Subtitle>
@@ -172,6 +190,7 @@ class Website extends Component {
     accordionTemplate() {
 
         return {
+            validation: 'template',
             title: 'Choose Template',
             content: <div style={{padding: 12, paddingTop: 0, paddingBottom: 10}}>
                 <Subtitle>Template <Required /> </Subtitle>
@@ -203,6 +222,7 @@ class Website extends Component {
 
     accordionDetails() {
         return {
+            validation: 'details',
             title: 'Wedding Details',
             content: <div>
 
@@ -314,6 +334,7 @@ class Website extends Component {
 
     accordionEvents() {
         return {
+            validation: 'events',
             title: 'Events',
             content: <div>
 
@@ -339,7 +360,6 @@ class Website extends Component {
                         </Form>
                     </div>
                 </div>
-
 
                 {this.props.website.events.map((e, index) => {
                         let no = "First Event";
@@ -544,6 +564,7 @@ class Website extends Component {
 
     accordionPhotos() {
         return {
+            validation: 'photos',
             title: 'Photos',
             content: <div>
 
@@ -609,6 +630,7 @@ class Website extends Component {
 
     accordionFAQ() {
         return {
+            validation: 'faqs',
             title: 'FAQs',
             content: <div>
 
@@ -904,14 +926,17 @@ class Accordion extends Component {
             overflow: 'hidden'
         };
 
-        return this.props.items.map(({title, content}, index) => {
+        return this.props.items.map(({title, content, validation}, index) => {
 
             const current = index === this.state.index;
-
+            const valid = this.props.isValid(validation);
             return (
                 <div key={index} style={{marginBottom: 8, userSelect: 'none', ...(current ? selectedStyle : {})}}>
                     <div onClick={() => this.onHeaderClicked(index)} style={{padding: 12, backgroundColor: '#FFF'}}>
-                        <p style={{fontSize: 18, margin: 0, lineHeight: '40px', float: 'left'}}>{title}</p>
+                        <p style={{fontSize: 18, margin: 0, lineHeight: '40px', float: 'left'}}>
+                            {valid && <Icon style={{color: '#63E09C'}} name='check circle'/>}
+                            {title}
+                        </p>
                         <Icon style={{lineHeight: '40px', float: 'right'}} name={current ? 'angle up' : 'angle down'}/>
                         <div style={{clear: 'both'}}></div>
                     </div>
