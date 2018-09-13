@@ -10,6 +10,21 @@ class App extends Component {
         super(props);
         this.store = container.get('store');
         this.persistor = container.get('persistor');
+
+        this.currentToken = "";
+        this.store.subscribe(this.listener.bind(this));
+    }
+
+    listener() {
+        let previousToken = this.currentToken;
+        this.currentToken = this.store.getState().user.token;
+
+        if (this.currentToken !== previousToken) {
+            // if (this.currentToken) {
+                console.log("Tokan changed to: ", this.currentToken);
+                global['AUTHORIZATION'] = this.currentToken;
+            // }
+        }
     }
 
     render() {

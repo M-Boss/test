@@ -15,9 +15,10 @@ var app = express();
 app.use(cors());
 app.use(async function (req, res, next) {
     const db = container.get('db');
+    console.log(req.headers, req.headers['authorization']);
     const user = await db.User.findOne({
         where: {
-            token: req.headers['X-TOKEN']
+            token: req.headers['authorization']
         }
     });
 
@@ -25,7 +26,7 @@ app.use(async function (req, res, next) {
         return res.sendStatus(403);
     }
     req.user = user;
-    console.log(req.headers, req.headers['X-TOKEN'], req.user.id);
+    console.log("Req.user: ", req.user.id);
     next();
 });
 app.use(fileUpload());

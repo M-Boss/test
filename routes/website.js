@@ -72,8 +72,7 @@ router.post('/upload', async function (req, res, next) {
 
 router.post('/save', async function (req, res, next) {
     try {
-        const db = container.get('db');
-        const user = await db.User.findById(1);
+        const user = req.user;
 
         // console.log(_.get(req, "body.website"));
         user.website = _.get(req, "body.website");
