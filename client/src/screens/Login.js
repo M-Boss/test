@@ -26,6 +26,12 @@ class Login extends Component {
         this.onTogglePassword = this.onTogglePassword.bind(this);
     }
 
+    componentDidMount(){
+        if(this.props.user.token){
+            this.props.history.push('/create')
+        }
+    }
+
     handleItemClick(page) {
         this.setState({page});
         console.log(this.state);

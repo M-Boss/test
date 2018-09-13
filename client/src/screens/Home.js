@@ -6,15 +6,15 @@ import {Menu, Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react
 import Slider from "react-slick";
 import Footer from "./Footer";
 import {H1, H2} from "../components/Headers";
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-export default class Home extends Component {
-
+class Home extends Component {
 
     constructor(props) {
         super(props);
         this.state = {};
     }
-
 
     render() {
         return <div style={{textAlign: 'center'}}>
@@ -26,7 +26,13 @@ export default class Home extends Component {
                 <H2 style={{color: '#3d434e'}}>With easy to use templates and
                     features to make your wedding planning that much easier.</H2>
 
-                <Button style={{marginTop: 20, marginBottom: 32}} primary>Register For Free</Button>
+                {!this.props.user.token &&
+                <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}} primary>Register For Free</Button></Link>}
+
+                {!!this.props.user.token &&
+                <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}} primary>To Your Website</Button></Link>}
+
+
             </section>
 
             <section style={{paddingTop: 48, paddingLeft: 32, paddingRight: 32,}}>
@@ -36,7 +42,14 @@ export default class Home extends Component {
 
                 {this.renderCarousel()}
 
-                <Button style={{marginTop: 20, marginBottom: 32}} primary>Choose Your Template</Button>
+                {!this.props.user.token &&
+                <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}} primary>Choose Your Template</Button></Link>}
+
+
+                {!!this.props.user.token &&
+                <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}} primary>Choose Your Template</Button></Link>}
+
+
             </section>
 
             <section style={{
@@ -58,7 +71,7 @@ export default class Home extends Component {
                     in any language. Be even closer to your
                     loved ones.</p>
 
-                <Button style={{marginTop: 20, marginBottom: 32}} primary>View English Website</Button>
+                <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>View English Website</Button></Link>
             </section>
 
             <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#F4F7F9'}}>
@@ -70,7 +83,8 @@ export default class Home extends Component {
                     want - we are adding templates all the time. Password protect your site or make
                     it unsearchable on google.</p>
 
-                <Button style={{marginTop: 20, marginBottom: 32}} primary>Try For Free</Button>
+                <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>Try For Free</Button></Link>
+
             </section>
 
             <section style={{paddingBottom: 40, paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
@@ -81,7 +95,7 @@ export default class Home extends Component {
                     to get guests excited, or for you to reminisce
                     after your wedding!</p>
 
-                <Button style={{marginTop: 20, marginBottom: 32}} primary>Get Started</Button>
+                <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>Get Started</Button></Link>
             </section>
 
             <section className="inverted" style={{
@@ -145,7 +159,6 @@ it on your wedding invitations." image={require("../static/images/step-03.svg")}
     }
 }
 
-
 function Step({step, title, body, image}) {
     return (
         <Grid verticalAlign='middle' columns='equal' style={{textAlign: 'left', marginTop: 32}}>
@@ -177,3 +190,9 @@ function RSVPRow({children}) {
         </Grid>
     )
 }
+
+export default connect(state => {
+    return {
+        user: state.user
+    }
+})(Home)

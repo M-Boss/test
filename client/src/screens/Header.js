@@ -5,15 +5,14 @@ import React, {Component, Fragment} from 'react'
 import {Menu, Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react'
 import Slider from "react-slick";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {connect} from 'react-redux'
 
-export default class Header extends Component {
-
+class Header extends Component {
 
     constructor(props) {
         super(props);
         this.state = {};
     }
-
 
     render() {
         return (
@@ -25,10 +24,16 @@ export default class Header extends Component {
                     <img width={160}  src={require('../static/images/logo-header.svg')}/>
                 </div>
                 <div className="" style={{maxWidth: 60}}>
-                    <Link to="/login"><p style={{color: '#F3817A'}}>Login</p></Link>
+                    {!this.props.user.token &&
+                    <Link to="/login"><p style={{color: '#F3817A'}}>Login</p></Link>}
                 </div>
-            </div>)
-
+            </div>
+        )
     }
 }
 
+export default connect(state => {
+    return {
+        user: state.user
+    }
+})(Header)

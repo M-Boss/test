@@ -60,7 +60,7 @@ class Website extends Component {
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
                     <div style={{marginBottom: 10, clear: 'both'}}></div>
-                    <Accordion items={[
+                    <Accordion index={0} onIndexChanged={index => {}} items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
                         this.accordionDetails(),
@@ -74,6 +74,12 @@ class Website extends Component {
                 <Footer/>
             </div>
         )
+    }
+
+    componentDidMount(){
+        if(!this.props.user.token){
+            this.props.history.push('/login')
+        }
     }
 
     changeHandler(key, checkbox = false) {
@@ -885,7 +891,7 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 6
+            index: 0
         }
     }
 
@@ -989,6 +995,7 @@ class File extends Component {
 
 export default connect(state => {
     return {
-        website: state.website
+        website: state.website,
+        user: state.user
     }
 })(Website)
