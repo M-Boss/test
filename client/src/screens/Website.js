@@ -559,8 +559,13 @@ class Website extends Component {
 
                 {this.props.website.photos.map((item, index) => {
                         return (
-                            <div style={{padding: 12}}>
-                                <File name={`Photo #${index + 1}`} icon="camera"/>
+                            <div style={{padding: 12, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                <File style={{flex: 1}} onUpload={r => this.photoUploaded(index, r.filename)}
+                                      rest={this.rest} url={`website/upload?target=photos&index=${index}`}
+                                      name={item ? "Change Photo" : `Photo #${index + 1}`} icon="camera"
+                                />
+
+                                <Icon onClick={() => this.removePhoto(index)} style={{paddingLeft: 10, paddingRight: 12}} name='remove'/>
                             </div>
                         )
                     }
@@ -583,7 +588,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
             </div>
         }
@@ -755,16 +760,31 @@ class Website extends Component {
 
     addPhotoClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
-        const items = [...this.props.website.photos, {uploaded: false}];
+        const items = [...this.props.website.photos, ""];
         this.props.dispatch(action(items));
     }
 
-    removePhoto(index) {
-        const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
-        let items = [...this.props.website.photos];
-        items.splice(index, 1);
-        this.props.dispatch(action(items));
+    async removePhoto(index) {
+        try{
+            const r = await this.rest.post('website/remove-photo', {index});
+            const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
+            let items = [...this.props.website.photos];
+            items.splice(index, 1);
+            this.props.dispatch(action(items));
+        }
+        catch(e){
+
+        }
     }
+
+    photoUploaded(index, filename){
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
+        const items = [...this.props.website.photos];
+        items[index] = filename;
+        this.props.dispatch(action(items));
+        this.save();
+    }
+
 
     addFAQClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'faqs');
@@ -934,7 +954,8 @@ class File extends Component {
                 backgroundColor: '#fafafb',
                 border: '1px solid',
                 borderRadius: 5,
-                borderColor: '#f2711c'
+                borderColor: '#f2711c',
+                ...this.props.style
             }}>
                 <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon
                     name="camera"/> {this.state.filename || this.props.name}</p>

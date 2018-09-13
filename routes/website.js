@@ -6,12 +6,47 @@ const container = require("../services");
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+const fs = require('fs');
+
+const uploads = path.join(__dirname, "../public/uploads");
+
+router.post('/remove-photo', async function (req, res, next) {
+    // req.file is the `avatar` file
+    // req.body will hold the text fields, if there were any
+    try {
+        const index = parseInt(_.get(req, 'body.index', null));
+        if(isNaN(index)){
+            return res.status(500).json("oops");
+        }
+
+        const photos = _.get(req.user, "website.photos", []);
+        if(photos.length <= index){
+            return res.json({});
+        }
+
+        console.log("Removing file: ", photos[index])
+        fs.unlinkSync(path.join(uploads, photos[index]));
+        return res.json({})
+    }
+    catch(e){
+        console.log("Error: ", e);
+        return res.status(500).send("oops");
+    }
+});
 
 router.post('/upload', async function (req, res, next) {
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
     try {
         const target = _.get(req, 'query.target', null);
+        // let targetIndex = 0;
+        // if(target === "photos"){
+        //     targetIndex = parseInt(_.get(req, 'query.index', ""));
+        //     if(isNaN(targetIndex) || targetIndex < 0 || targetIndex > 32){
+        //         return res.status(400).json({message: "Invalid target index ", code: 707});
+        //     }
+        // }
+
         const random = container.get('random');
         const config = container.get('config');
 
@@ -32,8 +67,10 @@ router.post('/upload', async function (req, res, next) {
             return res.status(400).json({message: "Format not supported: " + extension, code: 700});
         }
 
-        const uploads = path.join(__dirname, "../public/uploads");
-        const filename = String(+new Date()) + random.randomString(8) + extension;
+
+        let filename = req.user.id + "_" + target;//String(+new Date()) + random.randomString(8) + extension;
+        if(target==="photos") filename += String(+new Date()) + random.randomString(3); //filename+= "-" + targetIndex;
+        filename +=  extension;
         file.mv(path.join(uploads, filename), async function (err) {
             if (err)
                 return res.status(500).send(err);
@@ -42,16 +79,15 @@ router.post('/upload', async function (req, res, next) {
 
             if(target === "photos"){
                 if(!user.website.photos){
-                    user.website.photos = [filename];
+                    // user.website.photos = [filename];
                 }
                 else{
-                    user.website.photos.push(filename);
+                    // user.website.photos.push(filename);
                 }
             }
             else{
-                user.website[target] = filename;
+                // user.website[target] = filename;
             }
-            console.log("Target: ", target, user.website);
 
             user.update({website: user.website}).catch(e => {
                 console.log("Error saving: ", e)
@@ -78,7 +114,7 @@ router.post('/save', async function (req, res, next) {
         user.save().catch(e => {
             console.log("Error: ", e)
         }).then(r => {
-            console.log("DONE: ", r)
+            //console.log("DONE: ", r)
         });
         res.json({});
     }
