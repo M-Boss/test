@@ -389,7 +389,7 @@ class Website extends Component {
                                         <InputLabel >Venue</InputLabel>
                                         <Autocomplete
                                             style={{width: '100%', padding: 8, borderRadius: 4}}
-                                            placeholder=""
+                                            placeholder={e.venue}
                                             onPlaceSelected={(place) => {
                                                 console.log(place);
                                                 this.changeEventField(index, 'venue', true)(place.formatted_address)
@@ -416,6 +416,7 @@ class Website extends Component {
                                         {!e.manual_address ? "Fill in address manually" : "Search for location"}
                                     </div>
 
+                                    {e.manual_address &&
                                     <React.Fragment>
                                         <InputCombo optional style={{marginTop: 16}}
                                                     onChange={this.changeEventField(index, 'street')}
@@ -446,9 +447,7 @@ class Website extends Component {
                                                             label='Apt / Floor'/>
                                             </Grid.Column>
                                         </Grid>
-
-
-                                    </React.Fragment>
+                                    </React.Fragment>}
 
                                     <InputCombo optional style={{marginTop: 16}}
                                                 onChange={this.changeEventField(index, 'attire')}
@@ -491,6 +490,7 @@ class Website extends Component {
                                     {e.meals && e.meals.map((meal, mealIndex) =>
                                         <RemovableInput
                                             onChange={(e) => this.updateEventMeal(index, mealIndex, e.target.value)}
+                                            value={meal}
                                             placeholder="Vegetarian or chicken"
                                             style={{marginTop: 8}}
                                             onRemove={() => this.removeEventMeal(index, mealIndex)}/>
@@ -523,7 +523,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
                 </div>
             </div>
         }
