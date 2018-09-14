@@ -9,9 +9,9 @@ module.exports = function(container, config){
 
 
     const db = {};
-    const sequelize = new Sequelize('homestead', 'homestead', 'secret', {
-        host: 'localhost',
-        port: 33061,
+    const sequelize = new Sequelize(config.get("mysql.db"), config.get("mysql.user"), config.get("mysql.password"), {
+        host: config.get("mysql.host"),
+        port: config.get("mysql.port"),
         dialect: 'mysql',
         operatorsAliases: false,
 

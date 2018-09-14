@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 
 
 // var upload = multer({ dest: '/Users/guy/Desktop/workspace/nikahku/public/user/' });
-// app.use( express.static( `${__dirname}/client/build` ) );
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -31,6 +31,7 @@ app.use(cookieParser());
 app.use('/api', usersRouter);
 app.use('/api', require('./routes/publicWebsite'));
 app.use('/assets', express.static('public/uploads'));
+app.use( express.static( `${__dirname}/client/build` ) );
 //At the end
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './client/build/index.html'));

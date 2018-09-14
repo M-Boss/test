@@ -13,6 +13,13 @@ module.exports = class Config{
                 uploads: "https://nikahku.com/uploads/",
                 name: 'Nikahku',
             },
+            mysql: {
+                host: "",
+                db: "homestead",
+                user: "homestead",
+                password: "secret",
+                port: 33061
+            }
 
         }
     }
