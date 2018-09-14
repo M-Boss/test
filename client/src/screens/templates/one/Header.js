@@ -21,7 +21,9 @@ class Header extends Component {
                     <p style={{color: '#FFF', fontSize: 16}}>{this.props.label}</p>
                 </div>
                 <div className="" style={{maxWidth: 60}}>
-                    <Link to={'/menu'}> <img width={28} height={28} src={require('../../../static/images/menu.svg')}/></Link>
+                    {/*<Link to={'/menu'}> */}
+                        <img width={28} height={28} src={require('../../../static/images/menu.svg')}/>
+                    {/*</Link>*/}
                 </div>
             </div>
         )

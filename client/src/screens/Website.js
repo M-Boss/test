@@ -84,10 +84,14 @@ class Website extends Component {
                             <p><Icon name="long arrow alternate left"/> Back</p>
                         </Link>
 
-                        <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
-                        <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
+                        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 20, marginBottom: 20}}>
+                            <H2 style={{flex: 1, margin: 0, lineHeight: '22px', float: 'left'}}>Website creation</H2>
+                            {this.props.website.url &&
+                            <a target="_blank" href={this.props.website.url}><div style={{color: '#BFCAD1', lineHeight: '24px'}}>
+                                <Icon name='eye'/>Preview
+                            </div></a>}
                         </div>
-                        <div style={{marginBottom: 10, clear: 'both'}}></div>
+
                         <Accordion startingIndex={this.firstAccordionSection}
                                    isValid={key => validator.isValid(key, this.props.website)} index={0}
                                    onIndexChanged={index => {

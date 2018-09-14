@@ -1,17 +1,12 @@
 import _ from 'lodash'
 
-export default class Config{
-
-    constructor(){
-        this.config = {
-            app: {
-                api_root: 'http://nikahku.com/api/',
-                static_root: 'http://nikahku.com/static/',
-            }
-        }
+const config = {
+    app: {
+        api_root: 'http://nikahku.com/api/',
+        assets: 'http://localhost:8080/assets/',
     }
+};
 
-    get(key){
-        return _.get(this.config, key);
-    }
-}
+export default function(key){
+    return _.get(config, key)
+};

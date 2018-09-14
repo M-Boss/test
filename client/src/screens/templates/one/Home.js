@@ -10,6 +10,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Header from './Header'
 import moment from 'moment'
+import config from '../../../services/internal/config/Config';
+
 
 class Home extends Component {
 
@@ -18,33 +20,70 @@ class Home extends Component {
         this.state = {};
     }
 
+
     render() {
         const website = this.props.website;
+        const background = website.template_main ? config("app.assets") + website.template_main : require('./assets/bg-1.png');
+        const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('./assets/footer-01.png');
+
         return (
             <div style={{overflow: 'hidden'}}>
-                <Header label={website.bride_first + " & " + website.groom_first} />
+                <Header label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{position: 'relative'}}>
-                    <img style={{width: '100%'}} src={require('./assets/bg-1.png')} />
-                    <em><h1 style={{textAlign: 'center', width: '100%', position: 'absolute', top: 45, color: 'white', textShadow: '1px 1px #777'}}>We're <br/> getting married!</h1></em>
-                    <img style={{marginTop: -30}} src={require('./assets/flower-top.png')} />
+                    <div style={{
+                        backgroundImage: `url(${background})`,
+                        width: '100%', height: 300,
+                        backgroundSize: 'cover'
+                    }}> </div>
+                    <em><h1 style={{
+                        textAlign: 'center',
+                        width: '100%',
+                        position: 'absolute',
+                        top: 45,
+                        color: 'white',
+                        textShadow: '1px 1px #777'
+                    }}>We're <br/> getting married!</h1></em>
+                    <img style={{marginTop: -30}} src={require('./assets/flower-top.png')}/>
                 </div>
                 <div style={{position: 'relative', paddingBottom: 130}}>
                     <em style={{textAlign: 'center'}}>
-                        <h1>{website.groom_first  + " " + website.groom_last}</h1>
-                        <h1>{website.bride_first  + " " + website.bride_last}</h1>
+                        <h1>{website.groom_first + " " + website.groom_last}</h1>
+                        <h1>{website.bride_first + " " + website.bride_last}</h1>
                     </em>
-                    <img style={{position: 'absolute', top: 40, left: '50%', marginLeft: -80, width: 160, height: 160, marginTop: -80}} src={require('./assets/center.png')} />
+                    <img style={{
+                        position: 'absolute',
+                        top: 40,
+                        left: '50%',
+                        marginLeft: -80,
+                        width: 160,
+                        height: 160,
+                        marginTop: -80
+                    }} src={require('./assets/center.png')}/>
                 </div>
 
                 <div>
-                    <div style={{ height:100, width: '150%', marginLeft: -20, transform: 'rotate(-15deg)', backgroundColor: '#f1f4f8'}}></div>
+                    <div style={{
+                        height: 100,
+                        width: '150%',
+                        marginLeft: -20,
+                        transform: 'rotate(-15deg)',
+                        backgroundColor: '#f1f4f8'
+                    }}></div>
                 </div>
                 <div>
-                    <img style={{ marginTop: -250, transform: 'rotate(-0deg)'}} align="right" src={require('./assets/flower-bottom.png')} />
-                    <div style={{clear: 'both'}}> </div>
+                    <img style={{marginTop: -250, transform: 'rotate(-0deg)'}} align="right"
+                         src={require('./assets/flower-bottom.png')}/>
+                    <div style={{clear: 'both'}}></div>
                 </div>
 
-                <div style={{ marginTop: -30, marginBottom: -70, paddingTop: 60, paddingBottom: 80, backgroundColor: '#f1f4f8', textAlign: 'center'}}>
+                <div style={{
+                    marginTop: -30,
+                    marginBottom: -70,
+                    paddingTop: 60,
+                    paddingBottom: 80,
+                    backgroundColor: '#f1f4f8',
+                    textAlign: 'center'
+                }}>
                     <h3 style={{color: '#edadbd'}}>SON OF</h3>
                     <h2>{website.groom_father + " & " + website.groom_mother}</h2>
                     <br/>
@@ -54,17 +93,26 @@ class Home extends Component {
                 </div>
 
                 <div>
-                    <div style={{ height:100, width: '150%', marginLeft: -20, transform: 'rotate(-15deg)', backgroundColor: '#f1f4f8'}}></div>
+                    <div style={{
+                        height: 100,
+                        width: '150%',
+                        marginLeft: -20,
+                        transform: 'rotate(-15deg)',
+                        backgroundColor: '#f1f4f8'
+                    }}></div>
                 </div>
                 <div>
-                    <img style={{ marginTop: -10, transform: 'rotate(-0deg)'}} src={require('./assets/flower-top.png')} />
-                    <div style={{clear: 'both'}}> </div>
+                    <img style={{marginTop: -10, transform: 'rotate(-0deg)'}} src={require('./assets/flower-top.png')}/>
+                    <div style={{clear: 'both'}}></div>
                 </div>
                 {website.date &&
                 <div style={{textAlign: 'center', position: 'relative', marginTop: -50, paddingBottom: 130}}>
                     <h3 style={{color: '#edadbd'}}>ON</h3>
                     <H2>{moment(website.date, "YYYY-MM-DD").format('Do MMMM')}</H2>
-                    <H2 style={{color: '#6c86a1', fontWeight: '400'}}>{moment(website.date, "YYYY-MM-DD").format('YYYY')}</H2>
+                    <H2 style={{
+                        color: '#6c86a1',
+                        fontWeight: '400'
+                    }}>{moment(website.date, "YYYY-MM-DD").format('YYYY')}</H2>
                     <h5 style={{color: '#6c86a1', marginTop: 50, marginBottom: 50}}>#{website.hashtag}</h5>
                     <h3 style={{color: '#edadbd'}}>IN</h3>
                     <H2>{website.city}</H2>
@@ -73,11 +121,18 @@ class Home extends Component {
 
 
                 <div>
-                    <div style={{ height:100, width: '150%', marginLeft: -20, transform: 'rotate(-15deg)', backgroundColor: '#f1f4f8'}}></div>
+                    <div style={{
+                        height: 100,
+                        width: '150%',
+                        marginLeft: -20,
+                        transform: 'rotate(-15deg)',
+                        backgroundColor: '#f1f4f8'
+                    }}></div>
                 </div>
                 <div>
-                    <img style={{ marginTop: -250, transform: 'rotate(-0deg)'}} align="right" src={require('./assets/flower-bottom.png')} />
-                    <div style={{clear: 'both'}}> </div>
+                    <img style={{marginTop: -250, transform: 'rotate(-0deg)'}} align="right"
+                         src={require('./assets/flower-bottom.png')}/>
+                    <div style={{clear: 'both'}}></div>
                 </div>
 
 
@@ -95,28 +150,52 @@ class Home extends Component {
                         color: '#edadbd',
                         marginTop: 0
                     }}>{moment(website.stories[0].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</h5>
-                    <p style={{fontFamily: 'Georgia, serif', padding: 20, color: '#72859a', textAlign: 'left'}}>{website.stories[0].description}</p>
+                    <p style={{
+                        fontFamily: 'Georgia, serif',
+                        padding: 20,
+                        color: '#72859a',
+                        textAlign: 'left'
+                    }}>{website.stories[0].description}</p>
                 </div>}
 
 
                 <div>
-                    <div style={{ height:100, width: '150%', marginLeft: -20, transform: 'rotate(-15deg)', backgroundColor: '#f1f4f8'}}></div>
+                    <div style={{
+                        height: 100,
+                        width: '150%',
+                        marginLeft: -20,
+                        transform: 'rotate(-15deg)',
+                        backgroundColor: '#f1f4f8'
+                    }}></div>
                 </div>
 
 
                 <div style={{textAlign: 'center', paddingTop: 80, paddingBottom: 50}}>
-                    <h1>{(website.groom_first || " ")[0].toUpperCase()} <img width={28} src={require('./assets/and.png')}/> {(website.bride_first || " ")[0].toUpperCase()}</h1>
-                    <img style={{width: 160}} src={require('./assets/footer-under-names.png')} />
+                    <h1>{(website.groom_first || " ")[0].toUpperCase()} <img width={28}
+                                                                             src={require('./assets/and.png')}/> {(website.bride_first || " ")[0].toUpperCase()}
+                    </h1>
+                    <img style={{width: 160}} src={require('./assets/footer-under-names.png')}/>
                 </div>
 
 
-                <div style={{ paddingBottom: 0}}>
-                    <img style={{width: '100%'}} src={require('./assets/footer-01.png')} />
+                <div style={{paddingBottom: 0}}>
+                    <div style={{
+                        backgroundImage: `url(${bottom})`,
+                        width: '100%', height: 250,
+                        backgroundSize: 'cover'
+                    }}> </div>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 12, paddingBottom: 30}}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 12,
+                    paddingBottom: 15
+                }}>
                     <h5 style={{margin: 0, marginRight: 10}}>With love by</h5>
-                    <img style={{height: 24}} src={require('./assets/logo.png')} />
-                    <h6 style={{margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}><Link to='/'> ABOUT </Link></h6>
+                    <img style={{height: 24}} src={require('./assets/logo.png')}/>
+                    <h6 style={{margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}><Link to='/'>
+                        ABOUT </Link></h6>
                 </div>
 
                 <div style={{backgroundColor: '#72859a', color: '#FFF', padding: 12}}>
@@ -129,7 +208,7 @@ class Home extends Component {
 
 }
 
-function H2({children, style}){
+function H2({children, style}) {
     return <h2 style={{color: '#6c86a1', marginTop: -10, ...style}}>{children}</h2>
 }
 export default connect(state => {
