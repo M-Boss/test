@@ -14,11 +14,16 @@ module.exports = class Config{
                 name: 'Nikahku',
             },
             mysql: {
-                host: "",
+                host: "nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com",
                 db: "homestead",
-                user: "homestead",
-                password: "secret",
-                port: 33061
+                user: "sharon",
+                password: "jskk((282ja88DD",
+                port: 3306
+                // host: "",
+                // db: "homestead",
+                // user: "homestead",
+                // password: "secret",
+                // port: 33061
             }
 
         }
