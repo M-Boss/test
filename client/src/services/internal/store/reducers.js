@@ -40,6 +40,8 @@ export const makeRootReducer = () => combineReducers({
         email: "",
         token: ""
     }),
+
+    templates: DefaultReducer(constants.TEMPLATE_RECORD, {}),
 });
 
 export default makeRootReducer;

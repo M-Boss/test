@@ -41,8 +41,6 @@ class Website extends Component {
             loading: false
         };
         this.rest = rest;
-
-
     }
 
     render() {

@@ -10,6 +10,8 @@ import Website from './screens/Website'
 import Templates from './screens/Templates'
 import Welcome from './screens/Welcome'
 import Dashboard from './screens/Dashboard'
+
+import TemplateHome from './screens/templates/Home'
 import {
     BrowserRouter as Router,
     Route,
@@ -39,6 +41,8 @@ class Nikahku extends Component {
                     <Route path="/welcome" component={Welcome}/>
                     <Route path="/create" component={Website}/>
                     <Route path="/choose_template" component={Templates}/>
+
+                    <Route path="/w/:id" component={TemplateHome}/>
                 </div>
             </Router>
         );

@@ -2,4 +2,5 @@
 
 export const WEBSITE_RECORD = "WEBSITE_RECORD";
 export const USER_RECORD = "USER_RECORD";
+export const TEMPLATE_RECORD = "TEMPLATE_RECORD";
 

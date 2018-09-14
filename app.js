@@ -29,6 +29,12 @@ app.use(cookieParser());
 
 
 app.use('/api', usersRouter);
+app.use('/api', require('./routes/publicWebsite'));
+//At the end
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build/index.html'));
+});
+
 app.use(async function (req, res, next) {
     const db = container.get('db');
     // console.log(req.headers, req.headers['authorization']);
@@ -49,10 +55,7 @@ app.use(fileUpload());
 app.use('/api/website', require('./routes/website'));
 
 
-//At the end
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
-});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
