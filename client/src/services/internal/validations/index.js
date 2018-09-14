@@ -15,7 +15,24 @@ class Validator {
     }
 
     getKeys(){
-        return this.validations;
+        const result = [];
+        for(const k in this.validations){
+            if(this.validations.hasOwnProperty(k)){
+                result.push(k);
+            }
+        }
+        return result;
+    }
+
+    labelOf(k){
+        return {
+            'general': 'General Information',
+            'template': 'Choose Template',
+            'details': 'Wedding Details',
+            'events': 'Events',
+            'photos': 'Photos',
+            'faqs': 'FAQs',
+        }[k];
     }
 
     getPercentage(state){

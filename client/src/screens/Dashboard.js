@@ -69,11 +69,15 @@ class Website extends Component {
                         <div style={{margin: 12, marginTop: 2}}>
                             <img style={{width: '100%'}} src={require('../static/images/template-01.jpg')}
                                  alt={"Selected template"}/>
-                        </div>
-                        }
+                        </div>}
 
-                        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 12}}>
-                            <Section />
+                        <div style={{padding: 12, paddingBottom: 32}}>
+                            {
+                                validator.getKeys().map(k => {
+                                    return <Section label={validator.labelOf(k)}
+                                                    done={validator.isValid(k, this.props.website)}/>
+                                })
+                            }
                         </div>
                     </div>
                 </div>
@@ -99,14 +103,20 @@ class Website extends Component {
 }
 
 
-function Section(){
+function Section({label, done}) {
     return (
-        <p style={{fontSize: 16}}>
-            {true &&
-            <Icon style={{fontSize: 18, paddingRight: 10, color: '#63E09C'}} name='check circle'/>}
-            Wedding Details
-            <Icon style={{fontSize: 12, paddingLeft: 10, color: '#888'}} name='pencil'/>
-        </p>
+        <Link to="/create">
+            <p style={{fontSize: 18, marginTop: 30, marginLeft: 10}}>
+                {done &&
+                <Icon style={{fontSize: 20, paddingRight: 10, color: '#63E09C'}} name='check circle'/>}
+
+                {!done &&
+                <Icon style={{fontSize: 18, paddingRight: 10, color: '#ddd'}} name='circle'/>}
+
+                {label}
+                <Icon style={{fontSize: 12, paddingLeft: 10, color: '#888'}} name='pencil'/>
+            </p>
+        </Link>
     )
 }
 export default connect(state => {

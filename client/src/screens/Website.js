@@ -54,8 +54,12 @@ class Website extends Component {
     render() {
         return (
             <div style={{backgroundColor: '#F4F7F9'}}>
-
                 <div style={{padding: 24}}>
+
+                    <Link to="/dashboard">
+                        <p><Icon name="long arrow alternate left"/> Back</p>
+                    </Link>
+
                     <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
