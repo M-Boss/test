@@ -39,11 +39,13 @@ class Website extends Component {
         this.state = {
             loading: false
         };
-
         this.rest = rest;
+
+
     }
 
     render() {
+
         const percentage = Math.floor(validator.getPercentage(this.props.website) * 100);
 
         return (
@@ -75,6 +77,7 @@ class Website extends Component {
                             {
                                 validator.getKeys().map(k => {
                                     return <Section label={validator.labelOf(k)}
+                                                    k={k}
                                                     done={validator.isValid(k, this.props.website)}/>
                                 })
                             }
@@ -103,9 +106,9 @@ class Website extends Component {
 }
 
 
-function Section({label, done}) {
+function Section({label, done, k}) {
     return (
-        <Link to="/create">
+        <Link to={"/create#" + k}>
             <p style={{fontSize: 18, marginTop: 30, marginLeft: 10}}>
                 {done &&
                 <Icon style={{fontSize: 20, paddingRight: 10, color: '#63E09C'}} name='check circle'/>}

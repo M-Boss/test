@@ -33,6 +33,13 @@ class Website extends Component {
         this.save = this.save.bind(this);
 
         this.rest = rest;
+        this.firstAccordionSection = this.getAccordionSectionIndex(props.location.hash);
+    }
+
+    getAccordionSectionIndex(hash){
+        if(!hash) return 0;
+        const index = validator.getKeys().indexOf(hash.substring(1));
+        return index >= 0 ? index : 0;
     }
 
     save(){
@@ -64,7 +71,7 @@ class Website extends Component {
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
                     <div style={{marginBottom: 10, clear: 'both'}}></div>
-                    <Accordion isValid={key => validator.isValid(key, this.props.website)} index={0} onIndexChanged={index => {}} items={[
+                    <Accordion startingIndex={this.firstAccordionSection} isValid={key => validator.isValid(key, this.props.website)} index={0} onIndexChanged={index => {}} items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
                         this.accordionDetails(),
@@ -900,8 +907,10 @@ class Accordion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 0
+            index: props.startingIndex
         }
+
+        console.log(props.startingIndex)
     }
 
     render() {
