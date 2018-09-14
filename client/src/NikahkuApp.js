@@ -32,7 +32,6 @@ class Nikahku extends Component {
         return (
             <Router>
                 <div style={{ width: 380, margin: 'auto'}}>
-                    <Header />
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/dashboard" component={Dashboard}/>

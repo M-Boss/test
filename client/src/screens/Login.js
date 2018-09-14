@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import {Menu, Segment, Button, Form, Grid, Input} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import Footer from "./Footer";
+import Header from "./Header";
 import rest from '../services/external/rest'
 const {buildActionForKey, buildAction} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
@@ -133,6 +134,8 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
+                <Header />
+
                 <div style={{textAlign: 'center', marginBottom: 32, marginTop: 20}}>
                     <Menu pointing secondary compact>
                         <Menu.Item name='Log in' active={this.state.page === 'login'}

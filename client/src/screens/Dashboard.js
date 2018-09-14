@@ -20,6 +20,7 @@ import {
 import {Link} from 'react-router-dom'
 import {H1, H2} from "../components/Headers";
 import Footer from "./Footer";
+import Header from "./Header";
 import {connect} from 'react-redux'
 import BorderedButton from "../components/BorderedButton";
 import Autocomplete from 'react-google-autocomplete';
@@ -50,6 +51,7 @@ class Website extends Component {
 
         return (
             <React.Fragment>
+                    <Header />
 
                 <div style={{backgroundColor: '#F4F7F9', padding: 12}}>
                     <div style={{backgroundColor: '#FFFFFF'}}>

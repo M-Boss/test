@@ -2,7 +2,21 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component} from 'react'
-import {Menu, Segment, Button, Form, Grid, Icon, Input, Label, Checkbox, TextArea, Select, Dimmer, Loader} from 'semantic-ui-react'
+import {
+    Menu,
+    Segment,
+    Button,
+    Form,
+    Grid,
+    Icon,
+    Input,
+    Label,
+    Checkbox,
+    TextArea,
+    Select,
+    Dimmer,
+    Loader
+} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
 import Footer from "./Footer";
@@ -10,6 +24,7 @@ import {connect} from 'react-redux'
 import BorderedButton from "../components/BorderedButton";
 import Autocomplete from 'react-google-autocomplete';
 import rest  from '../services/external/rest';
+import Header from "./Header";
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
@@ -36,59 +51,65 @@ class Website extends Component {
         this.firstAccordionSection = this.getAccordionSectionIndex(props.location.hash);
     }
 
-    getAccordionSectionIndex(hash){
-        if(!hash) return 0;
+    getAccordionSectionIndex(hash) {
+        if (!hash) return 0;
         const index = validator.getKeys().indexOf(hash.substring(1));
         return index >= 0 ? index : 0;
     }
 
-    save(){
+    save() {
         this.setState({loading: true});
         rest.post('website/save', {
             website: this.props.website
         }).then(r => {
             const website = _.get(r, "website");
-            if(website){
+            if (website) {
                 const action = buildAction(actions.WEBSITE_RECORD);
                 this.props.dispatch(action(website))
             }
         })
-        .finally( () => {
-            this.setState({loading: false});
-        })
+            .finally(() => {
+                this.setState({loading: false});
+            })
     }
 
     render() {
         return (
-            <div style={{backgroundColor: '#F4F7F9'}}>
-                <div style={{padding: 24}}>
+            <React.Fragment>
+                <Header />
+                <div style={{backgroundColor: '#F4F7F9'}}>
+                    <div style={{padding: 24}}>
 
-                    <Link to="/dashboard">
-                        <p><Icon name="long arrow alternate left"/> Back</p>
-                    </Link>
+                        <Link to="/dashboard">
+                            <p><Icon name="long arrow alternate left"/> Back</p>
+                        </Link>
 
-                    <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
-                    <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
+                        <H2 style={{lineHeight: '22px', float: 'left'}}>Website creation</H2>
+                        <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
+                        </div>
+                        <div style={{marginBottom: 10, clear: 'both'}}></div>
+                        <Accordion startingIndex={this.firstAccordionSection}
+                                   isValid={key => validator.isValid(key, this.props.website)} index={0}
+                                   onIndexChanged={index => {
+                                   }} items={[
+                            this.accordionGeneral(),
+                            this.accordionTemplate(),
+                            this.accordionDetails(),
+                            this.accordionEvents(),
+                            this.accordionPhotos(),
+                            this.accordionFAQ(),
+                            this.accordionSettings(),
+                        ]}>
+                        </Accordion>
                     </div>
-                    <div style={{marginBottom: 10, clear: 'both'}}></div>
-                    <Accordion startingIndex={this.firstAccordionSection} isValid={key => validator.isValid(key, this.props.website)} index={0} onIndexChanged={index => {}} items={[
-                        this.accordionGeneral(),
-                        this.accordionTemplate(),
-                        this.accordionDetails(),
-                        this.accordionEvents(),
-                        this.accordionPhotos(),
-                        this.accordionFAQ(),
-                        this.accordionSettings(),
-                    ]}>
-                    </Accordion>
+                    <Footer/>
                 </div>
-                <Footer/>
-            </div>
+            </React.Fragment>
         )
     }
 
-    componentDidMount(){
-        if(!this.props.user.token){
+    componentDidMount() {
+        if (!this.props.user.token) {
             this.props.history.push('/login')
         }
     }
@@ -176,7 +197,8 @@ class Website extends Component {
                 </React.Fragment>
                 }
 
-                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                        primary fluid>Save</Button>
             </div>
         }
     }
@@ -202,14 +224,17 @@ class Website extends Component {
                 <Subtitle>Main Photo <Required /> </Subtitle>
                 <File onUpload={r => this.changeHandler('template_main', true)(r.filename)}
                       rest={this.rest} url="website/upload?target=template_main"
-                      name={this.props.website.template_main ? "Change Main Image" : "Upload Main Photo"} icon="camera"/>
+                      name={this.props.website.template_main ? "Change Main Image" : "Upload Main Photo"}
+                      icon="camera"/>
 
                 <Subtitle>Bottom Photo </Subtitle>
                 <File onUpload={r => this.changeHandler('template_bottom', true)(r.filename)}
                       rest={this.rest} url="website/upload?target=template_bottom"
-                      name={this.props.website.template_main ? "Change Bottom Image" : "Upload Bottom Photo"} icon="camera"/>
+                      name={this.props.website.template_main ? "Change Bottom Image" : "Upload Bottom Photo"}
+                      icon="camera"/>
 
-                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                        primary fluid>Save</Button>
             </div>
         }
     }
@@ -243,8 +268,8 @@ class Website extends Component {
                     <div style={{marginTop: 16}}>
                         <InputLabel >Instagram Hashtag</InputLabel>
                         <Input style={{width: '100%'}} labelPosition='left' type='text' placeholder='AnythingForLove'>
-                            <Label  basic>#</Label>
-                            <input onChange={this.changeHandler('hashtag')} value={this.props.website.hashtag} />
+                            <Label basic>#</Label>
+                            <input onChange={this.changeHandler('hashtag')} value={this.props.website.hashtag}/>
                         </Input>
                     </div>
                 </div>
@@ -307,7 +332,8 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                            primary fluid>Save</Button>
                 </div>
             </div>
         }
@@ -550,7 +576,8 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                            primary fluid>Save</Button>
                 </div>
             </div>
         }
@@ -593,7 +620,8 @@ class Website extends Component {
                                       name={item ? "Change Photo" : `Photo #${index + 1}`} icon="camera"
                                 />
 
-                                <Icon onClick={() => this.removePhoto(index)} style={{paddingLeft: 10, paddingRight: 12}} name='remove'/>
+                                <Icon onClick={() => this.removePhoto(index)} style={{paddingLeft: 10, paddingRight: 12}}
+                                      name='remove'/>
                             </div>
                         )
                     }
@@ -616,7 +644,8 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                            primary fluid>Save</Button>
                 </div>
             </div>
         }
@@ -652,9 +681,9 @@ class Website extends Component {
                 </div>
 
                 {this.props.website.faqs.map((item, index) => {
-                    let no = "First FAQ";
-                    if (index === 1) no = "Second FAQ";
-                    else if (index > 1) no = `FAQ #${index + 1}`
+                        let no = "First FAQ";
+                        if (index === 1) no = "Second FAQ";
+                        else if (index > 1) no = `FAQ #${index + 1}`
 
                         return (
                             <div key={index} style={{
@@ -713,7 +742,8 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                            primary fluid>Save</Button>
                 </div>
 
             </div>
@@ -735,7 +765,8 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}} primary fluid>Save</Button>
+                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                            primary fluid>Save</Button>
                 </div>
             </div>
         }
@@ -802,19 +833,19 @@ class Website extends Component {
     }
 
     async removePhoto(index) {
-        try{
+        try {
             const r = await this.rest.post('website/remove-photo', {index});
             const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
             let items = [...this.props.website.photos];
             items.splice(index, 1);
             this.props.dispatch(action(items));
         }
-        catch(e){
+        catch (e) {
 
         }
     }
 
-    photoUploaded(index, filename){
+    photoUploaded(index, filename) {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
         const items = [...this.props.website.photos];
         items[index] = filename;
