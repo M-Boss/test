@@ -13,23 +13,7 @@ import rest  from '../services/external/rest';
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
-
-
-const validations = {
-    general: ["bride_first", "groom_first", "bride_last", "groom_last"],
-    template: ["template", "template_main"],
-    details: ["title", "date", "country", "city"],
-    events: ["events_page_title", "events_description"],
-    photos: ["photos_page_title", "photos_description"],
-    faqs: ["faqs_page_title", "faqs_description"],
-};
-export function isValid(key, state){
-    if(!key) return false;
-    for(let field of validations[key] || []){
-        if(!state[field]) return false;
-    }
-    return true;
-}
+const validator = require('../services/internal/validations');
 
 class Website extends Component {
 
@@ -68,7 +52,6 @@ class Website extends Component {
     }
 
     render() {
-        console.log(this.props.website);
         return (
             <div style={{backgroundColor: '#F4F7F9'}}>
 
@@ -77,7 +60,7 @@ class Website extends Component {
                     <div style={{color: '#BFCAD1', lineHeight: '24px', float: 'right'}}><Icon name='eye'/>Preview
                     </div>
                     <div style={{marginBottom: 10, clear: 'both'}}></div>
-                    <Accordion isValid={key => isValid(key, this.props.website)} index={0} onIndexChanged={index => {}} items={[
+                    <Accordion isValid={key => validator.isValid(key, this.props.website)} index={0} onIndexChanged={index => {}} items={[
                         this.accordionGeneral(),
                         this.accordionTemplate(),
                         this.accordionDetails(),
