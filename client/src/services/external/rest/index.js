@@ -1,9 +1,10 @@
 import _ from 'lodash'
+import config from '../../internal/config/Config'
 
 class RestFetch {
 
     constructor() {
-        this.root = "http://localhost:8080/api/";
+        this.root = config("app.api_root");
     }
 
     get(url) {
