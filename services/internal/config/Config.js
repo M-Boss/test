@@ -9,12 +9,12 @@ module.exports = class Config{
         this.config = {
             app: {
                 port: 8090,
-                domain: process.env.APP_DOMAIN || 'http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/',
+                domain: process.env.APP_DOMAIN || '',
                 uploads: process.env.APP_UPLOADS ||  "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
                 name: 'Nikahku',
             },
             mysql: {
-                host: process.env.DB_HOST || "nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com",
+                host: process.env.DB_HOST || "",
                 db: process.env.DB_DB ||  "homestead",
                 user: process.env.DB_USER ||  "sharon",
                 password: process.env.DB_PASSWORD ||  "secret",
