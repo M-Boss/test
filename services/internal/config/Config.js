@@ -9,7 +9,7 @@ module.exports = class Config{
         this.config = {
             app: {
                 port: 8090,
-                domain: process.env.APP_DOMAIN || '',
+                domain: process.env.APP_DOMAIN || 'http://localhost:8080/',
                 uploads: process.env.APP_UPLOADS ||  "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
                 name: 'Nikahku',
             },
