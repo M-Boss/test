@@ -13,6 +13,9 @@ import Dashboard from './screens/Dashboard'
 
 import TemplateHome from './screens/templates/Home'
 import TemplatePhotos from './screens/templates/Photos'
+import TemplateFAQs from './screens/templates/FAQs'
+import TemplateEvents from './screens/templates/Events'
+import TemplateMenu from './screens/templates/Menu'
 import {
     BrowserRouter as Router,
     Route,
@@ -45,7 +48,10 @@ class Nikahku extends Component {
                     <Route path="/choose_template" component={Templates}/>
 
                     <Switch>
+                        <Route path="/w/:id/menu" component={TemplateMenu}/>
+                        <Route path="/w/:id/events" component={TemplateEvents}/>
                         <Route path="/w/:id/photos" component={TemplatePhotos}/>
+                        <Route path="/w/:id/faqs" component={TemplateFAQs}/>
                         <Route path="/w/:id" component={TemplateHome}/>
                     </Switch>
 

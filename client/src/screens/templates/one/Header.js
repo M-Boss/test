@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {connect} from 'react-redux'
 
-class Header extends Component {
+export default class Header extends Component {
 
     constructor(props) {
         super(props);
@@ -21,17 +21,11 @@ class Header extends Component {
                     <p style={{color: '#FFF', fontSize: 16}}>{this.props.label}</p>
                 </div>
                 <div className="" style={{maxWidth: 60}}>
-                    {/*<Link to={'/menu'}> */}
+                    <Link to={`/w/${this.props.websiteId}/menu`}>
                         <img width={28} height={28} src={require('../../../static/images/menu.svg')}/>
-                    {/*</Link>*/}
+                    </Link>
                 </div>
             </div>
         )
     }
 }
-
-export default connect(state => {
-    return {
-        user: state.user
-    }
-})(Header)

@@ -1,0 +1,107 @@
+/**
+ * Created by guy on 8/19/18.
+ */
+import React, {Component, Fragment} from 'react'
+import {Menu, Segment, Button, Form, Grid, Input, Image, Icon} from 'semantic-ui-react'
+import Slider from "react-slick";
+// import Footer from "./Footer";
+import {H1} from "../../../components/Headers";
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import Header from './Header'
+import moment from 'moment'
+import config from '../../../services/internal/config/Config';
+import _ from 'lodash'
+import Footer from "../Footer";
+
+class Photos extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    render() {
+        const website = this.props.website;
+        return (
+            <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
+
+                <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: '#6c86a1'}}>FAQs</h1>
+                <div style={{marginTop: 20, marginBottom: 100}}>
+                    <Accordion items={this.getAccordionSections()} />
+                </div>
+                <Footer/>
+            </div>
+        )
+    }
+
+    getAccordionSections(){
+        return _.get(this.props.website, "faqs", []).map(({question, answer}) => {
+            return {
+                title: question,
+                content: <div style={{padding: 12, color: '#6c86a1'}}>{answer}</div>
+            }
+        })
+    }
+}
+
+
+class Accordion extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            index: props.startingIndex || 0
+        }
+    }
+
+    render() {
+        const selectedStyle = {
+            border: 'solid',
+            borderWidth: 1,
+            borderColor: '#E0E6E7',
+            borderRadius: 4,
+            overflow: 'hidden'
+        };
+
+        return this.props.items.map(({title, content, questionColor = "#f3f5f8", textColor = '#6c86a1'}, index) => {
+
+            const current = index === this.state.index;
+            return (
+                <div key={index} style={{marginBottom: 8, userSelect: 'none', ...(current ? selectedStyle : {})}}>
+                    <div onClick={() => this.onHeaderClicked(index)} style={{padding: 12, backgroundColor: questionColor}}>
+                        <p style={{color: textColor, fontSize: 16, margin: 0, lineHeight: '40px', float: 'left'}}>
+                            {title}
+                        </p>
+                        <Icon style={{lineHeight: '40px', float: 'right'}} name={current ? 'angle up' : 'angle down'}/>
+                        <div style={{clear: 'both'}}></div>
+                    </div>
+                    {this.state.index === index &&
+                    <div style={{
+                        backgroundColor: '#FFF',
+                        paddingTop: 0,
+                        border: 'solid',
+                        borderWidth: 0,
+                        borderTopWidth: 1,
+                        borderColor: '#E0E6E7'
+                    }}>{content}</div>
+                    }
+                </div>
+            )
+        })
+    }
+
+    onHeaderClicked(index) {
+        this.setState({
+            index: this.state.index === index ? -1 : index
+        })
+    }
+}
+
+
+export default connect(state => {
+    return {
+        user: state.user
+    }
+})(Photos);

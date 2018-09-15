@@ -25,7 +25,7 @@ class Photos extends Component {
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
-                <Header label={website.bride_first + " & " + website.groom_first}/>
+                <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
                     <h1 style={{fontFamily: 'serif', color: '#6c86a1'}}>Photos</h1>
                     <h2 style={{marginTop: 0, color: '#f7bbc2', fontSize: 18, fontFamily: 'serif' }}>A few snaps taken of us <br/> over the years...</h2>
@@ -49,14 +49,16 @@ class Photos extends Component {
                     }}>
                         <h5 style={{color: '#72859a', margin: 0, marginRight: 10}}>With love by</h5>
                         <img style={{height: 24}} src={require('./assets/logo.png')}/>
-                        <h6 style={{color: '#72859a', margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}><Link to='/'>
-                            ABOUT </Link></h6>
+                        <h6 style={{color: '#72859a', margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}>
+                            <Link to='/'>
+                            About
+                            </Link>
+                        </h6>
                     </div>
 
                     <div style={{backgroundColor: '#72859a', color: '#FFF', padding: 12}}>
                         Copyright © Nikahku 2018
                     </div>
-
                 </div>
             </div>
         )

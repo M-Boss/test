@@ -47,7 +47,7 @@ export default class TemplateBase extends Component {
                 }
 
                 {!!website && (
-                    templates.getTemplate(website.template || 1)[this.screenName](website)
+                    templates.getTemplate(website.template || 1)[this.screenName](website, this.props.match.params.id)
                 )}
             </React.Fragment>
         )

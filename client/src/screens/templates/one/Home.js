@@ -27,7 +27,7 @@ class Home extends Component {
 
         return (
             <div style={{overflow: 'hidden'}}>
-                <Header label={website.bride_first + " & " + website.groom_first}/>
+                <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{position: 'relative'}}>
                     <div style={{
                         backgroundImage: `url(${background})`,
