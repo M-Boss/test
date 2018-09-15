@@ -12,9 +12,11 @@ import Welcome from './screens/Welcome'
 import Dashboard from './screens/Dashboard'
 
 import TemplateHome from './screens/templates/Home'
+import TemplatePhotos from './screens/templates/Photos'
 import {
     BrowserRouter as Router,
     Route,
+    Switch,
     Link
 } from 'react-router-dom'
 import Header from './screens/Header'
@@ -33,7 +35,7 @@ class Nikahku extends Component {
     render() {
         return (
             <Router>
-                <div style={{ width: 380, margin: 'auto'}}>
+                <div style={{width: 380, margin: 'auto'}}>
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/dashboard" component={Dashboard}/>
@@ -42,7 +44,11 @@ class Nikahku extends Component {
                     <Route path="/create" component={Website}/>
                     <Route path="/choose_template" component={Templates}/>
 
-                    <Route path="/w/:id" component={TemplateHome}/>
+                    <Switch>
+                        <Route path="/w/:id/photos" component={TemplatePhotos}/>
+                        <Route path="/w/:id" component={TemplateHome}/>
+                    </Switch>
+
                 </div>
             </Router>
         );

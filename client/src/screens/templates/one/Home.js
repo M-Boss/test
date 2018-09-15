@@ -20,7 +20,6 @@ class Home extends Component {
         this.state = {};
     }
 
-
     render() {
         const website = this.props.website;
         const background = website.template_main ? config("app.assets") + website.template_main : require('./assets/bg-1.png');
@@ -205,7 +204,6 @@ class Home extends Component {
             </div>
         )
     }
-
 }
 
 function H2({children, style}) {

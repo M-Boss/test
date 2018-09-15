@@ -10,11 +10,13 @@ const {buildAction, buildActionForKey} = require('../../services/internal/store/
 const actions = require('../../services/internal/store/actionConstants');
 const templates = require('./index');
 
-class Home extends TemplateBase{
+
+
+class Photos extends TemplateBase{
 
     constructor(props){
         super(props);
-        this.screenName = "home";
+        this.screenName = "photos";
     }
 }
 
@@ -23,4 +25,4 @@ export default connect(state => {
         user: state.user,
         templates: state.templates
     }
-})(Home)
+})(Photos)
