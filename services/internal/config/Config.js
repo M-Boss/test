@@ -9,8 +9,8 @@ module.exports = class Config{
         this.config = {
             app: {
                 port: 8090,
-                domain: 'http://nikahku.com/',
-                uploads: "https://nikahku.com/uploads/",
+                domain: 'http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/',
+                uploads: "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
                 name: 'Nikahku',
             },
             mysql: {
