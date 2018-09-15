@@ -9,24 +9,25 @@ module.exports = class Config{
         this.config = {
             app: {
                 port: 8090,
-                domain: 'http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/',
-                uploads: "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
+                domain: process.env.APP_DOMAIN || 'http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/',
+                uploads: process.env.APP_UPLOADS ||  "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
                 name: 'Nikahku',
             },
             mysql: {
-                host: "nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com",
-                db: "homestead",
-                user: "sharon",
-                password: "jskk((282ja88DD",
-                port: 3306
+                host: process.env.DB_HOST || "nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com",
+                db: process.env.DB_DB ||  "homestead",
+                user: process.env.DB_USER ||  "sharon",
+                password: process.env.DB_PASSWORD ||  "secret",
+                port: process.env.DB_PORT ||  3306
                 // host: "",
                 // db: "homestead",
                 // user: "homestead",
                 // password: "secret",
                 // port: 33061
             }
-
         }
+
+        console.log(this.config);
     }
 
     get(key){

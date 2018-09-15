@@ -9,6 +9,8 @@ const config = {
     }
 };
 
+
+
 export default function(key){
     return _.get(config, key)
 };
