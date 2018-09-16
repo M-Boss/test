@@ -84,7 +84,7 @@ class Events extends Component {
                     }
                 </div>
 
-                <Footer/>
+                <Footer theme={theme}/>
             </div>
         )
     }

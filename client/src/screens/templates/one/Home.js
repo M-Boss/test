@@ -9,6 +9,7 @@ import {H1} from "../../../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Header from './Header'
+import Footer from './Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 
@@ -189,23 +190,7 @@ class Home extends Component {
                         backgroundSize: 'cover'
                     }}></div>
                 </div>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    padding: 12,
-                    paddingBottom: 15
-                }}>
-                    <h5 style={{margin: 0, marginRight: 10}}>With love by</h5>
-                    <img style={{height: 24}} src={require('./assets/logo.png')}/>
-                    <h6 style={{margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}><Link to='/'>
-                        ABOUT </Link></h6>
-                </div>
-
-                <div style={{backgroundColor: theme.primary, color: '#FFF', padding: 12}}>
-                    Copyright © Nikahku 2018
-                </div>
-
+                <Footer theme={theme}/>
             </div>
         );
 
