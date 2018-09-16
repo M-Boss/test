@@ -22,12 +22,12 @@ class Photos extends Component {
     }
 
     render() {
-        const website = this.props.website;
+        const {website, theme} = this.props;
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
-                <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
-                <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: '#6c86a1'}}>FAQs</h1>
+                <Header themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: theme.primary}}>FAQs</h1>
                 <div style={{marginTop: 20, marginBottom: 100}}>
                     <Accordion items={this.getAccordionSections()} />
                 </div>
@@ -40,7 +40,7 @@ class Photos extends Component {
         return _.get(this.props.website, "faqs", []).map(({question, answer}) => {
             return {
                 title: question,
-                content: <div style={{padding: 12, color: '#6c86a1'}}>{answer}</div>
+                content: <div style={{padding: 12, color: theme.primary}}>{answer}</div>
             }
         })
     }
@@ -65,7 +65,7 @@ class Accordion extends Component {
             overflow: 'hidden'
         };
 
-        return this.props.items.map(({title, content, questionColor = "#f3f5f8", textColor = '#6c86a1'}, index) => {
+        return this.props.items.map(({title, content, questionColor = "#f3f5f8", textColor = theme.primary}, index) => {
 
             const current = index === this.state.index;
             return (

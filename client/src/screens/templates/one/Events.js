@@ -12,7 +12,6 @@ import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
 
-
 class Events extends Component {
 
     constructor(props) {
@@ -21,14 +20,14 @@ class Events extends Component {
     }
 
     render() {
-        const website = this.props.website;
+        const {website, theme} = this.props;
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
-                <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <Header themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
-                    <h1 style={{fontFamily: 'sans-serif', color: '#6c86a1'}}>Events</h1>
-                    <p style={{marginTop: 0, color: '#f7bbc2', fontSize: 18, fontFamily: 'sans-serif'}}>
+                    <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
+                    <p style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'sans-serif'}}>
                         Here's what to expect during our wedding weekend.
                         There will also be a printout of this schedule available in your hotel rooms.
                         We can't wait to celebrate with you!
@@ -39,7 +38,7 @@ class Events extends Component {
                 <div style={{marginTop: 100}}>
                     {website.events &&
                     [...website.events, ...website.events].map((event, index) => {
-                        const color = ['#f1f4f8', '#FFF'][index % 2];
+                        const color = [theme.background, '#FFF'][index % 2];
                         return (
                             <div style={{marginTop: -70}}>
                                 <div>
@@ -57,19 +56,19 @@ class Events extends Component {
                                 </div>}
 
                                 <div style={{marginTop: -30, padding: "50px 20px 130px", transform: 'rotate(-0deg)', backgroundColor: color}}>
-                                    <h1 style={{paddingLeft: 0, color: '#6c86a1', fontFamily: 'serif'}}>{event.title}</h1>
+                                    <h1 style={{paddingLeft: 0, color: theme.primary, fontFamily: 'serif'}}>{event.title}</h1>
 
-                                    <p style={{fontSize: '1.25em', marginTop: 50, color: '#6c86a1', fontFamily: 'sans-serif'}}>
-                                        <Icon style={{color: "#edadbd"}} name="calendar"/>
+                                    <p style={{fontSize: '1.25em', marginTop: 50, color: theme.primary, fontFamily: 'sans-serif'}}>
+                                        <Icon style={{color: theme.secondary}} name="calendar"/>
                                         {event.date && moment(event.date, "YYYY-MM-DD").format('Do MMMM YYYY')}
                                     </p>
-                                    <p style={{fontSize: '1.25em',  color: '#6c86a1', fontFamily: 'sans-serif'}}>
-                                        <Icon style={{color: "#edadbd"}} name="clock"/>
+                                    <p style={{fontSize: '1.25em',  color: theme.primary, fontFamily: 'sans-serif'}}>
+                                        <Icon style={{color: theme.secondary}} name="clock"/>
                                         {event.start_time + " -- " + event.end_time}
                                     </p>
                                     <div style={{display: 'flex', marginTop: -4}}>
-                                        <Icon style={{fontSize: '1.25em', color: "#edadbd"}} name="point"/>
-                                        <p style={{fontSize: '1.25em', flex: 1,  color: '#6c86a1', fontFamily: 'sans-serif'}}>
+                                        <Icon style={{fontSize: '1.25em', color: theme.secondary}} name="point"/>
+                                        <p style={{fontSize: '1.25em', flex: 1,  color: theme.primary, fontFamily: 'sans-serif'}}>
                                             {event.manual_address ?
                                                 `${event.venue}, ${event.postal_code}  ${event.apartment} ${event.street} ${event.city} ${event.country}`
                                                 : event.venue}

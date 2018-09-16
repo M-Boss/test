@@ -16,7 +16,7 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div className="" style={{backgroundColor: '#72859a', display:'flex', alignItems: 'center', padding: 16}}>
+            <div className="" style={{backgroundColor: this.props.themeColor, display:'flex', alignItems: 'center', padding: 16}}>
                 <div  style={{flex: 1}}>
                     <p style={{color: '#FFF', fontSize: 16}}>{this.props.label}</p>
                 </div>

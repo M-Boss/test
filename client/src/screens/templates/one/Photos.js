@@ -21,14 +21,14 @@ class Photos extends Component {
     }
 
     render() {
-        const website = this.props.website;
+        const {website, theme} = this.props;
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
-                <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <Header themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
-                    <h1 style={{fontFamily: 'serif', color: '#6c86a1'}}>Photos</h1>
-                    <h2 style={{marginTop: 0, color: '#f7bbc2', fontSize: 18, fontFamily: 'serif' }}>A few snaps taken of us <br/> over the years...</h2>
+                    <h1 style={{fontFamily: 'serif', color: theme.primary}}>Photos</h1>
+                    <h2 style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'serif' }}>A few snaps taken of us <br/> over the years...</h2>
                     <img style={{marginTop: 10, width: 160}} src={require('./assets/photos-flower.png')} />
 
                     {website.photos &&
@@ -47,16 +47,16 @@ class Photos extends Component {
                         paddingBottom: 15,
                         backgroundColor: '#f3f5f8'
                     }}>
-                        <h5 style={{color: '#72859a', margin: 0, marginRight: 10}}>With love by</h5>
+                        <h5 style={{color: theme.primary, margin: 0, marginRight: 10}}>With love by</h5>
                         <img style={{height: 24}} src={require('./assets/logo.png')}/>
-                        <h6 style={{color: '#72859a', margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}>
+                        <h6 style={{color: theme.primary, margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}>
                             <Link to='/'>
                             About
                             </Link>
                         </h6>
                     </div>
 
-                    <div style={{backgroundColor: '#72859a', color: '#FFF', padding: 12}}>
+                    <div style={{backgroundColor: theme.primary, color: '#FFF', padding: 12}}>
                         Copyright © Nikahku 2018
                     </div>
                 </div>
