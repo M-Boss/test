@@ -11,7 +11,6 @@ import OneMenu from './one/Menu'
 
 
 const theme1 = [
-
     {
         primary: '#72859a',
         secondary: '#f7bbc2',
