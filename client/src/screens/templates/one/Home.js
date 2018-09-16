@@ -33,7 +33,7 @@ class Home extends Component {
                         backgroundImage: `url(${background})`,
                         width: '100%', height: 300,
                         backgroundSize: 'cover'
-                    }}> </div>
+                    }}></div>
                     <em><h1 style={{
                         textAlign: 'center',
                         width: '100%',
@@ -60,50 +60,56 @@ class Home extends Component {
                     }} src={require('./assets/center.png')}/>
                 </div>
 
-                <div>
-                    <div style={{
-                        height: 100,
-                        width: '150%',
-                        marginLeft: -20,
-                        transform: 'rotate(-15deg)',
-                        backgroundColor: '#f1f4f8'
-                    }}></div>
-                </div>
-                <div>
-                    <img style={{marginTop: -250, transform: 'rotate(-0deg)'}} align="right"
-                         src={require('./assets/flower-bottom.png')}/>
-                    <div style={{clear: 'both'}}></div>
-                </div>
+                {website.show_parents &&
+                <React.Fragment>
+                    <div>
+                        <div style={{
+                            height: 100,
+                            width: '150%',
+                            marginLeft: -20,
+                            transform: 'rotate(-15deg)',
+                            backgroundColor: '#f1f4f8'
+                        }}></div>
+                    </div>
+                    <div>
+                        <img style={{marginTop: -250, transform: 'rotate(-0deg)'}} align="right"
+                             src={require('./assets/flower-bottom.png')}/>
+                        <div style={{clear: 'both'}}></div>
+                    </div>
 
-                <div style={{
-                    marginTop: -30,
-                    marginBottom: -70,
-                    paddingTop: 60,
-                    paddingBottom: 80,
-                    backgroundColor: '#f1f4f8',
-                    textAlign: 'center'
-                }}>
-                    <h3 style={{color: '#edadbd'}}>SON OF</h3>
-                    <h2>{website.groom_father + " & " + website.groom_mother}</h2>
-                    <br/>
-                    <br/>
-                    <h3 style={{color: '#edadbd'}}>DAUGHTER OF</h3>
-                    <h2>{website.bride_father + " & " + website.bride_mother}</h2>
-                </div>
-
-                <div>
                     <div style={{
-                        height: 100,
-                        width: '150%',
-                        marginLeft: -20,
-                        transform: 'rotate(-15deg)',
-                        backgroundColor: '#f1f4f8'
-                    }}></div>
-                </div>
+                        marginTop: -30,
+                        marginBottom: -70,
+                        paddingTop: 60,
+                        paddingBottom: 80,
+                        backgroundColor: '#f1f4f8',
+                        textAlign: 'center'
+                    }}>
+                        <h3 style={{color: '#edadbd'}}>SON OF</h3>
+                        <h2>{website.groom_father + " & " + website.groom_mother}</h2>
+                        <br/>
+                        <br/>
+                        <h3 style={{color: '#edadbd'}}>DAUGHTER OF</h3>
+                        <h2>{website.bride_father + " & " + website.bride_mother}</h2>
+                    </div>
+
+                    <div>
+                        <div style={{
+                            height: 100,
+                            width: '150%',
+                            marginLeft: -20,
+                            transform: 'rotate(-15deg)',
+                            backgroundColor: '#f1f4f8'
+                        }}></div>
+                    </div>
+                </React.Fragment>}
+
+
                 <div>
                     <img style={{marginTop: -10, transform: 'rotate(-0deg)'}} src={require('./assets/flower-top.png')}/>
                     <div style={{clear: 'both'}}></div>
                 </div>
+
                 {website.date &&
                 <div style={{textAlign: 'center', position: 'relative', marginTop: -50, paddingBottom: 130}}>
                     <h3 style={{color: '#edadbd'}}>ON</h3>
@@ -134,7 +140,6 @@ class Home extends Component {
                     <div style={{clear: 'both'}}></div>
                 </div>
 
-
                 {website.stories && website.stories.length > 0 &&
                 <div style={{
                     marginTop: -30,
@@ -157,7 +162,6 @@ class Home extends Component {
                     }}>{website.stories[0].description}</p>
                 </div>}
 
-
                 <div>
                     <div style={{
                         height: 100,
@@ -168,7 +172,6 @@ class Home extends Component {
                     }}></div>
                 </div>
 
-
                 <div style={{textAlign: 'center', paddingTop: 80, paddingBottom: 50}}>
                     <h1>{(website.groom_first || " ")[0].toUpperCase()} <img width={28}
                                                                              src={require('./assets/and.png')}/> {(website.bride_first || " ")[0].toUpperCase()}
@@ -176,13 +179,12 @@ class Home extends Component {
                     <img style={{width: 160}} src={require('./assets/footer-under-names.png')}/>
                 </div>
 
-
                 <div style={{paddingBottom: 0}}>
                     <div style={{
                         backgroundImage: `url(${bottom})`,
                         width: '100%', height: 250,
                         backgroundSize: 'cover'
-                    }}> </div>
+                    }}></div>
                 </div>
                 <div style={{
                     display: 'flex',
