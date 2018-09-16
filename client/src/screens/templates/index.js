@@ -11,11 +11,7 @@ import OneMenu from './one/Menu'
 
 
 const theme1 = [
-    {
-        primary: '#569173',
-        secondary: '#f1c591',
-        background: '#ffefd1',
-    },
+
     {
         primary: '#72859a',
         secondary: '#f7bbc2',
@@ -25,6 +21,11 @@ const theme1 = [
         primary: '#569173',
         secondary: '#f1c591',
         background: '#ffefd1',
+    },
+    {
+        primary: '#a59bc3',
+        secondary: '#f1c591',
+        background: '#fff5e0',
     }
 ];
 
