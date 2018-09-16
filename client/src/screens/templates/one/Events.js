@@ -27,7 +27,7 @@ class Events extends Component {
                 <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
-                    <h1 style={{fontFamily: 'sans-serif', color: '#6c86a1'}}>Photos</h1>
+                    <h1 style={{fontFamily: 'sans-serif', color: '#6c86a1'}}>Events</h1>
                     <p style={{marginTop: 0, color: '#f7bbc2', fontSize: 18, fontFamily: 'sans-serif'}}>
                         Here's what to expect during our wedding weekend.
                         There will also be a printout of this schedule available in your hotel rooms.

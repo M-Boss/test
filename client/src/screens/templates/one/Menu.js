@@ -2,7 +2,7 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component, Fragment} from 'react'
-import {Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react'
+import {Segment, Button, Form, Grid, Input, Image, Icon} from 'semantic-ui-react'
 import Slider from "react-slick";
 // import Footer from "./Footer";
 import {H1} from "../../../components/Headers";
@@ -22,28 +22,24 @@ class Menu extends Component {
 
     render() {
         const website = this.props.website;
-        return <div>
-            <Header websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
-            <Grid centered columns={1}>
-                <Grid.Column style={{marginTop: 48, maxWidth: 400, textAlign: 'center'}} >
-                    <MenuItem to="/">Home</MenuItem>
-                    <MenuItem to="/dashboard">Your Website</MenuItem>
-                    <MenuItem to="/about">About Us</MenuItem>
-                    <MenuItem to="/contact">Contact Us</MenuItem>
-                    <MenuItem to="/faq">FAQs</MenuItem>
-                </Grid.Column>
-            </Grid>
-        </div>
+        return (<div style={{textAlign: 'center'}}>
+                    <div style={{textAlign: 'right', marginTop: 10}}>
+                        <Icon style={{width: 32, height: 32, fontSize: 22}} name='close' />
+                    </div>
+                    <MenuItem to={"/w/" + this.props.websiteId}>Home</MenuItem>
+                    <MenuItem to={"/w/" + this.props.websiteId + "/events"}>Events</MenuItem>
+                    <MenuItem to={"/w/" + this.props.websiteId + "/photos"}>Photos</MenuItem>
+                    <MenuItem to={"/w/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>
+        </div>)
     }
 }
 
-
 function MenuItem({children, to}){
-    return (<Link to={to}> <p style={{marginTop: 28, fontSize: 16}}>{children}</p></Link>)
+    return (<Link to={to}> <p style={{color: '#6c86a1', marginTop: 28, fontSize: 18, fontWeight: 'bold'}}>{children}</p></Link>)
 }
 
 export default connect(state => {
     return {
-        user: state.user
+        user: state.user,
     }
 })(Menu);
