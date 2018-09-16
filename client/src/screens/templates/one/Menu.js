@@ -20,22 +20,29 @@ class Menu extends Component {
         this.state = {};
     }
 
+    static contextTypes = {
+        router: () => true,
+    };
+
     render() {
         const website = this.props.website;
         return (<div style={{textAlign: 'center'}}>
-                    <div style={{textAlign: 'right', marginTop: 10}}>
-                        <Icon style={{width: 32, height: 32, fontSize: 22}} name='close' />
-                    </div>
-                    <MenuItem to={"/w/" + this.props.websiteId}>Home</MenuItem>
-                    <MenuItem to={"/w/" + this.props.websiteId + "/events"}>Events</MenuItem>
-                    <MenuItem to={"/w/" + this.props.websiteId + "/photos"}>Photos</MenuItem>
-                    <MenuItem to={"/w/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>
+            <div style={{textAlign: 'right', marginTop: 10}}>
+                <Icon onClick={this.context.router.history.goBack}
+                      style={{width: 32, height: 32, fontSize: 22}}
+                      name='close'/>
+            </div>
+            <MenuItem to={"/w/" + this.props.websiteId}>Home</MenuItem>
+            <MenuItem to={"/w/" + this.props.websiteId + "/events"}>Events</MenuItem>
+            <MenuItem to={"/w/" + this.props.websiteId + "/photos"}>Photos</MenuItem>
+            <MenuItem to={"/w/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>
         </div>)
     }
 }
 
-function MenuItem({children, to}){
-    return (<Link to={to}> <p style={{color: '#6c86a1', marginTop: 28, fontSize: 18, fontWeight: 'bold'}}>{children}</p></Link>)
+function MenuItem({children, to}) {
+    return (<Link to={to}><p style={{color: '#6c86a1', marginTop: 28, fontSize: 18, fontWeight: 'bold'}}>{children}</p>
+    </Link>)
 }
 
 export default connect(state => {
