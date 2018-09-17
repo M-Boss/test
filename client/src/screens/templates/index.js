@@ -9,7 +9,6 @@ import OneFAQs from './one/FAQs'
 import OneEvents from './one/Events'
 import OneMenu from './one/Menu'
 
-
 const theme1 = [
     {
         primary: '#72859a',

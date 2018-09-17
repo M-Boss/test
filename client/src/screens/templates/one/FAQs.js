@@ -26,7 +26,7 @@ class Photos extends Component {
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
-                <Header themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: theme.primary}}>FAQs</h1>
                 <div style={{marginTop: 20, marginBottom: 100}}>
                     <Accordion textColor={theme.primary} items={this.getAccordionSections()} />

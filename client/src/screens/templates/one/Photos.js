@@ -26,10 +26,10 @@ class Photos extends Component {
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
-                <Header themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
                     <h1 style={{fontFamily: 'serif', color: theme.primary}}>Photos</h1>
-                    <h2 style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'serif' }}>A few snaps taken of us <br/> over the years...</h2>
+                    <h2 style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'serif' }}>{website.photos_description}</h2>
                     <img style={{marginTop: 10, width: 160}} src={require('./assets/photos-flower.png')} />
 
                     {website.photos &&

@@ -390,6 +390,7 @@ class Website extends Component {
                         if (index === 1) no = "Second Event";
                         else if (index > 1) no = `Event #${index + 1}`
 
+                    const types = ["Pemberkatan Nikah", "Resepsi", "After Party", "Acara Adat", "Dll"];
                         return (
                             <div>
                                 <div key={index} style={{
@@ -415,8 +416,19 @@ class Website extends Component {
                                     <InputLabel>Event Type</InputLabel>
                                     <Select style={{flex: 1, display: 'flex'}}
                                             onChange={(e, {value}) => this.changeEventField(index, 'type', true)(value)}
-                                            value={e.type}
-                                            options={[{value: "Welcome Event", text: "Welcome Event"}]}/>
+                                            value={types.includes(e.type) ? e.type : "Dll"}
+                                            options={[
+                                                {value: "Pemberkatan Nikah", text: "Pemberkatan Nikah"},
+                                                {value: "Resepsi", text: "Resepsi"},
+                                                {value: "After Party", text: "After Party"},
+                                                {value: "Acara Adat", text: "Acara Adat"},
+                                                {value: "Dll", text: "Dll"},
+                                                ]}/>
+
+                                    {e.type === "Dll" || !types.includes(e.type) &&
+                                    <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'type')}
+                                                value={e.type}
+                                                label='Custom event type'/>}
 
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'title')}
                                                 value={e.title}
@@ -449,7 +461,12 @@ class Website extends Component {
                                             placeholder={e.venue}
                                             onPlaceSelected={(place) => {
                                                 console.log(place);
-                                                this.changeEventField(index, 'venue', true)(place.formatted_address)
+                                                this.changeEventField(index, 'venue', true)(place.formatted_address);
+                                                this.changeEventField(index, 'location', true)({
+                                                    lat: place.geometry.location.lat(),
+                                                    lng: place.geometry.location.lng()
+                                                })
+                                                //this.changeEventField(index, 'venue', true)(place.formatted_address)
                                             }}
                                             types={['establishment']}
                                             componentRestrictions={{country: "id"}}
@@ -519,7 +536,8 @@ class Website extends Component {
                                         </Form>
                                     </div>
 
-                                    <div style={{
+
+                                    {/*<div style={{
                                         padding: 12,
                                         paddingTop: 20,
                                         paddingBottom: 20
@@ -532,7 +550,7 @@ class Website extends Component {
                                                 onChange={(e, {checked}) => this.changeEventField(index, 'rsvp', true)(checked)}
                                                 checked={e.rsvp}
                                                 style={{marginTop: 16}}/>
-                                    </div>
+                                    </div>*/}
                                 </div>
 
                                 <div style={{

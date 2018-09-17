@@ -33,9 +33,9 @@ class Menu extends Component {
                       name='close'/>
             </div>
             <MenuItem to={"/w/" + this.props.websiteId}>Home</MenuItem>
-            <MenuItem to={"/w/" + this.props.websiteId + "/events"}>Events</MenuItem>
-            <MenuItem to={"/w/" + this.props.websiteId + "/photos"}>Photos</MenuItem>
-            <MenuItem to={"/w/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>
+            {website.show_events && <MenuItem to={"/w/" + this.props.websiteId + "/events"}>Events</MenuItem>}
+            {website.show_photos && <MenuItem to={"/w/" + this.props.websiteId + "/photos"}>Photos</MenuItem>}
+            {website.show_faqs && <MenuItem to={"/w/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>}
         </div>)
     }
 }

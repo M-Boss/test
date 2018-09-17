@@ -11,6 +11,7 @@ import Header from './Header'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
+import _ from 'lodash'
 
 class Events extends Component {
 
@@ -23,21 +24,17 @@ class Events extends Component {
         const {website, theme} = this.props;
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
-                <Header themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
                     <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
-                    <p style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'sans-serif'}}>
-                        Here's what to expect during our wedding weekend.
-                        There will also be a printout of this schedule available in your hotel rooms.
-                        We can't wait to celebrate with you!
-                    </p>
+                    <p style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'sans-serif'}}>{website.events_description}</p>
                     <img style={{marginTop: 10, width: '60%'}} src={require('./assets/photos-flower.png')}/>
                 </div>
 
                 <div style={{marginTop: 100}}>
                     {website.events &&
-                    [...website.events, ...website.events].map((event, index) => {
+                    website.events.map((event, index) => {
                         const color = [theme.background, '#FFF'][index % 2];
                         return (
                             <div style={{marginTop: -70}}>
@@ -75,7 +72,8 @@ class Events extends Component {
                                         </p>
                                     </div>
                                     <br/>
-                                    <Button fluid primary>See on map</Button>
+                                    {!event.manual_address &&
+                                    <a target="_blank" href={`https://www.google.com/maps/?q=${_.get(event, "location.lat")},${_.get(event, "location.lng")}`}><Button fluid primary>See on map</Button></a>}
                                     <br/>
                                 </div>
                             </div>

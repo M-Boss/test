@@ -29,7 +29,7 @@ class Home extends Component {
 
         return (
             <div style={{overflow: 'hidden'}}>
-                <Header themeColor={this.props.theme.primary}
+                <Header website={website}  themeColor={this.props.theme.primary}
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
