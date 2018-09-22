@@ -25,10 +25,20 @@ import BorderedButton from "../components/BorderedButton";
 import Autocomplete from 'react-google-autocomplete';
 import rest  from '../services/external/rest';
 import Header from "./Header";
+import DatePicker from 'react-datepicker';
+const moment = require('moment');
+
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
 const validator = require('../services/internal/validations');
+
+
+moment.locale('id', {
+        months: 'Januari Februari Maret April Mei Juni Juli Agustus September Oktober November Desember'.split(' ')
+    }
+);
+moment.locale('id');
 
 class Website extends Component {
 
@@ -84,12 +94,20 @@ class Website extends Component {
                             <p><Icon name="long arrow alternate left"/> Back</p>
                         </Link>
 
-                        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 20, marginBottom: 20}}>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: 20,
+                            marginBottom: 20
+                        }}>
                             <H2 style={{flex: 1, margin: 0, lineHeight: '22px', float: 'left'}}>Website creation</H2>
                             {this.props.website.url &&
-                            <a target="_blank" href={this.props.website.url}><div style={{color: '#BFCAD1', lineHeight: '24px'}}>
-                                <Icon name='eye'/>Preview
-                            </div></a>}
+                            <a target="_blank" href={this.props.website.url}>
+                                <div style={{color: '#BFCAD1', lineHeight: '24px'}}>
+                                    <Icon name='eye'/>Preview
+                                </div>
+                            </a>}
                         </div>
 
                         <Accordion startingIndex={this.firstAccordionSection}
@@ -126,10 +144,10 @@ class Website extends Component {
         }
     }
 
-    changeStoryField(storyIndex, key) {
+    changeStoryField(storyIndex, key, direct = false) {
         return (e) => {
             const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');
-            const val = e.target.value;
+            const val = direct ? e :  e.target.value;
             let stories = [...this.props.website.stories];
             stories[storyIndex][key] = val;
             this.props.dispatch(action(stories))
@@ -254,9 +272,13 @@ class Website extends Component {
                     <InputCombo onChange={this.changeHandler('title')} value={this.props.website.title}
                                 label='Title'/>
 
-                    <InputCombo style={{marginTop: 16}} type="date" onChange={this.changeHandler('date')}
-                                value={this.props.website.date}
-                                label='Date'/>
+                    <DateInput style={{marginTop: 12}}
+                               label="Date"
+                               selected={moment(this.props.website.date)}
+                               onChange={date => {
+                                   // console.log(date);
+                                   this.changeHandler('date', true)(date.format('YYYY-MM-DD'))
+                               }} />
 
                     <Grid style={{marginTop: 12}}>
                         <Grid.Column width={8}>
@@ -306,10 +328,12 @@ class Website extends Component {
                                 <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
                                             label='Title' placeholder="Our first date"/>
 
-                                <InputCombo style={{marginTop: 16}} type="date"
-                                            onChange={this.changeStoryField(index, 'date')}
-                                            value={s.date}
-                                            label='Date' optional/>
+                                <DateInput key={Math.random()} style={{marginTop: 16}} label="Date"
+                                           selected={moment(s.date)}
+                                           onChange={date => {
+                                               console.log(date.format('YYYY-MM-DD'));
+                                               this.changeStoryField(index, 'date', true)(date.format('YYYY-MM-DD'))
+                                           }} />
 
                                 <div style={{marginTop: 16}}>
                                     <InputLabel >Description <Required/></InputLabel>
@@ -390,7 +414,7 @@ class Website extends Component {
                         if (index === 1) no = "Second Event";
                         else if (index > 1) no = `Event #${index + 1}`
 
-                    const types = ["Pemberkatan Nikah", "Resepsi", "After Party", "Acara Adat", "Dll"];
+                        const types = ["Pemberkatan Nikah", "Resepsi", "After Party", "Acara Adat", "Dll"];
                         return (
                             <div>
                                 <div key={index} style={{
@@ -423,7 +447,7 @@ class Website extends Component {
                                                 {value: "After Party", text: "After Party"},
                                                 {value: "Acara Adat", text: "Acara Adat"},
                                                 {value: "Dll", text: "Dll"},
-                                                ]}/>
+                                            ]}/>
 
                                     {e.type === "Dll" || !types.includes(e.type) &&
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'type')}
@@ -434,10 +458,12 @@ class Website extends Component {
                                                 value={e.title}
                                                 label='Event Name'/>
 
-                                    <InputCombo style={{marginTop: 16}} type="date"
-                                                onChange={this.changeEventField(index, 'date')}
-                                                value={e.date}
-                                                label='Date'/>
+                                    <DateInput key={Math.random()} style={{marginTop: 16}} label="Date"
+                                               selected={moment(e.date)}
+                                               onChange={date => {
+                                                   console.log(date.format('YYYY-MM-DD'));
+                                                   this.changeEventField(index, 'date', true)(date.format('YYYY-MM-DD'))
+                                               }} />
 
                                     <Grid style={{marginTop: 12}}>
                                         <Grid.Column width={8}>
@@ -538,19 +564,19 @@ class Website extends Component {
 
 
                                     {/*<div style={{
-                                        padding: 12,
-                                        paddingTop: 20,
-                                        paddingBottom: 20
-                                    }}>
-                                        <Switch label="Make event public on site"
-                                                onChange={(e, {checked}) => this.changeEventField(index, 'public', true)(checked)}
-                                                checked={e.public}/>
+                                     padding: 12,
+                                     paddingTop: 20,
+                                     paddingBottom: 20
+                                     }}>
+                                     <Switch label="Make event public on site"
+                                     onChange={(e, {checked}) => this.changeEventField(index, 'public', true)(checked)}
+                                     checked={e.public}/>
 
-                                        <Switch label="Allow guests to RSVP on site"
-                                                onChange={(e, {checked}) => this.changeEventField(index, 'rsvp', true)(checked)}
-                                                checked={e.rsvp}
-                                                style={{marginTop: 16}}/>
-                                    </div>*/}
+                                     <Switch label="Allow guests to RSVP on site"
+                                     onChange={(e, {checked}) => this.changeEventField(index, 'rsvp', true)(checked)}
+                                     checked={e.rsvp}
+                                     style={{marginTop: 16}}/>
+                                     </div>*/}
                                 </div>
 
                                 <div style={{
@@ -564,6 +590,7 @@ class Website extends Component {
                                     <p style={{marginBottom: 4}}>Ask guests about meal preferences</p>
                                     {e.meals && e.meals.map((meal, mealIndex) =>
                                         <RemovableInput
+                                            key={Math.random()}
                                             onChange={(e) => this.updateEventMeal(index, mealIndex, e.target.value)}
                                             value={meal}
                                             placeholder="Vegetarian or chicken"
@@ -912,6 +939,15 @@ function InputCombo({label, optional = false, onChange, value, style, placeholde
     return <div style={{...style}}>
         <InputLabel>{label} {!optional && <Required/>} </InputLabel>
         <Input placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
+    </div>
+}
+
+function DateInput({ label, selected, onChange, optional = false, style }) {
+    return <div style={{...style}}>
+        <InputLabel>{label} {!optional && <Required/>} </InputLabel>
+        <DatePicker selected={selected}
+            onChange={onChange}
+        />
     </div>
 }
 

@@ -46,8 +46,21 @@ p,h1,h2,h3,h4,h5{
     background-color: #60E099!important;
 }
 
-
 .ui.selection.dropdown {
 
     min-width: 10em;
+}
+
+.react-datepicker__input-container input {
+    padding: 6px;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.react-datepicker-wrapper{
+    display:block !important;
+}
+
+.react-datepicker__input-container{
+    display:block !important;
 }

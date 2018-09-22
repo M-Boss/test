@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
-import './App.css';
+
 import Login from './screens/Login'
 import PasswordRecovery from './screens/PasswordRecovery'
 import Menu from './screens/Menu'
@@ -24,6 +24,8 @@ import {
 } from 'react-router-dom'
 import Header from './screens/Header'
 import {Grid} from 'semantic-ui-react'
+import 'react-datepicker/dist/react-datepicker.css';
+import './App.css';
 
 function App({children}) {
     return (
