@@ -32,6 +32,13 @@ module.exports = class UsersDatabase{
         return user;
     }
 
+    async findOne(query){
+        let user = await this.db.User.findOne({
+            where: query
+        });
+        return user;
+    }
+
     async activate(id, code){
         let user = await this.db.User.findOne({
             where: {id: id}

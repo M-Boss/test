@@ -19,11 +19,35 @@ router.post('/auth/register', validate(registerValidation), async function (req,
     console.log("Here: " , req.body);
     try {
         const user = await users.create({...req.body});
-        const link = config.get('app.domain') + `/auth/activate/${user.id}/${user.activation_code}`;
+        const link = config.get('app.domain') + `auth/activate/${user.id}/${user.activation_code}`;
         mailer.mail(user.email,
             'NikahKu - Activation Code',
-            `Click on the link below to activate your account: ${link} \n\nNikahku.com`);
+            `Click on this link to activate your account: ${link} \n\nNikahku.com`);
         res.send({user});
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(704); //probably duplicate email
+    }
+});
+
+router.post('/auth/resend',  async function (req, res, next) {
+    const users = container.get('users');
+    const mailer = container.get('mailer');
+    const config = container.get('config');
+
+    try {
+        const user = await users.findOne({
+            email: _.get(req, "body.email")
+        });
+        if(!user){
+            return res.sendStatus(712);
+        }
+        const link = config.get('app.domain') + `auth/activate/${user.id}/${user.activation_code}`;
+        mailer.mail(user.email,
+            'NikahKu - Activation Code',
+            `Click on this link to activate your account: ${link} \n\nNikahku.com`);
+        res.send({r: 'ok'});
     }
     catch (e){
         console.log(e);
