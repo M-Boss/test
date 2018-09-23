@@ -15,7 +15,8 @@ module.exports = class UsersDatabase{
             email: data.email,
             password: this.hasher.hash(data.password),
             website: {},
-            token: this.random.randomString(4) + String(+ new Date())
+            token: this.random.randomString(4) + String(+ new Date()),
+            activation_code: this.random.randomString(8)
         });
     }
 
@@ -29,6 +30,22 @@ module.exports = class UsersDatabase{
 
         user["password"] = null;
         return user;
+    }
+
+    async activate(id, code){
+        let user = await this.db.User.findOne({
+            where: {id: id}
+        });
+        if(!user){
+            return false;
+        }
+
+        if(code && user.activation_code === code){
+            user.active = 1;
+            user.save();
+            return true;
+        }
+        return false;
     }
 
     async recover(email){

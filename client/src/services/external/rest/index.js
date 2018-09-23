@@ -61,7 +61,12 @@ class RestFetch {
             headers: {
                 "AUTHORIZATION": global.AUTHORIZATION || ""
             }
-        }).then(response => response.json()); // parses response to JSON
+        }).then(response => {
+            if (!response.ok) {
+                throw response;
+            }
+            return response.json()
+        });
     }
 }
 

@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {
     Menu,
     Segment,
-    Button,
+    Button as SemanticButton,
     Form,
     Grid,
     Icon,
@@ -27,6 +27,7 @@ import rest  from '../services/external/rest';
 import Header from "./Header";
 import DatePicker from 'react-datepicker';
 const moment = require('moment');
+const NotificationSystem = require('react-notification-system');
 
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
@@ -40,12 +41,19 @@ moment.locale('id', {
 );
 moment.locale('id');
 
+
+function Button(props){
+    console.log("Changed: ", props);
+    return <SemanticButton {...props} disabled={props.notchanged}>{props.notchanged ? "Saved" : props.children}</SemanticButton>
+}
+
 class Website extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
+            changed: false
         };
         this.addStoryClicked = this.addStoryClicked.bind(this);
         this.addStoryClicked = this.addStoryClicked.bind(this);
@@ -67,8 +75,20 @@ class Website extends Component {
         return index >= 0 ? index : 0;
     }
 
+    componentWillReceiveProps(nextProps) {
+        // if(JSON.stringify(this.props.user) !== JSON.stringify(nextProps.user)) // Check if it's a new user, you can also use some unique property, like the ID
+        // {
+        //     this.updateUser();
+        // }
+        console.log("Change detected");
+        if(!this.state.changed){
+            this.setState({changed: true})
+        }
+    }
+
     save() {
-        this.setState({loading: true});
+        this.setState({
+            loading: true});
         rest.post('website/save', {
             website: this.props.website
         }).then(r => {
@@ -79,7 +99,10 @@ class Website extends Component {
             }
         })
             .finally(() => {
-                this.setState({loading: false});
+                this.setState({
+                    loading: false,
+                    changed: false
+                });
             })
     }
 
@@ -147,7 +170,7 @@ class Website extends Component {
     changeStoryField(storyIndex, key, direct = false) {
         return (e) => {
             const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');
-            const val = direct ? e :  e.target.value;
+            const val = direct ? e : e.target.value;
             let stories = [...this.props.website.stories];
             stories[storyIndex][key] = val;
             this.props.dispatch(action(stories))
@@ -219,7 +242,7 @@ class Website extends Component {
                 </React.Fragment>
                 }
 
-                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                <Button notchanged={!this.state.changed} loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                         primary fluid>Save</Button>
             </div>
         }
@@ -278,7 +301,7 @@ class Website extends Component {
                                onChange={date => {
                                    // console.log(date);
                                    this.changeHandler('date', true)(date.format('YYYY-MM-DD'))
-                               }} />
+                               }}/>
 
                     <Grid style={{marginTop: 12}}>
                         <Grid.Column width={8}>
@@ -333,7 +356,7 @@ class Website extends Component {
                                            onChange={date => {
                                                console.log(date.format('YYYY-MM-DD'));
                                                this.changeStoryField(index, 'date', true)(date.format('YYYY-MM-DD'))
-                                           }} />
+                                           }}/>
 
                                 <div style={{marginTop: 16}}>
                                     <InputLabel >Description <Required/></InputLabel>
@@ -463,7 +486,7 @@ class Website extends Component {
                                                onChange={date => {
                                                    console.log(date.format('YYYY-MM-DD'));
                                                    this.changeEventField(index, 'date', true)(date.format('YYYY-MM-DD'))
-                                               }} />
+                                               }}/>
 
                                     <Grid style={{marginTop: 12}}>
                                         <Grid.Column width={8}>
@@ -942,11 +965,11 @@ function InputCombo({label, optional = false, onChange, value, style, placeholde
     </div>
 }
 
-function DateInput({ label, selected, onChange, optional = false, style }) {
+function DateInput({label, selected, onChange, optional = false, style}) {
     return <div style={{...style}}>
         <InputLabel>{label} {!optional && <Required/>} </InputLabel>
         <DatePicker selected={selected}
-            onChange={onChange}
+                    onChange={onChange}
         />
     </div>
 }
@@ -1054,8 +1077,10 @@ class File extends Component {
         this.file = React.createRef();
         this.state = {
             filename: '',
-            loading: false
-        }
+            loading: false,
+            show_success: false,
+            show_failure: false
+        };
         this.rest = props.rest;
     }
 
@@ -1066,41 +1091,56 @@ class File extends Component {
             loading: true
         });
         this.rest.upload(this.props.url, files[0]).then(r => {
-            console.log(r)
+            console.log(r);
             this.props.onUpload(r);
+            this.setState({
+                loading: false,
+                show_failure: false,
+                show_success: true
+            })
+
         }).catch(e => {
-            console.log("Error uploading: ", e)
-        }).finally(() => {
-            this.setState({loading: false})
+            console.log("Error uploading: ", e);
+            this.setState({
+                loading: false,
+                show_failure: true,
+                show_success: false
+            })
         })
     }
 
     render() {
         console.log('File: ', this.file);
         return (
-            <div style={{
-                padding: 15,
-                position: 'relative',
-                backgroundColor: '#fafafb',
-                border: '1px solid',
-                borderRadius: 5,
-                borderColor: '#f2711c',
-                ...this.props.style
-            }}>
-                <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon
-                    name="camera"/> {this.state.filename || this.props.name}</p>
-                {this.state.loading &&
-                <Dimmer active>
-                    <Loader />
-                </Dimmer>}
+            <React.Fragment>
+                <div style={{
+                    padding: 15,
+                    position: 'relative',
+                    backgroundColor: '#fafafb',
+                    border: '1px solid',
+                    borderRadius: 5,
+                    borderColor: '#f2711c',
+                    ...this.props.style
+                }}>
+                    <p style={{fontSize: '1 rem', textAlign: 'center', color: '#f2711c', flex: 1, margin: 0}}><Icon
+                        name="camera"/> {this.state.filename || this.props.name}</p>
+                    {this.state.loading &&
+                    <Dimmer active>
+                        <Loader />
+                    </Dimmer>}
 
-                {!this.state.loading &&
-                <input name="file" onChange={ (e) => this.handleChange(e.target.files) } ref={this.fileInput}
-                       style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}}
-                       className="custom-file-input" type="file"/>}
-            </div>
+                    {!this.state.loading &&
+                    <input name="file" onChange={ (e) => this.handleChange(e.target.files) } ref={this.fileInput}
+                           style={{opacity: 0, position: 'absolute', left: 0, top: 0, height: '100%', width: '100%'}}
+                           className="custom-file-input" type="file"/>}
+                </div>
+                {this.state.show_success && <p style={{ marginTop: 10, color: 'rgb(18, 167, 65)'}}>Photo Upload Sukses</p>}
+                {this.state.show_failure && <p style={{ marginTop: 10, color: '#ff7542'}}>Photo Upload Gagal, Coba Lagi</p>}
+            </React.Fragment>
         )
     }
+
+
 }
 
 export default connect(state => {

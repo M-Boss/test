@@ -14,13 +14,41 @@ const registerValidation = {
 
 router.post('/auth/register', validate(registerValidation), async function (req, res, next) {
     const users = container.get('users');
+    const mailer = container.get('mailer');
+    const config = container.get('config');
+    console.log("Here: " , req.body);
     try {
         const user = await users.create({...req.body});
+        const link = config.get('app.domain') + `/auth/activate/${user.id}/${user.activation_code}`;
+        mailer.mail(user.email,
+            'NikahKu - Activation Code',
+            `Click on the link below to activate your account: ${link} \n\nNikahku.com`);
         res.send({user});
     }
     catch (e){
         console.log(e);
         res.sendStatus(704); //probably duplicate email
+    }
+});
+
+router.get('/auth/activate/:id/:code', async function (req, res, next) {
+    const users = container.get('users');
+    const config = container.get('config');
+    const id = _.get(req, "params.id");
+    const code = _.get(req, "params.code");
+
+    try {
+        const result = await users.activate(id, code);
+        if(result){
+            return res.send({r: 'ok'});
+        }
+        else{
+            res.sendStatus(710);
+        }
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(710);
     }
 });
 
