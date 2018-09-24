@@ -50,11 +50,11 @@ class Nikahku extends Component {
                     <Route path="/choose_template" component={Templates}/>
 
                     <Switch>
-                        <Route path="/w/:id/menu" component={TemplateMenu}/>
-                        <Route path="/w/:id/events" component={TemplateEvents}/>
-                        <Route path="/w/:id/photos" component={TemplatePhotos}/>
-                        <Route path="/w/:id/faqs" component={TemplateFAQs}/>
-                        <Route path="/w/:id" component={TemplateHome}/>
+                        <Route path="/wedding/:id/menu" component={TemplateMenu}/>
+                        <Route path="/wedding/:id/events" component={TemplateEvents}/>
+                        <Route path="/wedding/:id/photos" component={TemplatePhotos}/>
+                        <Route path="/wedding/:id/faqs" component={TemplateFAQs}/>
+                        <Route path="/wedding/:id" component={TemplateHome}/>
                     </Switch>
 
                 </div>

@@ -297,12 +297,14 @@ class Website extends Component {
                       rest={this.rest} url="website/upload?target=template_main"
                       name={this.props.website.template_main ? "Change Main Image" : "Upload Main Photo"}
                       icon="camera"/>
+                <p style={{marginTop: 6, color: '#666'}}>For best experience use a ratio of 4:3</p>
 
                 <Subtitle>Bottom Photo </Subtitle>
                 <File onUpload={r => this.changeHandler('template_bottom', true)(r.filename)}
                       rest={this.rest} url="website/upload?target=template_bottom"
                       name={this.props.website.template_main ? "Change Bottom Image" : "Upload Bottom Photo"}
                       icon="camera"/>
+                <p style={{marginTop: 6, color: '#666'}}>For best experience use a ratio of 4:3</p>
 
                 <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                         primary fluid>Save</Button>

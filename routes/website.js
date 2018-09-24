@@ -108,16 +108,27 @@ router.post('/upload', async function (req, res, next) {
 router.post('/save', async function (req, res, next) {
     try {
         const config = container.get('config');
+        const users = container.get('users');
         const user = req.user;
         // console.log(_.get(req, "body.website"));
         user.website = _.get(req, "body.website");
+
         let slug = "";
-        w = user.website;
+        const w = user.website;
         if(w.bride_first && w.groom_first){
-            slug = `-${slugify(w.bride_first)}-${slugify(w.groom_first)}`;
+            slug = `${slugify(w.bride_first)}-${slugify(w.groom_first)}`;
+
+            //don't check for duplicate slugs if it hasn't changed
+            if(slug !== user.slug) {
+                const u = await users.findOne({slug});
+                if (u && u.id !== user.id) {
+                    slug = `${slug}-${user.id}`
+                }
+            }
         }
 
-        user.website.url = config.get("app.domain") + "w/" +  req.user.id + slug;
+        user.website.url = config.get("app.domain") + "wedding/" + slug;
+        user.slug = slug;
         user.save().catch(e => {
             console.log("Error: ", e)
         }).then(r => {

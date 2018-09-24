@@ -1,5 +1,13 @@
 {
   "development": {
+    "username": "root",
+    "password": "secret",
+    "database": "homestead",
+    "host": "127.0.0.1",
+    "port": "33061",
+    "dialect": "mysql"
+  },
+  "development2": {
     "username": "sharon",
     "password": "jskk((282ja88DD",
     "database": "homestead",

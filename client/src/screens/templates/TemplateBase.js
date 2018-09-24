@@ -16,30 +16,28 @@ export default class TemplateBase extends Component {
         super(props);
         this.state = {};
 
-        const last = props.match.params.id;
-        this.websiteId = parseInt(last.split("-")[0]);
-        console.log("Website ID: ", this.websiteId);
+        this.slug = props.match.params.id;
+        console.log("Website ID: ", this.slug);
 
         this.rest = rest;
     }
 
     async componentDidMount() {
-
-        const r = await this.rest.get(`get/${this.websiteId}`);
-        if (!this.websiteId) {
+        if (!this.slug) {
             // 404
             return;
         }
+        const r = await this.rest.get(`get/${this.slug}`);
 
         if (r && r.website) {
-            const action = buildActionForKey(actions.TEMPLATE_RECORD, "website" + this.websiteId);
+            const action = buildActionForKey(actions.TEMPLATE_RECORD, "website" + this.slug);
             this.props.dispatch(action(r.website));
         }
     }
 
     render() {
-        const website = this.props.templates["website" + this.websiteId];
-        console.log(this.props.templates)
+        const website = this.props.templates["website" + this.slug];
+        console.log(this.props.templates);
         return (
             <React.Fragment>
                 {!website &&

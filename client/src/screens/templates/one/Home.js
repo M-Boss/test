@@ -36,7 +36,7 @@ class Home extends Component {
                 <div style={{position: 'relative'}}>
                     <div style={{
                         backgroundImage: `url(${background})`,
-                        width: '100%', height: 300,
+                        width: '100%', height: 285,
                         backgroundSize: 'cover'
                     }}></div>
                     <em><h1 style={{

@@ -35,6 +35,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
+            slug: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             activation_code: {
                 type: DataTypes.STRING,
                 allowNull: true,
