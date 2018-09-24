@@ -4,8 +4,11 @@
 import React, {Component} from 'react'
 import {Segment, Button, Form, Grid, Input} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
+const actions = require('../services/internal/store/actionConstants');
 
-export default class Menu extends Component {
+class Menu extends Component {
 
     constructor(props) {
         super(props);
@@ -26,12 +29,24 @@ export default class Menu extends Component {
                     <MenuItem to="/about">About Us</MenuItem>
                     <MenuItem to="/contact">Contact Us</MenuItem>
                     <MenuItem to="/faq">FAQs</MenuItem>
+                    <p onClick={() => this.logout()} style={{ cursor: 'pointer', marginTop: 28, fontSize: 16}}>Logout</p>
                 </Grid.Column>
             </Grid>
         </div>
     }
+
+    logout(){
+        const action = buildAction(actions.USER_RECORD);
+        this.props.dispatch(action({email: "", token: undefined, active: true}));
+        this.props.history.push('/login')
+    }
 }
 
+export default connect(state => {
+    return {
+        user: state.user
+    }
+})(Menu)
 
 function MenuItem({children, to}){
     return (<Link to={to}> <p style={{marginTop: 28, fontSize: 16}}>{children}</p></Link>)

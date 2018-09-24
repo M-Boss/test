@@ -15,7 +15,8 @@ import {
     TextArea,
     Select,
     Dimmer,
-    Loader
+    Loader,
+    Message
 } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
@@ -67,6 +68,14 @@ class Website extends Component {
 
         this.rest = rest;
         this.firstAccordionSection = this.getAccordionSectionIndex(props.location.hash);
+
+        this.state.justActivated = _.get(props, "location.hash", "").substring(1) === 'activated';
+        if(this.state.justActivated){
+            props.dispatch(buildActionForKey(actions.USER_RECORD, 'active')(1))
+        }
+        setTimeout( ()=> {
+            this.setState({justActivated: false})
+        }, 2000)
     }
 
     getAccordionSectionIndex(hash) {
@@ -110,6 +119,19 @@ class Website extends Component {
         return (
             <React.Fragment>
                 <Header />
+
+                {this.state.justActivated &&
+                <Message success>
+                    <Message.Header>Email validated</Message.Header>
+                </Message>}
+
+                {this.accountNotValidated() && <Message negative>
+                    <Message.Header>Your email is not validated yet</Message.Header>
+                    <p>You need to verify your email to publish your website</p>
+                    {/*<a>Resend validation email</a>*/}
+                </Message>}
+
+
                 <div style={{backgroundColor: '#F4F7F9'}}>
                     <div style={{padding: 24}}>
 
@@ -125,7 +147,7 @@ class Website extends Component {
                             marginBottom: 20
                         }}>
                             <H2 style={{flex: 1, margin: 0, lineHeight: '22px', float: 'left'}}>Website creation</H2>
-                            {this.props.website.url &&
+                            {this.props.website.url && !this.accountNotValidated() &&
                             <a target="_blank" href={this.props.website.url}>
                                 <div style={{color: '#BFCAD1', lineHeight: '24px'}}>
                                     <Icon name='eye'/>Preview
@@ -151,6 +173,10 @@ class Website extends Component {
                 </div>
             </React.Fragment>
         )
+    }
+
+    accountNotValidated(){
+        return this.props.user && !this.props.user.active;
     }
 
     componentDidMount() {
@@ -827,8 +853,10 @@ class Website extends Component {
             title: 'Website Settings',
             content: <div style={{padding: 12, paddingTop: 0}}>
 
+
                 <Subtitle>Website URL</Subtitle>
-                <p>{this.props.website.url || "(Will be set upon save)"}</p>
+                {!this.accountNotValidated() &&
+                <p>{this.props.website.url || "(Will be set upon save)"}</p>}
 
                 <div style={{display: 'flex', alignItems: 'center', marginTop: 8}}>
                     <Checkbox onChange={(e, {checked}) => this.changeHandler('public', true)(checked)}

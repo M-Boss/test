@@ -2,23 +2,35 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component, Fragment} from 'react'
-import {Menu, Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react'
+import {Menu, Segment, Button, Form, Grid, Input, Image, Message} from 'semantic-ui-react'
 import Slider from "react-slick";
 import Footer from "./Footer";
 import Header from "./Header";
 import {H1} from "../components/Headers";
 import {Link} from "react-router-dom"
+import {connect} from 'react-redux'
 
-export default class Home extends Component {
+class Screen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {};
     }
 
+    accountNotValidated(){
+        return this.props.user && !this.props.user.active;
+    }
+
     render() {
         return <React.Fragment>
             <Header />
+
+            {this.accountNotValidated() && <Message negative>
+                <Message.Header>Your email is not validated yet</Message.Header>
+                <p>You need to verify your email to publish your website</p>
+                {/*<a>Resend validation email</a>*/}
+            </Message>}
+
             <Grid centered columns={1}>
                 <Grid.Column style={{maxWidth: 480, textAlign: 'center'}}>
                     <section style={{
@@ -46,6 +58,11 @@ export default class Home extends Component {
     }
 }
 
+export default connect(state => {
+    return {
+        user: state.user
+    }
+})(Screen)
 
 function Step({step, title, body, image}) {
     return (

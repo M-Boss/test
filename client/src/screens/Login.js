@@ -54,7 +54,8 @@ class Login extends Component {
                 this.props.dispatch(websiteAction(r.user.website));
                 this.props.dispatch(userAction({
                     email: r.user.email,
-                    token: r.user.token
+                    token: r.user.token,
+                    active: r.user.active
                 }));
 
                 this.props.history.push('/create')
@@ -80,7 +81,8 @@ class Login extends Component {
                 this.props.dispatch(websiteAction(r.user.website));
                 this.props.dispatch(userAction({
                     email: r.user.email,
-                    token: r.user.token
+                    token: r.user.token,
+                    active: r.user.active
                 }));
 
                 this.props.history.push('/welcome')

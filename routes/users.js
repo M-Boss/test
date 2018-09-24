@@ -19,7 +19,7 @@ router.post('/auth/register', validate(registerValidation), async function (req,
     console.log("Here: " , req.body);
     try {
         const user = await users.create({...req.body});
-        const link = config.get('app.domain') + `auth/activate/${user.id}/${user.activation_code}`;
+        const link = config.get('app.domain') + `api/auth/activate/${user.id}/${user.activation_code}`;
         mailer.mail(user.email,
             'NikahKu - Activation Code',
             `Click on this link to activate your account: ${link} \n\nNikahku.com`);
@@ -43,7 +43,7 @@ router.post('/auth/resend',  async function (req, res, next) {
         if(!user){
             return res.sendStatus(712);
         }
-        const link = config.get('app.domain') + `auth/activate/${user.id}/${user.activation_code}`;
+        const link = config.get('app.domain') + `api/auth/activate/${user.id}/${user.activation_code}`;
         mailer.mail(user.email,
             'NikahKu - Activation Code',
             `Click on this link to activate your account: ${link} \n\nNikahku.com`);
@@ -64,7 +64,7 @@ router.get('/auth/activate/:id/:code', async function (req, res, next) {
     try {
         const result = await users.activate(id, code);
         if(result){
-            return res.send({r: 'ok'});
+            return res.redirect("/create#activated");
         }
         else{
             res.sendStatus(710);
