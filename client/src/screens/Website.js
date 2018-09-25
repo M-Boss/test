@@ -630,7 +630,8 @@ class Website extends Component {
                                      </div>*/}
                                 </div>
 
-                                <div style={{
+
+                                {/*<div style={{
                                     color: '#21899A',
                                     marginTop: 12,
                                     padding: 8,
@@ -657,7 +658,7 @@ class Website extends Component {
                                     fontSize: 11
                                 }} onClick={() => this.addEventMeal(index)}>
                                     <Icon name="plus"/> Add a meal option
-                                </div>
+                                </div> */}
                             </div>
                         )
                     }

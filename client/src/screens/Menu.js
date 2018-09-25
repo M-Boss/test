@@ -36,8 +36,10 @@ class Menu extends Component {
     }
 
     logout(){
-        const action = buildAction(actions.USER_RECORD);
+        let action = buildAction(actions.USER_RECORD);
         this.props.dispatch(action({email: "", token: undefined, active: true}));
+        action = buildAction(actions.WEBSITE_RECORD);
+        this.props.dispatch(action({}));
         this.props.history.push('/login')
     }
 }

@@ -10,7 +10,7 @@ const MailerAWS = require('./external/mailer/MailerAWS');
 const Config =  require('./internal/config/Config')
 // import MailerConsole from "./external/mailer/MailerConsole";
 let {Container} = require('js-di-container');
-// const EventEmitter = require('events');
+const EventEmitter = require('events');
 
 
 let container = new Container();
@@ -21,10 +21,12 @@ container.registerClass('mailer', MailerAWS);
 container.registerClass('hasher', Hasher);
 container.registerClass('config', Config);
 //
-//
-// class MyEmitter extends EventEmitter {}
-// container.registerFactory('emitter', function(){
-//     return new MyEmitter();
-// });
+
+class MyEmitter extends EventEmitter {}
+container.registerFactory('emitter', function(){
+    return new MyEmitter();
+});
+//load event handlers
+require('../events/userEvents')(container, container.get('emitter'));
 
 module.exports = container;

@@ -10,6 +10,9 @@ import Website from './screens/Website'
 import Templates from './screens/Templates'
 import Welcome from './screens/Welcome'
 import Dashboard from './screens/Dashboard'
+import Services from './screens/Services'
+import Recover from './screens/Recover'
+import Reset from './screens/Reset'
 
 import TemplateHome from './screens/templates/Home'
 import TemplatePhotos from './screens/templates/Photos'
@@ -48,6 +51,9 @@ class Nikahku extends Component {
                     <Route path="/welcome" component={Welcome}/>
                     <Route path="/create" component={Website}/>
                     <Route path="/choose_template" component={Templates}/>
+                    <Route path="/services" component={Services}/>
+                    <Route path="/recover" component={Recover}/>
+                    <Route path="/reset/:id/:token" component={Reset}/>
 
                     <Switch>
                         <Route path="/wedding/:id/menu" component={TemplateMenu}/>

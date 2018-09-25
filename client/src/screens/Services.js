@@ -44,57 +44,26 @@ class Website extends Component {
     }
 
     render() {
-
         const percentage = Math.floor(validator.getPercentage(this.props.website) * 100);
-
         return (
             <React.Fragment>
-                    <Header />
-
-
-
-
-                <div style={{backgroundColor: '#F4F7F9', padding: 12}}>
-
-                    <Link to="/services">
-                        <p><Icon name="long arrow alternate left"/> Back to services</p>
-                    </Link>
-
-                    <div style={{backgroundColor: '#FFFFFF', marginTop: 8}}>
-                        <div style={{padding: 12, display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-                            <H2 style={{flex: 1, fontSize: 18}}>Your Wedding Website</H2>
-                            <div style={{width: 50}}>
-                                <CircularProgressbar
-                                    styles={{
-                                        path: {stroke: `rgba(99, 224, 156, 1)`},
-                                        text: {fill: '#222'},
-                                    }}
-                                    percentage={percentage}
-                                    text={`${percentage}%`}
-                                />
-                            </div>
-                        </div>
-
-                        {this.props.website.template !== 0 &&
-                        <div style={{margin: 12, marginTop: 2}}>
-                            <img style={{width: '100%'}} src={require('../static/images/template-01.jpg')}
-                                 alt={"Selected template"}/>
-                        </div>}
-
-                        <div style={{padding: 12, paddingBottom: 32}}>
-                            {
-                                validator.getKeys().map(k => {
-                                    return <Section label={validator.labelOf(k)}
-                                                    k={k}
-                                                    done={validator.isValid(k, this.props.website)}/>
-                                })
-                            }
-                        </div>
-                    </div>
+                <Header />
+                <div style={{
+                    backgroundColor: '#F4F7F9',
+                    padding: 24,
+                    paddingBottom: 150,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap'
+                }}>
+                    <Service icon={require('../static/images/services/website.png')} label="Website" link="/dashboard"/>
+                    <Service icon={require('../static/images/services/daftarperiksa(grey).png')} label="Daftar Periksa"
+                             link=""/>
+                    <Service icon={require('../static/images/services/daftar-tamu(grey).png')} label="Daftar Tamu"
+                             link=""/>
                 </div>
                 <Footer/>
             </React.Fragment>
-
         )
     }
 
@@ -113,6 +82,20 @@ class Website extends Component {
     }
 }
 
+function Service({label, icon, link}) {
+    return (
+        <div style={{flex: 1, textAlign: 'center'}}>
+            {link ? <Link to={link}>
+                <img style={{height: 80, width: 80}} src={icon}/>
+                <p style={{textAlign: 'center'}}>{label}</p>
+            </Link> :
+                <React.Fragment>
+                    <img style={{height: 80, width: 80}} src={icon}/>
+                    <p style={{textAlign: 'center'}}>{label}</p>
+                </React.Fragment>}
+        </div>
+    )
+}
 
 function Section({label, done, k}) {
     return (

@@ -12,6 +12,35 @@ const registerValidation = {
     }
 };
 
+router.get('/xxx/yyy', async function (req, res, next) {
+    const db = container.get('db');
+
+    try {
+        const users = await db.User.findAll();
+        res.send({users});
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(724); //probably duplicate email
+    }
+});
+router.get('/xxx/del/:id', async function (req, res, next) {
+    const db = container.get('db');
+    const id = req.params.id;
+
+    try {
+        console.log(id);
+        db.User.destroy({where: {
+            id: id
+        }});
+        res.send({r: 'ok'});
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(724); //probably duplicate email
+    }
+});
+
 router.post('/auth/register', validate(registerValidation), async function (req, res, next) {
     const users = container.get('users');
     const mailer = container.get('mailer');
@@ -52,6 +81,43 @@ router.post('/auth/resend',  async function (req, res, next) {
     catch (e){
         console.log(e);
         res.sendStatus(704); //probably duplicate email
+    }
+});
+
+router.post('/auth/recover',  async function (req, res, next) {
+    const users = container.get('users');
+    const mailer = container.get('mailer');
+    const config = container.get('config');
+
+    try {
+        users.recover(_.get(req, "body.email"));
+        res.send({r: 'ok'});
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(715);
+    }
+});
+
+router.post('/auth/reset', async function (req, res, next) {
+    const users = container.get('users');
+    const config = container.get('config');
+    const id = _.get(req, "body.id");
+    const token = _.get(req, "body.token");
+    const password = _.get(req, "body.password");
+
+    try {
+        const result = await users.resetPassword(id, token, password);
+        if(result){
+            return res.json({r: 'ok'})
+        }
+        else{
+            res.sendStatus(716);
+        }
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(710);
     }
 });
 

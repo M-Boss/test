@@ -4,10 +4,11 @@
 
 module.exports = class UsersDatabase{
 
-    constructor(db, hasher, random){
+    constructor(db, hasher, random, emitter){
         this.db = db;
         this.hasher = hasher;
         this.random = random;
+        this.emitter = emitter;
     }
 
     async create(data){
@@ -55,6 +56,21 @@ module.exports = class UsersDatabase{
         return false;
     }
 
+    async resetPassword(id, token, password){
+        console.log("resetting: ", id, token, password)
+        let user = await this.db.User.findOne({
+            where: {id: id, recovery_token: token}
+        });
+
+        if(!user){
+            return false;
+        }
+
+        user.password = this.hasher.hash(password);
+        user.save();
+        return true;
+    }
+
     async recover(email){
         let user = await this.db.User.findOne({
             where: {email: email}
@@ -63,8 +79,8 @@ module.exports = class UsersDatabase{
             return
         }
 
-        user.recovery_token = this.helpers.randomString(16);
-        return user.save().then(() => emitter.emit('recovery_token_generated', user));
+        user.recovery_token = this.random.randomString(10);
+        return user.save().then(() => this.emitter.emit('recovery_token_generated', user));
     }
 
     async changePassword(email, token, newPassword){
