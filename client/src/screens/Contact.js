@@ -124,13 +124,6 @@ class Website extends Component {
             </React.Fragment>
         )
     }
-
-    componentDidMount() {
-        if (!this.props.user.token) {
-            this.props.history.push('/login')
-        }
-    }
-
 }
 
 function Service({label, icon, link}) {
