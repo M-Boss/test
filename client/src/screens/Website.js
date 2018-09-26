@@ -1012,7 +1012,7 @@ function RemovableInput({onChange, onRemove, value, style, placeholder = "", typ
     </div>
 }
 
-function Required() {
+export function Required() {
     return <span style={{color: 'red', fontSize: 16}}>*</span>
 }
 

@@ -6,6 +6,7 @@ const UsersDatabase = require('./internal/users/UsersDatabase');
 const Random = require('./internal/helpers/Random');
 const Hasher = require('./internal/helpers/Hasher');
 const MailerAWS = require('./external/mailer/MailerAWS');
+const Cleaner = require('./internal/helpers/Cleaner');
 // import Helpers from './internal/helpers/Helpers'
 const Config =  require('./internal/config/Config')
 // import MailerConsole from "./external/mailer/MailerConsole";
@@ -19,6 +20,7 @@ container.registerClass('users', UsersDatabase);
 container.registerClass('random', Random);
 container.registerClass('mailer', MailerAWS);
 container.registerClass('hasher', Hasher);
+container.registerClass('cleaner', Cleaner);
 container.registerClass('config', Config);
 //
 

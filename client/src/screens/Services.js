@@ -50,7 +50,8 @@ class Website extends Component {
                 <Header />
                 <div style={{
                     backgroundColor: '#F4F7F9',
-                    padding: 24,
+                    padding: 12,
+                    paddingTop: 32,
                     paddingBottom: 150,
                     display: 'flex',
                     flexDirection: 'row',
@@ -91,7 +92,8 @@ function Service({label, icon, link}) {
             </Link> :
                 <React.Fragment>
                     <img style={{height: 80, width: 80}} src={icon}/>
-                    <p style={{textAlign: 'center'}}>{label}</p>
+                    <p style={{marginBottom: 2, textAlign: 'center'}}>{label}</p>
+                    {!link && <p style={{fontSize: 11}}>(Comming soon!)</p>}
                 </React.Fragment>}
         </div>
     )

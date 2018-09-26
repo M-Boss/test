@@ -13,6 +13,7 @@ import Dashboard from './screens/Dashboard'
 import Services from './screens/Services'
 import Recover from './screens/Recover'
 import Reset from './screens/Reset'
+import Contact from './screens/Contact'
 
 import TemplateHome from './screens/templates/Home'
 import TemplatePhotos from './screens/templates/Photos'
@@ -43,7 +44,7 @@ class Nikahku extends Component {
     render() {
         return (
             <Router>
-                <div style={{width: 380, margin: 'auto'}}>
+                <div style={{width: '100%', maxWidth: 380, margin: 'auto'}}>
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/dashboard" component={Dashboard}/>
@@ -53,6 +54,7 @@ class Nikahku extends Component {
                     <Route path="/choose_template" component={Templates}/>
                     <Route path="/services" component={Services}/>
                     <Route path="/recover" component={Recover}/>
+                    <Route path="/contact" component={Contact}/>
                     <Route path="/reset/:id/:token" component={Reset}/>
 
                     <Switch>
@@ -62,7 +64,6 @@ class Nikahku extends Component {
                         <Route path="/wedding/:id/faqs" component={TemplateFAQs}/>
                         <Route path="/wedding/:id" component={TemplateHome}/>
                     </Switch>
-
                 </div>
             </Router>
         );
