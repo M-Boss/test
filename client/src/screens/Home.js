@@ -22,7 +22,7 @@ class Home extends Component {
             <Header />
             <div style={{textAlign: 'center'}}>
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#EFFDFF'}}>
-                    <img width={300} src={require('../static/images/home-01.png')} alt="nikahku"/>
+                    <img width={280} src={require('../static/images/home-01.png')} alt="nikahku"/>
                     <H1>Create a free website for <strong style={{color: '#F3817A'}}>your
                         wedding</strong></H1>
 
@@ -71,7 +71,7 @@ class Home extends Component {
                 </section>
 
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
-                    <img width={300} src={require('../static/images/home-04.svg')} alt="nikahku"/>
+                    <img width={280} src={require('../static/images/home-04.svg')} alt="nikahku"/>
                     <h1 style={{fontSize: 32}}>Inviting multinational guests?</h1>
 
                     <p>Get the freedom to publish your site
@@ -83,7 +83,7 @@ class Home extends Component {
                 </section>
 
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#F4F7F9'}}>
-                    <img width={300} src={require('../static/images/home-05.svg')} alt="nikahku"/>
+                    <img width={280} src={require('../static/images/home-05.svg')} alt="nikahku"/>
                     <h1 style={{fontSize: 32}}>Customize and change
                         your website anytime!</h1>
 
@@ -97,7 +97,7 @@ class Home extends Component {
                 </section>
 
                 <section style={{paddingBottom: 40, paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
-                    <img width={300} src={require('../static/images/home-06.svg')} alt="nikahku"/>
+                    <img width={280} src={require('../static/images/home-06.svg')} alt="nikahku"/>
                     <h1 style={{fontSize: 32}}>Seamlessly connect your hashtag to your website</h1>
 
                     <p>Add your #hashtag instagram stream

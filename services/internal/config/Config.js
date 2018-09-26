@@ -12,7 +12,7 @@ module.exports = class Config{
                 domain: process.env.APP_DOMAIN || 'http://localhost:8080/',
                 uploads: process.env.APP_UPLOADS ||  "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
                 name: 'Nikahku',
-                email: process.env.APP_EMAIL || 'arbab.mohammad92@gmail.com'
+                email: process.env.APP_EMAIL || 'sharonhalim18@gmail.com'
             },
             mysql: {
                 host: process.env.DB_HOST || "",
