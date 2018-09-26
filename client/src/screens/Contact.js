@@ -44,11 +44,11 @@ class Website extends Component {
         this.state = {
             loading: false,
             success: false,
-            name: 'm',
-            email: 'a@b.com',
-            title: 'title',
-            message: 'messageb ody',
-            phone: '0911'
+            name: '',
+            email: '',
+            title: '',
+            message: '',
+            phone: ''
         };
         this.rest = rest;
     }
