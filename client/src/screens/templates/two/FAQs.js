@@ -27,9 +27,10 @@ class Photos extends Component {
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
                 <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down.png')}/>
                 <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: theme.primary}}>FAQs</h1>
                 <div style={{marginTop: 20, marginBottom: 100}}>
-                    <Accordion textColor={theme.primary} items={this.getAccordionSections()} />
+                    <Accordion  textColor={theme.primary} items={this.getAccordionSections()} />
                 </div>
                 <Footer theme={theme}/>
             </div>
@@ -40,6 +41,7 @@ class Photos extends Component {
         return _.get(this.props.website, "faqs", []).map(({question, answer}) => {
             return {
                 title: question,
+                questionColor: '#f9f9f9',
                 content: <div style={{padding: 12, color: this.props.theme.primary}}>{answer}</div>
             }
         })

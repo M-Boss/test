@@ -32,6 +32,8 @@ class Home extends Component {
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
+                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down.png')}/>
+
                 <div style={{position: 'relative'}}>
                     <div style={{
                         backgroundImage: `url(${background})`,
