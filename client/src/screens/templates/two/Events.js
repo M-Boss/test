@@ -24,48 +24,53 @@ class Events extends Component {
         const {website, theme} = this.props;
         return (
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
-                <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
+                        label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
                     <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
-                    <p style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'sans-serif'}}>{website.events_description}</p>
-                    <img style={{marginTop: 10, width: '60%'}} src={require('./assets/photos-flower.png')}/>
+                    <p style={{
+                        marginTop: 0,
+                        color: theme.primary,
+                        fontSize: 18,
+                        fontFamily: 'sans-serif'
+                    }}>{website.events_description}</p>
                 </div>
 
                 <div style={{marginTop: 100}}>
                     {website.events &&
                     website.events.map((event, index) => {
-                        const color = [theme.background, '#FFF'][index % 2];
+                        const color = [theme.primary, '#FFF'][index % 2];
+                        const textColor = ['#FFF', theme.primary][index % 2];
                         return (
-                            <div style={{marginTop: -70}}>
-                                <div>
-                                    <div style={{
-                                        height: 100,
-                                        width: '150%',
-                                        marginLeft: -20,
-                                        transform: 'rotate(-15deg)',
-                                        backgroundColor: color
-                                    }}> </div>
-                                </div>
-                                {index !== 0 && <div>
-                                    <img style={{width: 160, marginTop: -200, transform: 'rotate(-0deg)'}} align="right"
-                                         src={require('./assets/events.png')}/>
-                                </div>}
+                            <div style={{marginTop: 70, marginBottom: 48,  backgroundColor: color}}>
+                                {index % 2 === 0 &&
+                                <img style={{marginTop: -32, width: '100%'}} src={require('./assets/top.png')}/>}
+                                <div style={{textAlign: 'center', padding: "0 20px"}}>
+                                    <h1 style={{
+                                        paddingLeft: 0,
+                                        color: 'rgba(0,0,0,0.5)',
+                                        fontFamily: 'serif'
+                                    }}>{event.title}</h1>
 
-                                <div style={{marginTop: -30, padding: "50px 20px 130px", transform: 'rotate(-0deg)', backgroundColor: color}}>
-                                    <h1 style={{paddingLeft: 0, color: theme.primary, fontFamily: 'serif'}}>{event.title}</h1>
-
-                                    <p style={{fontSize: '1.25em', marginTop: 50, color: theme.primary, fontFamily: 'sans-serif'}}>
-                                        <Icon style={{color: theme.secondary}} name="calendar"/>
+                                    <p style={{
+                                        color: textColor,
+                                        fontSize: '1.25em',
+                                        marginTop: 50,
+                                        fontFamily: 'sans-serif'
+                                    }}>
                                         {event.date && moment(event.date, "YYYY-MM-DD").format('Do MMMM YYYY')}
                                     </p>
-                                    <p style={{fontSize: '1.25em',  color: theme.primary, fontFamily: 'sans-serif'}}>
-                                        <Icon style={{color: theme.secondary}} name="clock"/>
+                                    <p style={{fontSize: '1.25em', color: textColor, fontFamily: 'sans-serif'}}>
                                         {event.start_time + " -- " + event.end_time}
                                     </p>
                                     <div style={{display: 'flex', marginTop: -4}}>
-                                        <Icon style={{fontSize: '1.25em', color: theme.secondary}} name="point"/>
-                                        <p style={{fontSize: '1.25em', flex: 1,  color: theme.primary, fontFamily: 'sans-serif'}}>
+                                        <p style={{
+                                            fontSize: '1.25em',
+                                            flex: 1,
+                                            color: textColor,
+                                            fontFamily: 'sans-serif'
+                                        }}>
                                             {event.manual_address ?
                                                 `${event.venue}, ${event.postal_code}  ${event.apartment} ${event.street} ${event.city} ${event.country}`
                                                 : event.venue}
@@ -73,9 +78,13 @@ class Events extends Component {
                                     </div>
                                     <br/>
                                     {!event.manual_address &&
-                                    <a target="_blank" href={`https://www.google.com/maps/?q=${_.get(event, "location.lat")},${_.get(event, "location.lng")}`}><Button fluid primary>See on map</Button></a>}
+                                    <a target="_blank"
+                                       href={`https://www.google.com/maps/?q=${_.get(event, "location.lat")},${_.get(event, "location.lng")}`}><Button
+                                        fluid primary>See on map</Button></a>}
                                     <br/>
                                 </div>
+                                {index % 2 === 0 &&
+                                <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top.png')}/>}
                             </div>
                         )
                     })

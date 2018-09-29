@@ -22,7 +22,6 @@ class Home extends Component {
     }
 
     render() {
-
         const {website, theme} = this.props;
         const background = website.template_main ? config("app.assets") + website.template_main : require('../shared_assets/logo.png');
         const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('../shared_assets/logo.png');
@@ -126,9 +125,8 @@ class Home extends Component {
                     <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top.png')}/>
                 </div>}
 
-
                 <div style={{textAlign: 'center', paddingTop: 80, paddingBottom: 50}}>
-                    <h1 style={{color: theme.primary}}>{(website.groom_first || " ")[0].toUpperCase()}. {(website.bride_first || " ")[0].toUpperCase()}</h1>
+                    <h1 style={{color: theme.primary}}>{(website.groom_first || " ")[0].toUpperCase()}. {(website.groom_last || " ")[0].toUpperCase()}</h1>
                     <div style={{
                         display: 'inline-block',
                         width: 30,
@@ -136,7 +134,7 @@ class Home extends Component {
                         backgroundColor: theme.primary,
                         opacity: 0.7
                     }}/>
-                    <h1 style={{color: theme.primary}}>{(website.groom_first || " ")[0].toUpperCase()}. {(website.bride_first || " ")[0].toUpperCase()}</h1>
+                    <h1 style={{color: theme.primary}}>{(website.bride_first || " ")[0].toUpperCase()}. {(website.bride_last || " ")[0].toUpperCase()}</h1>
                 </div>
 
                 <div style={{paddingBottom: 0}}>

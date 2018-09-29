@@ -11,6 +11,7 @@ import OneMenu from './one/Menu'
 
 
 import TwoHome from './two/Home'
+import TwoEvents from './two/Events'
 
 
 const theme1 = [
@@ -58,10 +59,9 @@ const templates = {
         header: (website, id) => <OneHeader theme={theme1[0]} website={website} websiteId={id}/>,
         photos: (website, id) => <OnePhoto theme={theme1[0]} website={website} websiteId={id}/>,
         faqs: (website, id) => <OneFAQs theme={theme1[0]} website={website} websiteId={id}/>,
-        events: (website, id) => <OneEvents theme={theme1[0]} website={website} websiteId={id}/>,
+        events: (website, id) => <TwoEvents theme={theme2[0]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme1[0]} website={website} websiteId={id}/>,
     },
-
 };
 
 export function getTemplate(key) {
