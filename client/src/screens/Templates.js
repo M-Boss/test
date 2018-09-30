@@ -9,6 +9,7 @@ import Header from "./Header";
 import {H1, H2, H3} from "../components/Headers";
 import {Link} from "react-router-dom"
 import {connect} from 'react-redux'
+import rest  from '../services/external/rest';
 import container from '../services'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
@@ -45,9 +46,12 @@ class Screen extends Component {
     onTemplateSelected(t) {
         console.log(t);
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
-        this.props.dispatch(action(t.id))
-    }
+        this.props.dispatch(action(t.id));
 
+        rest.post('website/save', {
+            website: this.props.website
+        })
+    }
 
     render() {
         return (<React.Fragment>

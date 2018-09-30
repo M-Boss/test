@@ -28,10 +28,9 @@ export default class Footer extends Component {
                     2018 </p>
 
                 <MenuItem link="/">Home</MenuItem>
-                <MenuItem link="/dashboard">Dashboard</MenuItem>
+                <MenuItem link="/services">Dashboard</MenuItem>
                 <MenuItem link="/contact">About Us</MenuItem>
                 <MenuItem link="/contact">Contact Us</MenuItem>
-                <MenuItem link="/">FAQs</MenuItem>
             </section>
         </div>
     }

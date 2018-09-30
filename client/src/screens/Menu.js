@@ -28,7 +28,6 @@ class Menu extends Component {
                     <MenuItem to="/services">Dashboard</MenuItem>
                     <MenuItem to="/contact">About Us</MenuItem>
                     <MenuItem to="/contact">Contact Us</MenuItem>
-                    <MenuItem to="/faq">FAQs</MenuItem>
                     <p onClick={() => this.logout()} style={{ cursor: 'pointer', marginTop: 28, fontSize: 16}}>Logout</p>
                 </Grid.Column>
             </Grid>

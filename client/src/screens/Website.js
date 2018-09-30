@@ -282,11 +282,12 @@ class Website extends Component {
             content: <div style={{padding: 12, paddingTop: 0, paddingBottom: 10}}>
                 <Subtitle>Template <Required /> </Subtitle>
                 <Link to="/choose_template">
+
                     {this.props.website.template === 0 ?
                         <BorderedButton text="Choose Template" icon="file text outline"/>
                         :
                         <div style={{}}>
-                            <img style={{width: '100%'}} src={require('../static/images/template-01.jpg')}
+                            <img style={{width: '100%'}} src={require(`../static/images/templates/template-${this.props.website.template}.jpg`)}
                                  alt={"Selected template"}/>
                         </div>
                     }
