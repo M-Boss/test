@@ -32,10 +32,10 @@ class Menu extends Component {
                       style={{width: 32, height: 32, fontSize: 22}}
                       name='close'/>
             </div>
-            <MenuItem to={"/w/" + this.props.websiteId}>Home</MenuItem>
-            {website.show_events && <MenuItem to={"/w/" + this.props.websiteId + "/events"}>Events</MenuItem>}
-            {website.show_photos && <MenuItem to={"/w/" + this.props.websiteId + "/photos"}>Photos</MenuItem>}
-            {website.show_faqs && <MenuItem to={"/w/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>}
+            <MenuItem to={"/wedding/" + this.props.websiteId}>Home</MenuItem>
+            {website.show_events && <MenuItem to={"/wedding/" + this.props.websiteId + "/events"}>Events</MenuItem>}
+            {website.show_photos && <MenuItem to={"/wedding/" + this.props.websiteId + "/photos"}>Photos</MenuItem>}
+            {website.show_faqs && <MenuItem to={"/wedding/" + this.props.websiteId + "/faqs"}>FAQs</MenuItem>}
         </div>)
     }
 }

@@ -8,8 +8,8 @@ import Slider from "react-slick";
 import {H1} from "../../../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Header from './Header'
-import Footer from './Footer'
+import Header from '../Header'
+import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 
@@ -24,14 +24,13 @@ class Photos extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
+            <div style={{overflow: 'hidden', fontFamily: 'sans-serif'}}>
 
                 <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
+                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/top' + theme.index + '.png')}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
                     <h1 style={{fontFamily: 'serif', color: theme.primary}}>Photos</h1>
-                    <h2 style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'serif' }}>{website.photos_description}</h2>
-                    <img style={{marginTop: 10, width: 160}} src={require('./assets/photos-flower.png')} />
-
+                    <h2 style={{marginTop: 0, color: theme.primary, fontSize: 18, fontFamily: 'serif' }}>{website.photos_description}</h2>
                     {website.photos &&
                     website.photos.map( photo => {
                         return (
@@ -39,7 +38,6 @@ class Photos extends Component {
                         )
                     })
                     }
-
                     <Footer theme={theme}/>
                 </div>
             </div>

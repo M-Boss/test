@@ -25,7 +25,7 @@ class Menu extends Component {
             <Grid centered columns={1}>
                 <Grid.Column style={{marginTop: 48, maxWidth: 400, textAlign: 'center'}} >
                     <MenuItem to="/">Home</MenuItem>
-                    <MenuItem to="/dashboard">Your Website</MenuItem>
+                    <MenuItem to="/services">Dashboard</MenuItem>
                     <MenuItem to="/contact">About Us</MenuItem>
                     <MenuItem to="/contact">Contact Us</MenuItem>
                     <MenuItem to="/faq">FAQs</MenuItem>

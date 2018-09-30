@@ -306,7 +306,7 @@ class Website extends Component {
                       icon="camera"/>
                 <p style={{marginTop: 6, color: '#666'}}>For best experience use a ratio of 4:3</p>
 
-                <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                         primary fluid>Save</Button>
             </div>
         }
@@ -411,7 +411,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                    <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                             primary fluid>Save</Button>
                 </div>
             </div>
@@ -677,7 +677,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                    <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                             primary fluid>Save</Button>
                 </div>
             </div>
@@ -745,7 +745,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                    <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                             primary fluid>Save</Button>
                 </div>
             </div>
@@ -843,7 +843,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                    <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                             primary fluid>Save</Button>
                 </div>
 
@@ -868,7 +868,7 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                    <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                             primary fluid>Save</Button>
                 </div>
             </div>

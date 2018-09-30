@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import {H1} from "../../../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header'
 import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
@@ -32,7 +32,7 @@ class Home extends Component {
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
-                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down.png')}/>
+                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
 
                 <div style={{position: 'relative'}}>
                     <div style={{
@@ -65,7 +65,7 @@ class Home extends Component {
                         backgroundColor: theme.background,
                         marginTop: 48, marginBottom: 48
                     }}>
-                        <img style={{marginTop: -48, width: '100%'}} src={require('./assets/top.png')}/>
+                        <img style={{marginTop: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
                         <div style={{padding: 24, paddingTop: 0}}>
                             <h3 style={{color: 'rgba(0,0,0, 0.3)'}}>SON OF</h3>
                             <h2 style={{
@@ -80,7 +80,7 @@ class Home extends Component {
                                 marginTop: 10
                             }}>{website.bride_father + " & " + website.bride_mother}</h2>
                         </div>
-                        <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top.png')}/>
+                        <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
                     </div>
                 </React.Fragment>}
 
@@ -107,7 +107,7 @@ class Home extends Component {
                     marginTop: 36,
                     marginBottom: 48
                 }}>
-                    <img style={{marginTop: -48, width: '100%'}} src={require('./assets/top.png')}/>
+                    <img style={{marginTop: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
                     <div style={{padding: 24, paddingTop: 0, paddingBottom: 0}}>
                         <div style={{display: 'flex', alignItems: 'center'}}>
                             <h1 style={{color: 'rgba(0,0,0,0.4)'}}>Our Story</h1>
@@ -124,7 +124,7 @@ class Home extends Component {
                             textAlign: 'left'
                         }}>{website.stories[0].description}</p>
                     </div>
-                    <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top.png')}/>
+                    <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
                 </div>}
 
                 <div style={{textAlign: 'center', paddingTop: 80, paddingBottom: 50}}>

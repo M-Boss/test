@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import {H1} from "../../../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
@@ -27,7 +27,7 @@ class Events extends Component {
                 <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
-                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down.png')}/>
+                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
                     <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
@@ -86,7 +86,7 @@ class Events extends Component {
                                     <br/>
                                 </div>
                                 {index % 2 === 0 &&
-                                <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top.png')}/>}
+                                <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>}
                             </div>
                         )
                     })

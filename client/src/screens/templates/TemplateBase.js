@@ -44,7 +44,7 @@ export default class TemplateBase extends Component {
                 <div>Loading</div>
                 }
 
-                {!!website && (
+                {!!website && website.public && (
                     templates.getTemplate(website.template || 1)[this.screenName](website, this.props.match.params.id)
                 )}
             </React.Fragment>

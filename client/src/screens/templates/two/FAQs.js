@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import {H1} from "../../../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import _ from 'lodash'
@@ -27,7 +27,7 @@ class Photos extends Component {
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
                 <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
-                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down.png')}/>
+                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
                 <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: theme.primary}}>FAQs</h1>
                 <div style={{marginTop: 20, marginBottom: 100}}>
                     <Accordion  textColor={theme.primary} items={this.getAccordionSections()} />

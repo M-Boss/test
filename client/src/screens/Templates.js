@@ -17,13 +17,26 @@ class Screen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            templates: [{
-                id: 1,
-                name: "Willowmarsh - Tea rose"
-            },
+            templates: [
+                {
+                    id: 1,
+                    name: "Willowmarsh - Tea rose"
+                },
                 {
                     id: 2,
-                    name: "Willowmarsh - Tea rose"
+                    name: "Second template"
+                },
+                {
+                    id: 3,
+                    name: "Third template"
+                },
+                {
+                    id: 4,
+                    name: "Fourth template"
+                },
+                {
+                    id: 5,
+                    name: "Fifth template"
                 }
             ]
         };
@@ -42,9 +55,7 @@ class Screen extends Component {
 
                 <div style={{padding: 16, backgroundColor: '#F4F7F9'}}>
                     <Link to="/create">
-
                         <p><Icon name="long arrow alternate left"/> Back</p>
-
                     </Link>
                     <H3>Templates </H3>
                     {this.state.templates.map(t => {
@@ -57,7 +68,7 @@ class Screen extends Component {
                                     <span > {t.name}</span>
                                 </div>
                                 <div style={{paddingLeft: 20, paddingRight: 20}}>
-                                    <img style={{width: '100%'}} src={require('../static/images/template-01.jpg')}
+                                    <img style={{width: '100%'}} src={require('../static/images/templates/template-' + t.id + '.jpg')}
                                          alt={"Template: " + t.name}/>
                                 </div>
                             </div>

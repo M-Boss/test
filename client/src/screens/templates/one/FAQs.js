@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import {H1} from "../../../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Header from './Header'
+import Header from '../Header'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import _ from 'lodash'

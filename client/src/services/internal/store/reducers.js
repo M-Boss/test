@@ -34,7 +34,7 @@ export const makeRootReducer = () => combineReducers({
         faqs: [],
         show_faqs: false,
 
-        "public": true
+        "public": false
     }),
     user: DefaultReducer(constants.USER_RECORD, {
         email: "",
