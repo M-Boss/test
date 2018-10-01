@@ -15,7 +15,10 @@ import {
     TextArea,
     Select,
     Dimmer,
-    Loader
+    Loader,
+    List,
+    Message,
+    Header as SemanticHeader
 } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H1, H2} from "../components/Headers";
@@ -27,59 +30,30 @@ import Autocomplete from 'react-google-autocomplete';
 import rest  from '../services/external/rest';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
-const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
-const actions = require('../services/internal/store/actionConstants');
-const _ = require("lodash");
-const validator = require('../services/internal/validations');
+import Required from './Website'
+import {t} from '../translations'
 
 class Website extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loading: false
-        };
-        this.rest = rest;
     }
 
     render() {
-        const percentage = Math.floor(validator.getPercentage(this.props.website) * 100);
         return (
             <React.Fragment>
                 <Header />
-                <div style={{
-                    backgroundColor: '#F4F7F9',
-                    padding: 12,
-                    paddingTop: 32,
-                    paddingBottom: 150,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap'
-                }}>
-                    <Service icon={require('../static/images/services/website.png')} label="Website" link="/dashboard"/>
-                    <Service icon={require('../static/images/services/daftarperiksa(grey).png')} label="Daftar Periksa"
-                             link=""/>
-                    <Service icon={require('../static/images/services/daftar-tamu(grey).png')} label="Daftar Tamu"
-                             link=""/>
+                <div style={{padding: 16}}>
+                    <SemanticHeader dividing style={{marginTop: 12}}>Tentang Kami</SemanticHeader>
+                    <p>Tujuan NikahKu adalah menjadi pemandu all-in-one untuk perencanaan nikahanmu, dibuat untuk pasangan yang memilih untuk memakai perencana pernikahan profesional dan juga untuk pasangan yang melakukan semuanya sendiri, kami siap membantu.</p>
+                    <p>Seiring berjalannya era digital, surat berubah jadi email, yang berubah lagi jadi direct messaging, banyak pasangan yang menganggap website online adalah pengganti yang bagus (dan bahkan suplemen yang lebih baik) untuk kartu undangan tradisional. Website nikahan sudah menjadi hal esensial yang mutlak untuk pasangan yang bertunangan di seluruh dunia. Inilah alasan kami menyediakan layanan tanpa biaya ini untuk pasangan-pasangan Indonesia.</p>
+                    <p>Kami memulai dengan layanan websit pernikahan gratis, tapi jangan khawatir, kami tahu hari pernikahan jauh lebih rumit dan kami terus mengembangkan fitur baru bagi para klien. Kami senang banget dengan manajer daftar tamu, daftar periksa pernikahan, dan alat bantu mengatur tempat duduk.</p>
+                    <p>Silakan ajukan pertanyaan, masalah, atau umpan balikmu <a href="/contact">di sini</a>.</p>
                 </div>
+
                 <Footer/>
             </React.Fragment>
         )
-    }
-
-    componentDidMount() {
-        if (!this.props.user.token) {
-            this.props.history.push('/login')
-        }
-    }
-
-    changeHandler(key, checkbox = false) {
-        return (e) => {
-            const websiteAttributeAction = buildActionForKey(actions.WEBSITE_RECORD, key);
-            const val = checkbox ? e : e.target.value;
-            this.props.dispatch(websiteAttributeAction(val))
-        }
     }
 }
 

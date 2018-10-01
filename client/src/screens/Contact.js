@@ -31,6 +31,7 @@ import rest  from '../services/external/rest';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Required from './Website'
+import {t} from '../translations'
 
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
@@ -91,7 +92,7 @@ class Website extends Component {
             <React.Fragment>
                 <Header />
                 <div style={{padding: 16}}>
-                    <SemanticHeader dividing style={{marginTop: 12}}>Contact Info</SemanticHeader>
+                    <SemanticHeader dividing style={{marginTop: 12}}>{t("Contact Info")}</SemanticHeader>
                     <List>
                         <List.Item title="Whatsapp"  icon='whatsapp' content='+6281280010017' />
                         <List.Item icon='instagram' content={<a href='https://www.instagram.com/nikahku.id/'>nikahku.id</a>} />
@@ -102,16 +103,16 @@ class Website extends Component {
                         />
                     </List>
 
-                    <SemanticHeader dividing style={{marginTop: 48}}>Send us a line</SemanticHeader>
+                    <SemanticHeader dividing style={{marginTop: 48}}>{t("Send us a line")}</SemanticHeader>
                     {!this.state.success && <Form style={{ paddingBottom: 24}}>
                         <Form.Group widths='equal'>
                             <Form.Input onChange={this.changeHandler('name')} value={this.state.name} fluid  label='Nama *' placeholder='Nama' />
                             <Form.Input onChange={this.changeHandler('phone')} value={this.state.phone}  fluid label='Nomer Telepon' placeholder='Optional' />
                         </Form.Group>
                         <Form.Input fluid onChange={this.changeHandler('email')} value={this.state.email}  label='Email *' placeholder='some@mail.com' />
-                        <Form.Input fluid onChange={this.changeHandler('title')}  value={this.state.title}  label='Pertanyaan *' placeholder='Pertanyaan' />
+                        <Form.Input fluid onChange={this.changeHandler('title')}  value={this.state.title}  label='Pertanyaan *' placeholder='' />
                         <Form.TextArea onChange={this.changeHandler('message')}
-                                       value={this.state.message}  label='Detail *' placeholder='Tell us more about the matter...' />
+                                       value={this.state.message}  label='Detail *' placeholder='' />
                         <Form.Button loading={this.state.loading} onClick={this.send.bind(this)} fluid>Send</Form.Button>
                     </Form>}
 
@@ -136,7 +137,7 @@ function Service({label, icon, link}) {
                 <React.Fragment>
                     <img style={{height: 80, width: 80}} src={icon}/>
                     <p style={{marginBottom: 2, textAlign: 'center'}}>{label}</p>
-                    {!link && <p style={{fontSize: 11}}>(Comming soon!)</p>}
+                    {!link && <p style={{fontSize: 11}}>(Coming soon!)</p>}
                 </React.Fragment>}
         </div>
     )

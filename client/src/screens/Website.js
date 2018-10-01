@@ -300,14 +300,14 @@ class Website extends Component {
                       rest={this.rest} url="website/upload?target=template_main"
                       name={this.props.website.template_main ? "Change Main Image" : t("Upload the Main Photo")}
                       icon="camera"/>
-                <p style={{marginTop: 6, color: '#666'}}>{t("Ukuran Foto: ") + "4:3"}</p>
+                <p style={{marginTop: 6, color: '#666'}}>{t("Photo Dimension: ") + "4:3"}</p>
 
                 <Subtitle>{t("Foto Bawah")}</Subtitle>
                 <File onUpload={r => this.changeHandler('template_bottom', true)(r.filename)}
                       rest={this.rest} url="website/upload?target=template_bottom"
                       name={this.props.website.template_main ? "Change Bottom Image" : t("Upload the Bottom Photo")}
                       icon="camera"/>
-                <p style={{marginTop: 6, color: '#666'}}>{t("Ukuran Foto: ") + "4:3"}</p>
+                <p style={{marginTop: 6, color: '#666'}}>{t("Photo Dimension: ") + "4:3"}</p>
 
                 <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                         primary fluid>{t("Save")}</Button>

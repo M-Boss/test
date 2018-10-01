@@ -6,6 +6,7 @@ import {Menu, Segment, Button, Form, Grid, Input, Image} from 'semantic-ui-react
 import Slider from "react-slick";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {connect} from 'react-redux'
+import {t} from '../translations'
 
 class Header extends Component {
 
@@ -25,7 +26,7 @@ class Header extends Component {
                 </div>
                 <div className="" style={{maxWidth: 60}}>
                     {!this.props.user.token &&
-                    <Link to="/login"><p style={{color: '#F3817A'}}>Login</p></Link>}
+                    <Link to="/login"><p style={{color: '#F3817A'}}>{t("Log In")}</p></Link>}
                 </div>
             </div>
         )

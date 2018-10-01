@@ -111,7 +111,7 @@ class Login extends Component {
                            icon={{name: 'eye', circular: true, link: true, onClick: this.onTogglePassword}}
                            placeholder='Password'/>
                 </Form.Field>
-                <Button onClick={() => this.login()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>Log in</Button>
+                <Button onClick={() => this.login()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>{t("Log In")}</Button>
 
                 <p style={{marginTop: 40, textAlign: 'center'}}>Forgot your password?</p>
             </Form>
