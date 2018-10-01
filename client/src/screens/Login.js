@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import Footer from "./Footer";
 import Header from "./Header";
 import rest from '../services/external/rest'
+import {t} from '../translations'
 const {buildActionForKey, buildAction} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const {connect} = require('react-redux')
@@ -128,7 +129,7 @@ class Login extends Component {
                     <label>Password</label>
                     <Input value={this.state.register_password} onChange={e => this.setState({register_password: e.target.value})}  type='password' placeholder='Password'/>
                 </Form.Field>
-                <Button onClick={() => this.register()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>Sign up for free</Button>
+                <Button onClick={() => this.register()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>{t("Sign up for free")}</Button>
             </Form>
         )
     }
@@ -140,9 +141,9 @@ class Login extends Component {
 
                 <div style={{textAlign: 'center', marginBottom: 32, marginTop: 20}}>
                     <Menu pointing secondary compact>
-                        <Menu.Item name='Log in' active={this.state.page === 'login'}
+                        <Menu.Item name={t("Log In")} active={this.state.page === 'login'}
                                    onClick={this.handleItemClick.bind(this, 'login')}/>
-                        <Menu.Item name='Sign up' active={this.state.page === 'register'}
+                        <Menu.Item name={t("Sign Up")} active={this.state.page === 'register'}
                                    onClick={this.handleItemClick.bind(this, 'register')}/>
                     </Menu>
                 </div>

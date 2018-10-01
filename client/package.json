@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "i18n-js": "^3.0.11",
     "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-circular-progressbar": "^1.0.0",
