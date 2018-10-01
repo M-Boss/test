@@ -9,6 +9,7 @@ import Header from "./Header";
 import {H1} from "../components/Headers";
 import {Link} from "react-router-dom"
 import {connect} from 'react-redux'
+import {t} from '../translations'
 
 class Screen extends Component {
 
@@ -40,15 +41,12 @@ class Screen extends Component {
                         paddingBottom: 60,
                         backgroundColor: '#F4F7F9'
                     }}>
-                        <H1 style={{fontSize: 32}}>Welcome!</H1>
+                        <H1 style={{fontSize: 32}}>{t("Welcome!")}</H1>
 
-                        <p>Now you can create your wedding website and invite guests.</p>
+                        <p>{t("Now you can create your wedding website and invite guests.")}</p>
 
-                        <Link to="/create"><Button style={{marginTop: 20}} primary fluid>Create Your
-                            Website</Button></Link>
-                        <Button basic color='orange' disabled={true} style={{marginTop: 20, marginBottom: 32}} fluid>Create
-                            Guests List (Coming Soon)</Button>
-
+                        <Link to="/create"><Button style={{marginTop: 20}} primary fluid>{t("Create your website")}</Button></Link>
+                        <Button basic color='orange' disabled={true} style={{marginTop: 20, marginBottom: 32}} fluid>{t("Create guest list")}</Button>
                     </section>
 
                     <Footer/>

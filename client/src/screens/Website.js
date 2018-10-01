@@ -27,6 +27,8 @@ import Autocomplete from 'react-google-autocomplete';
 import rest  from '../services/external/rest';
 import Header from "./Header";
 import DatePicker from 'react-datepicker';
+import {t} from '../translations'
+
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
 
@@ -146,7 +148,7 @@ class Website extends Component {
                             marginTop: 20,
                             marginBottom: 20
                         }}>
-                            <H2 style={{flex: 1, margin: 0, lineHeight: '22px', float: 'left'}}>Website creation</H2>
+                            <H2 style={{flex: 1, margin: 0, lineHeight: '22px', float: 'left'}}>{t("Website Creation")}</H2>
                             {this.props.website.url && !this.accountNotValidated() &&
                             <a target="_blank" href={this.props.website.url}>
                                 <div style={{color: '#BFCAD1', lineHeight: '24px'}}>
@@ -208,37 +210,37 @@ class Website extends Component {
             validation: 'general',
             title: 'General Information',
             content: <div style={{padding: 12, paddingTop: 0}}>
-                <Subtitle>Bride</Subtitle>
+                <Subtitle>{t("Bride")}</Subtitle>
                 <Grid>
                     <Grid.Column width={8}>
                         <InputCombo onChange={this.changeHandler('bride_first')} value={this.props.website.bride_first}
-                                    label='First Name'/>
+                                    label={t("First name")}/>
                     </Grid.Column>
                     <Grid.Column width={8}>
                         <InputCombo onChange={this.changeHandler('bride_last')} value={this.props.website.bride_last}
-                                    label='Last Name'/>
+                                    label={t("Last name")}/>
                     </Grid.Column>
                 </Grid>
 
-                <Subtitle>Groom</Subtitle>
+                <Subtitle>{t("Groom")}</Subtitle>
                 <Grid >
                     <Grid.Column width={8}>
                         <InputCombo onChange={this.changeHandler('groom_first')} value={this.props.website.groom_first}
-                                    label='First Name'/>
+                                    label={t("First name")}/>
                     </Grid.Column>
                     <Grid.Column width={8}>
                         <InputCombo onChange={this.changeHandler('groom_last')} value={this.props.website.groom_last}
-                                    label='Last Name'/>
+                                    label={t("Last name")}/>
                     </Grid.Column>
                 </Grid>
 
                 <Checkbox checked={this.props.website.show_parents}
                           onChange={(e, {checked}) => this.changeHandler('show_parents', true)(checked)}
-                          style={{marginTop: 20}} label="Show parents' names on website"/>
+                          style={{marginTop: 20}} label={t("Show parent's name on website")}/>
 
                 {this.props.website.show_parents &&
                 <React.Fragment>
-                    <Subtitle>Bride</Subtitle>
+                    <Subtitle>{t("Bride")}</Subtitle>
                     <Grid >
                         <Grid.Column width={8}>
                             <InputCombo optional={true} onChange={this.changeHandler('bride_father')}
@@ -252,7 +254,7 @@ class Website extends Component {
                         </Grid.Column>
                     </Grid>
 
-                    <Subtitle>Groom</Subtitle>
+                    <Subtitle>{t("Groom")}</Subtitle>
                     <Grid >
                         <Grid.Column width={8}>
                             <InputCombo optional onChange={this.changeHandler('groom_father')}
@@ -269,7 +271,7 @@ class Website extends Component {
                 }
 
                 <Button notchanged={!this.state.changed} loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                        primary fluid>Save</Button>
+                        primary fluid>{t("Save")}</Button>
             </div>
         }
     }
@@ -280,7 +282,7 @@ class Website extends Component {
             validation: 'template',
             title: 'Choose Template',
             content: <div style={{padding: 12, paddingTop: 0, paddingBottom: 10}}>
-                <Subtitle>Template <Required /> </Subtitle>
+                <Subtitle>{t("Choose Template")}<Required /> </Subtitle>
                 <Link to="/choose_template">
 
                     {this.props.website.template === 0 ?
@@ -293,22 +295,22 @@ class Website extends Component {
                     }
                 </Link>
 
-                <Subtitle>Main Photo <Required /> </Subtitle>
+                <Subtitle>{t("Main Photo")}<Required /> </Subtitle>
                 <File onUpload={r => this.changeHandler('template_main', true)(r.filename)}
                       rest={this.rest} url="website/upload?target=template_main"
-                      name={this.props.website.template_main ? "Change Main Image" : "Upload Main Photo"}
+                      name={this.props.website.template_main ? "Change Main Image" : t("Upload the Main Photo")}
                       icon="camera"/>
-                <p style={{marginTop: 6, color: '#666'}}>For best experience use a ratio of 4:3</p>
+                <p style={{marginTop: 6, color: '#666'}}>{t("Ukuran Foto: ") + "4:3"}</p>
 
-                <Subtitle>Bottom Photo </Subtitle>
+                <Subtitle>{t("Foto Bawah")}</Subtitle>
                 <File onUpload={r => this.changeHandler('template_bottom', true)(r.filename)}
                       rest={this.rest} url="website/upload?target=template_bottom"
-                      name={this.props.website.template_main ? "Change Bottom Image" : "Upload Bottom Photo"}
+                      name={this.props.website.template_main ? "Change Bottom Image" : t("Upload the Bottom Photo")}
                       icon="camera"/>
-                <p style={{marginTop: 6, color: '#666'}}>For best experience use a ratio of 4:3</p>
+                <p style={{marginTop: 6, color: '#666'}}>{t("Ukuran Foto: ") + "4:3"}</p>
 
                 <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                        primary fluid>Save</Button>
+                        primary fluid>{t("Save")}</Button>
             </div>
         }
     }
@@ -316,16 +318,16 @@ class Website extends Component {
     accordionDetails() {
         return {
             validation: 'details',
-            title: 'Wedding Details',
+            title: t("Wedding Details"),
             content: <div>
 
                 <div style={{padding: 12, paddingTop: 20}}>
 
                     <InputCombo onChange={this.changeHandler('title')} value={this.props.website.title}
-                                label='Title'/>
+                                label={t("Title")}/>
 
                     <DateInput style={{marginTop: 12}}
-                               label="Date"
+                               label={t("Date")}
                                selected={moment(this.props.website.date)}
                                onChange={date => {
                                    // console.log(date);
@@ -335,16 +337,16 @@ class Website extends Component {
                     <Grid style={{marginTop: 12}}>
                         <Grid.Column width={8}>
                             <InputCombo onChange={this.changeHandler('country')} value={this.props.website.country}
-                                        label='Country'/>
+                                        label={t("Country")}/>
                         </Grid.Column>
                         <Grid.Column width={8}>
                             <InputCombo onChange={this.changeHandler('city')} value={this.props.website.city}
-                                        label='City'/>
+                                        label={t("City")}/>
                         </Grid.Column>
                     </Grid>
 
                     <div style={{marginTop: 16}}>
-                        <InputLabel >Instagram Hashtag</InputLabel>
+                        <InputLabel >{t("Instagram Hashtag")}</InputLabel>
                         <Input style={{width: '100%'}} labelPosition='left' type='text' placeholder='AnythingForLove'>
                             <Label basic>#</Label>
                             <input onChange={this.changeHandler('hashtag')} value={this.props.website.hashtag}/>
@@ -378,9 +380,9 @@ class Website extends Component {
                                 </div>
 
                                 <InputCombo onChange={this.changeStoryField(index, 'title')} value={s.title}
-                                            label='Title' placeholder="Our first date"/>
+                                            label='Title' placeholder={t("The Proposal")}/>
 
-                                <DateInput key={Math.random()} style={{marginTop: 16}} label="Date"
+                                <DateInput key={Math.random()} style={{marginTop: 16}} label={t("Date")}
                                            selected={moment(s.date)}
                                            onChange={date => {
                                                console.log(date.format('YYYY-MM-DD'));
@@ -388,10 +390,10 @@ class Website extends Component {
                                            }}/>
 
                                 <div style={{marginTop: 16}}>
-                                    <InputLabel >Description <Required/></InputLabel>
+                                    <InputLabel >{t("Description")} <Required/></InputLabel>
                                     <Form>
                                         <TextArea onChange={this.changeStoryField(index, 'description')}
-                                                  value={s.description} placeholder='Tell us about it'/>
+                                                  value={s.description} placeholder={t("On the anniversary of when we first met, we went back to our old stomping grounds to do karaoke with friends. When \"I'd Do Anything for Love\" came on, we ran up to the front. When the music suddenly died down, I looked over and he was down on one knee. I screamed, shouted \"YES,\" and we were engaged.")}/>
                                     </Form>
                                 </div>
                             </div>
@@ -408,12 +410,12 @@ class Website extends Component {
                     borderLeftWidth: 0,
                     borderRightWidth: 0
                 }} onClick={this.addStoryClicked}>
-                    <Icon name="plus circle"/> Add Story
+                    <Icon name="plus circle"/> {t("Add Story")}
                 </div>
 
                 <div style={{padding: 12}}>
                     <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                            primary fluid>Save</Button>
+                            primary fluid>{t("Save")}</Button>
                 </div>
             </div>
         }
@@ -435,28 +437,28 @@ class Website extends Component {
     accordionEvents() {
         return {
             validation: 'events',
-            title: 'Events',
+            title: t("Events"),
             content: <div>
 
                 <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Checkbox onChange={(e, {checked}) => this.changeHandler('show_events', true)(checked)}
                                   toggle checked={this.props.website.show_events}/>
-                        <p style={{marginLeft: 16}}>Show Page</p>
+                        <p style={{marginLeft: 16}}>{t("Show Page")}</p>
                     </div>
                 </div>
 
                 <div style={{padding: 12, paddingTop: 20}}>
                     <InputCombo onChange={this.changeHandler('events_page_title')}
                                 value={this.props.website.events_page_title}
-                                label='Page Title'/>
+                                label={t("Page Title")}/>
 
                     <div style={{marginTop: 16}}>
-                        <InputLabel >Description <Required/></InputLabel>
+                        <InputLabel >{t("Description")} <Required/></InputLabel>
                         <Form>
                             <TextArea onChange={this.changeHandler('events_description')}
                                       value={this.props.website.events_description}
-                                      placeholder="Here's what to expect during our big day"/>
+                                      placeholder={t("Here's what to expect during our big day, looking forward to seeing you there!")}/>
                         </Form>
                     </div>
                 </div>
@@ -489,7 +491,7 @@ class Website extends Component {
                                             <Icon name="delete"/></div>
                                     </div>
 
-                                    <InputLabel>Event Type</InputLabel>
+                                    <InputLabel>{t("Event Type")}</InputLabel>
                                     <Select style={{flex: 1, display: 'flex'}}
                                             onChange={(e, {value}) => this.changeEventField(index, 'type', true)(value)}
                                             value={types.includes(e.type) ? e.type : "Dll"}
@@ -508,9 +510,9 @@ class Website extends Component {
 
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'title')}
                                                 value={e.title}
-                                                label='Event Name'/>
+                                                label={t("Event Name")}/>
 
-                                    <DateInput key={Math.random()} style={{marginTop: 16}} label="Date"
+                                    <DateInput key={Math.random()} style={{marginTop: 16}} label={t("Date")}
                                                selected={moment(e.date)}
                                                onChange={date => {
                                                    console.log(date.format('YYYY-MM-DD'));
@@ -519,13 +521,13 @@ class Website extends Component {
 
                                     <Grid style={{marginTop: 12}}>
                                         <Grid.Column width={8}>
-                                            <InputLabel>Start Time <Required/></InputLabel>
+                                            <InputLabel>{t('Start Time')} <Required/></InputLabel>
                                             <TimePicker value={e.start_time}
                                                         onChange={(e, {value}) => this.changeEventField(index, 'start_time', true)(value)}/>
                                         </Grid.Column>
 
                                         <Grid.Column width={8}>
-                                            <InputLabel>End Time</InputLabel>
+                                            <InputLabel>{t('End Time')}</InputLabel>
                                             <TimePicker value={e.end_time}
                                                         onChange={(e, {value}) => this.changeEventField(index, 'end_time', true)(value)}/>
                                         </Grid.Column>
@@ -533,7 +535,7 @@ class Website extends Component {
 
                                     {!e.manual_address &&
                                     <div style={{marginTop: 16}}>
-                                        <InputLabel >Venue</InputLabel>
+                                        <InputLabel >{t("Venue Name")}</InputLabel>
                                         <Autocomplete
                                             style={{width: '100%', padding: 8, borderRadius: 4}}
                                             placeholder={e.venue}
@@ -556,7 +558,7 @@ class Website extends Component {
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'venue')}
                                                 value={e.venue}
                                                 optional
-                                                label='Venue Name'/>}
+                                                label={t("Venue Name")}/>}
 
                                     <div style={{
                                         color: '#21899A',
@@ -565,7 +567,7 @@ class Website extends Component {
                                     }}
                                          onClick={() => this.changeEventField(index, 'manual_address', true)(!e.manual_address)}>
                                         <Icon name="arrow right"/>
-                                        {!e.manual_address ? "Fill in address manually" : "Search for location"}
+                                        {!e.manual_address ? "Fill in address manually" : t("Search for location")}
                                     </div>
 
                                     {e.manual_address &&
@@ -573,30 +575,30 @@ class Website extends Component {
                                         <InputCombo optional style={{marginTop: 16}}
                                                     onChange={this.changeEventField(index, 'street')}
                                                     value={e.street}
-                                                    label='Street Address'/>
+                                                    label={t("Street Address")}/>
 
                                         <InputCombo optional style={{marginTop: 16}}
                                                     onChange={this.changeEventField(index, 'country')}
                                                     value={e.country}
-                                                    label='Country'/>
+                                                    label={t('Country')}/>
                                         <InputCombo optional style={{marginTop: 16}}
                                                     onChange={this.changeEventField(index, 'city')}
                                                     value={e.city}
-                                                    label='City'/>
+                                                    label={t('City')}/>
 
                                         <Grid>
                                             <Grid.Column width={8}>
                                                 <InputCombo optional style={{marginTop: 16}}
                                                             onChange={this.changeEventField(index, 'postal_code')}
                                                             value={e.postal_code}
-                                                            label='Postal Code'/>
+                                                            label={t('Postal Code')}/>
                                             </Grid.Column>
 
                                             <Grid.Column width={8}>
                                                 <InputCombo optional style={{marginTop: 16}}
                                                             onChange={this.changeEventField(index, 'apartment')}
                                                             value={e.apartment}
-                                                            label='Apt / Floor'/>
+                                                            label={t("Apt/Floor")}/>
                                             </Grid.Column>
                                         </Grid>
                                     </React.Fragment>}
@@ -604,13 +606,13 @@ class Website extends Component {
                                     <InputCombo optional style={{marginTop: 16}}
                                                 onChange={this.changeEventField(index, 'attire')}
                                                 value={e.attire}
-                                                label='Attire'/>
+                                                label={t("Attire")}/>
 
                                     <div style={{marginTop: 16}}>
-                                        <InputLabel >Note to guests</InputLabel>
+                                        <InputLabel >{t("Note to Guests")}</InputLabel>
                                         <Form>
                                         <TextArea onChange={this.changeEventField(index, 'description')}
-                                                  value={e.description} placeholder=''/>
+                                                  value={e.description} placeholder={t("Free valet parking at the building next door")}/>
                                         </Form>
                                     </div>
 
@@ -620,17 +622,16 @@ class Website extends Component {
                                      paddingTop: 20,
                                      paddingBottom: 20
                                      }}>
-                                     <Switch label="Make event public on site"
+                                     <Switch label={t("Make Event Public On site")}
                                      onChange={(e, {checked}) => this.changeEventField(index, 'public', true)(checked)}
                                      checked={e.public}/>
 
-                                     <Switch label="Allow guests to RSVP on site"
+                                     <Switch label={t("Allow guests to rsvp on site")}
                                      onChange={(e, {checked}) => this.changeEventField(index, 'rsvp', true)(checked)}
                                      checked={e.rsvp}
                                      style={{marginTop: 16}}/>
                                      </div>*/}
                                 </div>
-
 
                                 {/*<div style={{
                                     color: '#21899A',
@@ -640,7 +641,7 @@ class Website extends Component {
                                     paddingLeft: 12,
                                     borderTop: '1px solid #E0E6E7',
                                 }}>
-                                    <p style={{marginBottom: 4}}>Ask guests about meal preferences</p>
+                                    <p style={{marginBottom: 4}}>{t("Ask guests about meal preferences")}</p>
                                     {e.meals && e.meals.map((meal, mealIndex) =>
                                         <RemovableInput
                                             key={Math.random()}
@@ -679,7 +680,7 @@ class Website extends Component {
 
                 <div style={{padding: 12}}>
                     <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                            primary fluid>Save</Button>
+                            primary fluid>{t("Save")}</Button>
                 </div>
             </div>
         }
@@ -688,28 +689,28 @@ class Website extends Component {
     accordionPhotos() {
         return {
             validation: 'photos',
-            title: 'Photos',
+            title: t("Photos"),
             content: <div>
 
                 <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Checkbox onChange={(e, {checked}) => this.changeHandler('show_photos', true)(checked)}
                                   toggle checked={this.props.website.show_photos}/>
-                        <p style={{marginLeft: 16}}>Show Page</p>
+                        <p style={{marginLeft: 16}}>{t("Show Page")}</p>
                     </div>
                 </div>
 
                 <div style={{padding: 12, paddingTop: 20}}>
                     <InputCombo onChange={this.changeHandler('photos_page_title')}
                                 value={this.props.website.photos_page_title}
-                                label='Page Title'/>
+                                label={t('Page Title')}/>
 
                     <div style={{marginTop: 16}}>
-                        <InputLabel >Description <Required/></InputLabel>
+                        <InputLabel >{t("Description")} <Required/></InputLabel>
                         <Form>
                             <TextArea onChange={this.changeHandler('photos_description')}
                                       value={this.props.website.photos_description}
-                                      placeholder=""/>
+                                      placeholder={t("A few snaps taken of us over the years..")}/>
                         </Form>
                     </div>
                 </div>
@@ -747,7 +748,7 @@ class Website extends Component {
 
                 <div style={{padding: 12}}>
                     <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                            primary fluid>Save</Button>
+                            primary fluid>{t("Save")}</Button>
                 </div>
             </div>
         }
@@ -763,14 +764,14 @@ class Website extends Component {
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Checkbox onChange={(e, {checked}) => this.changeHandler('show_faqs', true)(checked)}
                                   toggle checked={this.props.website.show_faqs}/>
-                        <p style={{marginLeft: 16}}>Show Page</p>
+                        <p style={{marginLeft: 16}}>{t("Show Page")}</p>
                     </div>
                 </div>
 
                 <div style={{padding: 12, paddingTop: 20}}>
                     <InputCombo onChange={this.changeHandler('faqs_page_title')}
                                 value={this.props.website.faqs_page_title}
-                                label='Page Title'/>
+                                label={t('Page Title')}/>
 
                     <div style={{marginTop: 16}}>
                         <InputLabel >Description <Required/></InputLabel>
@@ -783,9 +784,10 @@ class Website extends Component {
                 </div>
 
                 {this.props.website.faqs.map((item, index) => {
-                        let no = "First FAQ";
-                        if (index === 1) no = "Second FAQ";
-                        else if (index > 1) no = `FAQ #${index + 1}`
+                        // let no = "First FAQ";
+                        // if (index === 1) no = "Second FAQ";
+                        // else if (index > 1) no = `Question #${index + 1}`
+                        let no = `${t("Question")} #${index + 1}`;
 
                         return (
                             <div key={index} style={{
@@ -812,15 +814,15 @@ class Website extends Component {
                                 <div style={{marginTop: 16}}>
                                     <InputCombo onChange={this.changeFAQField(index, 'question')}
                                                 value={item.question}
-                                                placeholder="Can I bring a date?"
-                                                label='Question'/>
+                                                placeholder={t("Can I bring a date?")}
+                                                label={t('Question')}/>
 
                                     <div style={{marginTop: 12}}>
-                                        <InputLabel>Description <Required/></InputLabel>
+                                        <InputLabel>{t("Answer")} <Required/></InputLabel>
                                         <Form>
                                         <TextArea onChange={this.changeFAQField(index, 'answer')}
                                                   value={item.answer}
-                                                  placeholder="If your invitation says 'with guests' then yes..."/>
+                                                  placeholder={t("If your invitation says \"and Guest,\" then yes, if not, we would prefer if it was just you.")}/>
                                         </Form>
                                     </div>
                                 </div>
@@ -845,7 +847,7 @@ class Website extends Component {
 
                 <div style={{padding: 12}}>
                     <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                            primary fluid>Save</Button>
+                            primary fluid>{t("Save")}</Button>
                 </div>
 
             </div>
@@ -854,9 +856,8 @@ class Website extends Component {
 
     accordionSettings() {
         return {
-            title: 'Website Settings',
+            title: t("Website Settings"),
             content: <div style={{padding: 12, paddingTop: 0}}>
-
 
                 <Subtitle>Website URL</Subtitle>
                 {!this.accountNotValidated() &&
@@ -865,12 +866,12 @@ class Website extends Component {
                 <div style={{display: 'flex', alignItems: 'center', marginTop: 8}}>
                     <Checkbox onChange={(e, {checked}) => this.changeHandler('public', true)(checked)}
                               toggle checked={this.props.website.public}/>
-                    <p style={{marginLeft: 16}}>Make publicly available</p>
+                    <p style={{marginLeft: 16}}>{t("Make Publicly Available?")}</p>
                 </div>
 
                 <div style={{padding: 12}}>
                     <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
-                            primary fluid>Save</Button>
+                            primary fluid>{t("Save")}</Button>
                 </div>
             </div>
         }
