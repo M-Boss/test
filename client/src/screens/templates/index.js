@@ -70,7 +70,6 @@ const templates = {
         events: (website, id) => <OneEvents theme={theme1[2]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme1[2]} website={website} websiteId={id}/>,
     },
-
     4: {
         home: (website, id) => <TwoHome theme={theme2[0]} website={website} websiteId={id}/>,
         photos: (website, id) => <TwoPhoto theme={theme2[0]} website={website} websiteId={id}/>,

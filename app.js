@@ -1,16 +1,18 @@
 require('dotenv').config();
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var multer = require('multer');
-var cors = require('cors');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const multer = require('multer');
+const cors = require('cors');
+const compression = require('compression');
+
 const fileUpload = require('express-fileupload');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const container = require('./services');
 
 var app = express();
@@ -29,6 +31,7 @@ app.use(cookieParser());
 app.use('/api', usersRouter);
 app.use('/api', require('./routes/contact'));
 app.use('/api', require('./routes/publicWebsite'));
+app.use(compression())
 app.use('/assets', express.static('public/uploads'));
 app.use( express.static( `${__dirname}/client/build` ) );
 //At the end
