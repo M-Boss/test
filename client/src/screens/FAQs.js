@@ -44,8 +44,8 @@ class Website extends Component {
             <React.Fragment>
                 <Header />
                 <div style={{padding: 16}}>
-                    <SemanticHeader dividing style={{marginTop: 12}}>FAQs</SemanticHeader>
-                    <h5>Website URL</h5>
+                    <SemanticHeader dividing style={{marginTop: 12}}>FAQ</SemanticHeader>
+                    <h5>URL Website</h5>
                     <List>
                         <List.Item as='a'>
                             <Icon name='help'/>

@@ -208,7 +208,7 @@ class Website extends Component {
     accordionGeneral() {
         return {
             validation: 'general',
-            title: 'General Information',
+            title: t('General Information'),
             content: <div style={{padding: 12, paddingTop: 0}}>
                 <Subtitle>{t("Bride")}</Subtitle>
                 <Grid>
@@ -280,7 +280,7 @@ class Website extends Component {
 
         return {
             validation: 'template',
-            title: 'Choose Template',
+            title: t('Choose Template'),
             content: <div style={{padding: 12, paddingTop: 0, paddingBottom: 10}}>
                 <Subtitle>{t("Choose Template")}<Required /> </Subtitle>
                 <Link to="/choose_template">
@@ -464,9 +464,9 @@ class Website extends Component {
                 </div>
 
                 {this.props.website.events.map((e, index) => {
-                        let no = "First Event";
-                        if (index === 1) no = "Second Event";
-                        else if (index > 1) no = `Event #${index + 1}`
+                        let no = "Acara Pertama";
+                        if (index === 1) no = "Acara Kedua";
+                        else if (index > 1) no = `Acara #${index + 1}`
 
                         const types = ["Pemberkatan Nikah", "Resepsi", "After Party", "Acara Adat", "Dll"];
                         return (
@@ -506,7 +506,7 @@ class Website extends Component {
                                     {e.type === "Dll" || !types.includes(e.type) &&
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'type')}
                                                 value={e.type}
-                                                label='Custom event type'/>}
+                                                label='Jenis Acara Khusus'/>}
 
                                     <InputCombo style={{marginTop: 16}} onChange={this.changeEventField(index, 'title')}
                                                 value={e.title}
@@ -567,7 +567,7 @@ class Website extends Component {
                                     }}
                                          onClick={() => this.changeEventField(index, 'manual_address', true)(!e.manual_address)}>
                                         <Icon name="arrow right"/>
-                                        {!e.manual_address ? "Fill in address manually" : t("Search for location")}
+                                        {!e.manual_address ? t("Fill in address manually") : t("Search for location")}
                                     </div>
 
                                     {e.manual_address &&
@@ -675,7 +675,7 @@ class Website extends Component {
                     borderLeftWidth: 0,
                     borderRightWidth: 0
                 }} onClick={this.addEventClicked}>
-                    <Icon name="plus circle"/> Add Event
+                    <Icon name="plus circle"/> {t("Add Event")}
                 </div>
 
                 <div style={{padding: 12}}>
@@ -720,7 +720,7 @@ class Website extends Component {
                             <div style={{padding: 12, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                 <File style={{flex: 1}} onUpload={r => this.photoUploaded(index, r.filename)}
                                       rest={this.rest} url={`website/upload?target=photos&index=${index}`}
-                                      name={item ? "Change Photo" : `Photo #${index + 1}`} icon="camera"
+                                      name={item ? "Change Photo" : `${t("Photo")} #${index + 1}`} icon="camera"
                                 />
 
                                 <Icon onClick={() => this.removePhoto(index)} style={{paddingLeft: 10, paddingRight: 12}}
@@ -741,8 +741,8 @@ class Website extends Component {
                     flexDirection: 'row',
                     alignItems: 'center'
                 }} onClick={this.addPhotoClicked}>
-                    <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> Add Photos</p>
-                    <p style={{margin: 0, fontSize: 12}}>Max file size 5 MB</p>
+                    <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/>  {t("Add Photos")}</p>
+                    <p style={{margin: 0, fontSize: 12}}>Ukuran maks file 5 MB</p>
 
                 </div>
 
@@ -757,7 +757,7 @@ class Website extends Component {
     accordionFAQ() {
         return {
             validation: 'faqs',
-            title: 'FAQs',
+            title: 'FAQ',
             content: <div>
 
                 <div style={{padding: 12, paddingTop: 20, paddingBottom: 20, borderBottom: '1px solid #E0E6E7'}}>
@@ -842,7 +842,7 @@ class Website extends Component {
                     flexDirection: 'row',
                     alignItems: 'center'
                 }} onClick={this.addFAQClicked}>
-                    <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> Add Question</p>
+                    <p style={{margin: 0, color: '#21899A', flex: 1}}><Icon name="plus circle"/> {t("Add Question")}</p>
                 </div>
 
                 <div style={{padding: 12}}>
@@ -859,9 +859,9 @@ class Website extends Component {
             title: t("Website Settings"),
             content: <div style={{padding: 12, paddingTop: 0}}>
 
-                <Subtitle>Website URL</Subtitle>
+                <Subtitle> URL Website</Subtitle>
                 {!this.accountNotValidated() &&
-                <p>{this.props.website.url || "(Will be set upon save)"}</p>}
+                <p>{this.props.website.url || "(Akan diatur ketika disimpan)"}</p>}
 
                 <div style={{display: 'flex', alignItems: 'center', marginTop: 8}}>
                     <Checkbox onChange={(e, {checked}) => this.changeHandler('public', true)(checked)}

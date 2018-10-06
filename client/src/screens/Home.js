@@ -32,8 +32,7 @@ class Home extends Component {
                     <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Register For Free")}</Button></Link>}
 
                     {!!this.props.user.token &&
-                    <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}} primary>To Your
-                        Website</Button></Link>}
+                    <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("To Your Website")}</Button></Link>}
 
                 </section>
 
@@ -80,7 +79,7 @@ class Home extends Component {
                     <img width={280} src={require('../static/images/home-05.svg')} alt="nikahku"/>
                     <h1 style={{fontSize: 32}}>{t("Customize and change your wedding anytime!")}</h1>
 
-                    <p>{t("Change your template whenever you want - we are adding templates all the time. Password protect your site or make it unsearchable on google")}</p>
+                    <p>{t("Change your template whenever you want - we are adding templates all the time Password protect your site or make it unsearchable on google")}</p>
 
                     <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Try for free")}</Button></Link>
 
@@ -141,11 +140,11 @@ class Home extends Component {
 
     renderSteps() {
         return (<Fragment>
-            <Step step="1" title={t("Choose your template")} body={t("We have over 100+ designs to choose from.")} image={require("../static/images/step-01.svg")}/>
+            <Step step="1" title={t("Choose your template")} body={t("We have over 100+ designs to choose from")} image={require("../static/images/step-01.svg")}/>
 
-            <Step step="2" title={t("Put your personal touches")} body={t("Add wedding details, photos, stories. Let guests RSVP too!")} image={require("../static/images/step-02.svg")}/>
+            <Step step="2" title={t("Put your personal touches")} body={t("Add wedding details, photos, stories Let guests RSVP too!")} image={require("../static/images/step-02.svg")}/>
 
-            <Step step="3" title={t("Share it with guests")} body={t("Share the link online or print it on your wedding invitations.")} image={require("../static/images/step-03.svg")}/>
+            <Step step="3" title={t("Share it with guests")} body={t("Share the link online or print it on your wedding invitations")} image={require("../static/images/step-03.svg")}/>
         </Fragment>)
     }
 }

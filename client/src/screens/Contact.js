@@ -94,7 +94,7 @@ class Website extends Component {
                 <div style={{padding: 16}}>
                     <SemanticHeader dividing style={{marginTop: 12}}>{t("Contact Info")}</SemanticHeader>
                     <List>
-                        <List.Item title="Whatsapp"  icon='whatsapp' content='+6281280010017' />
+                        <List.Item title="Whatsapp"  icon='whatsapp' content='+62-812-800-100-17' />
                         <List.Item icon='instagram' content={<a href='https://www.instagram.com/nikahku.id/'>nikahku.id</a>} />
                         <List.Item icon='facebook' content={<a href='https://www.facebook.com/NikahKu/'>NikahKu</a>} />
                         <List.Item
@@ -107,7 +107,7 @@ class Website extends Component {
                     {!this.state.success && <Form style={{ paddingBottom: 24}}>
                         <Form.Group widths='equal'>
                             <Form.Input onChange={this.changeHandler('name')} value={this.state.name} fluid  label='Nama *' placeholder='Nama' />
-                            <Form.Input onChange={this.changeHandler('phone')} value={this.state.phone}  fluid label='Nomer Telepon' placeholder='Optional' />
+                            <Form.Input onChange={this.changeHandler('phone')} value={this.state.phone}  fluid label='Nomor Telepon' placeholder='Optional' />
                         </Form.Group>
                         <Form.Input fluid onChange={this.changeHandler('email')} value={this.state.email}  label='Email *' placeholder='some@mail.com' />
                         <Form.Input fluid onChange={this.changeHandler('title')}  value={this.state.title}  label='Pertanyaan *' placeholder='' />
