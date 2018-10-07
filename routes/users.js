@@ -12,6 +12,20 @@ const registerValidation = {
     }
 };
 
+router.get('/kksuj82jska/users', async function (req, res, next) {
+    const db = container.get('db');
+
+    try {
+        const users = await db.User.findAll();
+        res.render('users', {users});
+
+    }
+    catch (e){
+        console.log(e);
+        res.sendStatus(724); //probably duplicate email
+    }
+});
+
 router.get('/xxx/yyy', async function (req, res, next) {
     const db = container.get('db');
 

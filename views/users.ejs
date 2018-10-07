@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Users</title>
+    <link rel='stylesheet'  />
+  </head>
+  <body>
+  <h1>users: </h1>
+  <p>total: <%= users.length %></p>
+  <% for(var i=users.length-1; i>=0; i--) {%>
+  <li><%= `${users[i].id} - ${users[i].email}` %></li>
+  <% } %>
+
+  </body>
+</html>
