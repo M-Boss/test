@@ -16,6 +16,12 @@ import TwoFAQs from './two/FAQs'
 import TwoPhoto from './two/Photos'
 
 
+import ThreeHome from './three/Home'
+// import ThreeEvents from './three/Events'
+// import ThreeFAQs from './three/FAQs'
+// import ThreePhoto from './three/Photos'
+
+
 const theme1 = [
     {
         primary: '#72859a',
@@ -47,6 +53,25 @@ const theme2 = [
         index: 1
     }
 ];
+const theme3 = [
+    {
+        primary: '#f3ebde',
+        secondary: '#FFF',
+        background: '#f3ebde',
+        foreground: '#222',
+        copyright_background: '#999',
+        copyright_foreground: '#fff',
+
+        index: 0
+    },
+    {
+        primary: '#f3ebde',
+        secondary: '#f1c591',
+        background: '#f3ebde',
+        foreground: '#222',
+        index: 1
+    }
+];
 
 const templates = {
     1: {
@@ -70,6 +95,8 @@ const templates = {
         events: (website, id) => <OneEvents theme={theme1[2]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme1[2]} website={website} websiteId={id}/>,
     },
+
+    //two
     4: {
         home: (website, id) => <TwoHome theme={theme2[0]} website={website} websiteId={id}/>,
         photos: (website, id) => <TwoPhoto theme={theme2[0]} website={website} websiteId={id}/>,
@@ -83,6 +110,15 @@ const templates = {
         faqs: (website, id) => <TwoFAQs theme={theme2[1]} website={website} websiteId={id}/>,
         events: (website, id) => <TwoEvents theme={theme2[1]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme1[1]} website={website} websiteId={id}/>,
+    },
+
+    //three
+    6: {
+        home: (website, id) => <ThreeHome theme={theme3[0]} website={website} websiteId={id}/>,
+        photos: (website, id) => <TwoPhoto theme={theme3[0]} website={website} websiteId={id}/>,
+        faqs: (website, id) => <TwoFAQs theme={theme3[0]} website={website} websiteId={id}/>,
+        events: (website, id) => <TwoEvents theme={theme3[0]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme3[0]} website={website} websiteId={id}/>,
     },
 };
 

@@ -16,14 +16,16 @@ class Header extends Component {
     }
 
     render() {
+        const {theme = {}}= this.props;
+        console.log('theme:', theme);
         return (
             <div className="" style={{backgroundColor: this.props.themeColor, display:'flex', alignItems: 'center', padding: 16}}>
                 <div  style={{flex: 1}}>
-                    <p style={{color: '#FFF', fontSize: 16}}>{this.props.label}</p>
+                    <p style={{color: theme.foreground || '#FFF', fontSize: 16}}>{this.props.label}</p>
                 </div>
                 <div className="" style={{maxWidth: 60}}>
                     <Link style={{lineHeight: '32px'}} to={`/wedding/${this.props.websiteId}/menu`}>
-                        <Icon style={{fontSize: 28, color: 'white'}} name="bars"/>
+                        <Icon style={{fontSize: 28, color: theme.foreground || 'white'}} name="bars"/>
                     </Link>
                 </div>
             </div>

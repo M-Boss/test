@@ -19,9 +19,9 @@ export default class Footer extends Component {
                     alignItems: 'center',
                     padding: 12,
                     paddingBottom: 15,
-                    backgroundColor: '#f3f5f8'
+                    backgroundColor: theme.background
                 }}>
-                    <h5 style={{color: theme.primary, margin: 0, marginRight: 10}}>With love by</h5>
+                    <h5 style={{color: theme.foreground || theme.primary, margin: 0, marginRight: 10}}>With love by</h5>
                     <img style={{height: 24}} src={require('./one/assets/logo.png')}/>
                     <h6 style={{color: theme.primary, margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}>
                         <Link to='/'>
@@ -29,7 +29,7 @@ export default class Footer extends Component {
                         </Link>
                     </h6>
                 </div>
-                <div style={{backgroundColor: theme.primary, color: '#FFF', padding: 12}}>
+                <div style={{backgroundColor: theme.copyright_background || theme.primary, color: theme.copyright_foreground || theme.foreground || '#FFF', padding: 12}}>
                     Copyright © Nikahku 2018
                 </div>
             </React.Fragment>

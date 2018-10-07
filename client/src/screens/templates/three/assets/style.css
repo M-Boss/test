@@ -1,0 +1,21 @@
+
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+
+
+h1, h2 {
+    font-weight: 400;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+    font-family: 'EB Garamond', serif;
+    color: #333;
+}
+
+.cursive{
+    font-family: 'Great Vibes', cursive;
+}
+
+h1{
+    font-size: 34px;
+}
