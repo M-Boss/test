@@ -8,7 +8,7 @@
   <h1>users: </h1>
   <p>total: <%= users.length %></p>
   <% for(var i=users.length-1; i>=0; i--) {%>
-  <li><%= `${users[i].id} - ${users[i].email}` %></li>
+  <li><%= `${users[i].id} - ${users[i].email} - ${users[i].active ? "Active" : "Not Active"}` %></li>
   <% } %>
 
   </body>
