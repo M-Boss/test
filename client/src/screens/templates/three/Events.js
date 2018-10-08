@@ -12,6 +12,7 @@ import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
 import _ from 'lodash'
+require('./assets/style.css');
 
 class Events extends Component {
 
@@ -23,55 +24,52 @@ class Events extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
-                <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
+            <div style={{overflow: 'hidden', fontFamily: 'serif', textAlign: 'center', backgroundColor: theme.background}}>
+                <Header website={website} theme={theme} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
-                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
+                <img style={{ marginTop: 30, opacity: 0.8}} src={require('./assets/top2.png')}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
-                    <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
+                    <h1 className="cursive" style={{color: theme.foreground, marginBottom: 0}}>Events</h1>
+                    <img style={{}} src={require('./assets/sep2.png')}/>
                     <p style={{
                         marginTop: 0,
-                        color: theme.primary,
-                        fontSize: 18,
-                        fontFamily: 'sans-serif'
+                        color: theme.foreground,
+                        fontSize: 18
                     }}>{website.events_description}</p>
                 </div>
 
-                <div style={{marginTop: 100}}>
+                <div style={{marginTop: 40}}>
                     {website.events &&
                     website.events.map((event, index) => {
                         const color = [theme.primary, '#FFF'][index % 2];
                         const textColor = ['#FFF', theme.primary][index % 2];
                         return (
-                            <div style={{marginTop: 70, marginBottom: 48,  backgroundColor: color}}>
-                                {index % 2 === 0 &&
-                                <img style={{marginTop: -32, width: '100%'}} src={require('./assets/top.png')}/>}
-                                <div style={{textAlign: 'center', padding: "0 20px"}}>
+                            <div style={{marginTop: 20, marginBottom: 48,  backgroundColor: color}}>
+                                <img style={{}} src={require('./assets/sep.png')}/>
+
+                                <div style={{textAlign: 'center', marginTop: 20, padding: "10px 20px"}}>
                                     <h1 style={{
                                         paddingLeft: 0,
-                                        color: 'rgba(0,0,0,0.5)',
-                                        fontFamily: 'serif'
+                                        color: theme.foreground
                                     }}>{event.title}</h1>
 
                                     <p style={{
-                                        color: textColor,
-                                        fontSize: '1.25em',
-                                        marginTop: 50,
-                                        fontFamily: 'sans-serif'
+                                        color: theme.foreground,
+                                        fontSize: '1.5em',
+                                        marginTop: 10
                                     }}>
                                         {event.date && moment(event.date, "YYYY-MM-DD").format('Do MMMM YYYY')}
                                     </p>
-                                    <p style={{fontSize: '1.25em', color: textColor, fontFamily: 'sans-serif'}}>
+                                    <p style={{fontSize: '1.5em', color: theme.foreground}}>
                                         {event.start_time + " -- " + event.end_time}
                                     </p>
                                     <div style={{display: 'flex', marginTop: -4}}>
                                         <p style={{
                                             fontSize: '1.25em',
                                             flex: 1,
-                                            color: textColor,
-                                            fontFamily: 'sans-serif'
+                                            color: theme.foreground
                                         }}>
                                             {event.manual_address ?
                                                 `${event.venue}, ${event.postal_code}  ${event.apartment} ${event.street} ${event.city} ${event.country}`
@@ -81,12 +79,10 @@ class Events extends Component {
                                     <br/>
                                     {!event.manual_address &&
                                     <a target="_blank"
-                                       href={`https://www.google.com/maps/?q=${_.get(event, "location.lat")},${_.get(event, "location.lng")}`}><Button
-                                        fluid primary>See on map</Button></a>}
+                                       href={`https://www.google.com/maps/?q=${_.get(event, "location.lat")},${_.get(event, "location.lng")}`}>
+                                        <div style={{ padding: 8, border: '1px solid black', color: 'black' }} fluid primary>See on map</div></a>}
                                     <br/>
                                 </div>
-                                {index % 2 === 0 &&
-                                <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>}
                             </div>
                         )
                     })

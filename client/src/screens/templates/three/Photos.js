@@ -12,7 +12,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
-
+require('./assets/style.css');
 
 class Photos extends Component {
 
@@ -24,20 +24,23 @@ class Photos extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div style={{overflow: 'hidden', fontFamily: 'sans-serif'}}>
+            <div style={{ backgroundColor: theme.background, overflow: 'hidden', fontFamily: 'sans-serif'}}>
 
-                <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
-                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/top' + theme.index + '.png')}/>
+                <Header website={website} theme={theme}
+                        themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
+                        label={website.bride_first + " & " + website.groom_first}/>
+
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
-                    <h1 style={{fontFamily: 'serif', color: theme.primary}}>Photos</h1>
-                    <h2 style={{marginTop: 0, color: theme.primary, fontSize: 18, fontFamily: 'serif' }}>{website.photos_description}</h2>
+                    <img style={{opacity: 0.8}} src={require('./assets/top.png')}/>
+                    <h1 className="cursive" style={{ color: theme.foreground}}>Photos</h1>
+                    <img style={{opacity: 0.8}} src={require('./assets/sep2.png')}/>
+                    <h2 style={{marginTop: 0, color: theme.foreground, fontSize: 18 }}>{website.photos_description}</h2>
                     {website.photos &&
                     website.photos.map( photo => {
                         return (
                             <img style={{width: '100%', marginTop: 30}} src={config("app.assets") + photo} />
                         )
-                    })
-                    }
+                    })}
                     <Footer theme={theme}/>
                 </div>
             </div>

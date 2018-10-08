@@ -38,16 +38,31 @@ class Screen extends Component {
                 {
                     id: 5,
                     name: "Fifth template"
+                },
+                {
+                    id: 6,
+                    name: "Sixth template"
+                },
+                {
+                    id: 7,
+                    name: "Seventh template"
                 }
             ]
         };
     }
+
 
     onTemplateSelected(t) {
         console.log(t);
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
         this.props.dispatch(action(t.id));
 
+        setTimeout(() => {
+            this.save()
+        }, 1000)
+    }
+
+    save(){
         rest.post('website/save', {
             website: this.props.website
         })
@@ -58,7 +73,7 @@ class Screen extends Component {
                 <Header />
 
                 <div style={{padding: 16, backgroundColor: '#F4F7F9'}}>
-                    <Link to="/create">
+                    <Link onClick={() => this.save()} to="/create">
                         <p><Icon name="long arrow alternate left"/> Back</p>
                     </Link>
                     <H3>Templates </H3>

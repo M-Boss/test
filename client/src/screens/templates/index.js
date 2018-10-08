@@ -9,17 +9,15 @@ import OneFAQs from './one/FAQs'
 import OneEvents from './one/Events'
 import OneMenu from './one/Menu'
 
-
 import TwoHome from './two/Home'
 import TwoEvents from './two/Events'
 import TwoFAQs from './two/FAQs'
 import TwoPhoto from './two/Photos'
 
-
 import ThreeHome from './three/Home'
-// import ThreeEvents from './three/Events'
-// import ThreeFAQs from './three/FAQs'
-// import ThreePhoto from './three/Photos'
+import ThreeEvents from './three/Events'
+import ThreeFAQs from './three/FAQs'
+import ThreePhoto from './three/Photos'
 
 
 const theme1 = [
@@ -65,10 +63,12 @@ const theme3 = [
         index: 0
     },
     {
-        primary: '#f3ebde',
+        primary: '#f8f8f8',
         secondary: '#f1c591',
-        background: '#f3ebde',
+        background: '#f8f8f8',
         foreground: '#222',
+        copyright_background: '#999',
+        copyright_foreground: '#fff',
         index: 1
     }
 ];
@@ -115,13 +115,21 @@ const templates = {
     //three
     6: {
         home: (website, id) => <ThreeHome theme={theme3[0]} website={website} websiteId={id}/>,
-        photos: (website, id) => <TwoPhoto theme={theme3[0]} website={website} websiteId={id}/>,
-        faqs: (website, id) => <TwoFAQs theme={theme3[0]} website={website} websiteId={id}/>,
-        events: (website, id) => <TwoEvents theme={theme3[0]} website={website} websiteId={id}/>,
+        events: (website, id) => <ThreeEvents theme={theme3[0]} website={website} websiteId={id}/>,
+        faqs: (website, id) => <ThreeFAQs theme={theme3[0]} website={website} websiteId={id}/>,
+        photos: (website, id) => <ThreePhoto theme={theme3[0]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme3[0]} website={website} websiteId={id}/>,
+    },
+    7: {
+        home: (website, id) => <ThreeHome theme={theme3[1]} website={website} websiteId={id}/>,
+        events: (website, id) => <ThreeEvents theme={theme3[1]} website={website} websiteId={id}/>,
+        faqs: (website, id) => <ThreeFAQs theme={theme3[1]} website={website} websiteId={id}/>,
+        photos: (website, id) => <ThreePhoto theme={theme3[1]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme3[1]} website={website} websiteId={id}/>,
     },
 };
 
 export function getTemplate(key) {
     return templates[key]
 }
+
