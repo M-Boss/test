@@ -167,6 +167,7 @@ router.post('/auth/login', validate(registerValidation), async function (req, re
         res.sendStatus(400);
     }
 });
+
 //
 // router.post('/auth/recover-email', async function (req, res, next) {
 //     const users = container.get('users');

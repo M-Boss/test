@@ -154,9 +154,7 @@ router.post('/save', async function (req, res, next) {
 
 router.get('/get', async function (req, res, next) {
     try {
-        const db = container.get('db');
-        const user = await db.User.findById(1);
-        res.json({user});
+        res.json({website: req.user.website});
     }
     catch(e){
         console.log("Error: ", e);

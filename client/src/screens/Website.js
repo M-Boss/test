@@ -178,7 +178,7 @@ class Website extends Component {
     }
 
     accountNotValidated(){
-        return this.props.user && !this.props.user.active;
+        return this.props.user && this.props.user.id > 62 &&  !this.props.user.active;
     }
 
     componentDidMount() {
