@@ -25,7 +25,7 @@ class Photos extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div style={{overflow: 'hidden', backgroundColor: theme.background}}>
+            <div className="template-3" style={{overflow: 'hidden', backgroundColor: theme.background}}>
 
                 <Header website={website} theme={theme} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>

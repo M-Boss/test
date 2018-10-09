@@ -3,19 +3,19 @@
 @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
 
 
-h1, h2 {
+.template-3 h1, h2 {
     font-weight: 400;
 }
 
-p, h1, h2, h3, h4, h5, h6{
+.template-3 p, .template-3 h1, .template-3 h2, .template-3 h3, .template-3 h4, .template-3 h5,.template-3 h6{
     font-family: 'EB Garamond', serif;
     color: #333;
 }
 
-.cursive{
+.template-3 .cursive{
     font-family: 'Great Vibes', cursive;
 }
 
-h1{
+.template-3 h1{
     font-size: 34px;
 }

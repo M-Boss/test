@@ -26,12 +26,12 @@ class Validator {
 
     labelOf(k){
         return {
-            'general': 'General Information',
-            'template': 'Choose Template',
-            'details': 'Wedding Details',
-            'events': 'Events',
-            'photos': 'Photos',
-            'faqs': 'FAQs',
+            'general': 'Informasi Umum',
+            'template': 'Pilih Templat',
+            'details': 'Detail Pernikahan',
+            'events': 'Acara',
+            'photos': 'Foto',
+            'faqs': 'Pengaturan Website',
         }[k];
     }
 

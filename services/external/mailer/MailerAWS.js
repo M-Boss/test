@@ -29,8 +29,8 @@ module.exports = class MailerAWS {
                     Data: subject
                 }
             },
-            Source: 'arbab.mohammad92@gmail.com',
-            ReplyToAddresses: ['arbab.mohammad92@gmail.com']
+            Source: 'no-reply@nikahku.com',
+            ReplyToAddresses: ['no-reply@nikahku.com']
         };
 
         const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();

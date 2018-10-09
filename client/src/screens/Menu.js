@@ -27,7 +27,7 @@ class Menu extends Component {
                 <Grid.Column style={{marginTop: 48, maxWidth: 400, textAlign: 'center'}} >
                     <MenuItem to="/">Home</MenuItem>
                     <MenuItem to="/services">Dashboard</MenuItem>
-                    <MenuItem to="/contact">{t("About Us")}</MenuItem>
+                    <MenuItem to="/about">{t("About Us")}</MenuItem>
                     <MenuItem to="/contact">{t("Contact Us")}</MenuItem>
                     <MenuItem to="/faqs">FAQs</MenuItem>
                     <MenuItem to="/blog" normalLink={true}>Blog</MenuItem>

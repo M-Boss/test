@@ -328,10 +328,10 @@ class Website extends Component {
 
                     <DateInput style={{marginTop: 12}}
                                label={t("Date")}
-                               selected={moment(this.props.website.date)}
+                               selected={this.props.website.date ? moment(this.props.website.date) : moment()}
                                onChange={date => {
                                    // console.log(date);
-                                   this.changeHandler('date', true)(date.format('YYYY-MM-DD'))
+                                   this.changeHandler('date', true)(date ? date.format('YYYY-MM-DD') : "2019-01-01")
                                }}/>
 
                     <Grid style={{marginTop: 12}}>
@@ -383,10 +383,10 @@ class Website extends Component {
                                             label='Title' placeholder={t("The Proposal")}/>
 
                                 <DateInput key={Math.random()} style={{marginTop: 16}} label={t("Date")}
-                                           selected={moment(s.date)}
+                                           selected={s.date ? moment(s.date) : moment()}
                                            onChange={date => {
-                                               console.log(date.format('YYYY-MM-DD'));
-                                               this.changeStoryField(index, 'date', true)(date.format('YYYY-MM-DD'))
+                                               //console.log(date ? date.format('YYYY-MM-DD') : "2019-01-01");
+                                               this.changeStoryField(index, 'date', true)(date ? date.format('YYYY-MM-DD') : "2019-01-01")
                                            }}/>
 
                                 <div style={{marginTop: 16}}>
@@ -513,10 +513,10 @@ class Website extends Component {
                                                 label={t("Event Name")}/>
 
                                     <DateInput key={Math.random()} style={{marginTop: 16}} label={t("Date")}
-                                               selected={moment(e.date)}
+                                               selected={e.date ? moment(e.date) : moment()}
                                                onChange={date => {
-                                                   console.log(date.format('YYYY-MM-DD'));
-                                                   this.changeEventField(index, 'date', true)(date.format('YYYY-MM-DD'))
+                                                   //console.log(date.format('YYYY-MM-DD'));
+                                                   this.changeEventField(index, 'date', true)(date ? date.format('YYYY-MM-DD') : "2019-01-01")
                                                }}/>
 
                                     <Grid style={{marginTop: 12}}>
