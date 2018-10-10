@@ -37,13 +37,11 @@ const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
 const validator = require('../services/internal/validations');
 
-
 moment.locale('id', {
         months: 'Januari Februari Maret April Mei Juni Juli Agustus September Oktober November Desember'.split(' ')
     }
 );
 moment.locale('id');
-
 
 function Button(props){
     console.log("Changed: ", props);
@@ -288,8 +286,8 @@ class Website extends Component {
                     {this.props.website.template === 0 ?
                         <BorderedButton text="Choose Template" icon="file text outline"/>
                         :
-                        <div style={{}}>
-                            <img style={{width: '100%'}} src={require(`../static/images/templates/template-${this.props.website.template}.jpg`)}
+                        <div style={{textAlign: 'center'}}>
+                            <img style={{maxWidth: 300, width: '100%'}} src={require(`../static/images/templates/template-${this.props.website.template}.jpg`)}
                                  alt={"Selected template"}/>
                         </div>
                     }

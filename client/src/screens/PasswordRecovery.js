@@ -6,7 +6,6 @@ import {Menu, Segment, Button, Form, Grid, Input} from 'semantic-ui-react'
 
 export default class PasswordRecovery extends Component {
 
-
     constructor(props) {
         super(props);
         this.state = {

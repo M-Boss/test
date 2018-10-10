@@ -7,6 +7,9 @@ import Slider from "react-slick";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {connect} from 'react-redux'
 import {t} from '../translations'
+import MediaQuery from 'react-responsive';
+const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
+const actions = require('../services/internal/store/actionConstants');
 
 class Header extends Component {
 
@@ -17,20 +20,62 @@ class Header extends Component {
 
     render() {
         return (
-            <div className="" style={{display:'flex', alignItems: 'center', padding: 16}}>
-                <div className="" style={{maxWidth: 60}}>
-                    <Link to={'/menu'}> <img width={28} height={28} src={require('../static/images/menu.svg')}/></Link>
-                </div>
-                <div  style={{flex: 1, textAlign: 'center'}}>
-                    <img width={160}  src={require('../static/images/logo-header.svg')}/>
-                </div>
-                <div className="" style={{maxWidth: 60}}>
-                    {!this.props.user.token &&
-                    <Link to="/login"><p style={{color: '#F3817A'}}>{t("Log In")}</p></Link>}
-                </div>
-            </div>
+            <React.Fragment>
+                <MediaQuery maxWidth={1024}>
+                    <div className="" style={{display: 'flex', alignItems: 'center', padding: 16}}>
+                        <div className="" style={{maxWidth: 60}}>
+                            <Link to={'/menu'}> <img width={28} height={28}
+                                                     src={require('../static/images/menu.svg')}/></Link>
+                        </div>
+                        <div style={{flex: 1, textAlign: 'center'}}>
+                            <img width={160} src={require('../static/images/logo-header.svg')}/>
+                        </div>
+                        <div className="" style={{maxWidth: 60}}>
+                            {!this.props.user.token &&
+                            <Link to="/login"><p style={{color: '#F3817A'}}>{t("Log In")}</p></Link>}
+                        </div>
+                    </div>
+                </MediaQuery>
+
+                <MediaQuery minWidth={1024}>
+                    <div className="cl-effect-1" style={{display: 'flex', alignItems: 'center', padding: 16, paddingLeft: 24}}>
+
+
+                        <MenuItem to="/">Home</MenuItem>
+                        <MenuItem to="/services">Dashboard</MenuItem>
+                        <MenuItem to="/about">{t("About Us")}</MenuItem>
+                        <MenuItem to="/contact">{t("Contact Us")}</MenuItem>
+                        <MenuItem to="/faqs">FAQs</MenuItem>
+                        <MenuItem to="/blog">Blog</MenuItem>
+                        {
+                            this.props.user.email && <MenuItem onClick={() => this.logout()} to="/login">Logout</MenuItem>
+                        }
+                        {
+                            !this.props.user.email && <MenuItem to="/login">Login</MenuItem>
+                        }
+
+                        <div style={{flex: 1, textAlign: 'right'}}>
+                            <img width={160} src={require('../static/images/logo-header.svg')}/>
+                        </div>
+                    </div>
+                </MediaQuery>
+            </React.Fragment>
         )
     }
+
+    logout(){
+        let action = buildAction(actions.USER_RECORD);
+        this.props.dispatch(action({email: "", token: undefined, active: true}));
+        action = buildAction(actions.WEBSITE_RECORD);
+        this.props.dispatch(action({}));
+    }
+}
+
+
+function MenuItem({to, children, onClick}){
+    return (
+        <Link onClick={onClick} style={{color: '#444', fontWeight: 600, padding: 6, margin: 0}} to={to}>{children}</Link>
+    )
 }
 
 export default connect(state => {

@@ -139,7 +139,7 @@ class Login extends Component {
             <React.Fragment>
                 <Header />
 
-                <div style={{textAlign: 'center', marginBottom: 32, marginTop: 20}}>
+                <div style={{maxWidth: 400, margin: 'auto', textAlign: 'center', marginBottom: 32, marginTop: 20}}>
                     <Menu pointing secondary compact>
                         <Menu.Item name={t("Log In")} active={this.state.page === 'login'}
                                    onClick={this.handleItemClick.bind(this, 'login')}/>
@@ -147,9 +147,11 @@ class Login extends Component {
                                    onClick={this.handleItemClick.bind(this, 'register')}/>
                     </Menu>
                 </div>
+                <div style={{maxWidth: 400, margin: 'auto'}}>
                 {
                     this.state.page === 'login' ? this.renderLogin() : this.renderRegister()
                 }
+                </div>
                 <br/>
                 <br/>
                 <br/>

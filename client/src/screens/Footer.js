@@ -14,7 +14,7 @@ export default class Footer extends Component {
     }
 
     render() {
-        return <div style={{maxWidth: 480, textAlign: 'center'}}>
+        return <div style={{textAlign: 'center'}}>
             <section className="inverted" style={{
                 backgroundColor: '#27434F',
                 paddingBottom: 60,

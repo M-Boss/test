@@ -46,7 +46,7 @@ class Nikahku extends Component {
     render() {
         return (
             <Router>
-                <div style={{width: '100%', maxWidth: 380, margin: 'auto'}}>
+                <div id="app-wrapper">
                     <Route exact path="/" component={Home}/>
                     <Route path="/login" component={Login}/>
                     <Route path="/dashboard" component={Dashboard}/>

@@ -29,10 +29,12 @@ class Home extends Component {
                     <H2 style={{color: '#3d434e'}}>{t("With easy to use templates and features to make your wedding planning that much easier")}</H2>
 
                     {!this.props.user.token &&
-                    <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Register For Free")}</Button></Link>}
+                    <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}}
+                                              primary>{t("Register For Free")}</Button></Link>}
 
                     {!!this.props.user.token &&
-                    <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("To Your Website")}</Button></Link>}
+                    <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}}
+                                               primary>{t("To Your Website")}</Button></Link>}
 
                 </section>
 
@@ -43,11 +45,13 @@ class Home extends Component {
                     {this.renderCarousel()}
 
                     {!this.props.user.token &&
-                    <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Choose your template")}</Button></Link>}
+                    <Link to='/login'><Button style={{marginTop: 20, marginBottom: 32}}
+                                              primary>{t("Choose your template")}</Button></Link>}
 
 
                     {!!this.props.user.token &&
-                    <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Choose your template")}</Button></Link>}
+                    <Link to='/create'><Button style={{marginTop: 20, marginBottom: 32}}
+                                               primary>{t("Choose your template")}</Button></Link>}
 
 
                 </section>
@@ -60,7 +64,12 @@ class Home extends Component {
                     paddingRight: 32,
                 }}>
                     <h2 style={{fontSize: 26}}>{t("Its as easy as 1,2,3!")}</h2>
-                    {this.renderSteps()}
+                    <div style={{
+                        maxWidth: 400,
+                        margin: 'auto'
+                    }}>
+                        {this.renderSteps()}
+                    </div>
                 </section>
 
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32}}>
@@ -81,7 +90,8 @@ class Home extends Component {
 
                     <p>{t("Change your template whenever you want - we are adding templates all the time Password protect your site or make it unsearchable on google")}</p>
 
-                    <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Try for free")}</Button></Link>
+                    <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}}
+                                               primary>{t("Try for free")}</Button></Link>
 
                 </section>
 
@@ -91,7 +101,8 @@ class Home extends Component {
 
                     <p>{t("Add your #hashtag instagram stream to get guests excited, or for you to reminisce after your wedding!")}</p>
 
-                    <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>{t("Get Started")}</Button></Link>
+                    <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}}
+                                               primary>{t("Get Started")}</Button></Link>
                 </section>
 
                 <section className="inverted" style={{
@@ -105,11 +116,15 @@ class Home extends Component {
 
                     <p>{t("No more waiting for paper RSVPs or contacting your guests individually")}</p>
 
-                    <RSVPRow>{t("Have guests directly RSVP on your wedding website")}</RSVPRow>
-                    <RSVPRow>{t("Ask for food preferences, song requests, are they bringing a date?")}</RSVPRow>
-                    <RSVPRow>{t("Track every response on our Guest List Manager")}</RSVPRow>
-
-                    <Image style={{marginTop: 48}} fluid src={require('../static/images/rsvp.svg')} alt="nikahku"/>
+                    <div style={{
+                        maxWidth: 400,
+                        margin: 'auto'
+                    }}>
+                        <RSVPRow>{t("Have guests directly RSVP on your wedding website")}</RSVPRow>
+                        <RSVPRow>{t("Ask for food preferences, song requests, are they bringing a date?")}</RSVPRow>
+                        <RSVPRow>{t("Track every response on our Guest List Manager")}</RSVPRow>
+                    </div>
+                    <Image style={{margin: 'auto', maxWidth: 400, marginTop: 48}} fluid src={require('../static/images/rsvp.svg')} alt="nikahku"/>
                 </section>
 
                 <Footer/>
@@ -128,23 +143,28 @@ class Home extends Component {
         };
 
         return (
-            <Slider {...settings}>
-
-                <img src={require('../static/images/slide-01.jpg')}/>
-
-                <img src={require('../static/images/slide-02.jpg')}/>
-                <img src={require('../static/images/slide-03.jpg')}/>
-            </Slider>
+            <div style={{maxWidth: 400, margin: 'auto'}}>
+                <Slider {...settings}>
+                    <img src={require('../static/images/slide-01.jpg')}/>
+                    <img src={require('../static/images/slide-02.jpg')}/>
+                    <img src={require('../static/images/slide-03.jpg')}/>
+                </Slider>
+            </div>
         )
     }
 
     renderSteps() {
         return (<Fragment>
-            <Step step="1" title={t("Choose your template")} body={t("We have over 100+ designs to choose from")} image={require("../static/images/step-01.svg")}/>
+            <Step step="1" title={t("Choose your template")} body={t("We have over 100+ designs to choose from")}
+                  image={require("../static/images/step-01.svg")}/>
 
-            <Step step="2" title={t("Put your personal touches")} body={t("Add wedding details, photos, stories Let guests RSVP too!")} image={require("../static/images/step-02.svg")}/>
+            <Step step="2" title={t("Put your personal touches")}
+                  body={t("Add wedding details, photos, stories Let guests RSVP too!")}
+                  image={require("../static/images/step-02.svg")}/>
 
-            <Step step="3" title={t("Share it with guests")} body={t("Share the link online or print it on your wedding invitations")} image={require("../static/images/step-03.svg")}/>
+            <Step step="3" title={t("Share it with guests")}
+                  body={t("Share the link online or print it on your wedding invitations")}
+                  image={require("../static/images/step-03.svg")}/>
         </Fragment>)
     }
 }
