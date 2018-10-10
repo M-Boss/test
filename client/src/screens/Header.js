@@ -46,7 +46,7 @@ class Header extends Component {
                         <MenuItem to="/about">{t("About Us")}</MenuItem>
                         <MenuItem to="/contact">{t("Contact Us")}</MenuItem>
                         <MenuItem to="/faqs">FAQs</MenuItem>
-                        <MenuItem to="/blog">Blog</MenuItem>
+                        <a style={{color: '#444', fontWeight: 600, padding: 6, margin: 0}} href="/blog">Blog</a>
                         {
                             this.props.user.email && <MenuItem onClick={() => this.logout()} to="/login">Logout</MenuItem>
                         }
