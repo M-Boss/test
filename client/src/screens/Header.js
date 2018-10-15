@@ -28,19 +28,20 @@ class Header extends Component {
                                                      src={require('../static/images/menu.svg')}/></Link>
                         </div>
                         <div style={{flex: 1, textAlign: 'center'}}>
-                            <img width={160} src={require('../static/images/logo-header.svg')}/>
+                            <a href="/"><img width={160} src={require('../static/images/logo-header.svg')}/></a>
                         </div>
                         <div className="" style={{maxWidth: 60}}>
                             {!this.props.user.token &&
                             <Link to="/login"><p style={{color: '#F3817A'}}>{t("Log In")}</p></Link>}
+                            {!!this.props.user.token &&
+                            <Link to='/login'><p className="pointer" onClick={() => this.logout()} style={{color: '#F3817A'}}>{t("Logout")}</p></Link>}
                         </div>
                     </div>
                 </MediaQuery>
 
+
                 <MediaQuery minWidth={1024}>
                     <div className="cl-effect-1" style={{display: 'flex', alignItems: 'center', padding: 16, paddingLeft: 24}}>
-
-
                         <MenuItem to="/">Home</MenuItem>
                         <MenuItem to="/services">Dashboard</MenuItem>
                         <MenuItem to="/about">{t("About Us")}</MenuItem>
@@ -53,7 +54,6 @@ class Header extends Component {
                         {
                             !this.props.user.email && <MenuItem to="/login">Login</MenuItem>
                         }
-
                         <div style={{flex: 1, textAlign: 'right'}}>
                             <img width={160} src={require('../static/images/logo-header.svg')}/>
                         </div>

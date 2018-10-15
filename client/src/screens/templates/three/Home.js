@@ -31,6 +31,7 @@ class Home extends Component {
         return (
             <div className="template-3" style={{overflow: 'hidden'}}>
                 <Header theme={theme} website={website} themeColor={this.props.theme.primary}
+                        icon={require('./assets/burger.png')}
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
@@ -119,28 +120,38 @@ class Home extends Component {
                     }}>{website.city} {website.country}</h2>
                 </div>}
 
-                {website.stories && website.stories.length > 0 &&
-                <div style={{
-                    backgroundColor: theme.background,
-                    paddingBottom: 24
-                }}>
-                    <div style={{textAlign: 'center', padding: 24, paddingTop: 0, paddingBottom: 0}}>
-                        <img src={require('./assets/sep.png')}/>
-                        <h1 style={{color: theme.foreground}}>Our Story</h1>
-                        <p style={{color: theme.foreground, marginTop: -10}}>{moment(website.stories[0].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</p>
-                        <p style={{
-                            fontFamily: 'Georgia, serif',
-                            paddingTop: 10,
-                            color: theme.foreground,
-                            textAlign: 'center'
-                        }}>{website.stories[0].description}</p>
-                    </div>
-                </div>}
+                <div style={{ backgroundColor: theme.background, textAlign: 'center', padding: 24, paddingTop: 0, paddingBottom: 0}}>
+                    <img src={require('./assets/sep.png')}/>
+                    {website.stories && website.stories.map((story, i) => {
+                        return (<div style={{
+                            paddingBottom: 24
+                        }}>
+                            <h1 style={{color: theme.foreground, marginTop: 10}}>{website.stories[i].title}</h1>
+                            <p style={{
+                                color: theme.foreground,
+                                marginTop: -10
+                            }}>{moment(website.stories[i].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</p>
+                            <p style={{
+                                fontFamily: 'Georgia, serif',
+                                paddingTop: 4,
+                                color: theme.foreground,
+                                textAlign: 'center'
+                            }}>{website.stories[i].description}</p>
+                        </div>)
+                    })}
+                </div>
 
-                <div style={{position: 'relative', backgroundColor: theme.background, textAlign: 'center',
-                    paddingTop: 50, paddingBottom: 100}}>
-                    <img style={{width: 160, position: 'absolute', left: '50%', top: 14, marginLeft: -80}} src={require('./assets/crown.png')} />
-                    <h1 className="cursive" style={{fontSize: 28, color: 'rgba(0,0,0,0.65)'}}>{(website.bride_first || " ")[0].toUpperCase()} & {(website.groom_first || " ")[0].toUpperCase()}</h1>
+                <div style={{
+                    position: 'relative', backgroundColor: theme.background, textAlign: 'center',
+                    paddingTop: 50, paddingBottom: 100
+                }}>
+                    <img style={{width: 160, position: 'absolute', left: '50%', top: 14, marginLeft: -80}}
+                         src={require('./assets/crown.png')}/>
+                    <h1 className="cursive" style={{
+                        fontSize: 28,
+                        color: 'rgba(0,0,0,0.65)'
+                    }}>{(website.bride_first || " ")[0].toUpperCase()}
+                        & {(website.groom_first || " ")[0].toUpperCase()}</h1>
                 </div>
 
                 <div style={{paddingBottom: 0}}>

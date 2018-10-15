@@ -144,7 +144,7 @@ router.get('/auth/activate/:id/:code', async function (req, res, next) {
     try {
         const result = await users.activate(id, code);
         if(result){
-            return res.redirect("/create#activated");
+            return res.redirect("/services#activated");
         }
         else{
             res.sendStatus(710);

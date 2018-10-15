@@ -59,7 +59,7 @@ class Login extends Component {
                     active: r.user.active
                 }));
 
-                this.props.history.push('/create')
+                this.props.history.push('/services')
             })
             .catch(e => {
                 alert("Wrong credentials")

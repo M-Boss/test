@@ -13,7 +13,6 @@ import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 
-
 class Home extends Component {
 
     constructor(props) {
@@ -23,13 +22,12 @@ class Home extends Component {
 
     render() {
         const {website, theme} = this.props;
-
         const background = website.template_main ? config("app.assets") + website.template_main : require('./assets/bg-1.png');
         const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('./assets/footer-01.png');
 
         return (
             <div style={{overflow: 'hidden'}}>
-                <Header website={website}  themeColor={this.props.theme.primary}
+                <Header website={website} themeColor={this.props.theme.primary}
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
@@ -144,7 +142,6 @@ class Home extends Component {
                     <div style={{clear: 'both'}}></div>
                 </div>
 
-                {website.stories && website.stories.length > 0 &&
                 <div style={{
                     marginTop: -30,
                     marginBottom: -70,
@@ -153,18 +150,24 @@ class Home extends Component {
                     backgroundColor: theme.background,
                     textAlign: 'center'
                 }}>
-                    <h1 style={{color: theme.primary}}>Our Story</h1>
-                    <h5 style={{
-                        color: theme.secondary,
-                        marginTop: 0
-                    }}>{moment(website.stories[0].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</h5>
-                    <p style={{
-                        fontFamily: 'Georgia, serif',
-                        padding: 20,
-                        color: theme.primary,
-                        textAlign: 'left'
-                    }}>{website.stories[0].description}</p>
-                </div>}
+
+                    {website.stories && website.stories.map((story, i) => {
+                        return (<React.Fragment>
+                                <h5 style={{
+                                    color: theme.secondary,
+                                    marginTop: 0
+                                }}>{moment(website.stories[i].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</h5>
+                                <h1 style={{color: theme.primary}}>{website.stories[i].title}</h1>
+                                <p style={{
+                                    fontFamily: 'Georgia, serif',
+                                    padding: 20,
+                                    color: theme.primary,
+                                    textAlign: 'left'
+                                }}>{website.stories[i].description}</p>
+                            </React.Fragment>
+                        )
+                    })}
+                </div>
 
                 <div>
                     <div style={{
@@ -199,7 +202,6 @@ class Home extends Component {
         }
     }
 }
-
 
 export default connect(state => {
     return {

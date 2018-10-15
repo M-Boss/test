@@ -25,7 +25,9 @@ class Events extends Component {
         const {website, theme} = this.props;
         return (
             <div className="template-3" style={{overflow: 'hidden', fontFamily: 'serif', textAlign: 'center', backgroundColor: theme.background}}>
-                <Header website={website} theme={theme} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
+                <Header website={website} theme={theme}
+                        icon={require('./assets/burger.png')}
+                        themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
                 <img style={{ marginTop: 30, opacity: 0.8}} src={require('./assets/top2.png')}/>

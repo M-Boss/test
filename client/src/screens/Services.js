@@ -15,7 +15,8 @@ import {
     TextArea,
     Select,
     Dimmer,
-    Loader
+    Loader,
+    Message
 } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H1, H2} from "../components/Headers";
@@ -41,6 +42,14 @@ class Website extends Component {
             loading: false
         };
         this.rest = rest;
+
+        this.state.justActivated = _.get(props, "location.hash", "").substring(1) === 'activated';
+        if(this.state.justActivated){
+            props.dispatch(buildActionForKey(actions.USER_RECORD, 'active')(1))
+        }
+        setTimeout( ()=> {
+            this.setState({justActivated: false})
+        }, 2000)
     }
 
     render() {
@@ -48,6 +57,12 @@ class Website extends Component {
         return (
             <React.Fragment>
                 <Header />
+
+                {this.state.justActivated &&
+                <Message success>
+                    <Message.Header>Email validated</Message.Header>
+                </Message>}
+
                 <div style={{
                     backgroundColor: '#F4F7F9',
                     padding: 12,

@@ -9,6 +9,8 @@
     "react-circular-progressbar": "^1.0.0",
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.2",
+    "react-ga": "^2.5.3",
+    "react-google-tag-manager": "^2.2.1",
     "react-redux": "^5.0.7",
     "react-responsive": "^5.0.0",
     "react-router": "^4.3.1",

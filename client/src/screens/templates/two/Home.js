@@ -32,7 +32,7 @@ class Home extends Component {
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
-                <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
+                <img style={{width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
 
                 <div style={{position: 'relative'}}>
                     <div style={{
@@ -65,7 +65,8 @@ class Home extends Component {
                         backgroundColor: theme.background,
                         marginTop: 48, marginBottom: 48
                     }}>
-                        <img style={{marginTop: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
+                        <img style={{marginTop: -48, width: '100%'}}
+                             src={require('./assets/top' + theme.index + '.png')}/>
                         <div style={{padding: 24, paddingTop: 0}}>
                             <h3 style={{color: 'rgba(0,0,0, 0.3)'}}>SON OF</h3>
                             <h2 style={{
@@ -80,7 +81,8 @@ class Home extends Component {
                                 marginTop: 10
                             }}>{website.bride_father + " & " + website.bride_mother}</h2>
                         </div>
-                        <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
+                        <img style={{marginBottom: -48, width: '100%'}}
+                             src={require('./assets/top' + theme.index + '.png')}/>
                     </div>
                 </React.Fragment>}
 
@@ -101,31 +103,37 @@ class Home extends Component {
                     }}>{website.city} {website.country}</h2>
                 </div>}
 
-                {website.stories && website.stories.length > 0 &&
                 <div style={{
                     backgroundColor: theme.primary,
                     marginTop: 36,
                     marginBottom: 48
                 }}>
-                    <img style={{marginTop: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
-                    <div style={{padding: 24, paddingTop: 0, paddingBottom: 0}}>
-                        <div style={{display: 'flex', alignItems: 'center'}}>
-                            <h1 style={{color: 'rgba(0,0,0,0.4)'}}>Our Story</h1>
+                    <img style={{marginTop: -48, width: '100%'}}
+                         src={require('./assets/top' + theme.index + '.png')}/>
+                {website.stories && website.stories.map((story, i) => {
+                    return (
+                        <div style={{padding: 24, paddingTop: 0, paddingBottom: 0}}>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <h1 style={{color: 'rgba(0,0,0,0.4)'}}>{website.stories[i].description}</h1>
+                                <p style={{
+                                    color: 'rgba(0,0,0,0.4)',
+                                    flex: 1,
+                                    textAlign: 'right'
+                                }}>{moment(website.stories[i].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</p>
+                            </div>
                             <p style={{
-                                color: 'rgba(0,0,0,0.4)',
-                                flex: 1,
-                                textAlign: 'right'
-                            }}>{moment(website.stories[0].date, "YYYY-MM-DD").format('MM. DD. YYYY')}</p>
+                                fontFamily: 'Georgia, serif',
+                                paddingTop: 0,
+                                paddingBottom: 30,
+                                color: '#FFF',
+                                textAlign: 'left'
+                            }}>{website.stories[i].description}</p>
                         </div>
-                        <p style={{
-                            fontFamily: 'Georgia, serif',
-                            paddingTop: 10,
-                            color: '#FFF',
-                            textAlign: 'left'
-                        }}>{website.stories[0].description}</p>
-                    </div>
-                    <img style={{marginBottom: -48, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>
-                </div>}
+                    )
+                })}
+                    <img style={{marginBottom: -48, width: '100%'}}
+                         src={require('./assets/top' + theme.index + '.png')}/>
+                </div>
 
                 <div style={{textAlign: 'center', paddingTop: 80, paddingBottom: 50}}>
                     <h1 style={{color: theme.primary}}>{(website.groom_first || " ")[0].toUpperCase()}. {(website.groom_last || " ")[0].toUpperCase()}</h1>

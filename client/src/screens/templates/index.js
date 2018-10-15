@@ -59,8 +59,11 @@ const theme3 = [
         foreground: '#222',
         copyright_background: '#999',
         copyright_foreground: '#fff',
-
-        index: 0
+        index: 0,
+        withLoveStyle: {
+            fontFamily: 'sans-serif',
+            fontWeight: 400
+        }
     },
     {
         primary: '#f8f8f8',
@@ -69,7 +72,17 @@ const theme3 = [
         foreground: '#222',
         copyright_background: '#999',
         copyright_foreground: '#fff',
-        index: 1
+        index: 1,
+        footerWithLoveStyle: {
+            fontFamily: 'sans-serif',
+            fontWeight: 400
+        },
+        footerAboutStyle: {
+            fontFamily: 'sans-serif',
+            fontWeight: 400,
+            fontSize:15,
+            color: '#333'
+        }
     }
 ];
 

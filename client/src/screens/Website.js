@@ -126,8 +126,7 @@ class Website extends Component {
                 </Message>}
 
                 {this.accountNotValidated() && <Message negative>
-                    <Message.Header>Your email is not validated yet</Message.Header>
-                    <p>You need to verify your email to publish your website</p>
+                    <Message.Header>Tolong verifikasi alamat email Anda untuk melihat situs nikahan Anda.</Message.Header>
                     {/*<a>Resend validation email</a>*/}
                 </Message>}
 
@@ -1097,7 +1096,10 @@ class Accordion extends Component {
     onHeaderClicked(index) {
         this.setState({
             index: this.state.index === index ? -1 : index
-        })
+        });
+        setTimeout(function(){
+            window.scrollTo(0, 100 + index * 80)
+        }, 20)
     }
 }
 

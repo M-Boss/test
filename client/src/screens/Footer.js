@@ -22,7 +22,7 @@ export default class Footer extends Component {
                 paddingLeft: 32,
                 paddingRight: 32
             }}>
-                <img width={130} src={require('../static/images/logo_white.svg')} alt="Nikahku logo"/>
+                <a href="/"><img width={130} src={require('../static/images/logo_white.svg')} alt="Nikahku logo"/></a>
                 <p style={{fontSize: 13, color: '#4B6975', marginTop: 12, marginBottom: 48}}>Copyright © Nikahku,
                     2018 </p>
 

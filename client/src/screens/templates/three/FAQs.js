@@ -27,7 +27,9 @@ class Photos extends Component {
         return (
             <div className="template-3" style={{overflow: 'hidden', backgroundColor: theme.background}}>
 
-                <Header website={website} theme={theme} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
+                <Header website={website}
+                        icon={require('./assets/burger.png')}
+                        theme={theme} themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{textAlign: 'center', padding: 24,  paddingTop: 32}}>
                     <img style={{opacity: 0.8}} src={require('./assets/top.png')}/>

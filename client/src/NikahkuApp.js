@@ -22,10 +22,16 @@ import TemplatePhotos from './screens/templates/Photos'
 import TemplateFAQs from './screens/templates/FAQs'
 import TemplateEvents from './screens/templates/Events'
 import TemplateMenu from './screens/templates/Menu'
+
+import withTracker from './components/withTracker'
+import withTagManager from './components/withTagManager'
+import ReactGA from 'react-ga'
+
 import {
     BrowserRouter as Router,
     Route,
     Switch,
+    withRouter,
     Link
 } from 'react-router-dom'
 import Header from './screens/Header'
@@ -42,33 +48,57 @@ function App({children}) {
     )
 }
 
+class ScrollToTop extends Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+            setTimeout(function(){
+                window.scrollTo(0, 0)
+                // document.getElementById('app-wrapper').scrollTo(0, 0)
+            }, 100)
+        }
+    }
+
+    render() {
+        return this.props.children
+    }
+}
+ScrollToTop = withRouter(ScrollToTop);
+
 class Nikahku extends Component {
+    constructor(props){
+        super(props)
+
+        //ReactGA.initialize('UA-125055635-1');
+    }
+
     render() {
         return (
             <Router>
-                <div id="app-wrapper">
-                    <Route exact path="/" component={Home}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/dashboard" component={Dashboard}/>
-                    <Route path="/menu" component={Menu}/>
-                    <Route path="/welcome" component={Welcome}/>
-                    <Route path="/create" component={Website}/>
-                    <Route path="/choose_template" component={Templates}/>
-                    <Route path="/services" component={Services}/>
-                    <Route path="/recover" component={Recover}/>
-                    <Route path="/contact" component={Contact}/>
-                    <Route path="/reset/:id/:token" component={Reset}/>
-                    <Route path="/about" component={About}/>
-                    <Route path="/faqs" component={FAQs}/>
+                <ScrollToTop>
+                    <div id="app-wrapper">
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/dashboard" component={Dashboard}/>
+                        <Route path="/menu" component={Menu}/>
+                        <Route path="/welcome" component={withTagManager(Welcome)}/>
+                        <Route path="/create" component={Website}/>
+                        <Route path="/choose_template" component={Templates}/>
+                        <Route path="/services" component={Services}/>
+                        <Route path="/recover" component={Recover}/>
+                        <Route path="/contact" component={Contact}/>
+                        <Route path="/reset/:id/:token" component={Reset}/>
+                        <Route path="/about" component={About}/>
+                        <Route path="/faqs" component={FAQs}/>
 
-                    <Switch>
-                        <Route path="/wedding/:id/menu" component={TemplateMenu}/>
-                        <Route path="/wedding/:id/events" component={TemplateEvents}/>
-                        <Route path="/wedding/:id/photos" component={TemplatePhotos}/>
-                        <Route path="/wedding/:id/faqs" component={TemplateFAQs}/>
-                        <Route path="/wedding/:id" component={TemplateHome}/>
-                    </Switch>
-                </div>
+                        <Switch>
+                            <Route path="/wedding/:id/menu" component={TemplateMenu}/>
+                            <Route path="/wedding/:id/events" component={TemplateEvents}/>
+                            <Route path="/wedding/:id/photos" component={TemplatePhotos}/>
+                            <Route path="/wedding/:id/faqs" component={TemplateFAQs}/>
+                            <Route path="/wedding/:id" component={TemplateHome}/>
+                        </Switch>
+                    </div>
+                </ScrollToTop>
             </Router>
         );
     }

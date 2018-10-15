@@ -21,10 +21,15 @@ export default class Footer extends Component {
                     paddingBottom: 15,
                     backgroundColor: theme.background
                 }}>
-                    <h5 style={{color: theme.foreground || theme.primary, margin: 0, marginRight: 10}}>With love by</h5>
-                    <img style={{height: 24}} src={require('./one/assets/logo.png')}/>
+                    <h5 style={{
+                        color: theme.foreground || theme.primary,
+                        margin: 0,
+                        marginRight: 10,
+                        ...theme.footerWithLoveStyle
+                    }}>With love by</h5>
+                    <a href="/"><img style={{height: 24}} src={require('./one/assets/logo.png')}/></a>
                     <h6 style={{color: theme.primary, margin: 0, flex: 1, textAlign: 'right', textDecoration: 'underline'}}>
-                        <Link to='/'>
+                        <Link to='/' style={{...theme.footerAboutStyle}}>
                             About
                         </Link>
                     </h6>
