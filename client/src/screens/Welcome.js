@@ -32,26 +32,24 @@ class Screen extends Component {
                 {/*<a>Resend validation email</a>*/}
             </Message>}
 
-            <Grid centered columns={1}>
-                <Grid.Column style={{maxWidth: 480, textAlign: 'center'}}>
+            <div style={{backgroundColor: '#F4F7F9'}}>
+                <div style={{maxWidth: 480, margin: 'auto', textAlign: 'center'}}>
                     <section style={{
                         paddingTop: 140,
                         paddingLeft: 32,
                         paddingRight: 32,
-                        paddingBottom: 60,
-                        backgroundColor: '#F4F7F9'
+                        paddingBottom: 60
                     }}>
                         <H1 style={{fontSize: 32}}>{t("Welcome!")}</H1>
 
-                        <p>{t("Now you can create your wedding website and invite guests.")}</p>
+                        <p>{t("Now you can create your wedding website and invite guests")}</p>
 
                         <Link to="/create"><Button style={{marginTop: 20}} primary fluid>{t("Create your website")}</Button></Link>
                         <Button basic color='orange' disabled={true} style={{marginTop: 20, marginBottom: 32}} fluid>{t("Create guest list")}</Button>
                     </section>
-
-                    <Footer/>
-                </Grid.Column>
-            </Grid>
+                </div>
+                <Footer/>
+            </div>
         </React.Fragment>
     }
 }

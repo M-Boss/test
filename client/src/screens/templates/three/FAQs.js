@@ -14,6 +14,7 @@ import config from '../../../services/internal/config/Config';
 import _ from 'lodash'
 import Footer from "../Footer";
 import Accordion from "../components/Accordion";
+import {t} from '../../../translations'
 
 class Photos extends Component {
 
@@ -34,8 +35,7 @@ class Photos extends Component {
                 <div style={{textAlign: 'center', padding: 24,  paddingTop: 32}}>
                     <img style={{opacity: 0.8}} src={require('./assets/top.png')}/>
                     <h1 className="cursive"
-                        style={{marginTop: 40, marginBottom: 40, textAlign: 'center', color: theme.foreground}}>
-                        Faqs</h1>
+                        style={{marginTop: 40, marginBottom: 40, textAlign: 'center', color: theme.foreground}}>{website.faqs_page_title || t('FAQs')}</h1>
                     <div style={{marginTop: 20, marginBottom: 100}}>
                         <Accordion answerColor={theme.foreground} answerBackgroundColor={'transparent'}
                                    borderColor={theme.foreground}

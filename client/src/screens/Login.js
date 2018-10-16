@@ -28,8 +28,8 @@ class Login extends Component {
         this.onTogglePassword = this.onTogglePassword.bind(this);
     }
 
-    componentDidMount(){
-        if(this.props.user.token){
+    componentDidMount() {
+        if (this.props.user.token) {
             this.props.history.push('/create')
         }
     }
@@ -43,7 +43,7 @@ class Login extends Component {
         this.setState({showPassword: !this.state.showPassword})
     }
 
-    login(){
+    login() {
         let email = this.state.login_email;
         const password = this.state.login_password;
         this.setState({loading: true});
@@ -69,7 +69,7 @@ class Login extends Component {
             })
     }
 
-    register(){
+    register() {
         let email = this.state.register_email;
         const password = this.state.register_password;
         this.setState({loading: true});
@@ -103,15 +103,19 @@ class Login extends Component {
             <Form>
                 <Form.Field>
                     <label>Email</label>
-                    <input value={this.state.login_email} onChange={e => this.setState({login_email: e.target.value})} placeholder='Email'/>
+                    <input value={this.state.login_email} onChange={e => this.setState({login_email: e.target.value})}
+                           placeholder='Email'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Password</label>
-                    <Input value={this.state.login_password} onChange={e => this.setState({login_password: e.target.value})} input={this.state.showPassword ? 'input' : 'password'}
+                    <Input value={this.state.login_password}
+                           onChange={e => this.setState({login_password: e.target.value})}
+                           input={this.state.showPassword ? 'input' : 'password'}
                            icon={{name: 'eye', circular: true, link: true, onClick: this.onTogglePassword}}
                            placeholder='Password'/>
                 </Form.Field>
-                <Button onClick={() => this.login()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>{t("Log In")}</Button>
+                <Button onClick={() => this.login()} loading={this.state.loading} style={{marginTop: 28}} fluid primary
+                        type='submit'>{t("Log In")}</Button>
 
                 <p style={{marginTop: 40, textAlign: 'center'}}>Forgot your password?</p>
             </Form>
@@ -123,13 +127,17 @@ class Login extends Component {
             <Form>
                 <Form.Field>
                     <label>Email</label>
-                    <input value={this.state.register_email} onChange={e => this.setState({register_email: e.target.value})} placeholder='Email'/>
+                    <input value={this.state.register_email}
+                           onChange={e => this.setState({register_email: e.target.value})} placeholder='Email'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Password</label>
-                    <Input value={this.state.register_password} onChange={e => this.setState({register_password: e.target.value})}  type='password' placeholder='Password'/>
+                    <Input value={this.state.register_password}
+                           onChange={e => this.setState({register_password: e.target.value})} type='password'
+                           placeholder='Password'/>
                 </Form.Field>
-                <Button onClick={() => this.register()} loading={this.state.loading} style={{marginTop: 28}} fluid primary type='submit'>{t("Sign up for free")}</Button>
+                <Button onClick={() => this.register()} loading={this.state.loading} style={{marginTop: 28}} fluid
+                        primary type='submit'>{t("Sign up for free")}</Button>
             </Form>
         )
     }
@@ -147,16 +155,15 @@ class Login extends Component {
                                    onClick={this.handleItemClick.bind(this, 'register')}/>
                     </Menu>
                 </div>
-                <div style={{maxWidth: 400, margin: 'auto'}}>
-                {
-                    this.state.page === 'login' ? this.renderLogin() : this.renderRegister()
-                }
+                <div style={{padding: 20, maxWidth: 400, margin: 'auto'}}>
+                    {
+                        this.state.page === 'login' ? this.renderLogin() : this.renderRegister()
+                    }
                 </div>
                 <br/>
                 <br/>
                 <br/>
                 <Footer/>
-
             </React.Fragment>
         )
     }

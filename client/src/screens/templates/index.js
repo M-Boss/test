@@ -7,7 +7,7 @@ import OneHeader from './one/Header'
 import OnePhoto from './one/Photos'
 import OneFAQs from './one/FAQs'
 import OneEvents from './one/Events'
-import OneMenu from './one/Menu'
+import OneMenu from './Menu_'
 
 import TwoHome from './two/Home'
 import TwoEvents from './two/Events'
@@ -63,7 +63,10 @@ const theme3 = [
         withLoveStyle: {
             fontFamily: 'sans-serif',
             fontWeight: 400
-        }
+        },
+        menuBackground: '#f3ebde',
+        menuClassName: 'template-3-menu',
+        menuItem: '#333',
     },
     {
         primary: '#f8f8f8',
@@ -82,7 +85,10 @@ const theme3 = [
             fontWeight: 400,
             fontSize:15,
             color: '#333'
-        }
+        },
+        menuBackground: '#f8f8f8',
+        menuClassName: 'template-3-menu',
+        menuItem: '#333',
     }
 ];
 

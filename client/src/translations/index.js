@@ -45,7 +45,7 @@ i18n.translations = {
         "Sign up for free": "Daftar Gratis di Sini",
 
         "Welcome!": "Selamat Datang!",
-        "Now you can create your wedding website and invite guests.": "Sekarang kamu bisa membuat sendiri website nikahmu dan mengundang para tamu",
+        "Now you can create your wedding website and invite guests": "Sekarang kamu bisa membuat sendiri website nikahmu dan mengundang para tamu",
         "Create your website": "Buat Website-mu",
         "Create guest list": "Buat Daftar tamu",
         "Website Creation": "Kreasi Website",

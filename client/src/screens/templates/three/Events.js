@@ -12,6 +12,8 @@ import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
 import _ from 'lodash'
+import {t} from '../../../translations'
+
 require('./assets/style.css');
 
 class Events extends Component {
@@ -33,7 +35,7 @@ class Events extends Component {
                 <img style={{ marginTop: 30, opacity: 0.8}} src={require('./assets/top2.png')}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
-                    <h1 className="cursive" style={{color: theme.foreground, marginBottom: 0}}>Events</h1>
+                    <h1 className="cursive" style={{color: theme.foreground, marginBottom: 0}}>{website.events_page_title || t('Events')}</h1>
                     <img style={{}} src={require('./assets/sep2.png')}/>
                     <p style={{
                         marginTop: 0,

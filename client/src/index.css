@@ -6,14 +6,11 @@ body {
 
 @media screen and (max-width: 1024px) {
     #app-wrapper {
-        width: 100%;
+        /*width: 100%;*/
         /*max-width: 380px;*/
         margin: auto
     }
 }
-
-
-
 
 .ui.secondary.pointing.menu .active.item {
     border-color: red !important;

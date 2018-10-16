@@ -12,6 +12,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
+import {t} from '../../../translations'
 require('./assets/style.css');
 
 class Photos extends Component {
@@ -34,7 +35,7 @@ class Photos extends Component {
 
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
                     <img style={{opacity: 0.8}} src={require('./assets/top.png')}/>
-                    <h1 className="cursive" style={{ color: theme.foreground}}>Photos</h1>
+                    <h1 className="cursive" style={{ color: theme.foreground}}>{website.photos_page_title || t('Photos')}</h1>
                     <img style={{opacity: 0.8}} src={require('./assets/sep2.png')}/>
                     <h2 style={{marginTop: 0, color: theme.foreground, fontSize: 18 }}>{website.photos_description}</h2>
                     {website.photos &&

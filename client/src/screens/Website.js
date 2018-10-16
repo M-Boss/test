@@ -130,7 +130,6 @@ class Website extends Component {
                     {/*<a>Resend validation email</a>*/}
                 </Message>}
 
-
                 <div style={{backgroundColor: '#F4F7F9'}}>
                     <div style={{padding: 24}}>
 

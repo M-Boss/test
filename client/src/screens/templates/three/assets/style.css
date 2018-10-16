@@ -7,7 +7,7 @@
     font-weight: 400;
 }
 
-.template-3 p, .template-3 h1, .template-3 h2, .template-3 h3, .template-3 h4, .template-3 h5,.template-3 h6{
+.template-3-menu, .template-3 p, .template-3 h1, .template-3 h2, .template-3 h3, .template-3 h4, .template-3 h5,.template-3 h6{
     font-family: 'EB Garamond', serif;
     color: #333;
 }
@@ -18,4 +18,8 @@
 
 .template-3 h1{
     font-size: 34px;
+}
+
+.template-3-menu{
+
 }

@@ -22,6 +22,10 @@ export default class TemplateBase extends Component {
         this.rest = rest;
     }
 
+    getSlug(){
+        return this.slug
+    }
+
     async componentDidMount() {
         if (!this.slug) {
             // 404

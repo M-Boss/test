@@ -12,7 +12,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
-
+import {t} from '../../../translations'
 
 class Photos extends Component {
 
@@ -29,7 +29,7 @@ class Photos extends Component {
                 <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/top' + theme.index + '.png')}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
-                    <h1 style={{fontFamily: 'serif', color: theme.primary}}>Photos</h1>
+                    <h1 style={{fontFamily: 'serif', color: theme.primary}}>{website.faqs_page_title || t('Photos')}</h1>
                     <h2 style={{marginTop: 0, color: theme.primary, fontSize: 18, fontFamily: 'serif' }}>{website.photos_description}</h2>
                     {website.photos &&
                     website.photos.map( photo => {

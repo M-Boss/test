@@ -51,9 +51,6 @@ class Website extends Component {
             <React.Fragment>
                     <Header />
 
-
-
-
                 <div style={{backgroundColor: '#F4F7F9', padding: 12}}>
 
                     <Link to="/services">
@@ -77,7 +74,7 @@ class Website extends Component {
 
                         {this.props.website.template !== 0 &&
                         <div style={{margin: 12, marginTop: 2}}>
-                            <img style={{width: '100%'}} src={require('../static/images/template-01.jpg')}
+                            <img style={{width: '100%'}} src={require(`../static/images/templates/template-${this.props.website.template || 1}.jpg`)}
                                  alt={"Selected template"}/>
                         </div>}
 

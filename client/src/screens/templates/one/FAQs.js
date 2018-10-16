@@ -13,6 +13,7 @@ import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import _ from 'lodash'
 import Footer from "../Footer";
+import {t} from '../../../translations'
 
 class Photos extends Component {
 
@@ -27,7 +28,7 @@ class Photos extends Component {
             <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
 
                 <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
-                <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: theme.primary}}>FAQs</h1>
+                <h1 style={{marginTop: 40, marginBottom: 40, textAlign: 'center', fontFamily: 'serif', color: theme.primary}}>{website.faqs_page_title || t('FAQs')}</h1>
                 <div style={{marginTop: 20, marginBottom: 100}}>
                     <Accordion textColor={theme.primary} items={this.getAccordionSections()} />
                 </div>

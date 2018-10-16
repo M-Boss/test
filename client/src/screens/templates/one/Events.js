@@ -12,7 +12,7 @@ import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
 import _ from 'lodash'
-
+import {t} from '../../../translations'
 class Events extends Component {
 
     constructor(props) {
@@ -27,7 +27,7 @@ class Events extends Component {
                 <Header website={website}  themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
-                    <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
+                    <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>{website.events_page_title || t('Events')}</h1>
                     <p style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'sans-serif'}}>{website.events_description}</p>
                     <img style={{marginTop: 10, width: '60%'}} src={require('./assets/photos-flower.png')}/>
                 </div>

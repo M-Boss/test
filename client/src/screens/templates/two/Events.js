@@ -12,6 +12,7 @@ import moment from 'moment'
 import config from '../../../services/internal/config/Config';
 import Footer from "../Footer";
 import _ from 'lodash'
+import {t} from '../../../translations'
 
 class Events extends Component {
 
@@ -30,7 +31,7 @@ class Events extends Component {
                 <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
 
                 <div style={{textAlign: 'center', paddingTop: 30}}>
-                    <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>Events</h1>
+                    <h1 style={{fontFamily: 'sans-serif', color: theme.primary}}>{website.events_page_title || t('Events')}</h1>
                     <p style={{
                         marginTop: 0,
                         color: theme.primary,

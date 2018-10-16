@@ -12,7 +12,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
-
+import {t} from '../../../translations'
 
 class Photos extends Component {
 
@@ -28,7 +28,7 @@ class Photos extends Component {
 
                 <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
-                    <h1 style={{fontFamily: 'serif', color: theme.primary}}>Photos</h1>
+                    <h1 style={{fontFamily: 'serif', color: theme.primary}}>{website.events_page_title || t('Photos')}</h1>
                     <h2 style={{marginTop: 0, color: theme.secondary, fontSize: 18, fontFamily: 'serif' }}>{website.photos_description}</h2>
                     <img style={{marginTop: 10, width: 160}} src={require('./assets/photos-flower.png')} />
 
