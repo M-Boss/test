@@ -19,6 +19,15 @@ import ThreeEvents from './three/Events'
 import ThreeFAQs from './three/FAQs'
 import ThreePhoto from './three/Photos'
 
+import FourHome from './four/Home'
+import FourEvents from './four/Events'
+import FourFAQs from './four/FAQs'
+import FourPhoto from './four/Photos'
+
+import FiveHome from './five/Home'
+import FiveEvents from './five/Events'
+import FiveFAQs from './five/FAQs'
+import FivePhoto from './five/Photos'
 
 const theme1 = [
     {
@@ -91,6 +100,49 @@ const theme3 = [
         menuItem: '#333',
     }
 ];
+const theme4 = [
+    {
+        primary: '#FFF',
+        secondary: '#FFF',
+        background: '#FFF',
+        foreground: '#2A4470',
+        copyright_background: '#999',
+        copyright_foreground: '#fff',
+        index: 0,
+        withLoveStyle: {
+            fontFamily: 'sans-serif',
+            fontWeight: 400
+        },
+        menuBackground: '#FFF',
+        menuClassName: 'template-3-menu',
+        menuItem: '#333',
+        headerBackground: '#FFF',
+        headerForeground: '#2A4470',
+        headerFontSize: 20
+    }
+];
+
+const theme5 = [
+    {
+        primary: '#FFF',
+        secondary: '#FFF',
+        background: '#FFF',
+        foreground: '#363639',
+        copyright_background: '#999',
+        copyright_foreground: '#fff',
+        index: 0,
+        withLoveStyle: {
+            fontFamily: 'sans-serif',
+            fontWeight: 400
+        },
+        menuBackground: '#FFF',
+        menuClassName: 'template-3-menu',
+        menuItem: '#333',
+        headerBackground: '#FFF',
+        headerForeground: '#363639',
+        headerFontSize: 20
+    }
+];
 
 const templates = {
     1: {
@@ -146,9 +198,30 @@ const templates = {
         photos: (website, id) => <ThreePhoto theme={theme3[1]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme3[1]} website={website} websiteId={id}/>,
     },
+
+    //four
+    8: {
+        home: (website, id) => <FourHome theme={theme4[0]} website={website} websiteId={id}/>,
+        events: (website, id) => <FourEvents theme={theme4[0]} website={website} websiteId={id}/>,
+        faqs: (website, id) => <FourFAQs theme={theme4[0]} website={website} websiteId={id}/>,
+        photos: (website, id) => <FourPhoto theme={theme4[0]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme4[0]} website={website} websiteId={id}/>,
+    },
+
+    //five
+    9: {
+        home: (website, id) => <FiveHome theme={theme5[0]} website={website} websiteId={id}/>,
+        events: (website, id) => <FiveEvents theme={theme5[0]} website={website} websiteId={id}/>,
+        faqs: (website, id) => <FiveFAQs theme={theme5[0]} website={website} websiteId={id}/>,
+        photos: (website, id) => <FivePhoto theme={theme5[0]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme5[0]} website={website} websiteId={id}/>,
+    },
 };
+
+export function getTemplates(){
+    return templates;
+}
 
 export function getTemplate(key) {
     return templates[key]
 }
-

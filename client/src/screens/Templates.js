@@ -46,6 +46,14 @@ class Screen extends Component {
                 {
                     id: 7,
                     name: "Seventh template"
+                },
+                {
+                    id: 8,
+                    name: "Eighth template"
+                },
+                {
+                    id: 9,
+                    name: "Ninth template"
                 }
             ]
         };

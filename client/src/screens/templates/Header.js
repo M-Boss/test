@@ -18,9 +18,9 @@ class Header extends Component {
     render() {
         const {theme = {}}= this.props;
         return (
-            <div className="" style={{backgroundColor: this.props.themeColor, display:'flex', alignItems: 'center', padding: 16}}>
+            <div className="" style={{backgroundColor: theme.headerBackground || this.props.themeColor, display:'flex', alignItems: 'center', padding: 16}}>
                 <div  style={{flex: 1}}>
-                    <p style={{textAlign: 'left', color: theme.foreground || '#FFF', fontSize: 16}}>{this.props.label}</p>
+                    <p style={{textAlign: 'left', color: theme.headerForeground || theme.foreground || '#FFF', fontSize: theme.headerFontSize || 16}}>{this.props.label}</p>
                 </div>
                 <div className="" style={{maxWidth: 60}}>
                     <Link style={{}} to={`/wedding/${this.props.websiteId}/menu`}>

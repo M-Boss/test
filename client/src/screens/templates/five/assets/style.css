@@ -1,0 +1,24 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+
+.template-5 h1, h2 {
+    font-weight: 700;
+}
+
+.template-5-menu, .template-5 p, .template-5 h1, .template-5 h2, .template-5 h3, .template-5 h4, .template-5 h5,.template-5 h6{
+    font-family: 'Roboto Condensed', serif;
+    color: #333;
+}
+
+.template-5 .cursive{
+    font-family: cursive;
+}
+
+.template-5 h1{
+    font-size: 34px;
+}
+
+.template-5-menu{
+
+}

@@ -1,0 +1,24 @@
+
+@import url('https://fonts.googleapis.com/css?family=Parisienne');
+
+
+.template-4 h1, h2 {
+    font-weight: 400;
+}
+
+.template-4-menu, .template-4 p, .template-4 h1, .template-4 h2, .template-4 h3, .template-4 h4, .template-4 h5,.template-4 h6{
+    font-family: 'Parisienne', serif;
+    color: #333;
+}
+
+.template-4 .cursive{
+    font-family: cursive;
+}
+
+.template-4 h1{
+    font-size: 34px;
+}
+
+.template-4-menu{
+
+}
