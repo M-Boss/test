@@ -4,6 +4,7 @@ const container = require('../services');
 const _ = require('lodash');
 const validate = require('express-validation');
 const Joi = require('joi');
+const path = require('path');
 
 const registerValidation = {
     body: {
@@ -63,9 +64,9 @@ router.post('/auth/register', validate(registerValidation), async function (req,
     try {
         const user = await users.create({...req.body});
         const link = config.get('app.domain') + `api/auth/activate/${user.id}/${user.activation_code}`;
-        mailer.mail(user.email,
-            'NikahKu - Activation Code',
-            `Click on this link to activate your account: ${link} \n\nNikahku.com`);
+        const templatePath = path.join(__dirname, '..', 'views', 'emails', 'verification.html');
+        mailer.mailEJS(user.email, 'NikahKu - Activation Link', templatePath, {link});
+
         res.send({user});
     }
     catch (e){
