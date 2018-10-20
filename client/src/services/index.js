@@ -1,6 +1,6 @@
-import {Container} from './di/'
+const {Container} = require('./di/')
 //
-import createStore from './internal/store/index'
+const createStore = require('./internal/store/index')
 // import Config from './internal/config/Config'
 // import Users from './internal/users/Users'
 // import URL from './internal/helpers/URL'
@@ -13,7 +13,13 @@ let container = new Container();
 // });
 //
 
-const store = createStore();
+var store = null;
+try {
+    store = createStore();
+}
+catch (e){
+
+}
 container.registerFactory('store', function(){
     return store.store;
 });
@@ -22,4 +28,4 @@ container.registerFactory('persistor', function(){
     return store.persistor;
 });
 
-export default container;
+module.exports = container;

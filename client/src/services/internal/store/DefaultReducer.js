@@ -1,4 +1,5 @@
-export function DefaultReducer(key, initialState = {}) {
+
+exports.DefaultReducer = function(key, initialState = {}) {
 
     return (state = initialState, {type = "", payload={}}) => {
         switch (type) {
@@ -11,7 +12,7 @@ export function DefaultReducer(key, initialState = {}) {
     };
 }
 
-export function buildAction(id){
+exports.buildAction = function(id){
     return function (payload) {
         return {
             type: id,
@@ -20,7 +21,7 @@ export function buildAction(id){
     }
 }
 
-export function buildActionForKey(id, key){
+exports.buildActionForKey = function(id, key){
     return function (payload) {
         let result = {
             type: id,

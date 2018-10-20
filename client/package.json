@@ -26,6 +26,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "testprod": "./node_modules/.bin/mocha tests/production/config_test.js",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }

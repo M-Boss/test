@@ -1,9 +1,9 @@
-import {DefaultReducer} from './DefaultReducer';
-import * as constants from './actionConstants'
-import { combineReducers } from 'redux';
+const {DefaultReducer} = require('./DefaultReducer');
+const constants  = require ('./actionConstants');
+const { combineReducers }  = require ('redux');
 
 
-export const makeRootReducer = () => combineReducers({
+module.exports =  () => combineReducers({
     // app,
     website: DefaultReducer(constants.WEBSITE_RECORD, {
         bride_first: "",
@@ -44,4 +44,4 @@ export const makeRootReducer = () => combineReducers({
     templates: DefaultReducer(constants.TEMPLATE_RECORD, {}),
 });
 
-export default makeRootReducer;
+

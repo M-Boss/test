@@ -1,4 +1,4 @@
-import _ from 'lodash'
+const _  = require('lodash');
 
 const config = {
     app: {
@@ -13,7 +13,7 @@ const config = {
     }
 };
 
-export default function(key){
+module.exports = function(key){
     return _.get(config, key)
 };
 

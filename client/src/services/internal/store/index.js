@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
-import makeRootReducer from './reducers';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
+const { createStore, applyMiddleware, compose }  = require('redux');
+const thunk  = require( 'redux-thunk');
+const { createLogger }  = require( 'redux-logger');
+const makeRootReducer  = require( './reducers');
+const { persistStore, persistReducer } = require('redux-persist')
+const storage = require('redux-persist/lib/storage'); // defaults to localStorage for web and AsyncStorage for react-native
 
 const persistConfig = {
     key: 'root',
@@ -16,7 +16,7 @@ const persistConfig = {
 const log = createLogger({ diff: true, collapsed: true });
 
 // a function which can create our store and auto-persist the data
-export default (initialState = {}) => {
+module.exports = (initialState = {}) => {
     // ======================================================
     // Middleware Configuration
     // ======================================================
