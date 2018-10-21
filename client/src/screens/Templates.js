@@ -13,64 +13,40 @@ import rest  from '../services/external/rest';
 import container from '../services'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
+const {templateList} = require('./templates/index')
+
 class Screen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            templates: [
-                {
-                    id: 1,
-                    name: "Willowmarsh - Tea rose"
-                },
-                {
-                    id: 2,
-                    name: "Second template"
-                },
-                {
-                    id: 3,
-                    name: "Third template"
-                },
-                {
-                    id: 4,
-                    name: "Fourth template"
-                },
-                {
-                    id: 5,
-                    name: "Fifth template"
-                },
-                {
-                    id: 6,
-                    name: "Sixth template"
-                },
-                {
-                    id: 7,
-                    name: "Seventh template"
-                },
-                {
-                    id: 8,
-                    name: "Eighth template"
-                },
-                {
-                    id: 9,
-                    name: "Ninth template"
-                }
-            ]
+            choosingVariation: false,
+            selectedTemplateIndex: 0
         };
     }
 
 
     onTemplateSelected(t) {
-        console.log(t);
+        const template = templateList[t];
+        this.setState({
+            selectedTemplateIndex: t,
+            choosingVariation: true
+        });
+
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
-        this.props.dispatch(action(t.id));
+        this.props.dispatch(action(template.variations[0].id));
+    }
+
+    onVariationSelected(v) {
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
+        this.props.dispatch(action(v.id));
 
         setTimeout(() => {
             this.save()
         }, 1000)
     }
 
-    save(){
+    save() {
         rest.post('website/save', {
             website: this.props.website
         })
@@ -84,27 +60,93 @@ class Screen extends Component {
                     <Link onClick={() => this.save()} to="/create">
                         <p><Icon name="long arrow alternate left"/> Back</p>
                     </Link>
-                    <H3>Templates </H3>
-                    {this.state.templates.map(t => {
-                        const current = t.id === this.props.website.template;
-                        return (
-                            <div onClick={() => this.onTemplateSelected(t)}
-                                 style={{backgroundColor: 'white', marginBottom: 20}}>
-                                <div style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
-                                    {current ? <Checkbox style={{marginRight: 8}} checked readOnly/> : null}
-                                    <span > {t.name}</span>
+
+                    {!this.state.choosingVariation && <React.Fragment>
+                        <H3>Templates </H3>
+                        {templateList.map((t, index) => {
+                            const current = t.id === this.props.website.template;
+                            const first = t.variations[0];
+                            return (
+                                <div onClick={() => this.onTemplateSelected(index)}
+                                     style={{backgroundColor: 'white', marginBottom: 20}}>
+                                    <div
+                                        style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
+                                        {current ? <Checkbox style={{marginRight: 8}} checked readOnly/> : null}
+                                        <span > {t.name}</span>
+                                        <div style={{
+                                            textAlign: 'right',
+                                            flex: 1,
+                                            color: '#444'
+                                        }}>{t.variations.length} {t.variations.length > 1 ? 'colors' : 'color'}</div>
+                                    </div>
+                                    <div style={{paddingLeft: 20, paddingRight: 20}}>
+                                        <img style={{width: '100%'}}
+                                             src={require('../static/images/templates/template-' + first.id + '.jpg')}
+                                             alt={"Template: " + t.name}/>
+                                    </div>
                                 </div>
-                                <div style={{paddingLeft: 20, paddingRight: 20}}>
-                                    <img style={{width: '100%'}} src={require('../static/images/templates/template-' + t.id + '.jpg')}
-                                         alt={"Template: " + t.name}/>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </React.Fragment>}
+
+
+                    {this.state.choosingVariation && this.renderVariations()}
+
+
                 </div>
             </React.Fragment>
         )
     }
+
+    renderVariations() {
+        const template = templateList[this.state.selectedTemplateIndex];
+        return (
+            <React.Fragment>
+                <H3>{template.name}</H3>
+                <div style={{backgroundColor: 'white', marginBottom: 20}}>
+                    <div style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
+                        <span >Warna</span>
+                    </div>
+                    <div style={{padding: 20, display: 'flex', flexWrap: 'wrap'}}>
+                        {template.variations.map((v, index) => {
+                            return <Color selected={v.id === this.props.website.template} onClick={() => this.onVariationSelected(v)} primary={v.theme.primary} secondary={v.theme.secondary}/>
+                        })}
+                    </div>
+                    <div style={{paddingLeft: 20, paddingRight: 20}}>
+                        <img style={{width: '100%'}}
+                             src={require('../static/images/templates/template-' + this.props.website.template + '.jpg')}
+                             alt={"Template: " + template.name}/>
+                    </div>
+                </div>
+            </React.Fragment>
+        )
+    }
+}
+
+function Color({primary, secondary, onClick, selected}) {
+    return (
+        <div style={{
+            border: '1px solid #888',
+            padding: 2,
+            borderRadius: '50%',
+            marginRight: 10,
+            backgroundColor: selected ? '#F99' : '#FFF'
+        }} onClick={onClick}>
+            <div style={{
+                transform: 'rotate(-45deg)',
+                border: '1px solid #888',
+                overflow: 'hidden',
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
+                <div style={{flex: 1, backgroundColor: primary}}></div>
+                <div style={{flex: 1, backgroundColor: secondary}}></div>
+            </div>
+        </div>
+    )
 }
 
 export default connect(state => {

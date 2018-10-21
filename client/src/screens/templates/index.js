@@ -218,6 +218,79 @@ const templates = {
     },
 };
 
+export const templateList =  [
+    {
+        name: "Willowmarsh",
+        variations: [
+            {
+                id: 1,
+                name: "",
+                theme: theme1[0]
+            },
+            {
+                id: 2,
+                name: "",
+                theme: theme1[1]
+            },
+            {
+                id: 3,
+                name: "",
+                theme: theme1[2]
+            }
+        ]
+    },
+    {
+        name: "Second Template",
+        variations: [
+            {
+                id: 4,
+                name: "",
+                theme: theme2[0]
+            },
+            {
+                id: 5,
+                name: "",
+                theme: theme2[1]
+            }
+        ]
+    },
+    {
+        name: "Third Template",
+        variations: [
+            {
+                id: 6,
+                name: "",
+                theme: theme3[0]
+            },
+            {
+                id: 7,
+                name: "",
+                theme: theme3[1]
+            }
+        ]
+    },
+    {
+        name: "Fourth Template",
+        variations: [
+            {
+                id: 8,
+                name: "",
+                theme: theme4[0]
+            }
+        ]
+    },
+    {
+        name: "Fifth Template",
+        variations: [
+            {
+                id: 9,
+                name: "",
+                theme: theme5[0]
+            }
+        ]
+    }
+];
+
 export function getTemplates(){
     return templates;
 }

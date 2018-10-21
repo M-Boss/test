@@ -103,7 +103,9 @@ class Login extends Component {
             <Form>
                 <Form.Field>
                     <label>Email</label>
-                    <input value={this.state.login_email} onChange={e => this.setState({login_email: e.target.value})}
+                    <input value={this.state.login_email}
+                           type="email"
+                           onChange={e => this.setState({login_email: e.target.value})}
                            placeholder='Email'/>
                 </Form.Field>
                 <Form.Field>
@@ -128,6 +130,7 @@ class Login extends Component {
                 <Form.Field>
                     <label>Email</label>
                     <input value={this.state.register_email}
+                           type="email"
                            onChange={e => this.setState({register_email: e.target.value})} placeholder='Email'/>
                 </Form.Field>
                 <Form.Field>
