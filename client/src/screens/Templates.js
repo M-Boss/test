@@ -57,9 +57,15 @@ class Screen extends Component {
                 <Header />
 
                 <div style={{padding: 16, backgroundColor: '#F4F7F9'}}>
+                    {!this.state.choosingVariation &&
                     <Link onClick={() => this.save()} to="/create">
                         <p><Icon name="long arrow alternate left"/> Back</p>
-                    </Link>
+                    </Link>}
+
+                    {this.state.choosingVariation &&
+                    <a style={{cursor: 'pointer'}} onClick={() => this.setState({choosingVariation: false})} >
+                        <p><Icon name="long arrow alternate left"/> Back</p>
+                    </a>}
 
                     {!this.state.choosingVariation && <React.Fragment>
                         <H3>Templates </H3>
