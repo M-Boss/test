@@ -145,9 +145,9 @@ class Home extends Component {
         return (
             <div style={{maxWidth: 400, margin: 'auto'}}>
                 <Slider {...settings}>
-                    <img src={require('../static/images/slide-01.jpg')}/>
-                    <img src={require('../static/images/slide-02.jpg')}/>
-                    <img src={require('../static/images/slide-03.jpg')}/>
+                    <div><img className="slide" style={{margin: '2%', width: '96%'}} src={require('../static/images/home-carousel/template-6.jpg')}/></div>
+                    <div><img className="slide" style={{margin: '2%', width: '96%'}} src={require('../static/images/home-carousel/template-8.jpg')}/></div>
+                    <div><img className="slide" style={{margin: '2%', width: '96%'}} src={require('../static/images/home-carousel/template-9.jpg')}/></div>
                 </Slider>
             </div>
         )
