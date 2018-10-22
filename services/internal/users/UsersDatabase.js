@@ -1,14 +1,18 @@
 /**
  * Created by guy on 8/15/18.
  */
+const _ = require('lodash')
+const path = require('path');
 
 module.exports = class UsersDatabase{
 
-    constructor(db, hasher, random, emitter){
+    constructor(db, hasher, random, emitter, mailer, config){
         this.db = db;
         this.hasher = hasher;
         this.random = random;
         this.emitter = emitter;
+        this.mailer = mailer;
+        this.config = config;
     }
 
     async create(data){
@@ -95,4 +99,11 @@ module.exports = class UsersDatabase{
         user.password = this.hasher.hash(newPassword);
         return user.save();
     }
-}
+
+    async sendVerificationEmail(user){
+        if(!user) return false;
+        const link = this.config.get('app.domain') + `api/auth/activate/${user.id}/${user.activation_code}`;
+        const templatePath = path.join(__dirname, '..', '..', '..', 'views', 'emails', 'verification.html');
+        this.mailer.mailEJS(user.email, 'NikahKu - Activation Link', templatePath, {link});
+    }
+};

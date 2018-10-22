@@ -2,6 +2,7 @@ const _  = require('lodash');
 
 const config = {
     app: {
+
         // api_root: 'http://54.251.129.242/api/',
         // assets: 'http://54.251.129.242/assets/',
         api_root: 'https://www.nikahku.com/api/',

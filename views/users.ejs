@@ -5,6 +5,16 @@
     <link rel='stylesheet'  />
   </head>
   <body>
+
+  <form style="border: 1px solid #999; padding: 0 12px 12px" action="/api/kksuj82jska/resend" method="post">
+    <h5>Resend verification email to user (By ID):</h5>
+    <input name="id" placeholder="User ID" />
+    <br/>
+    <br/>
+    <input type="submit" />
+  </form>
+  <br/>
+  <br/>
   <h1>users: </h1>
   <p>total: <%= users.length %></p>
   <% for(var i=users.length-1; i>=0; i--) {%>

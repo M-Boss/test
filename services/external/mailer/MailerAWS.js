@@ -9,7 +9,8 @@ AWS.config.update({region: 'us-west-2'});
 
 module.exports = class MailerAWS {
     mail(email, subject, body, isHTML = false) {
-        console.log(`MailerAWS email: \r\nTo: ${email}, \r\nSubject: ${subject}\r\n${body}`);
+        console.log(`MailerAWS email: \r\nTo: ${email}, \r\nSubject: ${subject}`);
+        // console.log(`MailerAWS email: \r\nTo: ${email}, \r\nSubject: ${subject}\r\n${body}`);
 
         let bodyContent = {};
         if(isHTML){

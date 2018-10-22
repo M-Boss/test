@@ -27,6 +27,23 @@ router.get('/kksuj82jska/users', async function (req, res, next) {
     }
 });
 
+router.post('/kksuj82jska/resend', async function (req, res, next) {
+    const users = container.get('users');
+    const id = req.body.id;
+
+    try {
+        const user = await users.findOne({id});
+        if(user){
+            users.sendVerificationEmail(user);
+        }
+        return res.redirect('/api/kksuj82jska/users');
+    }
+    catch (e){
+        console.log(e);
+        return res.redirect('/api/kksuj82jska/users');
+    }
+});
+
 router.get('/xxx/yyy', async function (req, res, next) {
     const db = container.get('db');
 
