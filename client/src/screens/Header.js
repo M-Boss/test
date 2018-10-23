@@ -65,12 +65,14 @@ class Header extends Component {
 
     logout(){
         let action = buildAction(actions.USER_RECORD);
-        this.props.dispatch(action({email: "", token: undefined, active: true}));
-        action = buildAction(actions.WEBSITE_RECORD);
-        this.props.dispatch(action({}));
+        this.props.dispatch(action({CLEAR: 1}));
+        setTimeout(() => {
+            action = buildAction(actions.WEBSITE_RECORD);
+            this.props.dispatch(action({CLEAR: 1}));
+        }, 300)
+
     }
 }
-
 
 function MenuItem({to, children, onClick}){
     return (

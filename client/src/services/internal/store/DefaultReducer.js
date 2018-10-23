@@ -4,7 +4,12 @@ export function DefaultReducer(key, initialState = {}) {
         switch (type) {
             case key:
                 //console.log(`default reducer for key ${key}`, payload);
-                return {...state, ...payload};
+                if(payload.CLEAR === 1){
+                    return {}
+                }else{
+                    return {...state, ...payload};
+                }
+
                 break;
         }
         return state;

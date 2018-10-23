@@ -1,11 +1,10 @@
 /**
  * Created by guy on 8/15/18.
  */
-const _ = require('lodash')
+const _ = require('lodash');
 const path = require('path');
 
 module.exports = class UsersDatabase{
-
     constructor(db, hasher, random, emitter, mailer, config){
         this.db = db;
         this.hasher = hasher;

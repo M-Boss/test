@@ -47,7 +47,7 @@ class Events extends Component {
                 <div style={{marginTop: 40}}>
                     {website.events &&
                     website.events.map((event, index) => {
-                        const color = [theme.primary, '#FFF'][index % 2];
+                        const color = theme.primary;
                         const textColor = ['#FFF', theme.primary][index % 2];
                         return (
                             <div style={{marginTop: 20, marginBottom: 48,  backgroundColor: color}}>
