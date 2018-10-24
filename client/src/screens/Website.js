@@ -350,7 +350,7 @@ class Website extends Component {
                     </div>
                 </div>
 
-                {this.props.website.stories.map((s, index) => {
+                {this.props.website.stories && this.props.website.stories.map((s, index) => {
                         let storyNumber = "First Story";
                         if (index === 1) storyNumber = "Second Story";
                         else if (index > 1) storyNumber = `Story #${index + 1}`
@@ -459,7 +459,7 @@ class Website extends Component {
                     </div>
                 </div>
 
-                {this.props.website.events.map((e, index) => {
+                {this.props.website.events && this.props.website.events.map((e, index) => {
                         let no = "Acara Pertama";
                         if (index === 1) no = "Acara Kedua";
                         else if (index > 1) no = `Acara #${index + 1}`
@@ -711,7 +711,7 @@ class Website extends Component {
                     </div>
                 </div>
 
-                {this.props.website.photos.map((item, index) => {
+                {this.props.website.photos && this.props.website.photos.map((item, index) => {
                         return (
                             <div style={{padding: 12, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                 <File style={{flex: 1}} onUpload={r => this.photoUploaded(index, r.filename)}
@@ -779,7 +779,7 @@ class Website extends Component {
                     </div>
                 </div>
 
-                {this.props.website.faqs.map((item, index) => {
+                {this.props.website.faqs && this.props.website.faqs.map((item, index) => {
                         // let no = "First FAQ";
                         // if (index === 1) no = "Second FAQ";
                         // else if (index > 1) no = `Question #${index + 1}`
