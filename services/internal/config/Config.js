@@ -1,7 +1,7 @@
 /**
  * Created by guy on 8/18/18.
  */
-const _ = require('lodash')
+const _ = require('lodash');
 
 module.exports = class Config{
     constructor(){
@@ -26,7 +26,7 @@ module.exports = class Config{
                 // password: "secret",
                 // port: 33061
             }
-        }
+        };
 
         console.log(this.config);
     }
@@ -34,4 +34,4 @@ module.exports = class Config{
     get(key){
         return _.get(this.config, key);
     }
-}
+};

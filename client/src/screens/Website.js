@@ -281,7 +281,7 @@ class Website extends Component {
                 <Subtitle>{t("Choose Template")}<Required /> </Subtitle>
                 <Link to="/choose_template">
 
-                    {this.props.website.template === 0 ?
+                    {!this.props.website.template  ?
                         <BorderedButton text="Choose Template" icon="file text outline"/>
                         :
                         <div style={{textAlign: 'center'}}>
