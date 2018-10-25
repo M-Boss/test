@@ -57,6 +57,7 @@ app.use(async function (req, res, next) {
 });
 app.use(fileUpload());
 app.use('/api/website', require('./routes/website'));
+app.use('/api', require('./routes/loggedInUser'));
 
 
 

@@ -27,7 +27,7 @@ import Autocomplete from 'react-google-autocomplete';
 import rest  from '../services/external/rest';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
+import withResend from '../components/withResend'
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
@@ -132,4 +132,4 @@ export default connect(state => {
         website: state.website,
         user: state.user
     }
-})(Website)
+})(withResend(Website))

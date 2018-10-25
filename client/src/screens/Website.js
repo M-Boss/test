@@ -28,6 +28,7 @@ import rest  from '../services/external/rest';
 import Header from "./Header";
 import DatePicker from 'react-datepicker';
 import {t} from '../translations'
+import withResend from '../components/withResend'
 
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
@@ -125,11 +126,6 @@ class Website extends Component {
                     <Message.Header>Email validated</Message.Header>
                 </Message>}
 
-                {this.accountNotValidated() && <Message negative>
-                    <Message.Header>Tolong verifikasi alamat email Anda untuk melihat situs nikahan Anda.</Message.Header>
-                    {/*<a>Resend validation email</a>*/}
-                </Message>}
-
                 <div style={{backgroundColor: '#F4F7F9'}}>
                     <div style={{padding: 24}}>
 
@@ -174,7 +170,7 @@ class Website extends Component {
     }
 
     accountNotValidated(){
-        return this.props.user && this.props.user.id > 62 &&  !this.props.user.active;
+        return this.props.user && !this.props.user.active;
     }
 
     componentDidMount() {
@@ -1180,4 +1176,4 @@ export default connect(state => {
         website: state.website,
         user: state.user
     }
-})(Website)
+})(withResend(Website))

@@ -10,6 +10,7 @@ import {H1} from "../components/Headers";
 import {Link} from "react-router-dom"
 import {connect} from 'react-redux'
 import {t} from '../translations'
+import withResend from '../components/withResend'
 
 class Screen extends Component {
 
@@ -25,12 +26,6 @@ class Screen extends Component {
     render() {
         return <React.Fragment>
             <Header />
-
-            {this.accountNotValidated() && <Message negative>
-                <Message.Header>Your email is not validated yet</Message.Header>
-                <p>You need to verify your email to publish your website</p>
-                {/*<a>Resend validation email</a>*/}
-            </Message>}
 
             <div style={{backgroundColor: '#F4F7F9'}}>
                 <div style={{maxWidth: 480, margin: 'auto', textAlign: 'center'}}>
@@ -58,7 +53,7 @@ export default connect(state => {
     return {
         user: state.user
     }
-})(Screen)
+})(withResend(Screen))
 
 function Step({step, title, body, image}) {
     return (
