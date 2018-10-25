@@ -17,14 +17,18 @@ class Header extends Component {
 
     render() {
         const {theme = {}}= this.props;
+        let extraStyle = {};
+        if(this.props.backgroundImage){
+            extraStyle.backgroundImage = `url(${this.props.backgroundImage})`;
+        }
         return (
-            <div className="" style={{backgroundColor: theme.headerBackground || this.props.themeColor, display:'flex', alignItems: 'center', padding: 16}}>
-                <div  style={{flex: 1}}>
+            <div className="" style={{backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundColor: theme.headerBackground || this.props.themeColor, display:'flex', alignItems: 'center', padding: 16, ...theme.headerContainerStyles, ...extraStyle}}>
+                {!theme.headerHideNames && <div  style={{flex: 1}}>
                     <p style={{textAlign: 'left', color: theme.headerForeground || theme.foreground || '#FFF', fontSize: theme.headerFontSize || 16}}>{this.props.label}</p>
-                </div>
+                </div>}
                 <div className="" style={{maxWidth: 60}}>
                     <Link style={{}} to={`/wedding/${this.props.websiteId}/menu`}>
-                        {this.props.icon ? <img style={{height: 32}} src={this.props.icon} />
+                        {this.props.icon ? <img style={{height: theme.headerBurgerSize || 32}} src={this.props.icon} />
                             : <Icon style={{lineHeight: '28px', fontSize: 28, color: theme.foreground || 'white'}} name="bars"/>}
                     </Link>
                 </div>

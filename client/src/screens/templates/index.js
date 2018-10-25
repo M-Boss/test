@@ -29,6 +29,11 @@ import FiveEvents from './five/Events'
 import FiveFAQs from './five/FAQs'
 import FivePhoto from './five/Photos'
 
+import SixHome from './six/Home'
+import SixEvents from './six/Events'
+import SixFAQs from './six/FAQs'
+import SixPhoto from './six/Photos'
+
 const theme1 = [
     {
         primary: '#72859a',
@@ -144,6 +149,39 @@ const theme5 = [
     }
 ];
 
+const theme6 = [
+    {
+        primary: '#FFF',
+        secondary: '#FFF',
+        background: '#FFF',
+        foreground: '#363639',
+        copyright_background: '#999',
+        copyright_foreground: '#fff',
+        index: 0,
+        withLoveStyle: {
+            fontFamily: 'sans-serif',
+            fontWeight: 400
+        },
+        menuBackground: '#FFF',
+        menuClassName: 'template-6-menu',
+        menuItem: '#333',
+        menuFontSize: 20,
+        headerBackground: '#FFF',
+        headerForeground: '#363639',
+        headerFontSize: 20,
+        headerHideNames: true,
+        headerBurgerSize: 48,
+        headerContainerStyles:{
+            position: 'fixed',
+            left: 0,
+            right: 0,
+            backgroundColor: 'transparent',
+            top: 0,
+            zIndex: 100
+        },
+    }
+];
+
 const templates = {
     1: {
         home: (website, id) => <OneHome theme={theme1[0]} website={website} websiteId={id}/>,
@@ -216,6 +254,15 @@ const templates = {
         photos: (website, id) => <FivePhoto theme={theme5[0]} website={website} websiteId={id}/>,
         menu: (website, id) => <OneMenu theme={theme5[0]} website={website} websiteId={id}/>,
     },
+
+    //five
+    10: {
+        home: (website, id) => <SixHome theme={theme6[0]} website={website} websiteId={id}/>,
+        events: (website, id) => <SixEvents theme={theme6[0]} website={website} websiteId={id}/>,
+        faqs: (website, id) => <SixFAQs theme={theme6[0]} website={website} websiteId={id}/>,
+        photos: (website, id) => <SixPhoto theme={theme6[0]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme6[0]} website={website} websiteId={id}/>,
+    },
 };
 
 export const templateList =  [
@@ -286,6 +333,16 @@ export const templateList =  [
                 id: 9,
                 name: "",
                 theme: theme5[0]
+            }
+        ]
+    },
+    {
+        name: "Sixth Template",
+        variations: [
+            {
+                id: 10,
+                name: "",
+                theme: theme6[0]
             }
         ]
     }
