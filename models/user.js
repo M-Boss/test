@@ -46,18 +46,21 @@ module.exports = function (sequelize, DataTypes) {
             active: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0
+            },
+            checklist_id: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
             }
         },
         {
             tableName: 'users'
         });
 
-    // User.associate = function(models) {
-    //     models.user.belongsToMany(models.topic, {
-    //         as: 'topics',
-    //         through: models.topicsUsers,
-    //         onDelete: 'cascade'
-    //     });
-    // };
+    User.associate = function(models) {
+        models.User.belongsTo(models.Checklist, {
+            as: 'checklist',
+            foreignKey: 'checklist_id'
+        });
+    };
     return User;
 };

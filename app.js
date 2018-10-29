@@ -15,6 +15,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const container = require('./services');
 
+
 var app = express();
 app.use(cors());
 
@@ -58,6 +59,7 @@ app.use(async function (req, res, next) {
 app.use(fileUpload());
 app.use('/api/website', require('./routes/website'));
 app.use('/api', require('./routes/loggedInUser'));
+app.use('/api', require('./routes/checklist'));
 
 
 

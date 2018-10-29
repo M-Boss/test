@@ -21,5 +21,13 @@ router.post('/user/resend',  async function (req, res, next) {
     }
 });
 
+router.post('/user/authenticate', async function (req, res, next) {
+    try {
+        res.send({r: 'ok', user: req.user});
+    }
+    catch (e){
+        res.sendStatus(729);
+    }
+});
 
 module.exports = router;
