@@ -12,6 +12,21 @@ body {
     }
 }
 
+.responsive-half {
+    min-width: 50%;
+}
+@media screen and (max-width: 724px) {
+    .responsive-half {
+        min-width: 100%;
+    }
+}
+
+@media screen and (min-width: 724px) {
+    .desktop-right {
+        text-align: right;
+    }
+}
+
 .ui.secondary.pointing.menu .active.item {
     border-color: red !important;
 }

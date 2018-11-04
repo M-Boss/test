@@ -118,6 +118,7 @@ i18n.translations = {
         "Add Event": "Tambah Acara",
         "Add Photos": "Tambah Foto",
         "To Your Website": "Menuju Website-mu",
+        "Wedding Checklist": "Daftar Periksa",
     }
 };
 

@@ -72,9 +72,10 @@ class Website extends Component {
                     flexDirection: 'row',
                     flexWrap: 'wrap'
                 }}>
-                    <Service icon={require('../static/images/services/website.png')} label="Website" link="/dashboard"/>
-                    <Service icon={require('../static/images/services/daftarperiksa(grey).png')} label="Daftar Periksa"
-                             link=""/>
+                    <Service icon={require('../static/images/services/website.png')} label="Website"
+                             link="/dashboard"/>
+                    <Service icon={require('../static/images/services/daftarperiksa.png')} label="Daftar Periksa"
+                             />
                     <Service icon={require('../static/images/services/daftar-tamu(grey).png')} label="Daftar Tamu"
                              link=""/>
                 </div>

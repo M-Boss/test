@@ -137,8 +137,8 @@ class Home extends Component {
                     })}
                 </div>
 
-                <div style={{marginTop: 32, borderBottom: '2px solid', borderColor: theme.primary}}>
-                    <img width='100%' style={{marginBottom: -6}} src={require('./assets/bottom.png')}/>
+                <div style={{textAlign: 'center', marginTop: 32, borderBottom: '2px solid', borderColor: theme.primary}}>
+                    <img height="68px" style={{ marginBottom: -6}} src={require('./assets/bottom.png')}/>
                 </div>
 
                 <div style={{ borderBottom: '3px solid', borderColor: theme.foreground, paddingBottom: 0}}>
