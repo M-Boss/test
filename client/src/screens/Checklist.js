@@ -29,6 +29,7 @@ import Header from "./Header";
 import DatePicker from 'react-datepicker';
 import {t} from '../translations'
 import withResend from '../components/withResend'
+import InputCombo from '../components/InputCombo'
 
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
@@ -43,7 +44,8 @@ class Checklist extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
+            state: 'creatingNewTask'
         };
         this.rest = rest;
 
@@ -52,45 +54,6 @@ class Checklist extends Component {
     }
 
     render() {
-        /*const tasks = [
-            {
-                id: -4,
-                title: "Create an inspiration board and be prepared to share it with vendors",
-                description: "Create  board and an  be prepared to share it with vendors, Create an inspiration board and be prepared to share!",
-                notes: "Hey there!",
-                category: 'general',
-                due: '2017-11-22',
-                done: null,
-            },
-            {
-                id: 1,
-                title: "Create an inspiration board and be prepared to share it with vendors",
-                description: "Create  board and an  be prepared to share it with vendors, Create an inspiration board and be prepared to share!",
-                notes: "Hey there!",
-                category: 'general',
-                due: '2018-12-22',
-                done: null,
-            },
-            {
-                id: 2,
-                title: "An inspiration board and be prepared to share it with vendors",
-                description: "Board and an  be prepared to share it with vendors, Create an inspiration board and be prepared to share!",
-                notes: "Hey there!",
-                category: 'muslim',
-                due: '2019-01-04',
-                done: null,
-            },
-            {
-                id: 3,
-                title: "An inspiration board and be prepared to share it with vendors",
-                description: "Board and an  be prepared to share it with vendors, Create an inspiration board and be prepared to share!",
-                notes: "Hey there!",
-                category: 'muslim',
-                due: '2019-01-05',
-                done: '2018-09-04',
-            }
-        ];*/
-
         const tasks = _.get(this.state, 'checklist.tasks', []) || [];
 
         return (
@@ -98,60 +61,8 @@ class Checklist extends Component {
                 <Header />
 
                 <div className="checklist" style={{backgroundColor: '#F4F7F9'}}>
-                    <div style={{padding: 24, paddingBottom: 0}}>
-
-                        <Link to="/services">
-                            <p><Icon name="long arrow alternate left"/> Back</p>
-                        </Link>
-
-                        <div style={{
-                            display: 'flex', flexWrap: 'wrap',
-                            marginTop: 20,
-                        }}>
-                            <div className="responsive-half" style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                paddingBottom: 20
-                            }}>
-                                <H2 style={{
-                                    flex: 1,
-                                    margin: 0,
-                                    lineHeight: '22px',
-                                    float: 'left'
-                                }}>{t("Wedding Checklist")}</H2>
-                            </div>
-
-                            <div className="responsive-half desktop-right">
-                                <Button primary>{t("New Task")}</Button>
-                                <Button>{t("Edit Settings")}</Button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div style={{marginTop: 35}}/>
-
-                            <Label color="teal">
-                                {t('Days Left')}
-                                <Label.Detail>214</Label.Detail>
-                            </Label>
-
-                            <Label color="teal">
-                                {t('Tasks This Month')}
-                                <Label.Detail>24</Label.Detail>
-                            </Label>
-
-                            <Label style={{marginTop: 4}} color="teal">
-                                {t('Completed Tasks')}
-                                <Label.Detail>24</Label.Detail>
-                            </Label>
-                        </div>
-                    </div>
-                    <div style={{padding: 0, paddingTop: 12}}>
-                        <div style={{backgroundColor: '#FFF', padding: 4, paddingTop: 12, borderTop: '2px solid #DDD', borderBottom: '2px solid #DDD', marginTop: 0, marginBottom: 10}}>
-                            {this.renderTasks(tasks)}
-                        </div>
-                    </div>
+                    {this.state.state === 'creatingNewTask' && this.renderCreateTask()}
+                    {this.state.state !== 'creatingNewTask' && this.renderContent(tasks)}
                 </div>
 
                 <Footer/>
@@ -159,7 +70,82 @@ class Checklist extends Component {
         )
     }
 
-    async getChecklist(){
+    renderCreateTask(){
+        return (
+            <div>
+                {/*<InputCombo*/}
+            </div>
+        )
+    }
+
+    renderContent(tasks){
+        return (<React.Fragment>
+            <div style={{padding: 24, paddingBottom: 0}}>
+
+                <Link to="/services">
+                    <p><Icon name="long arrow alternate left"/> Back</p>
+                </Link>
+
+                <div style={{
+                    display: 'flex', flexWrap: 'wrap',
+                    marginTop: 20,
+                }}>
+                    <div className="responsive-half" style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingBottom: 20
+                    }}>
+                        <H2 style={{
+                            flex: 1,
+                            margin: 0,
+                            lineHeight: '22px',
+                            float: 'left'
+                        }}>{t("Wedding Checklist")}</H2>
+                    </div>
+
+                    <div className="responsive-half desktop-right">
+                        <Button primary>{t("New Task")}</Button>
+                        <Button>{t("Edit Settings")}</Button>
+                    </div>
+                </div>
+
+                <div>
+                    <div style={{marginTop: 35}}/>
+
+                    <Label color="teal">
+                        {t('Days Left')}
+                        <Label.Detail>214</Label.Detail>
+                    </Label>
+
+                    <Label color="teal">
+                        {t('Tasks This Month')}
+                        <Label.Detail>24</Label.Detail>
+                    </Label>
+
+                    <Label style={{marginTop: 4}} color="teal">
+                        {t('Completed Tasks')}
+                        <Label.Detail>24</Label.Detail>
+                    </Label>
+                </div>
+            </div>
+            <div style={{padding: 0, paddingTop: 12}}>
+                <div style={{
+                    backgroundColor: '#FFF',
+                    padding: 4,
+                    paddingTop: 12,
+                    borderTop: '2px solid #DDD',
+                    borderBottom: '2px solid #DDD',
+                    marginTop: 0,
+                    marginBottom: 10
+                }}>
+                    {this.renderTasks(tasks)}
+                </div>
+            </div>
+        </React.Fragment>)
+    }
+
+    async getChecklist() {
         this.setState({loading: true});
         try {
             let checklist = await rest.post('checklist/get');
@@ -167,15 +153,15 @@ class Checklist extends Component {
             this.setState({checklist});
             console.log(checklist);
         }
-        catch(e){
+        catch (e) {
             alert("Could not fetch tasks, please try again momentarily")
         }
-        finally{
+        finally {
 
         }
     }
 
-    async setTaskCompletion(taskIndex){
+    async setTaskCompletion(taskIndex) {
         this.setState({loading: true});
 
         const task = this.state.checklist.tasks[taskIndex];
@@ -195,11 +181,11 @@ class Checklist extends Component {
                 checklist: checklist
             });
         }
-        catch(e){
+        catch (e) {
             alert("Could not fetch tasks, please try again momentarily")
             console.log(e)
         }
-        finally{
+        finally {
             this.setState({loading: false})
         }
     }
@@ -238,20 +224,21 @@ class Checklist extends Component {
             return (
                 <React.Fragment>
                     {ribbon}
-                    <Row deleteTask={this.deleteTask(index)} checked={!!task.done} onChange={this.onTaskChecked(index)} label={task.title}
+                    <Row deleteTask={this.deleteTask(index)} checked={!!task.done} onChange={this.onTaskChecked(index)}
+                         label={task.title}
                          date={moment(task.due, 'YYYY-MM-DD').format('MMM D, YYYY')} overdue={overdue && !task.done}/>
                 </React.Fragment>
             )
         })
     }
 
-    onTaskChecked(taskIndex){
+    onTaskChecked(taskIndex) {
         return () => {
             this.setTaskCompletion(taskIndex);
         }
     }
 
-    deleteTask(taskIndex){
+    deleteTask(taskIndex) {
         return async () => {
             this.setState({loading: true});
 
@@ -269,11 +256,11 @@ class Checklist extends Component {
                     checklist: checklist
                 });
             }
-            catch(e){
+            catch (e) {
                 alert("Could not fetch tasks, please try again momentarily")
                 console.log(e)
             }
-            finally{
+            finally {
 
             }
         }
@@ -298,7 +285,7 @@ function Ribbon({label, first}) {
 function Row({label, date, overdue, onChange, checked, deleteTask}) {
     return (
         <div style={{display: 'flex', alignItems: 'center', paddingTop: 12, paddingBottom: 12}}>
-            <Checkbox checked={checked} onChange={onChange} />
+            <Checkbox checked={checked} onChange={onChange}/>
             <div style={{flex: 1, paddingLeft: 4, textDecoration: checked ? 'line-through' : ''}}>{label}</div>
             <div style={{color: overdue ? '#c7133e' : '#888', paddingLeft: 8}}>{date}</div>
             <div onClick={deleteTask} style={{paddingLeft: 6}}><Icon style={{color: '#999'}} name='trash'/></div>
