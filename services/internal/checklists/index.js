@@ -51,6 +51,7 @@ module.exports = class ChecklistDatabase {
             task.done = null;
         }
         task.save();
+        return task;
     }
 
     async removeTask(id, checklist_id) {

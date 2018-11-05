@@ -75,7 +75,7 @@ class Website extends Component {
                     <Service icon={require('../static/images/services/website.png')} label="Website"
                              link="/dashboard"/>
                     <Service icon={require('../static/images/services/daftarperiksa.png')} label="Daftar Periksa"
-                             />
+                             link="/checklist" />
                     <Service icon={require('../static/images/services/daftar-tamu(grey).png')} label="Daftar Tamu"
                              link=""/>
                 </div>

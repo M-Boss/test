@@ -46,10 +46,12 @@ class Checklist extends Component {
             loading: false
         };
         this.rest = rest;
+
+        this.onTaskChecked = this.onTaskChecked.bind(this);
     }
 
     render() {
-        const tasks = [
+        /*const tasks = [
             {
                 id: -4,
                 title: "Create an inspiration board and be prepared to share it with vendors",
@@ -86,7 +88,9 @@ class Checklist extends Component {
                 due: '2019-01-05',
                 done: '2018-09-04',
             }
-        ];
+        ];*/
+
+        const tasks = _.get(this.state, 'checklist.tasks', []) || [];
 
         return (
             <React.Fragment>
@@ -143,15 +147,60 @@ class Checklist extends Component {
                         </div>
                     </div>
                     <div style={{padding: 0, paddingTop: 12}}>
-                        <Segment>
+                        <div style={{backgroundColor: '#FFF', padding: 4, paddingTop: 12, borderTop: '2px solid #DDD', borderBottom: '2px solid #DDD', marginTop: 0, marginBottom: 10}}>
                             {this.renderTasks(tasks)}
-                        </Segment>
+                        </div>
                     </div>
                 </div>
 
                 <Footer/>
             </React.Fragment>
         )
+    }
+
+    async getChecklist(){
+        this.setState({loading: true});
+        try {
+            let checklist = await rest.post('checklist/get');
+            checklist = _.get(checklist, 'checklist');
+            this.setState({checklist});
+            console.log(checklist);
+        }
+        catch(e){
+            alert("Could not fetch tasks, please try again momentarily")
+        }
+        finally{
+
+        }
+    }
+
+    async setTaskCompletion(taskIndex){
+        this.setState({loading: true});
+
+        const task = this.state.checklist.tasks[taskIndex];
+        console.log('setTaskCompletion', this.state.checklist.tasks, 'idnex: ' + taskIndex, task)
+        try {
+            let updatedTask = await rest.post('checklist/set_completion', {
+                id: task.id,
+                done: task.done ? 0 : 1
+            });
+            updatedTask = _.get(updatedTask, 'task');
+
+            let checklist = {...this.state.checklist};
+            checklist.tasks = checklist.tasks.slice();
+            checklist.tasks[taskIndex] = updatedTask;
+            checklist.tasks[taskIndex]['just_updated'] = true;
+            this.setState({
+                checklist: checklist
+            });
+        }
+        catch(e){
+            alert("Could not fetch tasks, please try again momentarily")
+            console.log(e)
+        }
+        finally{
+
+        }
     }
 
     renderTasks(tasks) {
@@ -161,6 +210,8 @@ class Checklist extends Component {
         let today = moment().format('YYYY-MM-DD');
         let newMonth = true;
         let overdue = true;
+
+        console.log('renderTasks: ', tasks)
 
         return tasks.map((task, index) => {
             while (task.due >= endDate.format('YYYY-MM-DD')) {
@@ -187,17 +238,25 @@ class Checklist extends Component {
             return (
                 <React.Fragment>
                     {ribbon}
-                    <Row label={task.title}
+                    <Row checked={!!task.done} onChange={this.onTaskChecked(index)} label={task.title}
                          date={moment(task.due, 'YYYY-MM-DD').format('MMM D, YYYY')} overdue={overdue && !task.done}/>
                 </React.Fragment>
             )
         })
     }
 
+    onTaskChecked(taskIndex){
+        return () => {
+            this.setTaskCompletion(taskIndex);
+        }
+    }
+
     componentDidMount() {
         if (!this.props.user.token) {
             this.props.history.push('/login')
         }
+
+        this.getChecklist();
     }
 }
 
@@ -208,10 +267,10 @@ function Ribbon({label, first}) {
         </div>
     )
 }
-function Row({label, date, overdue}) {
+function Row({label, date, overdue, onChange, checked}) {
     return (
         <div style={{display: 'flex', alignItems: 'center', paddingTop: 12, paddingBottom: 12}}>
-            <Checkbox />
+            <Checkbox checked={checked} onChange={onChange} />
             <div style={{flex: 1, paddingLeft: 4,}}>{label}</div>
             <div style={{color: overdue ? '#c7133e' : '#888', paddingLeft: 8}}>{date}</div>
             <div style={{paddingLeft: 6}}><Icon style={{color: '#999'}} name='trash'/></div>

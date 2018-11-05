@@ -97,11 +97,11 @@ router.post('/checklist/set_completion',  async function (req, res, next) {
         const id = _.get(req, 'body.id');
         const done = _.get(req, 'body.done');
 
-        await checklists.setTaskCompletionStatus({
+        const task = await checklists.setTaskCompletionStatus({
             id,
             checklist_id: req.user.checklist_id
         }, done);
-        res.send({r: 'ok'});
+        res.send({task});
     }
     catch (e){
         res.sendStatus(728);
