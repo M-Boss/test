@@ -29,7 +29,8 @@ import Header from "./Header";
 import DatePicker from 'react-datepicker';
 import {t} from '../translations'
 import withResend from '../components/withResend'
-import InputCombo from '../components/InputCombo'
+import InputCombo, {InputLabel} from '../components/InputCombo'
+import {DateInput } from '../screens/Website'
 
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
@@ -38,19 +39,24 @@ const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
 const validator = require('../services/internal/validations');
 
-
 class Checklist extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            state: 'creatingNewTask'
+            state: 'creatingTask',
+            taskTitle: '',
+            taskDescription: '',
+            taskDue: '',
+            taskNotes: '',
+            taskId: 0,
         };
         this.rest = rest;
 
         this.onTaskChecked = this.onTaskChecked.bind(this);
         this.deleteTask = this.deleteTask.bind(this);
+        this.saveTask = this.saveTask.bind(this);
     }
 
     render() {
@@ -61,8 +67,8 @@ class Checklist extends Component {
                 <Header />
 
                 <div className="checklist" style={{backgroundColor: '#F4F7F9'}}>
-                    {this.state.state === 'creatingNewTask' && this.renderCreateTask()}
-                    {this.state.state !== 'creatingNewTask' && this.renderContent(tasks)}
+                    {this.state.state === 'creatingTask' && this.renderCreateTask()}
+                    {this.state.state !== 'creatingTask' && this.renderContent(tasks)}
                 </div>
 
                 <Footer/>
@@ -70,15 +76,107 @@ class Checklist extends Component {
         )
     }
 
-    renderCreateTask(){
+    renderCreateTask() {
+        console.log('renderCreateTask: ', this.state);
         return (
-            <div>
-                {/*<InputCombo*/}
+            <div style={{padding: 24, paddingTop: 10, position: 'relative'}}>
+                <div className="pointer" onClick={() => this.closeCreateTask()} style={{position: 'absolute', right: 12, top: 24, width: 40, height: 40}}>
+                    <Icon name="close" style={{fontSize: 24}} />
+                </div>
+
+                <H2>Create new task</H2>
+                <InputCombo onChange={this.createTaskChangeHandler('taskTitle')} value={this.state.taskTitle}
+                            label={t("Title")}/>
+
+                <DateInput style={{marginTop: 12}}
+                           label={t("Due date")}
+                           selected={this.state.taskDue ? moment(this.state.taskDue) : null}
+                           onChange={date => {
+                               // console.log(date);
+                               this.createTaskChangeHandler('taskDue', true)(date ? date.format('YYYY-MM-DD') : "2019-01-01")
+                           }}/>
+
+                <Form>
+
+                    <InputLabel>{t("Notes to self")}</InputLabel>
+                    <TextArea onChange={this.createTaskChangeHandler('taskNotes')}
+                              value={this.state.taskNotes}/>
+                </Form>
+
+                <br/>
+                <br/>
+                <Button onClick={this.saveTask}  primary>{t("Save")}</Button>
+                <Button onClick={() => this.closeCreateTask()}>{t("Cancel")}</Button>
             </div>
         )
     }
 
-    renderContent(tasks){
+    async saveTask() {
+
+        if(!this.state.taskDue || !this.state.taskTitle){
+            return alert(t("Please enter all required fields"))
+        }
+
+        this.setState({loading: true});
+
+        try {
+            let body = {
+                id: this.state.taskId,
+                title: this.state.taskTitle,
+                description: this.state.taskDescription,
+                due: this.state.taskDue,
+            };
+
+            if(this.state.taskId){
+                await rest.post('checklist/update_task', body);
+            }
+            else{
+                await rest.post('checklist/add_task', body);
+            }
+
+            this.closeCreateTask();
+            this.getChecklist();
+        }
+        catch (e) {
+            alert("Please try again momentarily");
+            console.log(e)
+        }
+        finally {
+
+        }
+    }
+
+    closeCreateTask(){
+        this.setState({
+            taskTitle: '',
+            taskDescription:"",
+            taskDue: "",
+            taskId: 0,
+            state: 'index'
+        })
+    }
+
+    openCreateTask(task = null){
+        console.log('OPen: ', task);
+        this.setState({
+            taskTitle: task ? task.title : '',
+            taskDescription: task ? task.description : "",
+            taskDue: task ? task.due : "",
+            taskId: task ? task.id : 0,
+            state: 'creatingTask'
+        })
+    }
+
+    createTaskChangeHandler(field, checkbox) {
+        return (e) => {
+            const val = checkbox ? e : e.target.value;
+            this.setState({
+                [field]: val
+            })
+        }
+    }
+
+    renderContent(tasks) {
         return (<React.Fragment>
             <div style={{padding: 24, paddingBottom: 0}}>
 
@@ -105,7 +203,7 @@ class Checklist extends Component {
                     </div>
 
                     <div className="responsive-half desktop-right">
-                        <Button primary>{t("New Task")}</Button>
+                        <Button onClick={() => this.openCreateTask()} primary>{t("New Task")}</Button>
                         <Button>{t("Edit Settings")}</Button>
                     </div>
                 </div>
@@ -224,7 +322,8 @@ class Checklist extends Component {
             return (
                 <React.Fragment>
                     {ribbon}
-                    <Row deleteTask={this.deleteTask(index)} checked={!!task.done} onChange={this.onTaskChecked(index)}
+                    <Row onLabelClicked={() => this.openCreateTask(task)}
+                         deleteTask={this.deleteTask(index)} checked={!!task.done} onChange={this.onTaskChecked(index)}
                          label={task.title}
                          date={moment(task.due, 'YYYY-MM-DD').format('MMM D, YYYY')} overdue={overdue && !task.done}/>
                 </React.Fragment>
@@ -282,11 +381,11 @@ function Ribbon({label, first}) {
         </div>
     )
 }
-function Row({label, date, overdue, onChange, checked, deleteTask}) {
+function Row({label, onLabelClicked, date, overdue, onChange, checked, deleteTask}) {
     return (
         <div style={{display: 'flex', alignItems: 'center', paddingTop: 12, paddingBottom: 12}}>
             <Checkbox checked={checked} onChange={onChange}/>
-            <div style={{flex: 1, paddingLeft: 4, textDecoration: checked ? 'line-through' : ''}}>{label}</div>
+            <div onClick={onLabelClicked} style={{flex: 1, paddingLeft: 4, textDecoration: checked ? 'line-through' : ''}}>{label}</div>
             <div style={{color: overdue ? '#c7133e' : '#888', paddingLeft: 8}}>{date}</div>
             <div onClick={deleteTask} style={{paddingLeft: 6}}><Icon style={{color: '#999'}} name='trash'/></div>
         </div>

@@ -990,7 +990,7 @@ function InputCombo({label, optional = false, onChange, value, style, placeholde
     </div>
 }
 
-function DateInput({label, selected, onChange, optional = false, style}) {
+export function DateInput({label, selected, onChange, optional = false, style}) {
     return <div style={{...style}}>
         <InputLabel>{label} {!optional && <Required/>} </InputLabel>
         <DatePicker selected={selected}

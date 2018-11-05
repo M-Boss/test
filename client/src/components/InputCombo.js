@@ -15,6 +15,6 @@ function Required() {
     return <span style={{color: 'red', fontSize: 16}}>*</span>
 }
 
-function InputLabel({children}) {
+export function InputLabel({children}) {
     return <p style={{marginBottom: 4}}>{children}</p>
 }
