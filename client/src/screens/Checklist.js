@@ -48,6 +48,7 @@ class Checklist extends Component {
         this.rest = rest;
 
         this.onTaskChecked = this.onTaskChecked.bind(this);
+        this.deleteTask = this.deleteTask.bind(this);
     }
 
     render() {
@@ -199,7 +200,7 @@ class Checklist extends Component {
             console.log(e)
         }
         finally{
-
+            this.setState({loading: false})
         }
     }
 
@@ -211,8 +212,7 @@ class Checklist extends Component {
         let newMonth = true;
         let overdue = true;
 
-        console.log('renderTasks: ', tasks)
-
+        console.log('renderTasks: ', tasks);
         return tasks.map((task, index) => {
             while (task.due >= endDate.format('YYYY-MM-DD')) {
                 endDate.add(1, 'month');
@@ -238,7 +238,7 @@ class Checklist extends Component {
             return (
                 <React.Fragment>
                     {ribbon}
-                    <Row checked={!!task.done} onChange={this.onTaskChecked(index)} label={task.title}
+                    <Row deleteTask={this.deleteTask(index)} checked={!!task.done} onChange={this.onTaskChecked(index)} label={task.title}
                          date={moment(task.due, 'YYYY-MM-DD').format('MMM D, YYYY')} overdue={overdue && !task.done}/>
                 </React.Fragment>
             )
@@ -248,6 +248,34 @@ class Checklist extends Component {
     onTaskChecked(taskIndex){
         return () => {
             this.setTaskCompletion(taskIndex);
+        }
+    }
+
+    deleteTask(taskIndex){
+        return async () => {
+            this.setState({loading: true});
+
+            const task = this.state.checklist.tasks[taskIndex];
+            console.log('deleteTask')
+            try {
+                await rest.post('checklist/remove_task', {
+                    id: task.id
+                });
+
+                let checklist = {...this.state.checklist};
+                checklist.tasks = checklist.tasks.slice();
+                checklist.tasks.splice(taskIndex, 1);
+                this.setState({
+                    checklist: checklist
+                });
+            }
+            catch(e){
+                alert("Could not fetch tasks, please try again momentarily")
+                console.log(e)
+            }
+            finally{
+
+            }
         }
     }
 
@@ -267,13 +295,13 @@ function Ribbon({label, first}) {
         </div>
     )
 }
-function Row({label, date, overdue, onChange, checked}) {
+function Row({label, date, overdue, onChange, checked, deleteTask}) {
     return (
         <div style={{display: 'flex', alignItems: 'center', paddingTop: 12, paddingBottom: 12}}>
             <Checkbox checked={checked} onChange={onChange} />
-            <div style={{flex: 1, paddingLeft: 4,}}>{label}</div>
+            <div style={{flex: 1, paddingLeft: 4, textDecoration: checked ? 'line-through' : ''}}>{label}</div>
             <div style={{color: overdue ? '#c7133e' : '#888', paddingLeft: 8}}>{date}</div>
-            <div style={{paddingLeft: 6}}><Icon style={{color: '#999'}} name='trash'/></div>
+            <div onClick={deleteTask} style={{paddingLeft: 6}}><Icon style={{color: '#999'}} name='trash'/></div>
         </div>
     )
 }
