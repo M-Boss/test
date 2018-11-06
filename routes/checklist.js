@@ -11,19 +11,34 @@ router.post('/checklist/get',  async function (req, res, next) {
     const mailer = container.get('mailer');
     const config = container.get('config');
     const db = container.get('db');
+    const checklists = container.get('checklists');
 
     try {
-        const cl = await req.user.getChecklist({include: [
+        let cl = await req.user.getChecklist({include: [
             {
                 model: db.Task,
                 as: 'tasks'
             }
         ]});
-        res.send({r: 'ok', checklist: cl});
+
+        if(!cl){
+            cl = await checklists.createChecklist(req.user.id);
+            if(!cl){
+                throw "Could not create checklist";
+            }
+        }
+
+        res.send({r: 'ok',
+            checklist: cl,
+            user: {
+                wedding_date: req.user.wedding_date
+            }
+        });
     }
+
     catch (e){
         console.log('sendVerificationEmail error', e);
-        res.sendStatus(723); //probably duplicate email
+        res.sendStatus(723);
     }
 });
 
@@ -57,7 +72,10 @@ router.post('/checklist/update_task',  async function (req, res, next) {
         const title = cleaner.clean(_.get(req, 'body.title'));
         const description = cleaner.clean(_.get(req, 'body.description'));
         const due = _.get(req, 'body.due');
-        const done = _.get(req, 'body.done');
+        const notes = _.get(req, 'body.notes');
+        // const done = _.get(req, 'body.done');
+
+        console.log( req.body);
 
         const task = await checklists.findTask({
             id,
@@ -68,15 +86,16 @@ router.post('/checklist/update_task',  async function (req, res, next) {
             return res.send(404);
         }
 
-        if(done != 0){
-            if(!task.done) task.done = time.ymd();
-        }else{
-            task.done = null;
-        }
+        // if(done != 0){
+        //     if(!task.done) task.done = time.ymd();
+        // }else{
+        //     task.done = null;
+        // }
 
-        task.title = title;
-        task.description = description;
-        if(due) task.due = due;
+        task.title = cleaner.clean(title);
+        task.description = cleaner.clean(description);
+        task.notes = cleaner.clean(notes);
+        if(due) task.due = cleaner.clean(due);
         await task.save();
         res.send({r: 'ok'});
     }
@@ -84,7 +103,6 @@ router.post('/checklist/update_task',  async function (req, res, next) {
         res.sendStatus(728);
     }
 });
-
 
 router.post('/checklist/set_completion',  async function (req, res, next) {
     const checklists = container.get('checklists');
@@ -104,6 +122,58 @@ router.post('/checklist/set_completion',  async function (req, res, next) {
         res.send({task});
     }
     catch (e){
+        res.sendStatus(728);
+    }
+});
+
+router.post('/checklist/settings',  async function (req, res, next) {
+    const checklists = container.get('checklists');
+    const cleaner = container.get('cleaner');
+    const time = container.get('time');
+
+    try {
+        if(!req.user.checklist_id) return false;
+        const weddingDate = _.get(req, 'body.weddingDate');
+        const traditions = _.get(req, 'body.traditions') || [];
+        if(!traditions.map) return false;
+
+        let cl = await req.user.getChecklist();
+        if(!cl) throw "No checklisist";
+
+
+
+        if(req.user.wedding_date != weddingDate){
+            req.user.wedding_date = weddingDate;
+            await req.user.save();
+            if(cl.initialized){
+                await checklists.updateTaskDates(req.user)
+            }
+        }
+
+
+        let categoriesToBeAdded = [];
+        let categoriesToBeDeleted = [];
+        if(!cl.traditions) cl.traditions = [];
+        if(!traditions.includes('general')) traditions.push('general');
+        traditions.map(t => {
+            if(!cl.traditions.includes(t)){
+                categoriesToBeAdded.push(t)
+            }
+        });
+        cl.traditions.map(t => {
+            if(!traditions.includes(t)){
+                categoriesToBeDeleted.push(t)
+            }
+        });
+        await checklists.layOutTasksFromCategories(req.user, categoriesToBeAdded, categoriesToBeDeleted);
+        cl.traditions = traditions;
+        cl.initialized = 1;
+        await cl.save();
+
+        res.send({});
+    }
+    catch (e){
+        console.log(e)
         res.sendStatus(728);
     }
 });

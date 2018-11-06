@@ -10,6 +10,10 @@ module.exports = function (sequelize, DataTypes) {
                 primaryKey: true,
                 autoIncrement: true
             },
+            initialized: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             traditions: {
                 type: DataTypes.JSON,
                 defaultValue: [],

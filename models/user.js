@@ -50,7 +50,11 @@ module.exports = function (sequelize, DataTypes) {
             checklist_id: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0
-            }
+            },
+            wedding_date: {
+                type: DataTypes.DATEONLY,
+                allowNull: true,
+            },
         },
         {
             tableName: 'users'

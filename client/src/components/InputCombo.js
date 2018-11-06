@@ -4,10 +4,10 @@
 import React from 'react'
 import {Button, Icon, Input} from 'semantic-ui-react'
 
-export default function InputCombo({label, optional = false, onChange, value, style, placeholder = "", type = "input"}) {
+export default function InputCombo({label, disabled, optional = false, onChange, value, style, placeholder = "", type = "input"}) {
     return <div style={{...style}}>
         <InputLabel>{label} {!optional && <Required/>} </InputLabel>
-        <Input placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
+        <Input disabled={disabled} placeholder={placeholder} value={value} onChange={onChange} type={type} fluid/>
     </div>
 }
 

@@ -15,7 +15,6 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const container = require('./services');
 
-
 var app = express();
 app.use(cors());
 

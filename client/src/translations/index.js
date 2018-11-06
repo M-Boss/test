@@ -12,6 +12,12 @@ i18n.translations = {
         },
     },
     ba: {
+        culturs: {
+            cina: 'Cina',
+            catholic: 'Katholik',
+            christian: 'Christian',
+            muslim: 'Muslim',
+        },
         "Log In": "Masuk",
         "Create a free website for your wedding": "Buat website gratis untuk pernikahanmu",
         "With easy to use templates and features to make your wedding planning that much easier": "Tersedia template dan fitur yang mudah dipakai untuk membantu perencanaan nikahmu jauh lebih mudah",
@@ -119,6 +125,15 @@ i18n.translations = {
         "Add Photos": "Tambah Foto",
         "To Your Website": "Menuju Website-mu",
         "Wedding Checklist": "Daftar Periksa",
+        "Are You Including Any Cultural Or Religious Traditions In Your Ceremony?": "Centang tradisi budaya dan agama yang ingin Anda sertakan?",
+        "Days Left": "Hari Tersisa",
+        "Tasks This Month": "Tugas Bulan Ini",
+        "Completed Tasks": "Tugas Selesai",
+        "Wedding Date": "Tanggal pernikahan",
+        "Due Date": "Batas Tanggal",
+        "Add Task": "Tambah Tugas",
+        "Notes": "Catatan",
+
     }
 };
 
