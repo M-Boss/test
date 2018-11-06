@@ -379,7 +379,9 @@ class Checklist extends Component {
             let user = _.get(response, 'user');
             if (!checklist) throw "";
 
-            checklist.tasks.sort((a, b) => a.due < b.due ? -1 : 1)
+            if(checklist.tasks) {
+                checklist.tasks.sort((a, b) => a.due < b.due ? -1 : 1)
+            }
 
             this.setState({
                 checklist,
@@ -392,6 +394,7 @@ class Checklist extends Component {
         }
         catch (e) {
             alert("Could not fetch tasks, please try again momentarily")
+            console.log(e);
         }
         finally {
             this.setState({loading: false});
