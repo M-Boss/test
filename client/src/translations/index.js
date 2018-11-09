@@ -13,7 +13,7 @@ i18n.translations = {
     },
     ba: {
         culturs: {
-            cina: 'Cina',
+            chinese: 'Cina',
             catholic: 'Katholik',
             christian: 'Christian',
             muslim: 'Muslim',

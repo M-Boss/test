@@ -122,7 +122,7 @@ class Checklist extends Component {
     }
 
     renderSettings() {
-        const culturs = ['muslim', 'christian', 'catholic', 'cina'];
+        const culturs = ['muslim', 'christian', 'catholic', 'chinese'];
 
         return (
             <div style={{padding: 24, paddingTop: 10, position: 'relative'}}>
