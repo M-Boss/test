@@ -1,0 +1,102 @@
+/**
+ * Created by guy on 8/15/18.
+ */
+const _ = require('lodash');
+const path = require('path');
+const moment = require('moment');
+
+module.exports = class ChecklistDatabase {
+    constructor(db, hasher, random, emitter, mailer, config, cleaner) {
+        this.db = db;
+        this.hasher = hasher;
+        this.random = random;
+        this.emitter = emitter;
+        this.mailer = mailer;
+        this.config = config;
+        this.cleaner = cleaner;
+    }
+
+    async createGuestlist(userId) {
+        const r = await this.db.Guestlist.create({});
+        if (r && r.id) {
+            await this.db.User.update({guestlist_id: r.id}, {where: {id: userId}});
+        }
+        return r;
+    }
+
+    cleanPersonInfo(info){
+        return {
+            first_name: this.cleanPersonInfo(_.get(info, 'first_name')),
+            last_name: this.cleanPersonInfo(_.get(info, 'last_name')),
+            title: this.cleanPersonInfo(_.get(info, 'title')),
+            unknown: this.cleanPersonInfo(_.get(info, 'unknown')),
+        }
+    }
+
+    async storeGuest(user, {
+        id,
+        info,
+        plus,
+        children = [],
+        street, city, country, postal_code,
+        relationship,
+        email, mobile,
+        definitely_invited
+    }) {
+
+        if(!children.map) children = [];
+
+        if(!guestlist_id){
+            user.guestlist_id = await this.createGuestlist(user.id)
+        }
+
+        const data = {
+            info: this.cleanPersonInfo(info),
+            plus: this.cleanPersonInfo(plus),
+            children: children.map(c => this.cleanPersonInfo(c)),
+            guestlist_id: user.guestlist_id,
+            total: 1,
+            street: this.cleaner.clean(street),
+            city: this.cleaner.clean(city),
+            country: this.cleaner.clean(country),
+            postal_code: this.cleaner.clean(postal_code),
+            relationship: this.cleaner.clean(relationship),
+            email: this.cleaner.clean(email),
+            mobile: this.cleaner.clean(mobile),
+            definitely_invited: definitely_invited == 0 ? 0 : 1,
+        };
+
+        if(id){
+            await this.db.Guest.update(data, {where: {id}})
+        }
+        else{
+            await this.db.Guest.create(data);
+        }
+    }
+
+    async findGuestlist(query){
+        let item = await this.db.Guestlist.findOne({
+            where: query
+        });
+        return item;
+    }
+
+    async setGuestInvitationMode(query, definitely_invited){
+        let guest = await this.db.Guest.findOne({
+            where: query
+        });
+        if(!guest) return false;
+
+        task.definitely_invited = definitely_invited;
+        return task;
+    }
+
+    async removeGuest(id, guestlist_id) {
+        const r = await this.db.Guest.destroy({
+            where: {
+                id,
+                guestlist_id
+            }
+        });
+    }
+};
