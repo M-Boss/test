@@ -49,7 +49,7 @@ class Guestlist extends Component {
             state: 'create', //index, create
             tab: 'single', // createGuestTab: single, family
             plus: false,
-            children: []
+            children: [],
         };
         this.rest = rest;
         this.addChild = this.addChild.bind(this);
@@ -217,7 +217,7 @@ class Guestlist extends Component {
                                         label={t("Last Name")} />
                         </div>}
 
-                        {this.state.children && this.state.children.map && this.state.children.map((c, index) => {
+                        {this.state.tab === 'family' && this.state.children && this.state.children.map && this.state.children.map((c, index) => {
                             return (
                                 <div style={{ borderLeft: '2px solid teal', paddingLeft: 8, marginTop: 16, marginBottom: 16, paddingTop: 8, paddingBottom: 8, borderTop: '1px solid #f2f2f2', borderBottom: '1px solid #f2f2f2'}} >
                                     <div style={{paddingBottom: 12, display: 'flex', alignItems: 'center'}}>
@@ -244,7 +244,7 @@ class Guestlist extends Component {
                             )
                         })}
 
-                        {<div className="pointer" style={{
+                        {this.state.tab === 'family' && <div className="pointer" style={{
                             color: '#21899A',
                             marginTop: 12,
                             marginBottom: 8,
@@ -333,7 +333,10 @@ class Guestlist extends Component {
 
     createGuestTab(tab) {
         return () => {
-            this.setState({tab});
+            this.setState({
+                tab,
+                children: !this.state.children || this.state.children.length < 1 ? [{}] : this.state.children
+            });
         }
     }
 
