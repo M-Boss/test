@@ -46,8 +46,10 @@ module.exports = class ChecklistDatabase {
 
         if(!children.map) children = [];
 
-        if(!guestlist_id){
-            user.guestlist_id = await this.createGuestlist(user.id)
+        if(!user.guestlist_id){
+            const gl = await this.createGuestlist(user.id);
+            user.guestlist_id = gl.id;
+            await user.save();
         }
 
         const data = {

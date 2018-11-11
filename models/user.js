@@ -69,6 +69,11 @@ module.exports = function (sequelize, DataTypes) {
             as: 'checklist',
             foreignKey: 'checklist_id'
         });
+
+        models.User.belongsTo(models.Guestlist, {
+            as: 'guestlist',
+            foreignKey: 'guestlist_id'
+        });
     };
     return User;
 };
