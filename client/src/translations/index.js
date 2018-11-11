@@ -134,6 +134,8 @@ i18n.translations = {
         "Add Task": "Tambah Tugas",
         "Notes": "Catatan",
 
+        "Single / Couple": "Single / Couple",
+
     }
 };
 

@@ -8,6 +8,7 @@ import Home from './screens/Home'
 import Footer from './screens/Footer'
 import Website from './screens/Website'
 import Checklist from './screens/Checklist'
+import Guestlist from './screens/Guestlist'
 import Templates from './screens/Templates'
 import Welcome from './screens/Welcome'
 import Dashboard from './screens/Dashboard'
@@ -84,6 +85,7 @@ class Nikahku extends Component {
                         <Route path="/welcome" component={withTagManager(Welcome)}/>
                         <Route path="/create" component={Website}/>
                         <Route path="/checklist" component={Checklist}/>
+                        <Route path="/guestlist" component={Guestlist}/>
                         <Route path="/choose_template" component={Templates}/>
                         <Route path="/services" component={Services}/>
                         <Route path="/recover" component={Recover}/>
