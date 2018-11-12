@@ -65,7 +65,7 @@ module.exports = class ChecklistDatabase {
             relationship: this.cleaner.clean(relationship),
             email: this.cleaner.clean(email),
             mobile: this.cleaner.clean(mobile),
-            definitely_invited: definitely_invited == 0 ? 0 : 1,
+            definitely_invited: !definitely_invited ? 0 : 1,
         };
 
         if(id){

@@ -6,14 +6,14 @@ const validate = require('express-validation');
 const Joi = require('joi');
 const path = require('path');
 
-router.get('/guestlist/get',  async function (req, res, next) {
+router.post('/guestlist/get',  async function (req, res, next) {
     const users = container.get('users');
     const mailer = container.get('mailer');
     const config = container.get('config');
     const db = container.get('db');
     const guestlists = container.get('guestlists');
 
-    try {
+    try{
         let gl = await req.user.getGuestlist({include: [
             {
                 model: db.Guest,
@@ -32,7 +32,6 @@ router.get('/guestlist/get',  async function (req, res, next) {
             guestlist: gl,
         });
     }
-
     catch (e){
         console.log('/guestlist/get', e);
         res.sendStatus(723);
@@ -76,13 +75,13 @@ router.post('/guestlist/set_invitation_mode',  async function (req, res, next) {
     }
 });
 
-router.post('/checklist/remove_guest',  async function (req, res, next) {
-    const checklists = container.get('checklists');
+router.post('/guestlist/remove_guest',  async function (req, res, next) {
+    const guestlists = container.get('guestlists');
     const cleaner = container.get('cleaner');
 
     try {
         const id = _.get(req, 'body.id');
-        await checklists.removeTask(id, req.user.checklist_id);
+        await guestlists.removeGuest(id, req.user.guestlist_id);
         res.send({r: 'ok'});
     }
     catch (e){
