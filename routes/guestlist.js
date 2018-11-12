@@ -22,7 +22,7 @@ router.post('/guestlist/get',  async function (req, res, next) {
         ]});
 
         if(!gl){
-            gl = await guestlists.createChecklist(req.user.id);
+            gl = await guestlists.createGuestlist(req.user.id);
             if(!gl){
                 throw "Could not create checklist";
             }

@@ -490,12 +490,12 @@ class Guestlist extends Component {
                 </Table.Header>
 
                 <Table.Body>
-                    {!guestlist.guests || guestlist.guests.length < 1 &&
+                    {(!guestlist.guests || guestlist.guests.length < 1) &&
                     <Table.Row>
                         <Table.Cell>No Guests</Table.Cell>
                     </Table.Row>}
 
-                    {guestlist.guests.map(g => {
+                    {guestlist.guests && guestlist.guests.map(g => {
                         let count = 1 +
                             ((_.get(g, "plus.first_name") || _.get(g, "plus.unknown")) ? 1 : 0) +
                             (g.children || []).length
