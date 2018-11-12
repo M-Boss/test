@@ -56,11 +56,63 @@ class Guestlist extends Component {
         this.removeChildByIndex = this.removeChildByIndex.bind(this);
         this.addPlusOne = this.addPlusOne.bind(this);
         this.removePlus = this.removePlus.bind(this);
+        this.saveAndNext = this.saveAndNext.bind(this);
+        this.saveAndClose = this.saveAndClose.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.closeCreate = this.closeCreate.bind(this);
+    }
 
-        this.onTaskChecked = this.onTaskChecked.bind(this);
-        this.deleteTask = this.deleteTask.bind(this);
-        this.saveSettings = this.saveSettings.bind(this);
-        this.saveTask = this.saveTask.bind(this);
+    async save(rest, data){
+        console.log(this.state);
+        if (!data.first_name) {
+            return alert(t("Please enter all required fields"))
+        }
+
+        try {
+            this.setState({loading: true});
+            let body = {
+                info: {
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    title: data.title,
+                    unknown: data.unknown
+                },
+                children: (data.children || []).map(c => { return {
+                    first_name: c.first_name,
+                    last_name: c.last_name,
+                    title: c.title,
+                    unknown: c.unknown
+                }}),
+                street: data.street,
+                city: data.city,
+                country: data.country,
+                postal_code: data.postal_code,
+                relationship: data.relationship,
+                email: data.email,
+                mobile: data.mobile,
+                definitely_invited: data.definitely_invited
+            };
+
+            if(data.plus){
+                body.plus = {
+                    first_name: data.plus_first_name,
+                    last_name: data.plus_last_name,
+                    title: data.plus_title,
+                    unknown: data.plus_unknown
+                }
+            }
+
+            await rest.post('guestlist/store_guest', {guest: body});
+            return true;
+        }
+        catch (e) {
+            alert("Please try again momentarily");
+            console.log(e)
+            return false;
+        }
+        finally {
+            this.setState({loading: false});
+        }
     }
 
     render() {
@@ -74,9 +126,7 @@ class Guestlist extends Component {
                 {true &&
                 <div className="checklist" style={{backgroundColor: '#F4F7F9'}}>
                     {this.state.state === 'create' && this.renderCreate()}
-
-                    {this.state.state === 'index' && this.state.checklist.initialized != 0 && this.renderContent(tasks)}
-                    {this.state.state === 'settings' && this.renderSettings()}
+                    {this.state.state === 'index' && this.renderContent()}
                 </div>}
 
                 <Footer/>
@@ -149,7 +199,7 @@ class Guestlist extends Component {
 
         return (
             <div style={{padding: 24, paddingTop: 10, position: 'relative'}}>
-                <div className="pointer" onClick={() => this.closeCreateTask()}
+                <div className="pointer" onClick={this.closeCreate}
                      style={{position: 'absolute', right: 12, top: 24, width: 40, height: 40}}>
                     <Icon name="close" style={{fontSize: 24}}/>
                 </div>
@@ -285,8 +335,9 @@ class Guestlist extends Component {
 
                 <br/>
                 <br/>
-                <Button onClick={this.saveTask} primary>{t("Save")}</Button>
-                <Button onClick={() => this.closeCreateTask()}>{t("Cancel")}</Button>
+                <Button onClick={this.saveAndNext} primary>{t("Save And Add Another")}</Button>
+                <Button onClick={this.saveAndClose} primary>{t("Save And Close")}</Button>
+                <Button onClick={this.cancel} >{t("Cancel")}</Button>
             </div>
         )
     }
@@ -340,178 +391,61 @@ class Guestlist extends Component {
         }
     }
 
-    createChangeHandler(field, checkbox) {
-        return (e) => {
-            const val = checkbox ? e : e.target.value;
-            this.setState({
-                [field]: val
-            })
-        }
+    async saveAndNext(){
+        const result = await this.save(this.rest, this.state);
+        if(result) this.clear();
+    }
+    async saveAndClose(){
+        await this.saveAndNext();
+        //close
     }
 
-
-    renderSettings() {
-        const culturs = ['muslim', 'christian', 'catholic', 'chinese'];
-
-        return (
-            <div style={{padding: 24, paddingTop: 10, position: 'relative'}}>
-                {this.state.checklist.initialized ? <div className="pointer" onClick={() => this.closeCreateTask()}
-                                                         style={{
-                                                             position: 'absolute',
-                                                             right: 12,
-                                                             top: 24,
-                                                             width: 40,
-                                                             height: 40
-                                                         }}>
-                    <Icon name="close" style={{fontSize: 24}}/>
-                </div> : null}
-
-                <H2>Checklist Settings</H2>
-                <DateInput style={{marginTop: 12}}
-                           label={t("Wedding Date")}
-                           selected={this.state.weddingDate ? moment(this.state.weddingDate) : null}
-                           onChange={date => {
-                               // console.log(date);
-                               this.createTaskChangeHandler('weddingDate', true)(date ? date.format('YYYY-MM-DD') : "")
-                           }}/>
-
-                <br/>
-                <InputLabel>{t("Are You Including Any Cultural Or Religious Traditions In Your Ceremony?")}</InputLabel>
-                {culturs.map(c => {
-                    return (
-                        <div style={{padding: 5}}>
-                            <Checkbox checked={this.state.weddingTraditions.includes(c)}
-                                      onChange={this.toggleTradition(c)} label={t(`culturs.${c}`)}/>
-                        </div>
-                    )
-                })}
-
-                <br/>
-                <br/>
-                <Button disabled={this.state.loading} onClick={this.saveSettings} primary>{t("Save")}</Button>
-                {this.state.checklist.initialized ?
-                    <Button onClick={() => this.closeCreateTask()}>{t("Cancel")}</Button> : null}
-            </div>
-        )
+    cancel(){
+        this.clear();
+        this.closeCreate();
     }
 
-    toggleTradition(tradition) {
-        return () => {
-            const index = this.state.weddingTraditions.indexOf(tradition);
-            const updated = this.state.weddingTraditions.slice();
-            if (index != -1) {
-                updated.splice(index, 1);
-            }
-            else {
-                updated.push(tradition)
-            }
-
-            this.setState({
-                weddingTraditions: updated
-            })
-        }
-    }
-
-    async saveSettings() {
-
-        console.log(this.state);
-        if (!this.state.weddingDate) {
-            return alert(t("Please enter all required fields"))
-        }
-        this.setState({loading: true});
-
-        try {
-            let body = {
-                weddingDate: this.state.weddingDate,
-                traditions: this.state.weddingTraditions
-            };
-
-            await rest.post('checklist/settings', body);
-            this.closeCreateTask();
-        }
-        catch (e) {
-            alert("Please try again momentarily");
-            console.log(e)
-        }
-        finally {
-            this.setState({loading: false});
-        }
-    }
-
-    async saveTask() {
-
-        if (!this.state.taskDue || !this.state.taskTitle) {
-            return alert(t("Please enter all required fields"))
-        }
-
-        this.setState({loading: true});
-
-        try {
-            let body = {
-                id: this.state.taskId,
-                title: this.state.taskTitle,
-                description: this.state.taskDescription,
-                due: this.state.taskDue,
-                notes: this.state.taskNotes
-            };
-
-            console.log('body: ', body)
-
-            if (this.state.taskId) {
-                await rest.post('checklist/update_task', body);
-            }
-            else {
-                await rest.post('checklist/add_task', body);
-            }
-
-            this.closeCreateTask();
-        }
-        catch (e) {
-            alert("Please try again momentarily");
-            console.log(e)
-        }
-        finally {
-            this.setState({loading: false});
-        }
-    }
-
-    closeCreateTask() {
+    clear(){
         this.setState({
-            taskTitle: '',
-            taskDescription: "",
-            taskDue: "",
-            taskId: 0,
+            first_name: "",
+            last_name: "",
+            title: "",
+            plus_first: "",
+            plus_last: "",
+            plus_unknown: "",
+            relationship: "",
+            children: [],
+            plus: false,
+            city: "",
+            country: "",
+            street: "",
+            postal_code: "",
+            email: "",
+            mobile: "",
+            id: 0,
+        });
+    }
+
+    closeCreate() {
+        this.setState({
             state: 'index'
         });
 
-        this.getChecklist();
+        this.getGuestlist();
     }
 
-    openCreateTask(task = null) {
+    getGuestlist(){
+
+    }
+
+    openCreate(guest = null) {
         this.setState({
-            taskTitle: task ? task.title : '',
-            taskDescription: task ? task.description : "",
-            taskNotes: task ? task.notes : "",
-            taskDue: task ? task.due : "",
-            taskId: task ? task.id : 0,
-            state: 'creatingTask',
-            task: task
+            state: 'create',
+            guest: guest,
         })
     }
 
-    openSettings() {
-        this.setState({
-            state: 'settings',
-            weddingDate: _.get(this.state, 'user.wedding_date') || '',
-            weddingTraditions: _.get(this.state, 'checklist.traditions') || [],
-        })
-    }
-
-    renderContent(tasks) {
-        const weddingDate = moment(this.state.user.wedding_date, 'YYYY-MM-DD');
-        const daysLeft = Math.ceil(moment.duration(weddingDate.diff(moment())).asDays());
-        const completedTasks = tasks.reduce((total, t) => t.done ? total + 1 : total, 0);
-
+    renderContent() {
         return (<React.Fragment>
             <div style={{padding: 24, paddingBottom: 0}}>
 
@@ -534,12 +468,11 @@ class Guestlist extends Component {
                             margin: 0,
                             lineHeight: '22px',
                             float: 'left'
-                        }}>{t("Wedding Checklist")}</H2>
+                        }}>{t("")}</H2>
                     </div>
 
                     <div className="responsive-half desktop-right">
-                        <Button onClick={() => this.openCreateTask()} primary>{t("Add Task")}</Button>
-                        <Button onClick={() => this.openSettings()}>{t("Edit Settings")}</Button>
+                        <Button onClick={() => this.openCreate()} primary>{t("Add Task")}</Button>
                     </div>
                 </div>
 
@@ -548,32 +481,23 @@ class Guestlist extends Component {
 
                     <Label color="teal">
                         {t('Days Left')}
-                        <Label.Detail>{daysLeft}</Label.Detail>
+                        <Label.Detail>{24}</Label.Detail>
                     </Label>
 
                     <Label color="teal">
                         {t('Tasks This Month')}
-                        <Label.Detail>{this.tasksThisMonth(tasks)}</Label.Detail>
+                        <Label.Detail>{35}</Label.Detail>
                     </Label>
 
                     <Label style={{marginTop: 4}} color="teal">
                         {t('Completed Tasks')}
-                        <Label.Detail>{completedTasks}</Label.Detail>
+                        <Label.Detail>{2}</Label.Detail>
                     </Label>
                 </div>
             </div>
+
             <div style={{padding: 0, paddingTop: 12}}>
-                <div style={{
-                    backgroundColor: '#FFF',
-                    padding: 4,
-                    paddingTop: 12,
-                    borderTop: '2px solid #DDD',
-                    borderBottom: '2px solid #DDD',
-                    marginTop: 0,
-                    marginBottom: 10
-                }}>
-                    {this.renderTasks(tasks)}
-                </div>
+                {this.renderGuestlist()}
             </div>
         </React.Fragment>)
     }
@@ -650,80 +574,10 @@ class Guestlist extends Component {
         }
     }
 
-    renderTasks(tasks) {
-        //.format('YYYY-MM-DD');
-        let endDate = moment().startOf('month').add(1, 'month');
-        let thisMonth = moment().startOf('month').format('YYYY-MM-DD');
-        let today = moment().format('YYYY-MM-DD');
-        let newMonth = true;
-        let overdue = true;
-
-        const completed = [];
+    renderGuestlist() {
         return (
-            <React.Fragment>
-                {tasks.map((task, index) => {
-                    while (task.due >= endDate.format('YYYY-MM-DD')) {
-                        endDate.add(1, 'month');
-                        newMonth = true;
-                    }
-
-                    if (task.done && !task.just_updated) {
-                        completed.push(task);
-                        return null;
-                    }
-
-                    let ribbon = null;
-                    if (newMonth) {
-                        const taskMonth = moment(endDate).add(-1, 'month');
-                        const label = taskMonth.format('YYYY-MM-DD') === thisMonth ?
-                            `This Month (${taskMonth.format('MMMM YYYY')})` :
-                            taskMonth.format('MMMM YYYY');
-                        ribbon = <Ribbon first={true} label={label}/>;
-                        newMonth = false;
-                    }
-
-                    if (overdue) {
-                        if (task.due >= today) {
-                            overdue = false
-                        }
-                    }
-
-                    return (
-                        <React.Fragment>
-                            {ribbon}
-                            <Row onLabelClicked={() => this.openCreateTask(task)}
-                                 task={task}
-                                 deleteTask={this.deleteTask(index)} checked={!!task.done}
-                                 onChange={this.onTaskChecked(index)}
-                                 label={task.title}
-                                 date={moment(task.due, 'YYYY-MM-DD').format('MMM D, YYYY')}
-                                 overdue={overdue && !task.done}/>
-                        </React.Fragment>
-                    )
-                })}
-
-                {completed.length > 0 && <Ribbon label={t("Completed")}/>}
-                {tasks.map((task, index) => {
-                    if (!task.done || task.just_updated) {
-                        return null;
-                    }
-
-                    return (
-                        <div style={{color: '#888', backgroundColor: 'rgba(65,65,66,.05)'}}>
-                            <Row onLabelClicked={() => this.openCreateTask(task)}
-                                 task={task}
-                                 deleteTask={this.deleteTask(index)} checked={!!task.done}
-                                 onChange={this.onTaskChecked(index)}
-                                 label={task.title}
-                                 date={'@' + moment(task.done, 'YYYY-MM-DD').format('MMM D, YYYY')}
-                                 overdue={overdue && !task.done}/>
-                        </div>
-                    )
-                })}
-            </React.Fragment>
+            <div>Content</div>
         )
-
-
     }
 
     onTaskChecked(taskIndex) {

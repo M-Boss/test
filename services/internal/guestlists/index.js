@@ -26,10 +26,10 @@ module.exports = class ChecklistDatabase {
 
     cleanPersonInfo(info){
         return {
-            first_name: this.cleanPersonInfo(_.get(info, 'first_name')),
-            last_name: this.cleanPersonInfo(_.get(info, 'last_name')),
-            title: this.cleanPersonInfo(_.get(info, 'title')),
-            unknown: this.cleanPersonInfo(_.get(info, 'unknown')),
+            first_name: this.cleaner.clean(_.get(info, 'first_name')),
+            last_name: this.cleaner.clean(_.get(info, 'last_name')),
+            title: this.cleaner.clean(_.get(info, 'title')),
+            unknown: this.cleaner.clean(_.get(info, 'unknown')),
         }
     }
 

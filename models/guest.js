@@ -2,7 +2,6 @@
  * Created by guy on 8/15/18.
  */
 
-
 module.exports = function (sequelize, DataTypes) {
     const Guest = sequelize.define('Guest', {
             id: {
@@ -73,5 +72,5 @@ module.exports = function (sequelize, DataTypes) {
         }
     );
 
-    return Task;
+    return Guest;
 };

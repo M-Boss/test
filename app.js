@@ -59,9 +59,7 @@ app.use(fileUpload());
 app.use('/api/website', require('./routes/website'));
 app.use('/api', require('./routes/loggedInUser'));
 app.use('/api', require('./routes/checklist'));
-
-
-
+app.use('/api', require('./routes/guestlist'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
