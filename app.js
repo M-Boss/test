@@ -31,6 +31,7 @@ app.use(cookieParser());
 app.use('/api', usersRouter);
 app.use('/api', require('./routes/contact'));
 app.use('/api', require('./routes/publicWebsite'));
+app.use('/api', require('./routes/publicGuestlist'));
 app.use(compression())
 app.use('/assets', express.static('public/uploads'));
 app.use( express.static( `${__dirname}/client/build` ) );

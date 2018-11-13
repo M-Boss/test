@@ -28,6 +28,10 @@ router.post('/guestlist/get',  async function (req, res, next) {
             }
         }
 
+        if(!gl.invitation_token){
+            guestlists.setGuestlistInvitationToken(gl);
+        }
+
         res.send({r: 'ok',
             guestlist: gl,
         });
@@ -63,7 +67,6 @@ router.post('/guestlist/set_invitation_mode',  async function (req, res, next) {
 
         const id = _.get(req, 'body.id');
         const definitely_invited = _.get(req, 'body.definitely_invited');
-
         const guest = await guestlists.setGuestInvitationMode({
             id,
             guestlist_id: req.user.guestlist_id

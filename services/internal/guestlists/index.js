@@ -20,8 +20,14 @@ module.exports = class ChecklistDatabase {
         const r = await this.db.Guestlist.create({});
         if (r && r.id) {
             await this.db.User.update({guestlist_id: r.id}, {where: {id: userId}});
+            this.setGuestlistInvitationToken(gl)
         }
         return r;
+    }
+
+    setGuestlistInvitationToken(guestlist){
+        guestlist.invitation_token = this.random.randomString(6) + guestlist.id
+        guestlist.save();
     }
 
     cleanPersonInfo(info){
@@ -76,11 +82,10 @@ module.exports = class ChecklistDatabase {
         }
     }
 
-    async findGuestlist(query){
-        let item = await this.db.Guestlist.findOne({
+    async findOne(query){
+        return await this.db.Guestlist.findOne({
             where: query
         });
-        return item;
     }
 
     async setGuestInvitationMode(query, definitely_invited){

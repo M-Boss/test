@@ -33,6 +33,7 @@ import {t} from '../translations'
 import withResend from '../components/withResend'
 import InputCombo, {InputLabel} from '../components/InputCombo'
 import {DateInput} from '../screens/Website'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
@@ -47,7 +48,7 @@ class Guestlist extends Component {
         super(props);
         this.state = {
             loading: false,
-            state: 'index', //index, create
+            state: 'index', //index, create, link
             tab: 'single', // createGuestTab: single, family
             plus: false,
             children: [],
@@ -63,10 +64,13 @@ class Guestlist extends Component {
         this.cancel = this.cancel.bind(this);
         this.closeCreate = this.closeCreate.bind(this);
         this.deleteGuest = this.deleteGuest.bind(this);
+        this.openSendLink = this.openSendLink.bind(this);
+        this.onLinkCopy = this.onLinkCopy.bind(this);
+        this.showIndex = this.showIndex.bind(this);
     }
 
-    async deleteGuest(){
-        if(!window.confirm("Are you sure you want to delete guest?")){
+    async deleteGuest() {
+        if (!window.confirm("Are you sure you want to delete guest?")) {
             return false;
         }
 
@@ -156,6 +160,7 @@ class Guestlist extends Component {
                 <div className="checklist" style={{backgroundColor: '#F4F7F9'}}>
                     {this.state.state === 'create' && this.renderCreate()}
                     {this.state.state === 'index' && this.renderContent(guestlist)}
+                    {this.state.state === 'link' && this.renderSendLink()}
                 </div>}
 
                 <Footer/>
@@ -246,11 +251,20 @@ class Guestlist extends Component {
 
                 {!!this.state.id && <div style={{textAlign: 'right'}}>
                     <Button onClick={this.deleteGuest}
-                                            icon
-                                            labelPosition='left'
-                                            primary size='small'>
-                    <Icon name='trash'/> {t("Delete")}
-                </Button></div>}
+                            icon
+                            labelPosition='left'
+                            primary size='small'>
+                        <Icon name='trash'/> {t("Delete")}
+                    </Button></div>}
+
+                {!this.state.id && <div style={{textAlign: 'right'}}>
+                    <Button onClick={this.openSendLink}
+                            icon
+                            color="teal"
+                            labelPosition='left'
+                            size='small'>
+                        <Icon name='linkify'/> {t("Send a link")}
+                    </Button></div>}
 
                 <Segment color='grey'>
                     <Form>
@@ -403,6 +417,54 @@ class Guestlist extends Component {
         )
     }
 
+    renderSendLink() {
+
+        const link = `https://nikahku.com/form/${_.get(this.state, 'guestlist.invitation_token')}`;
+
+        return (
+            <div style={{padding: 24, paddingTop: 10, position: 'relative'}}>
+                <div className="pointer" onClick={this.closeCreate}
+                     style={{position: 'absolute', right: 12, top: 24, width: 40, height: 40}}>
+                    <Icon name="close" style={{fontSize: 24}}/>
+                </div>
+
+
+                <Segment color='grey'>
+                    <H2 style={{textAlign: 'center'}}>{t("Send a Link to Guests")}</H2>
+                    <p style={{color: '#666'}}>They’ll fill out a form and we’ll add their information to Guest List for
+                        you. To avoid duplicates, only send this link to guests you haven’t added to Guest List yet.</p>
+
+                    <div style={{marginTop: 24, padding: 8, textAlign: 'center', border: '1px solid #f2f2f2'}}>
+                        {link}
+                    </div>
+
+                    <div style={{paddingTop: 24, textAlign: 'center'}}>
+                        <a style={{color: '#01b4c0'}}
+                           href={link}
+                           target="_blank">This is what your guests will see
+                            > </a>
+                    </div>
+
+                    <div style={{marginTop: 24, textAlign: 'center'}}>
+                        <CopyToClipboard text={link}
+                                         onCopy={this.onLinkCopy}>
+                            <Button icon
+                                    labelPosition='left'
+                                    primary size='small'>
+                                <Icon name={this.state.justCopied ? 'check circle outline' : 'copy'}/> {t("Copy link")}
+                            </Button>
+                        </CopyToClipboard>
+                        <Button onClick={this.showIndex} size='small'>
+                            {t("Done")}
+                        </Button>
+                    </div>
+                </Segment>
+
+                <br/>
+            </div>
+        )
+    }
+
     renderContent(guestlist) {
         return (<React.Fragment>
             <div style={{padding: 24, paddingBottom: 0}}>
@@ -505,22 +567,29 @@ class Guestlist extends Component {
                                 {/*<Table.Cell><Checkbox /></Table.Cell>*/}
                                 <Table.Cell>{`${_.get(g, "info.first_name")} ${((_.get(g, "info.last_name") || " ")[0] || "").toUpperCase()}`}</Table.Cell>
                                 <Table.Cell>{count}</Table.Cell>
-                                <Table.Cell>{}</Table.Cell>
+                                <Table.Cell>
+                                    <Icon name='mobile alternate'
+                                          style={{fontSize: 16, color: _.get(g, "mobile") ? 'green' : 'red'}}/>
+                                    <Icon name='mail'
+                                          style={{fontSize: 16, color: _.get(g, "email") ? 'green' : 'red'}}/>
+                                    <Icon name='map pin' style={{
+                                        fontSize: 16,
+                                        color: !_.get(g, "street") || !_.get(g, "city") || !_.get(g, "postal_code") ? 'red' : 'green'
+                                    }}/>
+                                </Table.Cell>
                                 <Table.Cell>{g.definitely_invited ? 'Definitely' : 'Maybe'}</Table.Cell>
                             </Table.Row>
                         )
                     })}
 
                 </Table.Body>
-
                 <Table.Footer fullWidth>
-
                 </Table.Footer>
             </Table>
         )
     }
 
-    editGuest(guest){
+    editGuest(guest) {
         this.openCreate(guest);
     }
 
@@ -583,24 +652,39 @@ class Guestlist extends Component {
         this.closeCreate()
     }
 
+    onLinkCopy() {
+        this.setState({
+            justCopied: true,
+        });
+
+        setTimeout(() => {
+            this.setState({justCopied: false})
+        }, 2000)
+    }
+
+    showIndex() {
+        this.setState({state: 'index'})
+    }
+
     cancel() {
         this.clear();
         this.closeCreate();
     }
 
     clear(replace) {
-        if(!replace) replace = {};
+        if (!replace) replace = {};
         console.log('clear: ', replace)
         this.setState({
             first_name: _.get(replace, "info.first_name") || "",
             last_name: _.get(replace, "info.last_name") || "",
             unknown: _.get(replace, "info.unknown") || false,
             title: replace.title || "",
-            plus_first: _.get(replace, "plus.first_name") || "",
-            plus_last: _.get(replace, "plus.last_name")  || "",
-            plus_unknown: _.get(replace, "plus.unknown")  || false,
+            plus_first_name: _.get(replace, "plus.first_name") || "",
+            plus_last_name: _.get(replace, "plus.last_name") || "",
+            plus_unknown: _.get(replace, "plus.unknown") || false,
             relationship: replace.relationship || "",
             children: replace.children || [],
+            definitely_invited: replace.definitely_invited || 1,
             plus: _.get(replace, "plus.first_name") || _.get(replace, "plus.last_name") || _.get(replace, "plus.unknown"),
             city: replace.city || "",
             country: replace.country || "",
@@ -617,6 +701,12 @@ class Guestlist extends Component {
             state: 'index'
         });
         this.getGuestlist();
+    }
+
+    openSendLink() {
+        this.setState({
+            state: 'link',
+        });
     }
 
     openCreate(guest = null) {

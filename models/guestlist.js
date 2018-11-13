@@ -9,6 +9,10 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
                 autoIncrement: true
+            },
+            invitation_token: {
+                type: DataTypes.STRING,
+                allowNull: true,
             }
         },
         {
