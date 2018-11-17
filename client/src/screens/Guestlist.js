@@ -18,7 +18,9 @@ import {
     Loader,
     Message,
     Accordion,
-    Table
+    Table,
+    Radio,
+    Dropdown
 } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {H2} from "../components/Headers";
@@ -34,7 +36,6 @@ import withResend from '../components/withResend'
 import InputCombo, {InputLabel} from '../components/InputCombo'
 import {DateInput} from '../screens/Website'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
@@ -52,7 +53,9 @@ class Guestlist extends Component {
             tab: 'single', // createGuestTab: single, family
             plus: false,
             children: [],
-            definitely_invited: 0
+            definitely_invited: 0,
+            showFilter: false,
+            filterInvitation: '',
         };
         this.rest = rest;
         this.addChild = this.addChild.bind(this);
@@ -67,6 +70,15 @@ class Guestlist extends Component {
         this.openSendLink = this.openSendLink.bind(this);
         this.onLinkCopy = this.onLinkCopy.bind(this);
         this.showIndex = this.showIndex.bind(this);
+        this.toggleFilter = this.toggleFilter.bind(this);
+    }
+
+    filterInvitation(){
+
+    }
+
+    toggleFilter(){
+        this.setState({showFilter: !this.state.showFilter})
     }
 
     async deleteGuest() {
@@ -148,8 +160,20 @@ class Guestlist extends Component {
         }
     }
 
+    filterGuestlist(guestlist){
+        const copy = {...guestlist};
+        copy.guests = _.get(copy, 'guests', []).filter(g => {
+            if(this.state.filterInvitation === 'definitely')
+                return _.get(g, 'definitely_invited') == 1;
+            else if(this.state.filterInvitation === 'maybe')
+                return _.get(g, 'definitely_invited') == 0;
+            return true;
+        });
+        return copy;
+    }
+
     render() {
-        const guestlist = _.get(this.state, 'guestlist');
+        const guestlist = this.filterGuestlist(_.get(this.state, 'guestlist'));
 
         console.log('render: state: ', this.state);
         return (
@@ -465,7 +489,31 @@ class Guestlist extends Component {
         )
     }
 
+    guestMissingAddress(g) {
+        return !_.get(g, "street") || !_.get(g, "city") || !_.get(g, "postal_code")
+    }
+
+    getGuestlistInfo(guestlist) {
+        let definitelyInvited = 0;
+        let adults = 0;
+        let missingAddress = 0;
+
+        for (const g of _.get(guestlist, 'guests', [])) {
+            adults += 1;
+            const hasPlus = _.get(g, 'plus.first_name') || _.get(g, 'plus.unknown');
+            if (hasPlus) adults += 1;
+            if (_.get(g, 'definitely_invited')) definitelyInvited += hasPlus ? 2 : 1;
+            if (this.guestMissingAddress(g)) missingAddress += hasPlus ? 2 : 1;
+        }
+
+        return {
+            definitelyInvited, missingAddress, adults
+        }
+    }
+
     renderContent(guestlist) {
+        const {definitelyInvited, missingAddress, adults} = this.getGuestlistInfo(guestlist);
+
         return (<React.Fragment>
             <div style={{padding: 24, paddingBottom: 0}}>
 
@@ -496,24 +544,24 @@ class Guestlist extends Component {
                     {/*</div>*/}
                 </div>
 
-                {/*<div>
-                 <div style={{marginTop: 35}}/>
+                <div>
+                    <div style={{marginTop: 16}}/>
 
-                 <Label color="teal">
-                 {t('Days Left')}
-                 <Label.Detail>{24}</Label.Detail>
-                 </Label>
+                    <Label color="teal">
+                        {t('Definitely Invited')}
+                        <Label.Detail>{definitelyInvited}</Label.Detail>
+                    </Label>
 
-                 <Label color="teal">
-                 {t('Tasks This Month')}
-                 <Label.Detail>{35}</Label.Detail>
-                 </Label>
+                    <Label color="teal">
+                        {t('Adults')}
+                        <Label.Detail>{adults}</Label.Detail>
+                    </Label>
 
-                 <Label style={{marginTop: 4}} color="teal">
-                 {t('Completed Tasks')}
-                 <Label.Detail>{2}</Label.Detail>
-                 </Label>
-                 </div> */}
+                    <Label style={{marginTop: 4}} color="teal">
+                        {t('Missing Address')}
+                        <Label.Detail>{missingAddress}</Label.Detail>
+                    </Label>
+                </div>
             </div>
 
             <div style={{padding: 0, paddingTop: 12}}>
@@ -529,7 +577,13 @@ class Guestlist extends Component {
             <Table style={{marginBottom: 8}} unstackable compact size='small'>
                 <Table.Header fullWidth>
                     <Table.Row>
-                        <Table.HeaderCell />
+                        <Table.HeaderCell style={{borderLeft: this.state.showFilter ? '7px solid #ddd' : ''}}>
+                            <Button onClick={this.toggleFilter}
+                                    icon labelPosition='left'
+                                    size='small'>
+                                <Icon name='filter'/> {t("Filter")}
+                            </Button>
+                        </Table.HeaderCell>
                         <Table.HeaderCell colSpan='4'>
                             <Button onClick={() => this.openCreate()}
                                     floated='right' icon labelPosition='left'
@@ -542,6 +596,42 @@ class Guestlist extends Component {
                             {/*</Button>*/}
                         </Table.HeaderCell>
                     </Table.Row>
+                    {this.state.showFilter && <Table.Row>
+                        <div style={{borderLeft: '7px solid #ddd', padding: 12}}>
+                            <Menu text vertical>
+                                {/*<Menu.Item>*/}
+                                    {/*<Input placeholder='Search...'/>*/}
+                                {/*</Menu.Item>*/}
+                                <strong style={{marginBottom: 4, display: 'block'}}>Invited?</strong>
+                                <div>
+                                    <Form.Field>
+                                        <Radio
+                                            label={t("Definitely")}
+                                            name='radioGroup'
+                                            value='definitely'
+                                            checked={this.state.filterInvitation === 'definitely'}
+                                            onChange={(e, {checked}) => this.createChangeHandler('filterInvitation', true)('definitely')}/>
+                                    </Form.Field>
+                                    <Form.Field style={{marginTop: 4}}>
+                                        <Radio
+                                            label={t("Maybe")}
+                                            name='radioGroup'
+                                            value='definitely'
+                                            checked={this.state.filterInvitation === 'maybe'}
+                                            onChange={(e, {checked}) => this.createChangeHandler('filterInvitation', true)('maybe')}/>
+                                    </Form.Field>
+                                    <Form.Field style={{marginTop: 4}}>
+                                        <Radio
+                                            label={t("Both")}
+                                            name='radioGroup'
+                                            value='definitely'
+                                            checked={this.state.filterInvitation === ''}
+                                            onChange={(e, {checked}) => this.createChangeHandler('filterInvitation', true)('')}/>
+                                    </Form.Field>
+                                </div>
+                            </Menu>
+                        </div>
+                    </Table.Row>}
 
                     <Table.Row >
                         <Table.HeaderCell>Name</Table.HeaderCell>
@@ -568,13 +658,13 @@ class Guestlist extends Component {
                                 <Table.Cell>{`${_.get(g, "info.first_name")} ${((_.get(g, "info.last_name") || " ")[0] || "").toUpperCase()}`}</Table.Cell>
                                 <Table.Cell>{count}</Table.Cell>
                                 <Table.Cell>
-                                    <Icon name='mobile alternate'
-                                          style={{fontSize: 16, color: _.get(g, "mobile") ? 'green' : 'red'}}/>
-                                    <Icon name='mail'
-                                          style={{fontSize: 16, color: _.get(g, "email") ? 'green' : 'red'}}/>
-                                    <Icon name='map pin' style={{
+                                    <Icon name='phone'
+                                          style={{transform: 'scaleX(-1)', fontSize: 16, color: _.get(g, "mobile") ? '#A5E677' : '#FC7C93'}}/>
+                                    <Icon name='at'
+                                          style={{fontSize: 16, color: _.get(g, "email") ? '#A5E677' : '#FC7C93'}}/>
+                                    <Icon name='home' style={{
                                         fontSize: 16,
-                                        color: !_.get(g, "street") || !_.get(g, "city") || !_.get(g, "postal_code") ? 'red' : 'green'
+                                        color: !_.get(g, "street") || !_.get(g, "city") || !_.get(g, "postal_code") ? '#FC7C93' : '#A5E677'
                                     }}/>
                                 </Table.Cell>
                                 <Table.Cell>{g.definitely_invited ? 'Definitely' : 'Maybe'}</Table.Cell>
@@ -684,7 +774,7 @@ class Guestlist extends Component {
             plus_unknown: _.get(replace, "plus.unknown") || false,
             relationship: replace.relationship || "",
             children: replace.children || [],
-            definitely_invited: replace.definitely_invited || 1,
+            definitely_invited: replace.definitely_invited == 1 ? 1 : 0,
             plus: _.get(replace, "plus.first_name") || _.get(replace, "plus.last_name") || _.get(replace, "plus.unknown"),
             city: replace.city || "",
             country: replace.country || "",

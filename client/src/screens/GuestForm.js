@@ -106,7 +106,7 @@ class GuestForm extends Component {
                 invitation_token: this.invitation_token
             });
 
-            this.props.history.push('/');
+            this.props.history.push('/guest-form-completed');
             return true;
         }
         catch (e) {
