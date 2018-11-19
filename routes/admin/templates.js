@@ -25,7 +25,6 @@ router.post('/template-previews/add', async function (req, res, next) {
     }
 });
 
-
 router.get('/template-previews/del/:id', async function (req, res, next) {
     const db = container.get('db');
     const id = _.get(req, "params.id");

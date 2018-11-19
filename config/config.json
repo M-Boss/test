@@ -1,5 +1,5 @@
 {
-  "development": {
+  "development2": {
     "username": "root",
     "password": "secret",
     "database": "homestead",
@@ -7,7 +7,7 @@
     "port": "33061",
     "dialect": "mysql"
   },
-  "development2": {
+  "development": {
     "username": "sharon",
     "password": "jskk((282ja88DD",
     "database": "homestead",
