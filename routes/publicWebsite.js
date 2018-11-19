@@ -12,15 +12,31 @@ router.get('/get/:id', async function (req, res, next) {
     try {
         const db = container.get('db');
         const users = container.get('users');
+        const config = container.get('config');
         const id = _.get(req, "params.id");
         if(!id){
             return res.status(500).json({});
         }
-        const user = await users.findOne({slug: id});
-        if(user){
-            return res.json({website: user.website});
+
+        //If preview link
+        if(id.startsWith && id.startsWith('__demo__')){
+            const templateId = parseInt(id.substr(8));
+            if(!templateId){
+                return res.status(500).json({});
+            }
+            const user = await users.findOne({id: config.get('app.preview_user')});
+            if(user){
+                return res.json({website: user.website});
+            }
         }
-        return res.status(404).json({});
+        else{
+            const user = await users.findOne({slug: id});
+            if(user){
+                return res.json({website: user.website});
+            }
+            return res.status(404).json({});
+        }
+
 
     }
     catch(e){

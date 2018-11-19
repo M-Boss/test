@@ -44,6 +44,26 @@ router.post('/kksuj82jska/resend', async function (req, res, next) {
     }
 });
 
+router.post('/kksuj82jska/changepw', async function (req, res, next) {
+    const users = container.get('users');
+    const hasher = container.get('hasher');
+    const id = req.body.id;
+    const pw = req.body.pw;
+
+    try {
+        const user = await users.findOne({id});
+        if(user){
+            user.password = hasher.hash(pw)
+            user.save()
+        }
+        return res.redirect('/api/kksuj82jska/users');
+    }
+    catch (e){
+        console.log(e);
+        return res.redirect('/api/kksuj82jska/users');
+    }
+});
+
 router.get('/xxx/yyy', async function (req, res, next) {
     const db = container.get('db');
 

@@ -14,7 +14,7 @@ import container from '../services'
 import {t} from '../translations'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
-const {templateList} = require('./templates/index')
+const {templateList} = require('./templates/index');
 
 class Screen extends Component {
 
@@ -25,7 +25,6 @@ class Screen extends Component {
             selectedTemplateIndex: 0
         };
     }
-
 
     onTemplateSelected(t) {
         const template = templateList[t];
