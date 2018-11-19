@@ -882,7 +882,7 @@ class Website extends Component {
 
     addEventClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
-        const events = [...this.props.website.events, {meals: []}];
+        const events = [...(this.props.website.events || []), {meals: []}];
         this.props.dispatch(action(events));
     }
 
@@ -895,7 +895,7 @@ class Website extends Component {
 
     addEventMeal(eventIndex) {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'events');
-        let events = [...this.props.website.events];
+        let events = [..._.get(this.props.website, 'events', [])];
         console.log()
         let meals = [...events[eventIndex].meals];
         meals.push("");
@@ -925,7 +925,7 @@ class Website extends Component {
 
     addPhotoClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'photos');
-        const items = [...this.props.website.photos, ""];
+        const items = [..._.get(this.props.website, 'photos', []), ""];
         this.props.dispatch(action(items));
     }
 
@@ -952,7 +952,7 @@ class Website extends Component {
 
     addFAQClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'faqs');
-        const items = [...this.props.website.faqs, {question: "", answer: ""}];
+        const items = [..._.get(this.props.website, 'faqs', []), {question: "", answer: ""}];
         this.props.dispatch(action(items));
     }
 
