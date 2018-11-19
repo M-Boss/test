@@ -11,6 +11,7 @@ import {Link} from "react-router-dom"
 import {connect} from 'react-redux'
 import rest  from '../services/external/rest';
 import container from '../services'
+import {t} from '../translations'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const {templateList} = require('./templates/index')
@@ -32,7 +33,6 @@ class Screen extends Component {
             selectedTemplateIndex: t,
             choosingVariation: true
         });
-
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
         this.props.dispatch(action(template.variations[0].id));
     }
@@ -123,7 +123,15 @@ class Screen extends Component {
                              src={require('../static/images/templates/template-' + this.props.website.template + '.jpg')}
                              alt={"Template: " + template.name}/>
                     </div>
+                    <div style={{padding: 20}}>
+                        <Button icon
+                                labelPosition='left'
+                                size='small'>
+                            <Icon name='eye'/> {t("Preview")}
+                        </Button>
+                    </div>
                 </div>
+
             </React.Fragment>
         )
     }

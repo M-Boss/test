@@ -671,7 +671,6 @@ class Guestlist extends Component {
                             </Table.Row>
                         )
                     })}
-
                 </Table.Body>
                 <Table.Footer fullWidth>
                 </Table.Footer>
