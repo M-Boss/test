@@ -51,4 +51,3 @@ export default class TemplateBase extends Component {
         )
     }
 }
-

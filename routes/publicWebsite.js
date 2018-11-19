@@ -24,8 +24,12 @@ router.get('/get/:id', async function (req, res, next) {
             if(!templateId){
                 return res.status(500).json({});
             }
-            const user = await users.findOne({id: config.get('app.preview_user')});
+            const previewUser = config.get('app.preview_user');
+            const user = await users.findOne({id: previewUser});
             if(user){
+                if(user.website){
+                    user.website.template = templateId;
+                }
                 return res.json({website: user.website});
             }
         }
@@ -34,10 +38,9 @@ router.get('/get/:id', async function (req, res, next) {
             if(user){
                 return res.json({website: user.website});
             }
-            return res.status(404).json({});
         }
 
-
+        return res.status(404).json({});
     }
     catch(e){
         console.log("Error: ", e);

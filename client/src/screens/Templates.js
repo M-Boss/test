@@ -114,7 +114,10 @@ class Screen extends Component {
                     </div>
                     <div style={{padding: 20, display: 'flex', flexWrap: 'wrap'}}>
                         {template.variations.map((v, index) => {
-                            return <Color selected={v.id === this.props.website.template} onClick={() => this.onVariationSelected(v)} primary={v.theme.primary} secondary={v.theme.secondary}/>
+                            return <Color selected={v.id === this.props.website.template}
+                                          tooltip={v.id}
+                                          onClick={() => this.onVariationSelected(v)}
+                                          primary={v.theme.primary} secondary={v.theme.secondary}/>
                         })}
                     </div>
                     <div style={{paddingLeft: 20, paddingRight: 20}}>
@@ -123,22 +126,23 @@ class Screen extends Component {
                              alt={"Template: " + template.name}/>
                     </div>
                     <div style={{padding: 20}}>
-                        <Button icon
-                                labelPosition='left'
-                                size='small'>
-                            <Icon name='eye'/> {t("Preview")}
-                        </Button>
+                        <a target="_blank" href={`/wedding/__demo__${this.props.website.template}`} >
+                            <Button icon
+                                    labelPosition='left'
+                                    size='small'>
+                                <Icon name='eye'/> {t("Preview")}
+                            </Button>
+                        </a>
                     </div>
                 </div>
-
             </React.Fragment>
         )
     }
 }
 
-function Color({primary, secondary, onClick, selected}) {
+function Color({primary, secondary, onClick, selected, tooltip}) {
     return (
-        <div style={{
+        <div title={tooltip} style={{
             border: '1px solid #888',
             padding: 2,
             borderRadius: '50%',

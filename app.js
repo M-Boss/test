@@ -27,19 +27,27 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
-
 app.use('/api', usersRouter);
 app.use('/api', require('./routes/contact'));
 app.use('/api', require('./routes/publicWebsite'));
 app.use('/api', require('./routes/publicGuestlist'));
+
+//admin
+app.use('/boss', require('./routes/admin/templates'));
+
+
 app.use(compression())
 app.use('/assets', express.static('public/uploads'));
+app.use('/static/admin', express.static('public/admin'));
 app.use( express.static( `${__dirname}/client/build` ) );
 //At the end
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
+
+
+//authorized client routes
 app.use(async function (req, res, next) {
     const db = container.get('db');
     // console.log(req.headers, req.headers['authorization']);
