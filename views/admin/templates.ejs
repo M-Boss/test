@@ -1,0 +1,45 @@
+<%- include('partials/header'); -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Templates</li>
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Templates
+        </div>
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                    <th>Template ID</th>
+                    <th>User ID</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                <% for(var i = 0; i < templates.length; i++) { var t = templates[i];%>
+                <% for(var j = 0; j < templates[i].variations.length; j++) { var v = t.variations[j];%>
+                <tr>
+                    <td><%= v.id %></td>
+                    <td><%= v.name || (`template ${i+1} - ${j+1}`)  %></td>
+                    <td><a href="/boss/templates/<%= v.id %>">Edit</a></td>
+                </tr>
+                <% } %>
+                <% } %>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+
+</div>
+
+<%- include('partials/footer'); -%>

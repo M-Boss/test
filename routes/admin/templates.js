@@ -5,7 +5,7 @@ const _ = require('lodash');
 const validate = require('express-validation');
 const Joi = require('joi');
 const path = require('path');
-
+const {templateList} = require('../../client/src/screens/templates/templateList');
 
 router.post('/template-previews/add', async function (req, res, next) {
     const db = container.get('db');
@@ -59,6 +59,18 @@ router.get('/template-previews', async function (req, res, next) {
     catch (e){
         console.log(e);
         res.sendStatus(724); //probably duplicate email
+    }
+});
+
+router.get('/templates', async function (req, res, next) {
+    const db = container.get('db');
+
+    try {
+        res.render('admin/templates', {templates: templateList});
+    }
+    catch (e){
+        console.log(e);
+        res.json(e);
     }
 });
 

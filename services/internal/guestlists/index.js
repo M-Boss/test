@@ -26,7 +26,7 @@ module.exports = class ChecklistDatabase {
     }
 
     setGuestlistInvitationToken(guestlist){
-        guestlist.invitation_token = this.random.randomString(6) + guestlist.id
+        guestlist.invitation_token = this.random.randomString(6) + guestlist.id;
         guestlist.save();
     }
 
