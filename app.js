@@ -34,6 +34,7 @@ app.use('/api', require('./routes/publicGuestlist'));
 
 //admin
 app.use('/boss', require('./routes/admin/templates'));
+app.use('/boss', require('./routes/admin/settings'));
 
 app.use(compression())
 app.use('/assets', express.static('public/uploads'));

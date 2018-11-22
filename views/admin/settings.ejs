@@ -1,0 +1,36 @@
+<%- include('partials/header'); -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Settings</li>
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            NikahKu Settings
+        </div>
+        <div class="card-body">
+            <form method="post" action="/boss/settings">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Main preview user</label>
+                    <select class="form-control" name="preview_user">
+                        <% for(var i = 0; i < users.length; i++) { var u = users[i]; %>
+                        <option <%= config.preview_user == u.id ? 'selected' : '' %> value="<%= u.id%>"><%= u.id + " - " + u.email %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+
+</div>
+
+<%- include('partials/footer'); -%>
