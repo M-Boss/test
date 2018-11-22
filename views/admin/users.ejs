@@ -1,0 +1,43 @@
+<%- include('partials/header'); -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Users</li>
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Users
+        </div>
+        <div class="card-body">
+
+            <table id="dataTable" class="table table-striped">
+                <thead>
+                    <th>Template ID</th>
+                    <th>User ID</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                <% for(var u of users) { %>
+                <tr>
+                    <td><%= u.id %></td>
+                    <td><%= u.email %></td>
+                    <td><a href="/boss/users/<%= u.id %>">Edit</a></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+
+</div>
+
+<%- include('partials/footer'); -%>
