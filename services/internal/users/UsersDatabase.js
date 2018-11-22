@@ -42,6 +42,13 @@ module.exports = class UsersDatabase{
         });
     }
 
+    async find(query, order = []){
+        return await this.db.User.findAll({
+            where: query,
+            order: order
+        });
+    }
+
     async activate(id, code){
         let user = await this.db.User.findOne({
             where: {id: id}
