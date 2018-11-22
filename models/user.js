@@ -55,6 +55,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 defaultValue: 0
             },
+            is_template_user: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             wedding_date: {
                 type: DataTypes.DATEONLY,
                 allowNull: true,

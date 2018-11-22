@@ -15,7 +15,7 @@ router.get('/users', async function (req, res, next) {
     try {
         res.render('admin/users', {users: userList});
     }
-    catch (e){
+    catch (e) {
         console.log(e);
         res.json(e);
     }
@@ -28,7 +28,31 @@ router.get('/users/:id', async function (req, res, next) {
         const id = _.get(req, 'params.id');
         res.render('admin/user', {user: await users.findOne({id: id})});
     }
-    catch (e){
+    catch (e) {
+        console.log(e);
+        res.json(e);
+    }
+});
+router.post('/users/:id', async function (req, res, next) {
+    const db = container.get('db');
+    const users = container.get('users');
+
+    try {
+        const id = _.get(req, 'params.id');
+        const is_template_user = parseInt(_.get(req, 'body.is_template_user', 0));
+        const active = parseInt(_.get(req, 'body.active', 1));
+        const slug = _.get(req, 'body.slug', "");
+        const user = await users.findOne({id});
+        if (user) {
+            console.log('here');
+            user.is_template_user = is_template_user;
+            user.slug = slug;
+            user.active = active;
+            await user.save();
+        }
+        res.redirect('/boss/users/' + id);
+    }
+    catch (e) {
         console.log(e);
         res.json(e);
     }

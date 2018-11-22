@@ -27,22 +27,22 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Activated?</label>
-                    <select class="form-control" name="user_id" placeholder="User ID">
-                        <option <%= user.active ? 'selected' : ''%>>Yes</option>
-                        <option <%= !user.active ? 'selected' : ''%>>No</option>
+                    <select class="form-control" name="active" placeholder="User ID">
+                        <option value="1" <%= user.active ? 'selected' : ''%>>Yes</option>
+                        <option value="0" <%= !user.active ? 'selected' : ''%>>No</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Website slug (URL)</label>
-                    <input class="form-control" name="slug"  value="<%= user.slug%>">
+                    <input class="form-control" name="slug" value="<%= user.slug%>">
                     <small>Note that this will be overwritten for normal users if they update their website info</small>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Is template preview user?</label>
-                    <select class="form-control" name="user_id" placeholder="User ID">
-                        <option <%= user.is_template_user ? 'selected' : ''%>>Yes</option>
-                        <option <%= !user.is_template_user ? 'selected' : ''%>>No</option>
+                    <select class="form-control" name="is_template_user" placeholder="User ID">
+                        <option value="1" <%= user.is_template_user ? 'selected' : ''%>>Yes</option>
+                        <option value="0" <%= !user.is_template_user ? 'selected' : ''%>>No</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
