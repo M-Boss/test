@@ -1,0 +1,57 @@
+<%- include('partials/header'); -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">User <%= user.id%></li>
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            User <%= user.id%>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/boss/users/<%= user.id %>">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">User ID</label>
+                    <input disabled class="form-control" value="<%= user.id%>">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input disabled class="form-control"  value="<%= user.email%>">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Activated?</label>
+                    <select class="form-control" name="user_id" placeholder="User ID">
+                        <option <%= user.active ? 'selected' : ''%>>Yes</option>
+                        <option <%= !user.active ? 'selected' : ''%>>No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Website slug (URL)</label>
+                    <input class="form-control" name="slug"  value="<%= user.slug%>">
+                    <small>Note that this will be overwritten for normal users if they update their website info</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Is template preview user?</label>
+                    <select class="form-control" name="user_id" placeholder="User ID">
+                        <option <%= user.is_template_user ? 'selected' : ''%>>Yes</option>
+                        <option <%= !user.is_template_user ? 'selected' : ''%>>No</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+
+</div>
+
+<%- include('partials/footer'); -%>

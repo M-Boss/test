@@ -18,8 +18,9 @@
 
             <table id="dataTable" class="table table-striped">
                 <thead>
-                    <th>Template ID</th>
-                    <th>User ID</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Activated?</th>
                     <th></th>
                 </thead>
 
@@ -28,6 +29,7 @@
                 <tr>
                     <td><%= u.id %></td>
                     <td><%= u.email %></td>
+                    <td><%= u.active ? 'yes' : 'no' %></td>
                     <td><a href="/boss/users/<%= u.id %>">Edit</a></td>
                 </tr>
                 <% } %>

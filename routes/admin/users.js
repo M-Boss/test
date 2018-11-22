@@ -20,5 +20,18 @@ router.get('/users', async function (req, res, next) {
         res.json(e);
     }
 });
+router.get('/users/:id', async function (req, res, next) {
+    const db = container.get('db');
+    const users = container.get('users');
+
+    try {
+        const id = _.get(req, 'params.id');
+        res.render('admin/user', {user: await users.findOne({id: id})});
+    }
+    catch (e){
+        console.log(e);
+        res.json(e);
+    }
+});
 
 module.exports = router;
