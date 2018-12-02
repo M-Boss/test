@@ -13,6 +13,11 @@ module.exports = class Settings{
         return _.get(setting, 'value');
     }
 
+    async getInt(key){
+        const res = await this.get(key);
+        return parseInt(res);
+    }
+
     async set(key, value){
         let setting = await this.db.Setting.findOne({key});
         if(!setting){

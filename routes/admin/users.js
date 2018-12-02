@@ -46,9 +46,12 @@ router.post('/users/:id', async function (req, res, next) {
         const slug = _.get(req, 'body.slug', "");
         const user = await users.findOne({id});
         if (user) {
-            console.log('here');
             user.is_template_user = is_template_user;
             user.slug = slug;
+            if(user.website) {
+                user.website = {...user.website, ...{url: await users.buildWebsiteURL(slug)}};
+                console.log('here');
+            }
             user.active = active;
             await user.save();
         }

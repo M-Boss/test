@@ -265,7 +265,7 @@ const templates = {
     },
 };
 
-export const templateList =  require('templateList');
+export const templateList =  require('./templateList');
 
 export function getTemplates(){
     return templates;

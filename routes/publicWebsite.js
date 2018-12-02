@@ -18,20 +18,16 @@ router.get('/get/:id', async function (req, res, next) {
             return res.status(500).json({});
         }
 
+        const user = await users.findOne({slug: id});
+        if(!user){
+            return res.status(404).json({});
+        }
+
         //If preview link
-        if(id.startsWith && id.startsWith('__demo__')){
-            const templateId = parseInt(id.substr(8));
-            if(!templateId){
-                return res.status(500).json({});
-            }
-            const previewUser = config.get('app.preview_user');
-            const user = await users.findOne({id: previewUser});
-            if(user){
-                if(user.website){
-                    user.website.template = templateId;
-                }
-                return res.json({website: user.website});
-            }
+        if(user.is_template_user){
+            const website = await buildPreviewWebsite(user, container);
+            return res.json({website: website});
+
         }
         else{
             const user = await users.findOne({slug: id});
@@ -39,8 +35,6 @@ router.get('/get/:id', async function (req, res, next) {
                 return res.json({website: user.website});
             }
         }
-
-        return res.status(404).json({});
     }
     catch(e){
         console.log("Error: ", e);
@@ -48,5 +42,27 @@ router.get('/get/:id', async function (req, res, next) {
     }
 });
 
+async function buildPreviewWebsite(user, container){
+    const db = container.get('db');
+    const users = container.get('users');
+    const config = container.get('config');
+    const settings = container.get('settings');
+
+    try {
+        let baseWebsite = {};
+        let previewUserId = await settings.getInt('preview_user');
+        if(previewUserId){
+            const mainPreviewUser = await users.findOne({id: previewUserId});
+            baseWebsite = _.get(mainPreviewUser, 'website', {});
+        }
+        const overridingWebsite = _.get(user, 'website', {});
+        return Object.assign({}, baseWebsite, overridingWebsite);
+    }
+    catch(e){
+        console.log("Error buildPreviewWebsite()", e);
+        return {}
+    }
+
+}
 
 module.exports = router;

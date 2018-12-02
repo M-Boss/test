@@ -111,4 +111,8 @@ module.exports = class UsersDatabase{
         const templatePath = path.join(__dirname, '..', '..', '..', 'views', 'emails', 'verification.html');
         this.mailer.mailEJS(user.email, 'NikahKu - Activation Link', templatePath, {link});
     }
+
+    async buildWebsiteURL(slug){
+        return this.config.get("app.domain") + "wedding/" + slug;
+    }
 };
