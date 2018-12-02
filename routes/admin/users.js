@@ -20,6 +20,7 @@ router.get('/users', async function (req, res, next) {
         res.json(e);
     }
 });
+
 router.get('/users/:id', async function (req, res, next) {
     const db = container.get('db');
     const users = container.get('users');
@@ -33,6 +34,7 @@ router.get('/users/:id', async function (req, res, next) {
         res.json(e);
     }
 });
+
 router.post('/users/:id', async function (req, res, next) {
     const db = container.get('db');
     const users = container.get('users');

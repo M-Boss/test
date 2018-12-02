@@ -127,8 +127,12 @@ router.post('/save', async function (req, res, next) {
             }
         }
 
-        user.website.url = config.get("app.domain") + "wedding/" + slug;
-        user.slug = slug;
+        //slug is set manually for template users
+        if(!user.is_template_user) {
+            user.website.url = config.get("app.domain") + "wedding/" + slug;
+            user.slug = slug;
+        }
+
         user.save().catch(e => {
             console.log("Error: ", e)
         }).then(r => {
