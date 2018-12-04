@@ -12,6 +12,7 @@ import {connect} from 'react-redux'
 import rest  from '../services/external/rest';
 import container from '../services'
 import {t} from '../translations'
+import _ from 'lodash'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const {templateList} = require('./templates/templateList');
@@ -32,14 +33,16 @@ class Screen extends Component {
             selectedTemplateIndex: t,
             choosingVariation: true
         });
-        const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
-        this.props.dispatch(action(template.variations[0].id));
+
+        // const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
+        // this.props.dispatch(action(template.variations[0].id));
+        this.onVariationSelected(template.variations[0]);
     }
 
     onVariationSelected(v) {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
         this.props.dispatch(action(v.id));
-
+        this.getPreviewURL(v.id);
         setTimeout(() => {
             this.save()
         }, 1000)
@@ -94,13 +97,27 @@ class Screen extends Component {
                         })}
                     </React.Fragment>}
 
-
                     {this.state.choosingVariation && this.renderVariations()}
-
-
                 </div>
             </React.Fragment>
         )
+    }
+
+    async getPreviewURL(templateID){
+
+        this.setState({loading: true});
+        try{
+            const r = await rest.get('template-preview/' + templateID);
+            const url = _.get(r, 'url');
+
+            this.setState({
+                url,
+                loading: false
+            });
+        }
+        catch (e){
+            this.setState({loading: false});
+        }
     }
 
     renderVariations() {
@@ -125,15 +142,16 @@ class Screen extends Component {
                              src={require('../static/images/templates/template-' + this.props.website.template + '.jpg')}
                              alt={"Template: " + template.name}/>
                     </div>
-                    <div style={{padding: 20}}>
-                        <a target="_blank" href={`/wedding/__demo__${this.props.website.template}`} >
-                            <Button icon
+
+                    {!this.state.loading && <div style={{padding: 20}}>
+                        <a target="_blank" href={this.state.url} >
+                            <Button disabled={!this.state.url} icon
                                     labelPosition='left'
                                     size='small'>
-                                <Icon name='eye'/> {t("Preview")}
+                                <Icon name='eye'/> {this.state.url ? t("Preview") : t("No Preview Available")}
                             </Button>
                         </a>
-                    </div>
+                    </div>}
                 </div>
             </React.Fragment>
         )

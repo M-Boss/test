@@ -8,7 +8,7 @@ const path = require('path');
 const router = express.Router();
 const fs = require('fs');
 
-router.get('/website-preview/:id', async function (req, res, next) {
+router.get('/template-preview/:id', async function (req, res, next) {
     try {
         const db = container.get('db');
         const users = container.get('users');
