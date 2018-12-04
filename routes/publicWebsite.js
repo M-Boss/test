@@ -8,6 +8,31 @@ const path = require('path');
 const router = express.Router();
 const fs = require('fs');
 
+router.get('/website-preview/:id', async function (req, res, next) {
+    try {
+        const db = container.get('db');
+        const users = container.get('users');
+        const config = container.get('config');
+
+        const id = _.get(req, "params.id");
+        if(!id){
+            return res.status(400).json({});
+        }
+
+        const previewUser = await db.PreviewUser.findOne({where: {template_id: id}});
+        if(!previewUser){
+            return res.status(404).json({});
+        }
+
+        const user = await users.findOne({id: _.get(previewUser, 'user_id')});
+        return res.json({url: _.get(user, 'website.url')});
+    }
+    catch(e){
+        console.log("Error: ", e);
+        return res.status(404).json({});
+    }
+});
+
 router.get('/get/:id', async function (req, res, next) {
     try {
         const db = container.get('db');
@@ -30,10 +55,7 @@ router.get('/get/:id', async function (req, res, next) {
 
         }
         else{
-            const user = await users.findOne({slug: id});
-            if(user){
-                return res.json({website: user.website});
-            }
+            return res.json({website: user.website});
         }
     }
     catch(e){

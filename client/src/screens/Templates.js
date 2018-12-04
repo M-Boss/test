@@ -14,7 +14,7 @@ import container from '../services'
 import {t} from '../translations'
 const {buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
-const {templateList} = require('./templates/index');
+const {templateList} = require('./templates/templateList');
 
 class Screen extends Component {
 
