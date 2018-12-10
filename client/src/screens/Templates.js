@@ -81,6 +81,7 @@ class Screen extends Component {
                                         style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
                                         {current ? <Checkbox style={{marginRight: 8}} checked readOnly/> : null}
                                         <span > {t.name}</span>
+                                        {!!t.premium && <div style={{paddingLeft: 4}}><Icon name='lock' /></div>}
                                         <div style={{
                                             textAlign: 'right',
                                             flex: 1,
@@ -104,7 +105,6 @@ class Screen extends Component {
     }
 
     async getPreviewURL(templateID){
-
         this.setState({loading: true});
         try{
             const r = await rest.get('template-preview/' + templateID);
@@ -122,12 +122,16 @@ class Screen extends Component {
 
     renderVariations() {
         const template = templateList[this.state.selectedTemplateIndex];
+        console.log("reVa: ", template);
         return (
             <React.Fragment>
                 <H3>{template.name}</H3>
                 <div style={{backgroundColor: 'white', marginBottom: 20}}>
                     <div style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
-                        <span >Warna</span>
+                        <span style={{flex: 1}}>Warna</span>
+                        <div >
+                            <Button primary><Icon name='unlock'/> Unlock all templates</Button>
+                        </div>
                     </div>
                     <div style={{padding: 20, display: 'flex', flexWrap: 'wrap'}}>
                         {template.variations.map((v, index) => {

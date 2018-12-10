@@ -185,6 +185,7 @@ const templateList =  [
     },
     {
         name: "Third Template",
+        premium: true,
         variations: [
             {
                 id: 6,
@@ -200,6 +201,7 @@ const templateList =  [
     },
     {
         name: "Fourth Template",
+        premium: true,
         variations: [
             {
                 id: 8,
@@ -210,6 +212,7 @@ const templateList =  [
     },
     {
         name: "Fifth Template",
+        premium: true,
         variations: [
             {
                 id: 9,
@@ -220,6 +223,7 @@ const templateList =  [
     },
     {
         name: "Sixth Template",
+        premium: true,
         variations: [
             {
                 id: 10,
