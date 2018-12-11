@@ -60,8 +60,6 @@ class Website extends Component {
             this.setState({
                 [key]: val
             })
-
-
         }
     }
 
@@ -81,9 +79,7 @@ class Website extends Component {
         finally{
             this.setState({loading: false})
         }
-
     }
-
 
     render() {
         const percentage = Math.floor(validator.getPercentage(this.props.website) * 100);

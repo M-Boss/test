@@ -20,6 +20,7 @@ import Reset from './screens/Reset'
 import Contact from './screens/Contact'
 import About from './screens/About'
 import FAQs from './screens/FAQs'
+import PremiumTemplates from './screens/PremiumTemplates'
 
 import TemplateHome from './screens/templates/Home'
 import TemplatePhotos from './screens/templates/Photos'
@@ -96,6 +97,7 @@ class Nikahku extends Component {
                         <Route path="/contact" component={Contact}/>
                         <Route path="/reset/:id/:token" component={Reset}/>
                         <Route path="/about" component={About}/>
+                        <Route path="/premium-templates" component={PremiumTemplates}/>
                         <Route path="/faqs" component={FAQs}/>
 
                         <Switch>
