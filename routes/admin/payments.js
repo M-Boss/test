@@ -7,11 +7,10 @@ const Joi = require('joi');
 const path = require('path');
 const {templateList} = require('../../client/src/screens/templates/templateList');
 
-router.get('/payment_tickets', async function (req, res, next) {
+router.get('/payment-tickets', async function (req, res, next) {
     const db = container.get('db');
     const users = container.get('users');
     const userList = await users.find(null, [['id', 'DESC']]);
-
 
     try {
         const items = await db.PaymentTicket.findAll({include: [

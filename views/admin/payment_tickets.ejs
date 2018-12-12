@@ -20,14 +20,14 @@
                 <thead>
                     <th>ID</th>
                     <th>Email</th>
-                    <th>Activated?</th>
-                    <th></th>
+                    <th>Name</th>
+                    <th>Date</th>
                 </thead>
                 <tbody>
                 <% for(var i of items) { %>
                 <tr>
                     <td><%= i.id %></td>
-                    <td><%= i.user.email %></td>
+                    <td><a href="/boss/users/<%= i.user_id%>"><%= i.user.email %></a></td>
                     <td><%= i.name %></td>
                     <td><%= i.date %></td>
                     <!--<td><a href="/boss/users/">Edit</a></td>-->
