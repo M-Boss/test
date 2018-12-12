@@ -18,9 +18,20 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.DATEONLY,
                 allowNull: true
             },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
         },
         {
             tableName: 'payment_tickets'
         });
+
+    Model.associate = function(models) {
+        models.PaymentTicket.belongsTo(models.User, {
+            as: 'user',
+            foreignKey: 'user_id'
+        });
+    };
     return Model;
 };
