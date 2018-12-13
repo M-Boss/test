@@ -55,6 +55,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 defaultValue: 0
             },
+            has_access_to_premium_template: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
             is_template_user: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,

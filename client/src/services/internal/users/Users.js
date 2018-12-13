@@ -16,4 +16,5 @@ export default class UserRepository{
     async verifyOTP(mobile, otp){
         return  this.rest.get(`register/verify/${mobile}/${otp}`);
     }
+
 }

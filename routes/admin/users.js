@@ -42,11 +42,13 @@ router.post('/users/:id', async function (req, res, next) {
     try {
         const id = _.get(req, 'params.id');
         const is_template_user = parseInt(_.get(req, 'body.is_template_user', 0));
+        const has_access_to_premium_template = parseInt(_.get(req, 'body.has_access_to_premium_template', 0));
         const active = parseInt(_.get(req, 'body.active', 1));
         const slug = _.get(req, 'body.slug', "");
         const user = await users.findOne({id});
         if (user) {
             user.is_template_user = is_template_user;
+            user.has_access_to_premium_template = has_access_to_premium_template;
             user.slug = slug;
             if(user.website) {
                 user.website = {...user.website, ...{url: await users.buildWebsiteURL(slug)}};

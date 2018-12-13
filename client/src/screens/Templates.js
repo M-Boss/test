@@ -2,7 +2,7 @@
  * Created by guy on 8/19/18.
  */
 import React, {Component, Fragment} from 'react'
-import {Menu, Segment, Button, Form, Grid, Input, Image, Icon, Checkbox} from 'semantic-ui-react'
+import {Menu, Segment, Button, Form, Grid, Input, Image, Icon, Checkbox, Dimmer, Loader} from 'semantic-ui-react'
 import Slider from "react-slick";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -23,8 +23,27 @@ class Screen extends Component {
         super(props);
         this.state = {
             choosingVariation: false,
-            selectedTemplateIndex: 0
+            selectedTemplateIndex: 0,
+            loading: true
         };
+    }
+
+    async componentDidMount(){
+        try {
+            this.setState({loading: true});
+            const user = await rest.post('user/authenticate');
+
+            if(!user) return;
+            const userAction = buildActionForKey(actions.USER_RECORD, 'has_access_to_premium_template');
+            this.props.dispatch(userAction(_.get(user, 'user.has_access_to_premium_template')));
+        }
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+        finally {
+            this.setState({loading: false});
+        }
     }
 
     onTemplateSelected(t) {
@@ -36,10 +55,24 @@ class Screen extends Component {
 
         // const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
         // this.props.dispatch(action(template.variations[0].id));
-        this.onVariationSelected(template.variations[0]);
+
+        setTimeout(() => {
+            this.onVariationSelected(template.variations[0]);
+        }, 300);
+
     }
 
     onVariationSelected(v) {
+        const isPremiumUser = _.get(this.props, 'user.has_access_to_premium_template');
+        const template = templateList[this.state.selectedTemplateIndex];
+        const isPremiumTemplate = _.get(template, 'premium');
+
+        console.log("onVariationSelected() TemplateIndex: ", this.state.selectedTemplateIndex);
+        if(isPremiumTemplate && !isPremiumUser){
+            alert("This is a premium template.")
+            return;
+        }
+
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
         this.props.dispatch(action(v.id));
         this.getPreviewURL(v.id);
@@ -55,10 +88,18 @@ class Screen extends Component {
     }
 
     render() {
+        const isPremiumUser = _.get(this.props, 'user.has_access_to_premium_template');
+
         return (<React.Fragment>
                 <Header />
 
-                <div style={{padding: 16, backgroundColor: '#F4F7F9'}}>
+            {this.state.loading && <div>
+                <Dimmer active inverted>
+                    <Loader inverted content='Loading' />
+                </Dimmer>
+            </div>}
+
+            {<div style={{padding: 16, backgroundColor: '#F4F7F9'}}>
                     {!this.state.choosingVariation &&
                     <Link onClick={() => this.save()} to="/create">
                         <p><Icon name="long arrow alternate left"/> Back</p>
@@ -81,7 +122,9 @@ class Screen extends Component {
                                         style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
                                         {current ? <Checkbox style={{marginRight: 8}} checked readOnly/> : null}
                                         <span > {t.name}</span>
-                                        {!!t.premium && <div style={{paddingLeft: 4}}><Icon name='lock' /></div>}
+                                        {!!t.premium && <div style={{paddingLeft: 4}}>
+                                            {isPremiumUser ? <Icon style={{color: '#4ecab0'}} name='unlock' /> : <Icon name='lock' />}
+                                        </div>}
                                         <div style={{
                                             textAlign: 'right',
                                             flex: 1,
@@ -100,6 +143,7 @@ class Screen extends Component {
 
                     {this.state.choosingVariation && this.renderVariations()}
                 </div>
+                }
             </React.Fragment>
         )
     }
@@ -190,6 +234,7 @@ function Color({primary, secondary, onClick, selected, tooltip}) {
 
 export default connect(state => {
     return {
-        website: state.website
+        website: state.website,
+        user: state.user
     }
 })(Screen)
