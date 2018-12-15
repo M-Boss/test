@@ -27,6 +27,9 @@ router.post('/payment_ticket', async function (req, res, next) {
             user_id: req.user.id
         });
 
+        const adminMail = config.get('app.email');
+        mailer.mail(adminMail, 'Premium Template', 'A new user submitted a ticket regarding premium templates.');
+
         return res.json({r: 'ok'});
     }
     catch(e){

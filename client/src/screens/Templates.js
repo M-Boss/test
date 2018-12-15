@@ -59,7 +59,6 @@ class Screen extends Component {
         setTimeout(() => {
             this.onVariationSelected(template.variations[0]);
         }, 300);
-
     }
 
     onVariationSelected(v) {
@@ -69,7 +68,7 @@ class Screen extends Component {
 
         console.log("onVariationSelected() TemplateIndex: ", this.state.selectedTemplateIndex);
         if(isPremiumTemplate && !isPremiumUser){
-            alert("This is a premium template.")
+            alert("This is a premium template.");
             return;
         }
 
@@ -166,15 +165,16 @@ class Screen extends Component {
 
     renderVariations() {
         const template = templateList[this.state.selectedTemplateIndex];
-        console.log("reVa: ", template);
+        const isPremiumUser = _.get(this.props, 'user.has_access_to_premium_template');
+
         return (
             <React.Fragment>
                 <H3>{template.name}</H3>
                 <div style={{backgroundColor: 'white', marginBottom: 20}}>
                     <div style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
-                        <span style={{flex: 1}}>Warna</span>
+                        <span style={{flex: 1, fontSize: 11}}>{_.get(template, 'name')}</span>
                         <div >
-                            <Button primary><Icon name='unlock'/> Unlock all templates</Button>
+                            {!isPremiumUser && <Link to='/premium-templates'><Button primary><Icon name='unlock'/> Unlock all templates</Button></Link>}
                         </div>
                     </div>
                     <div style={{padding: 20, display: 'flex', flexWrap: 'wrap'}}>
