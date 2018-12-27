@@ -115,7 +115,8 @@ router.post('/save', async function (req, res, next) {
 
         let slug = "";
         const w = user.website;
-        if(w.bride_first && w.groom_first){
+        // auto generate website url
+/*        if(w.bride_first && w.groom_first){
             slug = `${slugify(w.bride_first)}-${slugify(w.groom_first)}`;
 
             //don't check for duplicate slugs if it hasn't changed
@@ -125,7 +126,9 @@ router.post('/save', async function (req, res, next) {
                     slug = `${slug}-${user.id}`
                 }
             }
-        }
+        }*/
+
+        slug = "website-" + user.id;
 
         //slug is set manually for template users
         if(!user.is_template_user) {

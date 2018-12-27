@@ -10,7 +10,7 @@ import {H1, H2} from "../components/Headers";
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {t} from '../translations'
-
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 class Home extends Component {
 
     constructor(props) {
@@ -21,6 +21,13 @@ class Home extends Component {
     render() {
         return <React.Fragment>
             <Header />
+
+            <MessengerCustomerChat
+                pageId="394725757753593"
+                appId="2365731387002380"
+                htmlRef="fb_ref"
+            />
+
             <div style={{textAlign: 'center'}}>
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#EFFDFF'}}>
                     <img width={280} src={require('../static/images/home-01.png')} alt="nikahku"/>
