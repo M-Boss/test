@@ -22,11 +22,11 @@ class Home extends Component {
         return <React.Fragment>
             <Header />
 
-            <MessengerCustomerChat
+            {/*<MessengerCustomerChat
                 pageId="394725757753593"
                 appId="2365731387002380"
                 htmlRef="fb_ref"
-            />
+            />*/}
 
             <div style={{textAlign: 'center'}}>
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#EFFDFF'}}>
