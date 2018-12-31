@@ -48,7 +48,7 @@ class Events extends Component {
                         return (
                             <div style={{marginTop: 70, marginBottom: 48,  backgroundColor: color}}>
                                 {index % 2 === 0 &&
-                                <img style={{marginTop: -32, width: '100%'}} src={require('./assets/top.png')}/>}
+                                <img style={{marginTop: -32, width: '100%'}} src={require('./assets/top' + theme.index + '.png')}/>}
                                 <div style={{textAlign: 'center', padding: "0 20px"}}>
                                     <h1 style={{
                                         paddingLeft: 0,
@@ -79,6 +79,14 @@ class Events extends Component {
                                                 : event.venue}
                                         </p>
                                     </div>
+
+                                    <div style={{paddingTop: 24}}>
+                                        <p style={{
+                                            fontSize: '1.25em',
+                                            color: textColor
+                                        }}>{event.description}</p>
+                                    </div>
+
                                     <br/>
                                     {!event.manual_address &&
                                     <a target="_blank"

@@ -23,7 +23,7 @@ app.use(cors());
 const mailer = container.get('mailer');
 const config = container.get('config');
 const adminMail = config.get('app.email');
-mailer.mail(adminMail , 'Test mail', 'Test mail.');
+// mailer.mail(adminMail , 'Test mail', 'Test mail.');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

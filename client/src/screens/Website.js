@@ -595,10 +595,10 @@ class Website extends Component {
                                         </Grid>
                                     </React.Fragment>}
 
-                                    <InputCombo optional style={{marginTop: 16}}
+                                    {/*<InputCombo optional style={{marginTop: 16}}
                                                 onChange={this.changeEventField(index, 'attire')}
                                                 value={e.attire}
-                                                label={t("Attire")}/>
+                                                label={t("Attire")}/>*/}
 
                                     <div style={{marginTop: 16}}>
                                         <InputLabel >{t("Note to Guests")}</InputLabel>
@@ -607,7 +607,6 @@ class Website extends Component {
                                                   value={e.description} placeholder={t("Free valet parking at the building next door")}/>
                                         </Form>
                                     </div>
-
 
                                     {/*<div style={{
                                      padding: 12,

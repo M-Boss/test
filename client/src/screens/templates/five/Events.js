@@ -82,6 +82,15 @@ class Events extends Component {
                                                 : event.venue}
                                         </p>
                                     </div>
+
+
+                                    <div style={{paddingTop: 24}}>
+                                        <p style={{
+                                            fontSize: '1.25em',
+                                            color: theme.foreground
+                                        }}>{event.description}</p>
+                                    </div>
+
                                     <br/>
                                     {!event.manual_address &&
                                     <a target="_blank"

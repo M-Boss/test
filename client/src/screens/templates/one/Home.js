@@ -84,7 +84,7 @@ class Home extends Component {
                         marginTop: -30,
                         marginBottom: -70,
                         paddingTop: 60,
-                        paddingBottom: 80,
+                        paddingBottom: 120,
                         backgroundColor: theme.background,
                         textAlign: 'center'
                     }}>
