@@ -80,7 +80,11 @@ router.post('/templates/:id', async function (req, res, next) {
     try {
         const template_id = parseInt(_.get(req, 'params.id'));
         const user_id = parseInt(_.get(req, 'body.user_id'));
-        let item = await db.PreviewUser.findOne({template_id});
+        let item = await db.PreviewUser.findOne({
+            where: {
+                template_id
+            }
+        });
         if(!item){
             item = db.PreviewUser.build({template_id});
         }
@@ -101,7 +105,11 @@ router.get('/templates/:id', async function (req, res, next) {
     try {
         const id = parseInt(_.get(req, 'params.id'));
         const userList = await users.find(null, [['id','DESC']]);
-        let previewUser = await db.PreviewUser.findOne({tempalte_id: id});
+        let previewUser = await db.PreviewUser.findOne({
+            where: {
+                template_id: id
+            }
+        });
         res.render('admin/template', {id, users: userList, user_id: previewUser ? previewUser.user_id: 0});
     }
     catch (e){

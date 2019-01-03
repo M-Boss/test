@@ -153,54 +153,54 @@ const templateList =  [
         variations: [
             {
                 id: 1,
-                name: "Willowmarsh 1",
+                name: "blue",
                 theme: theme1[0]
             },
             {
                 id: 2,
-                name: "Willowmarsh 2",
+                name: "green",
                 theme: theme1[1]
             },
             {
                 id: 3,
-                name: "Willowmarsh 3",
+                name: "purple",
                 theme: theme1[2]
             }
         ]
     },
     {
-        name: "Second Template",
+        name: "Avabeach",
         variations: [
             {
                 id: 4,
-                name: "Second Template 1",
+                name: "blue",
                 theme: theme2[0]
             },
             {
                 id: 5,
-                name: "Second Template 2",
+                name: "cream",
                 theme: theme2[1]
             }
         ]
     },
     {
-        name: "Third Template",
+        name: "Classic",
         premium: true,
         variations: [
             {
                 id: 6,
-                name: "",
+                name: "cream",
                 theme: theme3[0]
             },
             {
                 id: 7,
-                name: "",
+                name: "grey",
                 theme: theme3[1]
             }
         ]
     },
     {
-        name: "Fourth Template",
+        name: "Floralist",
         premium: true,
         variations: [
             {
@@ -211,7 +211,7 @@ const templateList =  [
         ]
     },
     {
-        name: "Fifth Template",
+        name: "Tropical",
         premium: true,
         variations: [
             {

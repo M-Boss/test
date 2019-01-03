@@ -44,12 +44,10 @@ class Website extends Component {
     }
 
     render() {
-
         const percentage = Math.floor(validator.getPercentage(this.props.website) * 100);
-
         return (
             <React.Fragment>
-                    <Header />
+                <Header />
 
                 <div style={{backgroundColor: '#F4F7F9', padding: 12}}>
 
@@ -74,7 +72,8 @@ class Website extends Component {
 
                         {this.props.website.template !== 0 &&
                         <div style={{margin: 12, marginTop: 2}}>
-                            <img style={{width: '100%'}} src={require(`../static/images/templates/template-${this.props.website.template || 1}.jpg`)}
+                            <img style={{width: '100%'}}
+                                 src={require(`../static/images/templates/template-${this.props.website.template || 1}.jpg`)}
                                  alt={"Selected template"}/>
                         </div>}
 

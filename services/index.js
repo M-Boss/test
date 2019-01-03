@@ -12,7 +12,7 @@ const Cleaner = require('./internal/helpers/Cleaner');
 const Settings = require('./internal/settings');
 const Time = require('./internal/helpers/Time');
 // import Helpers from './internal/helpers/Helpers'
-const Config =  require('./internal/config/Config')
+const Config =  require('./internal/config/Config');
 // import MailerConsole from "./external/mailer/MailerConsole";
 let {Container} = require('js-di-container');
 const EventEmitter = require('events');
