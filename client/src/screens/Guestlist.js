@@ -36,6 +36,8 @@ import withResend from '../components/withResend'
 import InputCombo, {InputLabel} from '../components/InputCombo'
 import {DateInput} from '../screens/Website'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+const config = require('../services/internal/config/Config');
+
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
@@ -73,11 +75,11 @@ class Guestlist extends Component {
         this.toggleFilter = this.toggleFilter.bind(this);
     }
 
-    filterInvitation(){
+    filterInvitation() {
 
     }
 
-    toggleFilter(){
+    toggleFilter() {
         this.setState({showFilter: !this.state.showFilter})
     }
 
@@ -160,12 +162,12 @@ class Guestlist extends Component {
         }
     }
 
-    filterGuestlist(guestlist){
+    filterGuestlist(guestlist) {
         const copy = {...guestlist};
         copy.guests = _.get(copy, 'guests', []).filter(g => {
-            if(this.state.filterInvitation === 'definitely')
+            if (this.state.filterInvitation === 'definitely')
                 return _.get(g, 'definitely_invited') == 1;
-            else if(this.state.filterInvitation === 'maybe')
+            else if (this.state.filterInvitation === 'maybe')
                 return _.get(g, 'definitely_invited') == 0;
             return true;
         });
@@ -512,6 +514,8 @@ class Guestlist extends Component {
     }
 
     renderContent(guestlist) {
+        const api_root = config('app.api_root');
+
         const {definitelyInvited, missingAddress, adults} = this.getGuestlistInfo(guestlist);
 
         return (<React.Fragment>
@@ -565,6 +569,15 @@ class Guestlist extends Component {
             </div>
 
             <div style={{padding: 0, paddingTop: 12}}>
+                <div style={{paddingLeft: 24, justifyContent: 'flex-end'}}>
+                    <a href={api_root + 'guestlist/download?authorization=' + _.get(this.props, 'user.token')}>
+                        <Button icon labelPosition='left'
+                                size='small'>
+                            <Icon name='download'/> Download Excel
+                        </Button>
+                    </a>
+                </div>
+
                 {this.renderGuestlist(guestlist)}
             </div>
         </React.Fragment>)
@@ -590,6 +603,7 @@ class Guestlist extends Component {
                                     primary size='small'>
                                 <Icon name='user'/> {t("Add Guest")}
                             </Button>
+
                             {/*<Button size='small'>Approve</Button>*/}
                             {/*<Button disabled size='small'>*/}
                             {/*Approve All*/}
@@ -600,7 +614,7 @@ class Guestlist extends Component {
                         <div style={{borderLeft: '7px solid #ddd', padding: 12}}>
                             <Menu text vertical>
                                 {/*<Menu.Item>*/}
-                                    {/*<Input placeholder='Search...'/>*/}
+                                {/*<Input placeholder='Search...'/>*/}
                                 {/*</Menu.Item>*/}
                                 <strong style={{marginBottom: 4, display: 'block'}}>Invited?</strong>
                                 <div>
@@ -659,7 +673,11 @@ class Guestlist extends Component {
                                 <Table.Cell>{count}</Table.Cell>
                                 <Table.Cell>
                                     <Icon name='phone'
-                                          style={{transform: 'scaleX(-1)', fontSize: 16, color: _.get(g, "mobile") ? '#A5E677' : '#FC7C93'}}/>
+                                          style={{
+                                              transform: 'scaleX(-1)',
+                                              fontSize: 16,
+                                              color: _.get(g, "mobile") ? '#A5E677' : '#FC7C93'
+                                          }}/>
                                     <Icon name='at'
                                           style={{fontSize: 16, color: _.get(g, "email") ? '#A5E677' : '#FC7C93'}}/>
                                     <Icon name='home' style={{
