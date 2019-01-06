@@ -16,6 +16,7 @@ const fileUpload = require('express-fileupload');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const container = require('./services');
+const _ = require('lodash');
 
 var app = express();
 app.use(cors());
@@ -41,6 +42,8 @@ app.use(session({
 }));
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+
+
 
 passport.use(new LocalStrategy({
         usernameField: 'username',
@@ -75,13 +78,13 @@ app.post('/boss/login', (req, res, next) =>
         failureRedirect: '/boss/login'
     }, function (error, user, info) {
         req.login(user, (err) => {
-            console.log('Inside req.login() callback')
+            console.log('Inside req.login() callback');
             console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
-            console.log(`req.user: ${JSON.stringify(req.user)}`)
-            if(err){
+            console.log(`req.user: ${JSON.stringify(req.user)}`);
+            if (err) {
                 res.redirect('/boss/login')
             }
-            else{
+            else {
                 res.redirect('/boss/users')
             }
         });
@@ -118,18 +121,18 @@ app.use(compression());
 app.use('/assets', express.static('public/uploads'));
 app.use('/static/admin', express.static('public/admin'));
 app.use(express.static(`${__dirname}/client/build`));
-//At the end
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
-});
 
 //authorized client routes
 app.use(async function (req, res, next) {
+    if (!req.path.startsWith('/api')) {
+        return next();
+    }
     const db = container.get('db');
-    // console.log(req.headers, req.headers['authorization']);
+    console.log(req.headers, req.headers['authorization']);
+    console.log("auth: ", _.get(req, 'query.authorization'));
     const user = await db.User.findOne({
         where: {
-            token: req.headers['authorization']
+            token: req.headers['authorization'] || _.get(req, 'query.authorization')
         }
     });
 
@@ -140,12 +143,18 @@ app.use(async function (req, res, next) {
     // console.log("Req.user: ", req.user.id);
     next();
 });
+
 app.use(fileUpload());
 app.use('/api/website', require('./routes/website'));
 app.use('/api', require('./routes/loggedInUser'));
 app.use('/api', require('./routes/checklist'));
 app.use('/api', require('./routes/guestlist'));
 app.use('/api', require('./routes/premium'));
+
+//At the end
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

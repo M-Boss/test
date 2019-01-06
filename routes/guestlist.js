@@ -5,6 +5,7 @@ const _ = require('lodash');
 const validate = require('express-validation');
 const Joi = require('joi');
 const path = require('path');
+const Excel = require('exceljs');
 
 router.post('/guestlist/get',  async function (req, res, next) {
     const users = container.get('users');
@@ -90,6 +91,77 @@ router.post('/guestlist/remove_guest',  async function (req, res, next) {
     catch (e){
         console.log('/checklist/remove_guest', e);
         res.sendStatus(728);
+    }
+});
+
+router.get('/guestlist/download', async function (req, res, next) {
+
+    const guestlists = container.get('guestlists');
+    const db = container.get('db');
+    const users = container.get('users');
+
+    // const t = _.get(req, 'query.x_token');
+    try{
+        const user = req.user;
+        // const user = await users.findOne({token});
+        // if(!user){
+        //     throw("User with this token not found");
+        // }
+        let guests = [];
+        const gl = await user.getGuestlist({include: [
+            {
+                model: db.Guest,
+                as: 'guests'
+            }
+        ]});
+        if(!gl){
+            guests = [];
+        }
+        else{
+            guests = gl.guests || [];
+        }
+
+        const workbook = new Excel.Workbook();
+        const sheet = workbook.addWorksheet('Guests');
+        sheet.columns = [
+            { header: 'Title' },
+            { header: 'Name' },
+            { header: 'Number' },
+            { header: 'Invited' },
+            { header: 'Relationship' },
+            { header: 'Email' },
+            { header: 'Mobile' },
+            { header: 'Street' },
+            { header: 'Negara' },
+            { header: 'Kota' },
+            { header: 'Kode Pos' },
+        ];
+        const rows = guests.map(g => {
+            return [
+                g.title,
+                `${_.get(g, 'info.first_name')} ${_.get(g, 'info.last_name', "")}`,
+                1 + ((_.get(g, 'plus.unknown') || _.get(g, 'plus.first_name')) ? 1 : 0) + (_.get(g, 'children', []).length),
+                g.definitely_invited ? 'Invited' : 'Maybe',
+                g.relationship,
+                g.email,
+                g.mobile,
+                g.street,
+                g.country,
+                g.city,
+                g.postal_code,
+            ]
+        });
+        sheet.addRows(rows);
+
+        const fileName = 'Guests.xlsx';
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        await workbook.xlsx.write(res);
+        res.end();
+    }
+    catch(e){
+        console.log('/guestlist/download/:', e);
+        res.sendStatus(400);
     }
 });
 

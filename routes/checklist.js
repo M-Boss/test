@@ -20,14 +20,12 @@ router.post('/checklist/get',  async function (req, res, next) {
                 as: 'tasks'
             }
         ]});
-
         if(!cl){
             cl = await checklists.createChecklist(req.user.id);
             if(!cl){
                 throw "Could not create checklist";
             }
         }
-
         res.send({r: 'ok',
             checklist: cl,
             user: {
@@ -37,7 +35,7 @@ router.post('/checklist/get',  async function (req, res, next) {
     }
 
     catch (e){
-        console.log('sendVerificationEmail error', e);
+        console.log('/checklist/get error', e);
         res.sendStatus(723);
     }
 });
