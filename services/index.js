@@ -11,11 +11,13 @@ const MailerAWS = require('./external/mailer/MailerAWS');
 const Cleaner = require('./internal/helpers/Cleaner');
 const Settings = require('./internal/settings');
 const Time = require('./internal/helpers/Time');
+const Reports = require('./internal/reports');
 // import Helpers from './internal/helpers/Helpers'
 const Config =  require('./internal/config/Config');
 // import MailerConsole from "./external/mailer/MailerConsole";
 let {Container} = require('js-di-container');
 const EventEmitter = require('events');
+const websiteValidator = require('../client/src/services/internal/validations');
 
 let container = new Container();
 container.registerFactory('db', sequelizeFactory, {lazy: false});
@@ -29,6 +31,10 @@ container.registerClass('cleaner', Cleaner);
 container.registerClass('config', Config);
 container.registerClass('time', Time);
 container.registerClass('settings', Settings);
+container.registerClass('reports', Reports);
+container.registerFactory('websiteValidator', function(){
+    return websiteValidator;
+});
 
 class MyEmitter extends EventEmitter {}
 container.registerFactory('emitter', function(){

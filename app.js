@@ -23,8 +23,10 @@ app.use(cors());
 
 const mailer = container.get('mailer');
 const config = container.get('config');
-const adminMail = config.get('app.email');
-// mailer.mail(adminMail , 'Test mail', 'Test mail.');
+
+// Admin report service
+const reports = container.get('reports');
+reports.startReportService();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

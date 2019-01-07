@@ -1,7 +1,9 @@
-'use strict';
-module.exports = {
-    up: (queryInterface, DataTypes) => {
-        return queryInterface.createTable('admin_reports', {
+/**
+ * Created by guy on 8/15/18.
+ */
+
+module.exports = function (sequelize, DataTypes) {
+    const Model = sequelize.define('AdminReport', {
             id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -42,18 +44,10 @@ module.exports = {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 defaultValue: 0,
-            },
-            createdAt: {
-                allowNull: false,
-                type: DataTypes.DATE
-            },
-            updatedAt: {
-                allowNull: true,
-                type: DataTypes.DATE
             }
+        },
+        {
+            tableName: 'admin_reports'
         });
-    },
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('admin_reports');
-    }
+    return Model;
 };
