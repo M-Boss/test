@@ -1,0 +1,77 @@
+<%- include('partials/header'); -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Users</li>
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Users
+        </div>
+        <div class="card-body">
+
+            <style>
+                td, th{
+                    font-size: 12px;
+                }
+            </style>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a target="_blank" class="dropdown-item" href="/boss/stats/download">Download in Excel format</a>
+                </div>
+            </div>
+            <br/>
+
+            <table id="dataTableStats" class="table table-striped">
+                <thead>
+                    <th>Time</th>
+                    <th>Users</th>
+                    <th>Completed website</th>
+                    <th>Chosen template</th>
+                    <th>Have event</th>
+                    <th>Published</th>
+                    <th>Checklist</th>
+                    <th>Guestlist</th>
+                </thead>
+
+                <tbody>
+
+                <% for(var i of items) { %>
+                <tr>
+                    <td ><%= moment(i.createdAt).format('YY-MM-DD HH:mm') %></td>
+                    <td><%= i.user_count %></td>
+                    <td><%= i.wedding_details_completed %></td>
+                    <td><%= i.users_chosen_templates %></td>
+                    <td><%= i.users_with_event %></td>
+                    <td><%= i.published_users %></td>
+                    <td><%= i.users_with_checklist %></td>
+                    <td><%= i.users_with_guestlist %></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="card-footer small text-muted"></div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTableStats').DataTable({
+            "order": [[ 0, "desc" ]]
+        });
+    });
+</script>
+<%- include('partials/footer'); -%>

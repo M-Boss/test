@@ -118,6 +118,7 @@ app.use('/boss', require('./routes/admin/settings'));
 app.use('/boss', require('./routes/admin/users'));
 app.use('/boss', require('./routes/admin/index'));
 app.use('/boss', require('./routes/admin/payments'));
+app.use('/boss', require('./routes/admin/stats'));
 
 app.use(compression());
 app.use('/assets', express.static('public/uploads'));

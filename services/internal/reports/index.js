@@ -12,6 +12,10 @@ module.exports = class Reports {
         this.websiteValidator = websiteValidator;
     }
 
+    async find(){
+        return await this.db.AdminReport.findAll();
+    }
+
     startReportService(){
         const interval = 3 * 60 * 60 * 1000;
         console.log("- Starting report service on interval (mins): ", interval / 60000);
