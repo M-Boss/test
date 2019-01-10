@@ -185,7 +185,7 @@ const templateList =  [
     },
     {
         name: "Classic",
-        premium: true,
+        premium: false,
         variations: [
             {
                 id: 6,
@@ -201,7 +201,7 @@ const templateList =  [
     },
     {
         name: "Floralist",
-        premium: true,
+        premium: false,
         variations: [
             {
                 id: 8,
@@ -212,7 +212,7 @@ const templateList =  [
     },
     {
         name: "Tropical",
-        premium: true,
+        premium: false,
         variations: [
             {
                 id: 9,
@@ -223,7 +223,7 @@ const templateList =  [
     },
     {
         name: "Sixth Template",
-        premium: true,
+        premium: false,
         variations: [
             {
                 id: 10,

@@ -67,10 +67,10 @@ class Screen extends Component {
         const isPremiumTemplate = _.get(template, 'premium');
 
         console.log("onVariationSelected() TemplateIndex: ", this.state.selectedTemplateIndex);
-        if(isPremiumTemplate && !isPremiumUser){
-            alert("This is a premium template.");
-            return;
-        }
+        // if(isPremiumTemplate && !isPremiumUser){
+        //     alert("This is a premium template.");
+        //     return;
+        // }
 
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
         this.props.dispatch(action(v.id));
@@ -173,9 +173,9 @@ class Screen extends Component {
                 <div style={{backgroundColor: 'white', marginBottom: 20}}>
                     <div style={{padding: 20, paddingBottom: 16, alignItems: 'center', display: 'flex'}}>
                         <span style={{flex: 1, fontSize: 11}}>{_.get(template, 'name')}</span>
-                        <div >
+                        {/*<div >
                             {!isPremiumUser && <Link to='/premium-templates'><Button primary><Icon name='unlock'/> Unlock all templates</Button></Link>}
-                        </div>
+                        </div>*/}
                     </div>
                     <div style={{padding: 20, display: 'flex', flexWrap: 'wrap'}}>
                         {template.variations.map((v, index) => {
