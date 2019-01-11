@@ -39,8 +39,7 @@ class Screen extends Component {
 
                         <p>{t("Now you can create your wedding website and invite guests")}</p>
 
-                        <Link to="/create"><Button style={{marginTop: 20}} primary fluid>{t("Create your website")}</Button></Link>
-                        <Button basic color='orange' disabled={true} style={{marginTop: 20, marginBottom: 32}} fluid>{t("Create guest list")}</Button>
+                        <Link to="/services"><Button style={{marginTop: 20}} primary fluid>Ayo Mulai!</Button></Link>
                     </section>
                 </div>
                 <Footer/>

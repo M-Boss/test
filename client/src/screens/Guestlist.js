@@ -136,6 +136,7 @@ class Guestlist extends Component {
                 email: data.email,
                 mobile: data.mobile,
                 definitely_invited: data.definitely_invited,
+                rsvp: data.rsvp,
                 id: data.id
             };
 
@@ -425,6 +426,23 @@ class Guestlist extends Component {
                                 value='0'
                                 checked={!this.state.definitely_invited}
                                 onChange={() => this.createChangeHandler('definitely_invited', true)(0)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group inline>
+                            <label>{t("RSVP")}</label>
+                            <Form.Radio
+                                label='Coming'
+                                value='1'
+                                checked={this.state.rsvp === 'coming'}
+                                onChange={() => this.createChangeHandler('rsvp', true)('coming')}
+                            />
+
+                            <Form.Radio
+                                label='Not Coming'
+                                value='0'
+                                checked={this.state.rsvp === 'not_coming'}
+                                onChange={() => this.createChangeHandler('rsvp', true)('not_coming')}
                             />
                         </Form.Group>
 
@@ -792,6 +810,7 @@ class Guestlist extends Component {
             relationship: replace.relationship || "",
             children: replace.children || [],
             definitely_invited: replace.definitely_invited == 1 ? 1 : 0,
+            rsvp: replace.rsvp,
             plus: _.get(replace, "plus.first_name") || _.get(replace, "plus.last_name") || _.get(replace, "plus.unknown"),
             city: replace.city || "",
             country: replace.country || "",

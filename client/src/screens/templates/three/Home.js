@@ -36,10 +36,12 @@ class Home extends Component {
                         label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{position: 'relative'}}>
-                    <div style={{
+                    <div  className="template-main-image" style={{
                         backgroundImage: `url(${background})`,
-                        width: '100%', height: 285,
-                        backgroundSize: 'cover'
+                        width: '100%',
+                        backgroundSize: 'cover',
+                        backgroundPosition: '50% 50%',
+                        backgroundRepeat: 'no-repeat'
                     }}></div>
                     <h2 style={{
                         textAlign: 'center',
@@ -155,10 +157,12 @@ class Home extends Component {
                 </div>
 
                 <div style={{paddingBottom: 0}}>
-                    <div style={{
+                    <div className="template-bottom-image" style={{
                         backgroundImage: `url(${bottom})`,
-                        width: '100%', height: 250,
-                        backgroundSize: 'cover'
+                        width: '100%',
+                        backgroundSize: 'cover',
+                        backgroundPosition: '50% 50%',
+                        backgroundRepeat: 'no-repeat'
                     }}/>
                 </div>
                 <Footer theme={theme}/>

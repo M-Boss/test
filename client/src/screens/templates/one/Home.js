@@ -35,7 +35,9 @@ class Home extends Component {
                     <div style={{
                         backgroundImage: `url(${background})`,
                         width: '100%', height: 285,
-                        backgroundSize: 'cover'
+                        backgroundSize: 'cover',
+                        backgroundPosition: '50% 50%',
+                        backgroundRepeat: 'no-repeat'
                     }}></div>
                     <em><h1 style={{
                         textAlign: 'center',

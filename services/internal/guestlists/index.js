@@ -47,7 +47,8 @@ module.exports = class ChecklistDatabase {
         street, city, country, postal_code,
         relationship,
         email, mobile,
-        definitely_invited
+        definitely_invited,
+        rsvp,
     }) {
 
         if(!children.map) children = [];
@@ -72,6 +73,7 @@ module.exports = class ChecklistDatabase {
             email: this.cleaner.clean(email),
             mobile: this.cleaner.clean(mobile),
             definitely_invited: !definitely_invited ? 0 : 1,
+            rsvp: !rsvp ? 'unknown' : rsvp,
         };
 
         if(id){

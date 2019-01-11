@@ -66,6 +66,11 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 defaultValue: 1,
             },
+            rsvp: {
+                type: DataTypes.ENUM,
+                values: ['coming', 'not_coming', 'unknown'],
+                defaultValue: 'unknown'
+            },
         },
         {
             tableName: 'guests',

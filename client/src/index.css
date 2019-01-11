@@ -12,6 +12,25 @@ body {
     }
 }
 
+
+/* template main/bottom image responsive */
+.template-main-image {
+    height: 285px;
+}
+@media screen and (min-width: 768px) {
+    .template-main-image {
+        height: 485px;
+    }
+}
+.template-bottom-image {
+    height: 250px;
+}
+@media screen and (min-width: 768px) {
+    .template-bottom-image {
+        height: 485px;
+    }
+}
+
 .responsive-half {
     min-width: 50%;
 }
