@@ -17,7 +17,7 @@ module.exports = class Reports {
     }
 
     startReportService(){
-        const interval = 3 * 60 * 60 * 1000;
+        const interval = 24 * 60 * 60 * 1000;
         console.log("- Starting report service on interval (mins): ", interval / 60000);
         setInterval(this.generateReport.bind(this), interval);
     }
