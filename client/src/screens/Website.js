@@ -29,6 +29,53 @@ import Header from "./Header";
 import DatePicker from 'react-datepicker';
 import {t} from '../translations'
 import withResend from '../components/withResend'
+import {
+    FacebookShareCount,
+    GooglePlusShareCount,
+    LinkedinShareCount,
+    PinterestShareCount,
+    VKShareCount,
+    OKShareCount,
+    RedditShareCount,
+    TumblrShareCount,
+
+    FacebookShareButton,
+    GooglePlusShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    PinterestShareButton,
+    VKShareButton,
+    OKShareButton,
+    TelegramShareButton,
+    WhatsappShareButton,
+    RedditShareButton,
+    EmailShareButton,
+    TumblrShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    ViberShareButton,
+    WorkplaceShareButton,
+    LineShareButton,
+    WeiboShareButton,
+
+    FacebookIcon,
+    TwitterIcon,
+    GooglePlusIcon,
+    LinkedinIcon,
+    PinterestIcon,
+    VKIcon,
+    OKIcon,
+    TelegramIcon,
+    WhatsappIcon,
+    RedditIcon,
+    TumblrIcon,
+    MailruIcon,
+    EmailIcon,
+    LivejournalIcon,
+    ViberIcon,
+    WorkplaceIcon,
+    LineIcon,
+} from 'react-share';
 
 const moment = require('moment');
 const NotificationSystem = require('react-notification-system');
@@ -846,6 +893,8 @@ class Website extends Component {
     }
 
     accordionSettings() {
+        const title = 'Our wedding website';
+        const shareUrl = _.get(this.props, 'website.url', '');
         return {
             title: t("Website Settings"),
             content: <div style={{padding: 12, paddingTop: 0}}>
@@ -859,6 +908,37 @@ class Website extends Component {
                               toggle checked={this.props.website.public}/>
                     <p style={{marginLeft: 16}}>{t("Make Publicly Available?")}</p>
                 </div>
+
+                <Subtitle>Share Website</Subtitle>
+                {!this.accountNotValidated() &&
+                <div>
+                    <div className="social-button-wrapper">
+                        <FacebookShareButton url={shareUrl} quote={title}>
+                            <FacebookIcon size={32} round/>
+                        </FacebookShareButton>
+                    </div>
+
+                    <div className="social-button-wrapper">
+                        <TelegramShareButton url={shareUrl} title={title}>
+                            <TelegramIcon size={32} round/>
+                        </TelegramShareButton>
+                    </div>
+
+                    <div className="social-button-wrapper">
+                        <WhatsappShareButton url={shareUrl} title={title} separator=":: ">
+                            <WhatsappIcon size={32} round/>
+                        </WhatsappShareButton>
+                    </div>
+
+                    <div className="social-button-wrapper">
+                        <TwitterShareButton url={shareUrl} title={title}>
+                            <TwitterIcon size={32} round/>
+                        </TwitterShareButton>
+                    </div>
+                </div>
+                }
+                {this.accountNotValidated() &&
+                <div>{t("You need to verify your account first through email")}</div>}
 
                 <div style={{padding: 12}}>
                     <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}

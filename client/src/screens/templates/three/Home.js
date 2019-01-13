@@ -36,7 +36,7 @@ class Home extends Component {
                         label={website.bride_first + " & " + website.groom_first}/>
 
                 <div style={{position: 'relative'}}>
-                    <div  className="template-main-image" style={{
+                    <div className="template-main-image" style={{
                         backgroundImage: `url(${background})`,
                         width: '100%',
                         backgroundSize: 'cover',

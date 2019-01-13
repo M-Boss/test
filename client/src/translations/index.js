@@ -135,6 +135,7 @@ i18n.translations = {
         "Notes": "Catatan",
 
         "Single / Couple": "Single / Couple",
+        "You need to verify your account first through email": "Harap verifikasi akun Anda",
 
     }
 };
