@@ -362,8 +362,8 @@ class Website extends Component {
 
                 <div style={{padding: 12, paddingTop: 20}}>
 
-                    <InputCombo onChange={this.changeHandler('title')} value={this.props.website.title}
-                                label={t("Title")}/>
+                    {/*<InputCombo onChange={this.changeHandler('title')} value={this.props.website.title}
+                                label={t("Title")}/>*/}
 
                     <DateInput style={{marginTop: 12}}
                                label={t("Date")}
