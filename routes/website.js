@@ -111,7 +111,9 @@ router.post('/save', async function (req, res, next) {
         const users = container.get('users');
         const user = req.user;
         // console.log(_.get(req, "body.website"));
-        user.website = _.get(req, "body.website");
+        const oldURL = _.get(user, 'website.url');
+        user.website = _.get(req, "body.website", {});
+        user.website.url = oldURL;
 
         let slug = "";
         const w = user.website;

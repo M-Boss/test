@@ -453,7 +453,9 @@ class Website extends Component {
                 </div>
 
                 <div style={{padding: 12}}>
-                    <Button notchanged={!this.state.changed}  loading={this.state.loading} onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
+                    <Button notchanged={!this.state.changed}
+                            loading={this.state.loading}
+                            onClick={this.save} style={{marginTop: 24, marginBottom: 12}}
                             primary fluid>{t("Save")}</Button>
                 </div>
             </div>
@@ -462,7 +464,7 @@ class Website extends Component {
 
     addStoryClicked() {
         const action = buildActionForKey(actions.WEBSITE_RECORD, 'stories');
-        const stories = [...this.props.website.stories, {title: "", date: "", description: ""}];
+        const stories = [...(this.props.website.stories || []), {title: "", date: "", description: ""}];
         this.props.dispatch(action(stories));
     }
 

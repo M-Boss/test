@@ -50,9 +50,11 @@ router.post('/users/:id', async function (req, res, next) {
             user.is_template_user = is_template_user;
             user.has_access_to_premium_template = has_access_to_premium_template;
             user.slug = slug;
-            if(user.website) {
+            if (user.website) {
                 user.website = {...user.website, ...{url: await users.buildWebsiteURL(slug)}};
-                console.log('here');
+                // const w = user.website || {};
+                // w.url = await users.buildWebsiteURL(slug);
+                // user.website = w;
             }
             user.active = active;
             await user.save();
