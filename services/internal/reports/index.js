@@ -19,10 +19,28 @@ module.exports = class Reports {
     startReportService(){
         const interval = 24 * 60 * 60 * 1000;
         console.log("- Starting report service on interval (mins): ", interval / 60000);
-        setInterval(this.generateReport.bind(this), interval);
+
+        const dt = this.msTilMidnight();
+        console.log("Next report scheduled in ", dt / 60000, 'minutes.' );
+        setTimeout(() => {
+            this.loopGenerateReport(interval)
+        }, dt);
+    }
+
+    msTilMidnight() {
+        let now = moment();
+        let timeDiff = moment(now).utcOffset(480).endOf('day') - now; //timezone central Indonesia
+        let dur = moment.duration(timeDiff).asMilliseconds();
+        return dur;
+    }
+
+    async loopGenerateReport(interval){
+        this.generateReport();
+        setTimeout(this.generateReport.bind(this), interval);
     }
 
     async generateReport() {
+        console.log("Generating report...");
         let users = await this.users.find();
         if(!users) users = [];
 
