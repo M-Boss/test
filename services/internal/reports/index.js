@@ -17,7 +17,9 @@ module.exports = class Reports {
     }
 
     startReportService(){
+
         const interval = 24 * 60 * 60 * 1000;
+        return this.loopGenerateReport(interval);
         console.log("- Starting report service on interval (mins): ", interval / 60000);
 
         const dt = this.msTilMidnight();
