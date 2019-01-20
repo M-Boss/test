@@ -19,14 +19,13 @@ module.exports = class Reports {
     startReportService(){
 
         const interval = 24 * 60 * 60 * 1000;
-        return this.loopGenerateReport(interval);
         console.log("- Starting report service on interval (mins): ", interval / 60000);
 
         const dt = this.msTilMidnight();
         console.log("Next report scheduled in ", dt / 60000, 'minutes.' );
         setTimeout(() => {
             this.loopGenerateReport(interval)
-        }, dt);
+        }, dt+1);
     }
 
     msTilMidnight() {
@@ -38,7 +37,9 @@ module.exports = class Reports {
 
     async loopGenerateReport(interval){
         this.generateReport();
-        setTimeout(this.generateReport.bind(this), interval);
+        setTimeout(() => {
+            this.generateReport()
+        },  interval);
     }
 
     async generateReport() {
