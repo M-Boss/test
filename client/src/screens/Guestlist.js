@@ -203,18 +203,18 @@ class Guestlist extends Component {
             {value: "Dr.", text: "Dr."},
         ];
         const relationships = [
-            {value: "Bride's Family", text: "Bride's Family"},
-            {value: "Bride's Friend", text: "Bride's Friend"},
-            {value: "Bride's Family Friend", text: "Bride's Family Friend"},
-            {value: "Groom's Family", text: "Groom's Family"},
-            {value: "Groom's Friend", text: "Groom's Friend"},
-            {value: "Groom's Family Friend", text: "Groom's Family Friend"},
-            {value: "Bride And Groom's Friend", text: "Bride And Groom's Friend"},
+            {value: "Bride's Family", text: t("Bride's Family")},
+            {value: "Bride's Friend", text: t("Bride's Friend")},
+            {value: "Bride's Family Friend", text: t("Bride's Family Friend")},
+            {value: "Groom's Family", text: t("Groom's Family")},
+            {value: "Groom's Friend", text: t("Groom's Friend")},
+            {value: "Groom's Family Friend", text: t("Groom's Family Friend")},
+            {value: "Bride And Groom's Friend", text: t("Bride And Groom's Friend")},
         ];
         const panels = [
             {
                 key: `panel-0`,
-                title: "Mailing Address",
+                title: t("Mailing Address"),
                 content: {
                     content: <div>
                         <InputCombo style={{marginTop: 8}} onChange={this.createChangeHandler('street')}
@@ -265,7 +265,7 @@ class Guestlist extends Component {
                     <Icon name="close" style={{fontSize: 24}}/>
                 </div>
 
-                <H2 style={{textAlign: 'center'}}>{t("Add Guests")}</H2>
+                <H2 style={{textAlign: 'center'}}>{t("Add Guest")}</H2>
 
                 <div style={{maxWidth: 400, margin: 'auto', textAlign: 'center', marginBottom: 32, marginTop: 20}}>
                     <Menu pointing secondary compact>
@@ -415,14 +415,14 @@ class Guestlist extends Component {
                         <Form.Group inline>
                             <label>{t("Invitation?")}</label>
                             <Form.Radio
-                                label='Definitely'
+                                label={t("Definitely")}
                                 value='1'
                                 checked={this.state.definitely_invited}
                                 onChange={() => this.createChangeHandler('definitely_invited', true)(1)}
                             />
 
                             <Form.Radio
-                                label='Maybe'
+                                label={t("Maybe")}
                                 value='0'
                                 checked={!this.state.definitely_invited}
                                 onChange={() => this.createChangeHandler('definitely_invited', true)(0)}
@@ -432,14 +432,14 @@ class Guestlist extends Component {
                         <Form.Group inline>
                             <label>{t("RSVP")}</label>
                             <Form.Radio
-                                label='Coming'
+                                label={t('Coming')}
                                 value='1'
                                 checked={this.state.rsvp === 'coming'}
                                 onChange={() => this.createChangeHandler('rsvp', true)('coming')}
                             />
 
                             <Form.Radio
-                                label='Not Coming'
+                                label={t('Not Coming')}
                                 value='0'
                                 checked={this.state.rsvp === 'not_coming'}
                                 onChange={() => this.createChangeHandler('rsvp', true)('not_coming')}
@@ -474,9 +474,8 @@ class Guestlist extends Component {
 
 
                 <Segment color='grey'>
-                    <H2 style={{textAlign: 'center'}}>{t("Send a Link to Guests")}</H2>
-                    <p style={{color: '#666'}}>They’ll fill out a form and we’ll add their information to Guest List for
-                        you. To avoid duplicates, only send this link to guests you haven’t added to Guest List yet.</p>
+                    <H2 style={{textAlign: 'center'}}>{t("Send a link to guests")}</H2>
+                    <p style={{color: '#666'}}>Mereka akan mengisi formulir dan kami akan menambahkan informasi mereka ke Daftar Tamu untuk Anda. Untuk menghindari duplikat, kirim saja tautan ini ke tamu yang belum Anda tambahkan ke Daftar Tamu.</p>
 
                     <div style={{marginTop: 24, padding: 8, textAlign: 'center', border: '1px solid #f2f2f2'}}>
                         {link}
@@ -485,8 +484,7 @@ class Guestlist extends Component {
                     <div style={{paddingTop: 24, textAlign: 'center'}}>
                         <a style={{color: '#01b4c0'}}
                            href={link}
-                           target="_blank">This is what your guests will see
-                            > </a>
+                           target="_blank">{t("This is what your guests will see")}> </a>
                     </div>
 
                     <div style={{marginTop: 24, textAlign: 'center'}}>
@@ -495,7 +493,7 @@ class Guestlist extends Component {
                             <Button icon
                                     labelPosition='left'
                                     primary size='small'>
-                                <Icon name={this.state.justCopied ? 'check circle outline' : 'copy'}/> {t("Copy link")}
+                                <Icon name={this.state.justCopied ? 'check circle outline' : 'copy'}/> {t("Copy Link")}
                             </Button>
                         </CopyToClipboard>
                         <Button onClick={this.showIndex} size='small'>
@@ -540,7 +538,7 @@ class Guestlist extends Component {
             <div style={{padding: 24, paddingBottom: 0}}>
 
                 <Link to="/services">
-                    <p><Icon name="long arrow alternate left"/> Back</p>
+                    <p><Icon name="long arrow alternate left"/> {t("Back")}</p>
                 </Link>
 
                 <div style={{
@@ -591,7 +589,7 @@ class Guestlist extends Component {
                     <a href={api_root + 'guestlist/download?authorization=' + _.get(this.props, 'user.token')}>
                         <Button icon labelPosition='left'
                                 size='small'>
-                            <Icon name='download'/> Download Excel
+                            <Icon name='download'/> {t("Download Excel")}
                         </Button>
                     </a>
                 </div>
@@ -640,7 +638,7 @@ class Guestlist extends Component {
                                         <Radio
                                             label={t("Definitely")}
                                             name='radioGroup'
-                                            value='definitely'
+                                            value={t("Definitely")}
                                             checked={this.state.filterInvitation === 'definitely'}
                                             onChange={(e, {checked}) => this.createChangeHandler('filterInvitation', true)('definitely')}/>
                                     </Form.Field>
@@ -666,10 +664,10 @@ class Guestlist extends Component {
                     </Table.Row>}
 
                     <Table.Row >
-                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell>{t("Name")}</Table.HeaderCell>
                         <Table.HeaderCell>No.</Table.HeaderCell>
                         <Table.HeaderCell>Info</Table.HeaderCell>
-                        <Table.HeaderCell>Invited?</Table.HeaderCell>
+                        <Table.HeaderCell>{t("Invited?")}</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -703,7 +701,7 @@ class Guestlist extends Component {
                                         color: !_.get(g, "street") || !_.get(g, "city") || !_.get(g, "postal_code") ? '#FC7C93' : '#A5E677'
                                     }}/>
                                 </Table.Cell>
-                                <Table.Cell>{g.definitely_invited ? 'Definitely' : 'Maybe'}</Table.Cell>
+                                <Table.Cell>{g.definitely_invited ? t("Definitely") : t("Maybe")}</Table.Cell>
                             </Table.Row>
                         )
                     })}

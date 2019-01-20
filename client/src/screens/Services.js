@@ -76,8 +76,8 @@ class Website extends Component {
                              link="/dashboard"/>
                     <Service icon={require('../static/images/services/daftarperiksa.png')} label="Daftar Periksa"
                              link="/checklist" />
-                    <Service icon={require('../static/images/services/daftar-tamu(grey).png')} label="Daftar Tamu"
-                             link=""/>
+                    <Service icon={require('../static/images/services/daftar-tamu.png')} label="Daftar Tamu"
+                             link="/guestlist"/>
                 </div>
                 <Footer/>
             </React.Fragment>

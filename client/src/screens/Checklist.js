@@ -296,7 +296,7 @@ class Checklist extends Component {
             <div style={{padding: 24, paddingBottom: 0}}>
 
                 <Link to="/services">
-                    <p><Icon name="long arrow alternate left"/> Back</p>
+                    <p><Icon name="long arrow alternate left"/> {t("Back")}</p>
                 </Link>
 
                 <div style={{
@@ -325,7 +325,6 @@ class Checklist extends Component {
 
                 <div>
                     <div style={{marginTop: 35}}/>
-
                     <Label color="teal">
                         {t('Days Left')}
                         <Label.Detail>{daysLeft}</Label.Detail>

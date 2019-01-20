@@ -28,6 +28,7 @@ import rest  from '../services/external/rest';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import withResend from '../components/withResend'
+import {t} from '../translations'
 const {buildAction, buildActionForKey} = require('../services/internal/store/DefaultReducer');
 const actions = require('../services/internal/store/actionConstants');
 const _ = require("lodash");
@@ -52,7 +53,7 @@ class Website extends Component {
                 <div style={{backgroundColor: '#F4F7F9', padding: 12}}>
 
                     <Link to="/services">
-                        <p><Icon name="long arrow alternate left"/> Back to services</p>
+                        <p><Icon name="long arrow alternate left"/> {t("Back To Services")}</p>
                     </Link>
 
                     <div style={{backgroundColor: '#FFFFFF', marginTop: 8}}>

@@ -212,9 +212,9 @@ class GuestForm extends Component {
                         <img width={200} src={require('../static/images/logo-header.svg')}/>
                     </div>
                     <H2 style={{ fontSize:28, marginBottom: 4, fontFamily: 'Great Vibes', textAlign: 'center'}}>{t("Hello!")}</H2>
-                    <p style={{ color: '#888', marginBottom: 24,  textAlign: 'center'}}>Please fill out the form below
-                        {groomFirst && brideFirst ? `, so ${brideFirst} & ${groomFirst} can send you their wedding details` : ''}
-                            .Your info will not be shared with anyone else.</p>
+                    <p style={{ color: '#888', marginBottom: 24,  textAlign: 'center'}}>Silakan isi formulir di bawah ini,
+                        {groomFirst && brideFirst ? `, sehingga ${brideFirst} & ${groomFirst}  dapat mengirimi Anda detail pernikahan mereka` : ''}
+                            .Info Anda tidak akan dibagikan kepada orang lain.</p>
 
                     <Divider />
                     <br/>

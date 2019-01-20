@@ -177,7 +177,7 @@ class Website extends Component {
                     <div style={{padding: 24}}>
 
                         <Link to="/dashboard">
-                            <p><Icon name="long arrow alternate left"/> Back</p>
+                            <p><Icon name="long arrow alternate left"/> {t("Back")}</p>
                         </Link>
 
                         <div style={{
