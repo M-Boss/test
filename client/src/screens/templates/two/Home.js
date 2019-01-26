@@ -27,7 +27,7 @@ class Home extends Component {
         const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('../shared_assets/logo.png');
 
         return (
-            <div style={{overflow: 'hidden'}}>
+            <div className="screen-container fixed-header" style={{overflow: 'hidden'}}>
                 <Header website={website} themeColor={this.props.theme.primary}
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
@@ -116,7 +116,7 @@ class Home extends Component {
                     return (
                         <div style={{padding: 24, paddingTop: 0, paddingBottom: 0}}>
                             <div style={{display: 'flex', alignItems: 'center'}}>
-                                <h1 style={{color: 'rgba(0,0,0,0.4)'}}>{website.stories[i].description}</h1>
+                                <h1 style={{color: 'rgba(0,0,0,0.4)'}}>{website.stories[i].title}</h1>
                                 <p style={{
                                     color: 'rgba(0,0,0,0.4)',
                                     flex: 1,

@@ -20,7 +20,7 @@ module.exports = class ChecklistDatabase {
         const r = await this.db.Guestlist.create({});
         if (r && r.id) {
             await this.db.User.update({guestlist_id: r.id}, {where: {id: userId}});
-            this.setGuestlistInvitationToken(gl)
+            this.setGuestlistInvitationToken(r)
         }
         return r;
     }

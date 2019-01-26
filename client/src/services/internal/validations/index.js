@@ -7,7 +7,7 @@ class Validator {
         this.validations = {
             general: ["bride_first", "groom_first", "bride_last", "groom_last"],
             template: ["template", "template_main"],
-            details: ["title", "date", "country", "city"],
+            details: ["date", "country", "city"],
             events: ["events_page_title", "events_description"],
             photos: ["photos_page_title", "photos_description"],
             faqs: ["faqs_page_title", "faqs_description"],

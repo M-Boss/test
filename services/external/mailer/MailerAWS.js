@@ -41,7 +41,8 @@ module.exports = class MailerAWS {
                     Data: subject
                 }
             },
-            Source: 'contact@nikahku.com',
+            // Source: 'contact@nikahku.com',
+            Source: '"Nikahku" <contact@nikahku.com>',
             ReplyToAddresses: ['contact@nikahku.com']
         };
 

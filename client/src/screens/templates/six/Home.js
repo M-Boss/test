@@ -28,7 +28,7 @@ class Home extends Component {
         const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('../shared_assets/logo.png');
 
         return (
-            <div className="template-6" style={{overflow: 'hidden'}}>
+            <div className="screen-container fixed-header template-6" style={{overflow: 'hidden'}}>
                 <Header theme={theme} website={website}
                         icon={require('./assets/burger.png')}
                         backgroundImage={require('./assets/bg.png')}

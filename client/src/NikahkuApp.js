@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
-
+import {connect} from 'react-redux'
 import Login from './screens/Login'
 import PasswordRecovery from './screens/PasswordRecovery'
 import Menu from './screens/Menu'
@@ -31,6 +31,7 @@ import TemplateMenu from './screens/templates/Menu'
 import withTracker from './components/withTracker'
 import withTagManager from './components/withTagManager'
 import ReactGA from 'react-ga'
+import _ from 'lodash'
 
 import {
     BrowserRouter as Router,
@@ -43,6 +44,9 @@ import Header from './screens/Header'
 import {Grid} from 'semantic-ui-react'
 import 'react-datepicker/dist/react-datepicker.css';
 import './App.css';
+import rest  from './services/external/rest';
+const {buildActionForKey} = require('./services/internal/store/DefaultReducer');
+const actions = require('./services/internal/store/actionConstants');
 
 function App({children}) {
     return (
@@ -56,7 +60,7 @@ function App({children}) {
 class ScrollToTop extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
-            setTimeout(function(){
+            setTimeout(function () {
                 window.scrollTo(0, 0)
                 // document.getElementById('app-wrapper').scrollTo(0, 0)
             }, 100)
@@ -70,10 +74,27 @@ class ScrollToTop extends Component {
 ScrollToTop = withRouter(ScrollToTop);
 
 class Nikahku extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-
         //ReactGA.initialize('UA-125055635-1');
+    }
+
+    async componentDidMount() {
+        console.log("didMount: ", this.props);
+        //check if user is activated for inactive users
+        try {
+            const isLoggedIn = !!_.get(this.props, 'user.token');
+            if (isLoggedIn && !_.get(this.props, 'user.active')) {
+                const r = await rest.post('user/authenticate');
+                if (_.get(r, 'user.active')) {
+                    const action = buildActionForKey(actions.USER_RECORD, 'active');
+                    this.props.dispatch(action(1));
+                }
+            }
+        }
+        catch (e) {
+            console.log("error in cdMount() NikahkuApp", e);
+        }
     }
 
     render() {
@@ -114,10 +135,8 @@ class Nikahku extends Component {
     }
 }
 
-/*
- <div className="App">
- <br/>
- <Welcome/>
- </div>
- */
-export default Nikahku;
+export default connect(state => {
+    return {
+        user: state.user
+    }
+})(Nikahku)

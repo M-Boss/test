@@ -169,10 +169,11 @@ const theme6 = [
         headerBackground: '#FFF',
         headerForeground: '#363639',
         headerFontSize: 20,
-        headerHideNames: true,
+        headerHideNames: false,
         headerBurgerSize: 48,
         headerContainerStyles:{
             position: 'fixed',
+            flexDirection: 'row-reverse',
             left: 0,
             right: 0,
             backgroundColor: 'transparent',

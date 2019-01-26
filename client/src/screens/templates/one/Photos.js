@@ -24,8 +24,7 @@ class Photos extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div style={{overflow: 'hidden', fontFamily: 'serif'}}>
-
+            <div className="screen-container fixed-header" style={{overflow: 'hidden', fontFamily: 'serif'}}>
                 <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <div style={{ textAlign: 'center', paddingTop: 30 }}>
                     <h1 style={{fontFamily: 'serif', color: theme.primary}}>{website.events_page_title || t('Photos')}</h1>

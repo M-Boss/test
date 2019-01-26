@@ -112,7 +112,9 @@ class Screen extends Component {
                     {!this.state.choosingVariation && <React.Fragment>
                         <H3>Templates </H3>
                         {templateList.map((t, index) => {
-                            const current = t.id === this.props.website.template;
+                            const selectedVariationId = _.get(this.props, 'website.template');
+                            let current = _.get(t, 'variations', []).reduce((accum, variation) => accum || variation.id === selectedVariationId, false);
+                            if(!selectedVariationId && index === 0 ) current =  true;
                             const first = t.variations[0];
                             return (
                                 <div onClick={() => this.onTemplateSelected(index)}
@@ -186,9 +188,11 @@ class Screen extends Component {
                         })}
                     </div>
                     <div style={{paddingLeft: 20, paddingRight: 20}}>
+                        {this.props.website.template ?
                         <img style={{width: '100%'}}
                              src={require('../static/images/templates/template-' + this.props.website.template + '.jpg')}
                              alt={"Template: " + template.name}/>
+                            : null}
                     </div>
 
                     {!this.state.loading && <div style={{padding: 20}}>

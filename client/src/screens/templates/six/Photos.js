@@ -25,7 +25,7 @@ class Photos extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div className="template-6" style={{ backgroundColor: theme.background, overflow: 'hidden', fontFamily: 'sans-serif'}}>
+            <div className="screen-container fixed-header template-6" style={{ backgroundColor: theme.background, overflow: 'hidden', fontFamily: 'sans-serif'}}>
                 <Header theme={theme} website={website}
                         icon={require('./assets/burger.png')}
                         backgroundImage={require('./assets/bg.png')}

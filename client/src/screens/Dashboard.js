@@ -49,13 +49,10 @@ class Website extends Component {
         return (
             <React.Fragment>
                 <Header />
-
                 <div style={{backgroundColor: '#F4F7F9', padding: 12}}>
-
                     <Link to="/services">
                         <p><Icon name="long arrow alternate left"/> {t("Back To Services")}</p>
                     </Link>
-
                     <div style={{backgroundColor: '#FFFFFF', marginTop: 8}}>
                         <div style={{padding: 12, display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
                             <H2 style={{flex: 1, fontSize: 18}}>Your Wedding Website</H2>
@@ -72,11 +69,12 @@ class Website extends Component {
                         </div>
 
                         {this.props.website.template !== 0 &&
-                        <div style={{margin: 12, marginTop: 2}}>
+
+                        <Link to={'/create'}><div style={{margin: 12, marginTop: 2}}>
                             <img style={{width: '100%'}}
                                  src={require(`../static/images/templates/template-${this.props.website.template || 1}.jpg`)}
                                  alt={"Selected template"}/>
-                        </div>}
+                        </div></Link>}
 
                         <div style={{padding: 12, paddingBottom: 32}}>
                             {
@@ -91,7 +89,6 @@ class Website extends Component {
                 </div>
                 <Footer/>
             </React.Fragment>
-
         )
     }
 
@@ -109,7 +106,6 @@ class Website extends Component {
         }
     }
 }
-
 
 function Section({label, done, k}) {
     return (

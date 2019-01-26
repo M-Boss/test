@@ -17,4 +17,7 @@ export default class UserRepository{
         return  this.rest.get(`register/verify/${mobile}/${otp}`);
     }
 
+    async authenticate(){
+
+    }
 }

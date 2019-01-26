@@ -26,7 +26,7 @@ class Events extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div className="template-3" style={{overflow: 'hidden', fontFamily: 'serif', textAlign: 'center', backgroundColor: theme.background}}>
+            <div className="screen-container fixed-header template-3" style={{overflow: 'hidden', fontFamily: 'serif', textAlign: 'center', backgroundColor: theme.background}}>
                 <Header website={website} theme={theme}
                         icon={require('./assets/burger.png')}
                         themeColor={this.props.theme.primary} websiteId={this.props.websiteId}

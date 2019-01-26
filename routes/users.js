@@ -213,6 +213,7 @@ router.get('/auth/activate/:id/:code', async function (req, res, next) {
     }
 });
 
+
 router.post('/auth/login', validate(registerValidation), async function (req, res, next) {
     const users = container.get('users');
     try{

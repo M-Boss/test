@@ -49,7 +49,7 @@ class Website extends Component {
         }
         setTimeout( ()=> {
             this.setState({justActivated: false})
-        }, 2000)
+        }, 5000)
     }
 
     render() {
@@ -60,7 +60,7 @@ class Website extends Component {
 
                 {this.state.justActivated &&
                 <Message success>
-                    <Message.Header>Email validated</Message.Header>
+                    <Message.Header>Email Anda telah berhasil divalidasi</Message.Header>
                 </Message>}
 
                 <div style={{

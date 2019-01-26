@@ -222,7 +222,7 @@ const templateList =  [
         ]
     },
     {
-        name: "Sixth Template",
+        name: "Sparkle",
         premium: false,
         variations: [
             {

@@ -18,6 +18,12 @@ class Home extends Component {
         this.state = {};
     }
 
+    componentDidMount(){
+        if(this.props.user.token ){
+            this.props.history.push('/services')
+        }
+    }
+
     render() {
         return <React.Fragment>
             <Header />
@@ -87,8 +93,8 @@ class Home extends Component {
                         in any language. Be even closer to your
                         loved ones.</p>
 
-                    <Link to="/create"><Button style={{marginTop: 20, marginBottom: 32}} primary>View English
-                        Website</Button></Link>
+                    <a href="https://www.nikahku.com/wedding/sarah-jason" target="_blank"><Button style={{marginTop: 20, marginBottom: 32}} primary>View English
+                        Website</Button></a>
                 </section>
 
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#F4F7F9'}}>

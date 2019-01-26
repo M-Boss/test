@@ -284,12 +284,12 @@ class Website extends Component {
                         <Grid.Column width={8}>
                             <InputCombo optional={true} onChange={this.changeHandler('bride_father')}
                                         value={this.props.website.bride_father}
-                                        label="Father's Name"/>
+                                        label={t("Father's Name")}/>
                         </Grid.Column>
                         <Grid.Column width={8}>
                             <InputCombo optional onChange={this.changeHandler('bride_mother')}
                                         value={this.props.website.bride_mother}
-                                        label="Mother's Name"/>
+                                        label={t("Mother's Name")}/>
                         </Grid.Column>
                     </Grid>
 
@@ -298,12 +298,12 @@ class Website extends Component {
                         <Grid.Column width={8}>
                             <InputCombo optional onChange={this.changeHandler('groom_father')}
                                         value={this.props.website.groom_father}
-                                        label="Father's Name"/>
+                                        label={t("Father's Name")}/>
                         </Grid.Column>
                         <Grid.Column width={8}>
                             <InputCombo optional onChange={this.changeHandler('groom_mother')}
                                         value={this.props.website.groom_mother}
-                                        label="Mother's Name"/>
+                                        label={t("Mother's Name")}/>
                         </Grid.Column>
                     </Grid>
                 </React.Fragment>
@@ -903,7 +903,9 @@ class Website extends Component {
 
                 <Subtitle> URL Website</Subtitle>
                 {!this.accountNotValidated() &&
-                <p>{this.props.website.url || "(Akan diatur ketika disimpan)"}</p>}
+                <a href={this.props.website.url } target="_blank">
+                    {this.props.website.url || "(Akan diatur ketika disimpan)"}
+                </a>}
 
                 <div style={{display: 'flex', alignItems: 'center', marginTop: 8}}>
                     <Checkbox onChange={(e, {checked}) => this.changeHandler('public', true)(checked)}

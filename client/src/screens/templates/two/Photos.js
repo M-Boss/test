@@ -24,7 +24,7 @@ class Photos extends Component {
     render() {
         const {website, theme} = this.props;
         return (
-            <div style={{overflow: 'hidden', fontFamily: 'sans-serif'}}>
+            <div className="screen-container fixed-header" style={{overflow: 'hidden', fontFamily: 'sans-serif'}}>
 
                 <Header website={website} themeColor={this.props.theme.primary} websiteId={this.props.websiteId} label={website.bride_first + " & " + website.groom_first}/>
                 <img style={{ width: '100%', opacity: 0.8}} src={require('./assets/top' + theme.index + '.png')}/>
