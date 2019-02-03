@@ -21,13 +21,33 @@ const theme2 = [
         primary: '#b0dcec',
         secondary: '#FFF',
         background: '#b0dcec',
-        index: 0
+        index: 0,
+        footerWithLoveStyle: {
+            color: '#333'
+        },
+        menuBackground: '#7bb1c4',
+        menuClassName: 'template-2-menu',
+        menuItem: '#FFF',
+        menuFontSize: 20,
+        closeIconStyle: {
+            color: '#FFF'
+        }
     },
     {
         primary: '#f3ebde',
         secondary: '#f1c591',
         background: '#f3ebde',
-        index: 1
+        index: 1,
+        footerWithLoveStyle: {
+            color: '#333'
+        },
+        menuBackground: '#f1c591',
+        menuClassName: 'template-2-menu',
+        menuItem: '#FFF',
+        menuFontSize: 20,
+        closeIconStyle: {
+            color: '#FFF'
+        }
     }
 ];
 const theme3 = [
@@ -91,7 +111,6 @@ const theme4 = [
         headerFontSize: 20
     }
 ];
-
 const theme5 = [
     {
         primary: '#FFF',
@@ -113,7 +132,6 @@ const theme5 = [
         headerFontSize: 20
     }
 ];
-
 const theme6 = [
     {
         primary: '#FFF',

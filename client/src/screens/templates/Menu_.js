@@ -31,7 +31,7 @@ class Menu extends Component {
             <div style={{position: 'fixed', width: '100%'}}>
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Icon onClick={this.context.router.history.goBack}
-                          style={{width: 32, height: 32, fontSize: 22}}
+                          style={{width: 32, height: 32, fontSize: 22, ...theme.closeIconStyle}}
                           name='close'/>
                 </div>
                 <MenuItem to={"/wedding/" + this.props.websiteId}>Home</MenuItem>

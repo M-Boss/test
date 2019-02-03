@@ -27,13 +27,12 @@ class Home extends Component {
         const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('../shared_assets/logo.png');
 
         return (
-            <div className="screen-container fixed-header" style={{overflow: 'hidden'}}>
+            <div className="template-2 screen-container fixed-header" style={{overflow: 'hidden'}}>
                 <Header website={website} themeColor={this.props.theme.primary}
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
-                <img style={{width: '100%', opacity: 0.8}} src={require('./assets/down' + theme.index + '.png')}/>
-
+                <img style={{ position: 'relative', width: '100%', zIndex: 4}} src={require('./assets/down' + theme.index + '.png')}/>
                 <div style={{position: 'relative'}}>
                     <div className="template-main-image" style={{
                         backgroundImage: `url(${background})`,

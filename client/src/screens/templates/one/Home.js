@@ -12,6 +12,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import moment from 'moment'
 import config from '../../../services/internal/config/Config';
+require('./assets/style.css');
 
 class Home extends Component {
 
@@ -26,7 +27,7 @@ class Home extends Component {
         const bottom = website.template_bottom ? config("app.assets") + website.template_bottom : require('./assets/footer-01.png');
 
         return (
-            <div className="screen-container fixed-header" style={{overflow: 'hidden'}}>
+            <div className="template-1 screen-container fixed-header" style={{overflow: 'hidden'}}>
                 <Header website={website} themeColor={this.props.theme.primary}
                         websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>

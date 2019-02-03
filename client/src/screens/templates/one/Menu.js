@@ -41,7 +41,7 @@ class Menu extends Component {
 }
 
 function MenuItem({children, to}) {
-    return (<Link to={to}><p style={{color: '#6c86a1', marginTop: 28, fontSize: 18, fontWeight: 'bold'}}>{children}</p>
+    return (<Link to={to}><p style={{color: '#6c86a1', marginTop: 28, fontSize: 28, fontWeight: 'bold'}}>{children}</p>
     </Link>)
 }
 

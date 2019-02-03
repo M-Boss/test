@@ -11,6 +11,7 @@ const templates = require('./index');
 export default class Footer extends Component {
     render() {
         const {theme} = this.props;
+        console.log("Theme: ", theme);
         return (
             <React.Fragment>
                 <div style={{

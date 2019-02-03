@@ -24,8 +24,12 @@ router.post('/remove-photo', async function (req, res, next) {
             return res.json({});
         }
 
-        console.log("Removing file: ", photos[index])
-        fs.unlinkSync(path.join(uploads, photos[index]));
+        console.log("Removing file: ", photos[index]);
+        const filename = path.join(uploads, photos[index]);
+        fs.unlinkSync(filename);
+        if(filename.includes('_resized')){
+            fs.unlinkSync(filename.replace('_resized', ''))
+        }
         return res.json({})
     }
     catch(e){
@@ -39,17 +43,9 @@ router.post('/upload', async function (req, res, next) {
     // req.body will hold the text fields, if there were any
     try {
         const target = _.get(req, 'query.target', null);
-        // let targetIndex = 0;
-        // if(target === "photos"){
-        //     targetIndex = parseInt(_.get(req, 'query.index', ""));
-        //     if(isNaN(targetIndex) || targetIndex < 0 || targetIndex > 32){
-        //         return res.status(400).json({message: "Invalid target index ", code: 707});
-        //     }
-        // }
-
         const random = container.get('random');
         const config = container.get('config');
-
+        const events = container.get('events');
         const allowedTargets = ["template_main", "template_bottom", "photos"];
         const allowedExtensions = [".jpg", ".jpeg", ".gif", ".png"];
 
@@ -67,9 +63,10 @@ router.post('/upload', async function (req, res, next) {
             return res.status(400).json({message: "Format not supported: " + extension, code: 700});
         }
 
-
         let filename = req.user.id + "_" + target;//String(+new Date()) + random.randomString(8) + extension;
+
         if(target==="photos") filename += String(+new Date()) + random.randomString(3); //filename+= "-" + targetIndex;
+        const resizedFilename = filename + "_resized" +  extension;
         filename +=  extension;
         file.mv(path.join(uploads, filename), async function (err) {
             if (err)
@@ -78,6 +75,8 @@ router.post('/upload', async function (req, res, next) {
             const user = req.user;
 
             if(target === "photos"){
+                events.handleOnce('resize_image', {filename: path.join(uploads, filename)});
+
                 if(!user.website.photos){
                     // user.website.photos = [filename];
                 }
@@ -94,8 +93,8 @@ router.post('/upload', async function (req, res, next) {
             });
 
             res.json({
-                url: config.get("app.uploads") + filename,
-                filename: filename
+                url: config.get("app.uploads") + resizedFilename,
+                filename: resizedFilename
             });
         });
     }

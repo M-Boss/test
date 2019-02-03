@@ -30,11 +30,11 @@ class Photos extends Component {
                         themeColor={this.props.theme.primary} websiteId={this.props.websiteId}
                         label={website.bride_first + " & " + website.groom_first}/>
 
-                <div style={{ position: 'relative', textAlign: 'right'}}>
-                    <img width={60} style={{position: 'absolute', left: 0, top: 0}} src={require('./assets/left.png')}/>
+                <div style={{ position: 'relative', opacity: 0.6}}>
+                    <img width={60} style={{ left: 0, top: 0}} src={require('./assets/left.png')}/>
                 </div>
 
-                <div style={{ borderBottom: '3px solid', borderColor: theme.foreground, textAlign: 'center', paddingTop: 30 }}>
+                <div style={{ position: 'relative', marginTop: -130, borderBottom: '3px solid', borderColor: theme.foreground, textAlign: 'center', paddingTop: 30 }}>
                     <h1 style={{ color: theme.foreground}}>{website.photos_page_title || t('Photos')}</h1>
                     <h2 style={{marginTop: 0, color: theme.foreground, fontSize: 18 }}>{website.photos_description}</h2>
                     {website.photos &&

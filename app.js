@@ -24,6 +24,10 @@ app.use(cors());
 const mailer = container.get('mailer');
 const config = container.get('config');
 
+
+const events = container.get('events');
+events.handleOnce('resize_image', {filename: '/Users/guy/Downloads/large.JPG'});
+
 // Admin report service
 const reports = container.get('reports');
 reports.startReportService();

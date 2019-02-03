@@ -1,0 +1,11 @@
+{
+  "name": "report",
+  "version": "0.0.1",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "js-di-container": "^1.0.1",
+    "lodash": "^4.17.11",
+    "mysql2": "^1.6.4",
+    "sequelize": "^4.42.0"
+  }
+}

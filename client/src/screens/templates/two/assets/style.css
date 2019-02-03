@@ -2,3 +2,14 @@
 h1, h2 {
     font-weight: 400;
 }
+
+.template-2  .template-main-image {
+    margin-top: -40px
+}
+
+.template-2-menu {
+    font-family: sans-serif;
+}
+.template-2-menu p {
+    font-weight: 400 !important;
+}

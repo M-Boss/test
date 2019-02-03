@@ -33,6 +33,7 @@ import SixHome from './six/Home'
 import SixEvents from './six/Events'
 import SixFAQs from './six/FAQs'
 import SixPhoto from './six/Photos'
+import {templateList as list} from './templateList'
 
 const theme1 = [
     {
@@ -52,18 +53,8 @@ const theme1 = [
     }
 ];
 const theme2 = [
-    {
-        primary: '#b0dcec',
-        secondary: '#FFF',
-        background: '#b0dcec',
-        index: 0
-    },
-    {
-        primary: '#f3ebde',
-        secondary: '#f1c591',
-        background: '#f3ebde',
-        index: 1
-    }
+    list[1].variations[0].theme,
+    list[1].variations[1].theme,
 ];
 const theme3 = [
     {
@@ -212,14 +203,14 @@ const templates = {
         photos: (website, id) => <TwoPhoto theme={theme2[0]} website={website} websiteId={id}/>,
         faqs: (website, id) => <TwoFAQs theme={theme2[0]} website={website} websiteId={id}/>,
         events: (website, id) => <TwoEvents theme={theme2[0]} website={website} websiteId={id}/>,
-        menu: (website, id) => <OneMenu theme={theme1[0]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme2[0]} website={website} websiteId={id}/>,
     },
     5: {
         home: (website, id) => <TwoHome theme={theme2[1]} website={website} websiteId={id}/>,
         photos: (website, id) => <TwoPhoto theme={theme2[1]} website={website} websiteId={id}/>,
         faqs: (website, id) => <TwoFAQs theme={theme2[1]} website={website} websiteId={id}/>,
         events: (website, id) => <TwoEvents theme={theme2[1]} website={website} websiteId={id}/>,
-        menu: (website, id) => <OneMenu theme={theme1[1]} website={website} websiteId={id}/>,
+        menu: (website, id) => <OneMenu theme={theme2[1]} website={website} websiteId={id}/>,
     },
 
     //three
@@ -266,7 +257,7 @@ const templates = {
     },
 };
 
-export const templateList =  require('./templateList');
+export const templateList = list;
 
 export function getTemplates(){
     return templates;

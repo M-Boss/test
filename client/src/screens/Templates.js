@@ -50,6 +50,7 @@ class Screen extends Component {
         const template = templateList[t];
         this.setState({
             selectedTemplateIndex: t,
+            selectedVariation: 0,
             choosingVariation: true
         });
 
@@ -72,15 +73,19 @@ class Screen extends Component {
         //     return;
         // }
 
-        const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
-        this.props.dispatch(action(v.id));
+        this.setState({
+            selectedVariation: v.id
+        });
+
         this.getPreviewURL(v.id);
-        setTimeout(() => {
-            this.save()
-        }, 1000)
     }
 
     save() {
+        const variationId = _.get(this.state, 'selectedVariation');
+        if(!variationId) return;
+
+        const action = buildActionForKey(actions.WEBSITE_RECORD, 'template');
+        this.props.dispatch(action(variationId));
         rest.post('website/save', {
             website: this.props.website
         })
@@ -140,6 +145,7 @@ class Screen extends Component {
                                 </div>
                             )
                         })}
+
                     </React.Fragment>}
 
                     {this.state.choosingVariation && this.renderVariations()}
@@ -168,6 +174,8 @@ class Screen extends Component {
     renderVariations() {
         const template = templateList[this.state.selectedTemplateIndex];
         const isPremiumUser = _.get(this.props, 'user.has_access_to_premium_template');
+        const selectedVariation = this.state.selectedVariation;
+        const newVariationSelected = selectedVariation && selectedVariation !== _.get(this, 'props.website.template')
 
         return (
             <React.Fragment>
@@ -178,19 +186,22 @@ class Screen extends Component {
                         {/*<div >
                             {!isPremiumUser && <Link to='/premium-templates'><Button primary><Icon name='unlock'/> Unlock all templates</Button></Link>}
                         </div>*/}
+                        <div style={{height: 32}}>
+                            {newVariationSelected && <Button primary onClick={() => this.save()}>Pilih Templat Ini</Button>}
+                        </div>
                     </div>
                     <div style={{padding: 20, display: 'flex', flexWrap: 'wrap'}}>
                         {template.variations.map((v, index) => {
-                            return <Color selected={v.id === this.props.website.template}
+                            return <Color selected={v.id === selectedVariation}
                                           tooltip={v.id}
                                           onClick={() => this.onVariationSelected(v)}
                                           primary={v.theme.primary} secondary={v.theme.secondary}/>
                         })}
                     </div>
                     <div style={{paddingLeft: 20, paddingRight: 20}}>
-                        {this.props.website.template ?
+                        {selectedVariation ?
                         <img style={{width: '100%'}}
-                             src={require('../static/images/templates/template-' + this.props.website.template + '.jpg')}
+                             src={require('../static/images/templates/template-' + selectedVariation + '.jpg')}
                              alt={"Template: " + template.name}/>
                             : null}
                     </div>
