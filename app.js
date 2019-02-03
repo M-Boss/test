@@ -24,14 +24,6 @@ app.use(cors());
 const mailer = container.get('mailer');
 const config = container.get('config');
 
-
-const events = container.get('events');
-events.handleOnce('resize_image', {filename: '/Users/guy/Downloads/large.JPG'});
-
-// Admin report service
-const reports = container.get('reports');
-reports.startReportService();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
