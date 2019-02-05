@@ -66,7 +66,8 @@ router.post('/upload', async function (req, res, next) {
         let filename = req.user.id + "_" + target;//String(+new Date()) + random.randomString(8) + extension;
 
         if(target==="photos") filename += String(+new Date()) + random.randomString(3); //filename+= "-" + targetIndex;
-        const resizedFilename = filename + "_resized" +  extension;
+        let resizedFilename = filename + (target==="photos" ? "_resized" : "") +  extension;
+
         filename +=  extension;
         file.mv(path.join(uploads, filename), async function (err) {
             if (err)
