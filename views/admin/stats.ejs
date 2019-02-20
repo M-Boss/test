@@ -42,6 +42,8 @@
                     <th>Published</th>
                     <th>Checklist</th>
                     <th>Guestlist</th>
+                    <th>Checked tasks</th>
+                    <th>Guests</th>
                 </thead>
 
                 <tbody>
@@ -56,6 +58,8 @@
                     <td><%= i.published_users %></td>
                     <td><%= i.users_with_checklist %></td>
                     <td><%= i.users_with_guestlist %></td>
+                    <td><%= i.tasks_done %></td>
+                    <td><%= i.guests %></td>
                 </tr>
                 <% } %>
                 </tbody>

@@ -2,6 +2,8 @@
  * Created by guy on 9/14/18.
  */
 
+const _ = require('lodash');
+
 class Validator {
     constructor(){
         this.validations = {
@@ -12,6 +14,13 @@ class Validator {
             photos: ["photos_page_title", "photos_description"],
             faqs: ["faqs_page_title", "faqs_description"],
         }
+    }
+
+    isFilled(w){
+        return !!_.get(w, 'groom_first')
+        && !!_.get(w, 'bride_first')
+        && !!_.get(w, 'date')
+        && !!_.get(w, 'city')
     }
 
     getKeys(){

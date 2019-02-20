@@ -44,6 +44,16 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 defaultValue: 0,
+            },
+            tasks_done: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
+            },
+            guests: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
             }
         },
         {

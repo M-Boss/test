@@ -29,7 +29,6 @@ router.get('/stats/download', async function (req, res, next) {
 
     try {
         const items = await reports.find();
-
         const workbook = new Excel.Workbook();
         const sheet = workbook.addWorksheet('Stats');
         sheet.columns = [
@@ -41,6 +40,8 @@ router.get('/stats/download', async function (req, res, next) {
             {header: 'Published'},
             {header: 'Checklist'},
             {header: 'Guestlist'},
+            {header: 'Tasks done'},
+            {header: 'Guests'},
         ];
         const rows = items.map(i => {
             return [
@@ -52,6 +53,8 @@ router.get('/stats/download', async function (req, res, next) {
                 i.published_users,
                 i.users_with_checklist,
                 i.users_with_guestlist,
+                i.tasks_done,
+                i.guests,
             ]
         });
         sheet.addRows(rows);
