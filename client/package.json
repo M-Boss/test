@@ -13,6 +13,7 @@
     "react-ga": "^2.5.3",
     "react-google-tag-manager": "^2.2.1",
     "react-messenger-customer-chat": "^0.7.2",
+    "react-phone-number-input": "^2.3.6",
     "react-redux": "^5.0.7",
     "react-responsive": "^5.0.0",
     "react-router": "^4.3.1",

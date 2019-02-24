@@ -34,7 +34,9 @@ class Header extends Component {
                             {!this.props.user.token &&
                             <Link to="/login"><p style={{color: '#F3817A'}}>{t("Log In")}</p></Link>}
                             {!!this.props.user.token &&
-                            <Link to='/login'><p className="pointer" onClick={() => this.logout()} style={{color: '#F3817A'}}>{t("Logout")}</p></Link>}
+                            <Link to='/account'>
+                                <img style={{width: 28, height: 28}} src={require('../static/images/profile.png')} />
+                            </Link>}
                         </div>
                     </div>
                 </MediaQuery>
@@ -42,12 +44,15 @@ class Header extends Component {
 
                 <MediaQuery minWidth={1024}>
                     <div className="cl-effect-1" style={{display: 'flex', alignItems: 'center', padding: 16, paddingLeft: 24}}>
-                        <MenuItem to="/">Home</MenuItem>
+                        <MenuItem to="/#source=header">Home</MenuItem>
                         <MenuItem to="/services">Dashboard</MenuItem>
                         <MenuItem to="/about">{t("About Us")}</MenuItem>
                         <MenuItem to="/contact">{t("Contact Us")}</MenuItem>
                         <MenuItem to="/faqs">FAQs</MenuItem>
                         <a style={{color: '#444', fontWeight: 600, padding: 6, margin: 0}} href="/blog">Blog</a>
+                        {
+                            this.props.user.email && <MenuItem to="/account">{t("Account")}</MenuItem>
+                        }
                         {
                             this.props.user.email && <MenuItem onClick={() => this.logout()} to="/login">Logout</MenuItem>
                         }

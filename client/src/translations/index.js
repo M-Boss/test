@@ -179,6 +179,8 @@ i18n.translations = {
         "Done": "Selesai",
         "Back": "Kembali",
         "Back To Services": "Kembali Ke Menu",
+        "Account Settings": "Pengaturan Akun",
+        "Change Password": "Ganti Kata Sandi",
     }
 };
 

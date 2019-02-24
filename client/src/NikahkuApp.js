@@ -21,6 +21,8 @@ import Contact from './screens/Contact'
 import About from './screens/About'
 import FAQs from './screens/FAQs'
 import PremiumTemplates from './screens/PremiumTemplates'
+import Account from './screens/Account'
+import ChangePassword from './screens/ChangePassword'
 
 import TemplateHome from './screens/templates/Home'
 import TemplatePhotos from './screens/templates/Photos'
@@ -120,6 +122,8 @@ class Nikahku extends Component {
                         <Route path="/about" component={About}/>
                         <Route path="/premium-templates" component={PremiumTemplates}/>
                         <Route path="/faqs" component={FAQs}/>
+                        <Route path="/account" component={Account}/>
+                        <Route path="/change-password" component={ChangePassword}/>
 
                         <Switch>
                             <Route path="/wedding/:id/menu" component={TemplateMenu}/>

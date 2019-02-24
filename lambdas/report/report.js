@@ -2,7 +2,7 @@
  * Created by guy on 2/3/19.
  */
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+// require('dotenv').config({ path: path.join(__dirname, '.env') });
 const container = require('./services');
 
 exports.handler = async function(event, context) {
@@ -11,4 +11,4 @@ exports.handler = async function(event, context) {
     return "Report generated";
 };
 
-exports.handler();
+// exports.handler();

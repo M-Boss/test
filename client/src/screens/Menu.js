@@ -25,13 +25,15 @@ class Menu extends Component {
         return <div>
             <Grid centered columns={1}>
                 <Grid.Column style={{marginTop: 48, maxWidth: 400, textAlign: 'center'}} >
-                    <MenuItem to="/">Home</MenuItem>
+                    <MenuItem to="/#source=header">Home</MenuItem>
                     <MenuItem to="/services">Dashboard</MenuItem>
                     <MenuItem to="/about">{t("About Us")}</MenuItem>
                     <MenuItem to="/contact">{t("Contact Us")}</MenuItem>
                     <MenuItem to="/faqs">FAQs</MenuItem>
                     <MenuItem to="/blog" normalLink={true}>Blog</MenuItem>
-
+                    {
+                        this.props.user.email && <MenuItem to="/account">{t("Account")}</MenuItem>
+                    }
                     <p onClick={() => this.logout()} style={{ cursor: 'pointer', marginTop: 28, fontSize: 16}}>Logout</p>
                 </Grid.Column>
             </Grid>

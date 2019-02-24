@@ -11,6 +11,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {t} from '../translations'
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+import _ from 'lodash'
+
 class Home extends Component {
 
     constructor(props) {
@@ -19,7 +21,9 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        if(this.props.user.token ){
+        // Task #184 Gitlab
+        const hash = _.get(this.props, 'location.hash', '');
+        if(this.props.user.token && !hash.includes('source=header')){
             this.props.history.push('/services')
         }
     }

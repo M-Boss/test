@@ -18,6 +18,18 @@ module.exports = function (sequelize, DataTypes) {
                     isEmail: true,
                 }
             },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            first_name: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            last_name: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             website: {
                 type: DataTypes.JSON,
                 defaultValue: {},
@@ -67,6 +79,7 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.DATEONLY,
                 allowNull: true,
             },
+
         },
         {
             tableName: 'users'

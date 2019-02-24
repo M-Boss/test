@@ -71,6 +71,9 @@ module.exports = class UsersDatabase{
             where: {id: id, recovery_token: token}
         });
 
+        return this.resetPasswordByUser(user, password);
+    }
+    async resetPasswordByUser(user, password){
         if(!user){
             return false;
         }
