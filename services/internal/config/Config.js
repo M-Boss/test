@@ -2,6 +2,7 @@
  * Created by guy on 8/18/18.
  */
 const _ = require('lodash');
+const path = require('path');
 
 module.exports = class Config{
     constructor(){
@@ -10,10 +11,11 @@ module.exports = class Config{
             app: {
                 port: 8090,
                 domain: process.env.APP_DOMAIN || 'http://localhost:8080/',
-                uploads: process.env.APP_UPLOADS ||  "http://nikahku-rds.cdnpjuqnhltl.ap-southeast-1.rds.amazonaws.com/uploads/",
+                uploads: process.env.APP_UPLOADS,
                 name: 'Nikahku',
                 email: process.env.APP_EMAIL || 'contact@nikahku.com',
                 preview_user: parseInt(process.env.PREVIEW_USER) || 25,
+                localUploadDirectory: path.join(__dirname, "../../../public/uploads"),
             },
             mysql: {
                 host: process.env.DB_HOST || "",
@@ -26,6 +28,11 @@ module.exports = class Config{
                 // user: "homestead",
                 // password: "secret",
                 // port: 33061
+            },
+            aws: {
+                accessKey: process.env.AWS_ACCESS_KEY_ID,
+                secretKey: process.env.AWS_SECRET_ACCESS_KEY,
+                uploadBucket: process.env.AWS_UPLOAD_BUCKET || 'nikahku-uploads',
             }
         };
 

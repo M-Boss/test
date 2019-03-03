@@ -2,6 +2,8 @@
  * Created by guy on 8/17/18.
  */
 const sequelizeFactory = require('./external/sequelize/Sequelize');
+const LocalFileSystem = require('./external/filesystem/local');
+const AWSFileSystem = require('./external/filesystem/aws');
 const UsersDatabase = require('./internal/users/UsersDatabase');
 const ChecklistsDatabase = require('./internal/checklists');
 const GuestlistDatabase = require('./internal/guestlists');
@@ -34,6 +36,8 @@ container.registerClass('config', Config);
 container.registerClass('time', Time);
 container.registerClass('settings', Settings);
 container.registerClass('reports', Reports);
+// container.registerClass('filesystem', LocalFileSystem);
+container.registerClass('filesystem', AWSFileSystem);
 
 container.registerFactory('websiteValidator', function(){
     return websiteValidator;

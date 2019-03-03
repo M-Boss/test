@@ -14,11 +14,11 @@ router.post('/remove-photo', async function (req, res, next) {
     // req.file is the `avatar` file
     // req.body will hold the text fields, if there were any
     try {
+        const filesystem = container.get('filesystem');
         const index = parseInt(_.get(req, 'body.index', null));
         if(isNaN(index)){
             return res.status(500).json("oops");
         }
-
         const photos = _.get(req.user, "website.photos", []);
         if(photos.length <= index){
             return res.json({});
@@ -26,9 +26,11 @@ router.post('/remove-photo', async function (req, res, next) {
 
         console.log("Removing file: ", photos[index]);
         const filename = path.join(uploads, photos[index]);
-        fs.unlinkSync(filename);
+        // fs.unlinkSync(filename);
+        filesystem.removeFile(photos[index]);
         if(filename.includes('_resized')){
-            fs.unlinkSync(filename.replace('_resized', ''))
+            // fs.unlinkSync(filename.replace('_resized', ''))
+            filesystem.removeFile(photos[index].replace('_resized', ''));
         }
         return res.json({})
     }
@@ -46,6 +48,7 @@ router.post('/upload', async function (req, res, next) {
         const random = container.get('random');
         const config = container.get('config');
         const events = container.get('events');
+        const filesystem = container.get('filesystem');
         const allowedTargets = ["template_main", "template_bottom", "photos"];
         const allowedExtensions = [".jpg", ".jpeg", ".gif", ".png"];
 
@@ -68,13 +71,28 @@ router.post('/upload', async function (req, res, next) {
         if(target==="photos") filename += String(+new Date()) + random.randomString(3); //filename+= "-" + targetIndex;
         let resizedFilename = filename + (target==="photos" ? "_resized" : "") +  extension;
 
+
         filename +=  extension;
-        file.mv(path.join(uploads, filename), async function (err) {
+        const uploadedFile = await filesystem.moveUploadedFile(file, filename);
+        console.log('uploaded destination: ', uploadedFile);
+        const user = req.user;
+        if(target === "photos"){
+            // events.handleOnce('resize_image', {filename: path.join(uploads, filename)});
+            events.handleOnce('resize_image', {filename: uploadedFile});
+        }
+        user.update({website: user.website}).catch(e => {
+            console.log("Error saving: ", e)
+        });
+        res.json({
+            url: config.get("app.uploads") + resizedFilename,
+            filename: resizedFilename
+        });
+
+
+        /*file.mv(path.join(uploads, filename), async function (err) {
             if (err)
                 return res.status(500).send(err);
-
             const user = req.user;
-
             if(target === "photos"){
                 events.handleOnce('resize_image', {filename: path.join(uploads, filename)});
 
@@ -88,16 +106,14 @@ router.post('/upload', async function (req, res, next) {
             else{
                 // user.website[target] = filename;
             }
-
             user.update({website: user.website}).catch(e => {
                 console.log("Error saving: ", e)
             });
-
             res.json({
                 url: config.get("app.uploads") + resizedFilename,
                 filename: resizedFilename
             });
-        });
+        });*/
     }
     catch(e){
         console.log("Error: ", e);
