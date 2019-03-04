@@ -10,15 +10,15 @@ const util = require('util');
 const s3 = new AWS.S3();
 
 
-exports.handler = function(event, context, callback) {
+exports.handler = function (event, context, callback) {
     // Read options from the event.
     console.log("Reading options from event:\n", util.inspect(event, {depth: 5}));
     var srcBucket = event.Records[0].s3.bucket.name;
     // Object key may have spaces or unicode non-ASCII characters.
-    var srcKey    =
+    var srcKey =
         decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
     var dstBucket = srcBucket + "-resized";
-    var dstKey    = srcKey;
+    var dstKey = srcKey;
 
     // Infer the image type.
     var typeMatch = srcKey.match(/\.([^.]*)$/);
@@ -43,19 +43,30 @@ exports.handler = function(event, context, callback) {
                     next);
             },
             function transform(response, next) {
-                sharp(response.Body)
-                    .resize(1024, 1024, {
-                        fit: 'inside',
-                    })
-                    .toBuffer()
-                    .then(buffer => {
-                        console.log("Image resized successfully.");
-                        next(null, response.ContentType, buffer);
-                    })
-                    .catch(err => {
-                        console.log("Error occurred when resizing image: ", data, err);
-                        next(err);
-                    });
+                const image = sharp(response.Body);
+
+                image.metadata().then(function (metadata) {
+                    if (metadata && metadata.width < 1024 && metadata.height < 1024) {
+                        //dont resize, just upload
+                        console.log('no resize needed');
+                        next(null, response.ContentType, response.Body);
+                    }
+                    else {
+                        image.resize(1024, 1024, {
+                            fit: 'inside',
+                        })
+                            .toBuffer()
+                            .then(buffer => {
+                                console.log("Image resized successfully.");
+                                next(null, response.ContentType, buffer);
+                            })
+                            .catch(err => {
+                                console.log("Error occurred when resizing image: ", data, err);
+                                next(err);
+                            });
+                    }
+                });
+
             },
             function upload(contentType, data, next) {
                 // Stream the transformed image to a different S3 bucket.
@@ -85,6 +96,3 @@ exports.handler = function(event, context, callback) {
         }
     );
 };
-
-
-exports.handler()
