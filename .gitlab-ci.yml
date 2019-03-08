@@ -1,5 +1,8 @@
 image: docker:latest
 
+variables:
+  REPOSITORY_URL: 860911893612.dkr.ecr.ap-southeast-1.amazonaws.com/nikahku-app
+
 services:
   - docker:dind
 
@@ -13,18 +16,25 @@ stages:
 #  DJANGO_SETTINGS_MODULE: path.to.your.settings
 #  DATABASE_URL: postgres://postgres:xxxxxxx@postgres/postgres
 
-#before_script:
-#  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+before_script:
+  - apk add --no-cache curl jq python py-pip
+  - pip install awscli
+  #  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
-build:django:
+build:node:
 #  artifacts:
 #    paths:
 #      - docker-images
   stage: build
   script:
-    - mkdir docker-images
+    - $(aws ecr get-login --no-include-email --region us-east-1)
+    - docker build -t $REPOSITORY_URL .
+    - docker push $REPOSITORY_URL
+  only:
+    - master
+#    - mkdir docker-images
 #    - docker build --pull -t $DJANGO_TAG_NAME -f path/to/your/Dockerfile .
-    - docker build -t nikahku .
+#    - docker build -t nikahku .
 #    - docker save $DJANGO_TAG_NAME > docker-images/app.tar
 #  only:
 #    - master
