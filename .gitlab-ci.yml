@@ -1,0 +1,45 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+- build
+- test
+- push
+
+#variables:
+#  DJANGO_TAG_NAME: registry.gitlab.com/<username>/<repo>/<image>:$CI_COMMIT_REF_NAME
+#  DJANGO_SETTINGS_MODULE: path.to.your.settings
+#  DATABASE_URL: postgres://postgres:xxxxxxx@postgres/postgres
+
+#before_script:
+#  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+
+build:django:
+#  artifacts:
+#    paths:
+#      - docker-images
+  stage: build
+  script:
+    - mkdir docker-images
+#    - docker build --pull -t $DJANGO_TAG_NAME -f path/to/your/Dockerfile .
+    - docker build -t nikahku .
+#    - docker save $DJANGO_TAG_NAME > docker-images/app.tar
+#  only:
+#    - master
+
+#test:django:
+#  stage: test
+#  script:
+#    - docker load -i docker-images/app.tar
+#    - docker run --name test-postgres -e POSTGRES_PASSWORD=xxxxxxx -d postgres
+#    - docker run --rm --link test-postgres:postgres -v $(pwd):/<DOCKER WORKDIR> -e DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE -e DATABASE_URL=$DATABASE_URL $DJANGO_TAG_NAME python manage.py test -v 2
+
+#push:django:
+#  stage: push
+#  script:
+#    - docker load -i docker-images/app.tar
+#    - docker push $DJANGO_TAG_NAME
+#  only:
+#    - master

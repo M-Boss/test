@@ -9,7 +9,6 @@ const util = require('util');
 
 const s3 = new AWS.S3();
 
-
 exports.handler = function (event, context, callback) {
     // Read options from the event.
     console.log("Reading options from event:\n", util.inspect(event, {depth: 5}));
@@ -44,7 +43,6 @@ exports.handler = function (event, context, callback) {
             },
             function transform(response, next) {
                 const image = sharp(response.Body);
-
                 image.metadata().then(function (metadata) {
                     if (metadata && metadata.width < 1024 && metadata.height < 1024) {
                         //dont resize, just upload
@@ -74,7 +72,8 @@ exports.handler = function (event, context, callback) {
                         Bucket: dstBucket,
                         Key: dstKey,
                         Body: data,
-                        ContentType: contentType
+                        ContentType: contentType,
+                        ACL: 'public-read'
                     },
                     next);
             }
