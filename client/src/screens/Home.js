@@ -38,7 +38,7 @@ class Home extends Component {
                 htmlRef="fb_ref"
             />*/}
 
-            {/*<H1>Hey there 01</H1>*/}
+            <H1>Hey there 01</H1>
             <div style={{textAlign: 'center'}}>
                 <section style={{paddingTop: 32, paddingLeft: 32, paddingRight: 32, backgroundColor: '#EFFDFF'}}>
                     <img width={280} src={require('../static/images/home-01.png')} alt="nikahku"/>

@@ -27,9 +27,11 @@ build:node:
 #      - docker-images
   stage: build
   script:
+#    - $(aws ecr get-login --no-include-email --region ap-southeast-1  | sed 's|https://||')
     - $(aws ecr get-login --no-include-email --region ap-southeast-1)
     - docker build -t $REPOSITORY_URL .
     - docker push $REPOSITORY_URL
+    - aws ecs update-service --cluster nikahku-cluster  --service nikahku-app --region ap-southeast-1  --force-new-deployment
   only:
     - master
 #    - mkdir docker-images
